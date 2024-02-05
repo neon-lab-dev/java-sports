@@ -1,6 +1,10 @@
 const AppFooter = () => {
   return (
-    <div>AppFooter</div>
+    <div className="w-screen">
+      <div className="w-screen m-2">
+      footer
+      </div>
+    </div>
   )
 }
 

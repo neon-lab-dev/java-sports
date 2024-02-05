@@ -1,7 +1,9 @@
 import AppDesktopNavbar from './AppDesktopNavbar'
 import AppHeaderNav from './AppHeaderNav'
 
+// @ts-ignore
 import FaceBook from '@/assets/icons/facebook.svg'
+// @ts-ignore
 import Instagram from '@/assets/icons/instagram.svg'
 
 const AppHeader = () => {

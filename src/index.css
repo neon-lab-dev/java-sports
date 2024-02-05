@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		font-family: 'Lato', sans-serif;
+		color: var(--dark-clr);
+	}
+
+	
+	.wrapper {
+		width: 80%;
+		margin: auto;
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: hsla(220, 12%, 95%, 1);
+}

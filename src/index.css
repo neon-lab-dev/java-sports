@@ -28,3 +28,12 @@ body {
 	padding: 0;
 	background-color: hsla(220, 12%, 95%, 1);
 }
+
+
+.sign-up{
+	writing-mode: vertical-lr;
+
+	@media (max-width: 600px){
+		writing-mode: horizontal-tb;
+	}
+}

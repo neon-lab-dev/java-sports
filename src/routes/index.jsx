@@ -19,7 +19,7 @@ const RoutesContainer = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/otp-verification" element={<OtpPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/change-password" element={<ChangePasswordPage />} />
+          <Route path="/reset-password" element={<ChangePasswordPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

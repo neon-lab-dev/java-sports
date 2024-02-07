@@ -1,35 +1,30 @@
-import AppFooter from "@/components/reusable/AppFooter"
-import AppHeader from "@/components/reusable/AppHeader"
 import { Link } from "react-router-dom"
-import AppLogin from "@/components/reusable/AppLogin"
+import AppAuthWrapper from "@/components/reusable/AppAuthWrapper"
 
 const Signup = () => {
   return (
-    <div>
-      <AppHeader />
-      <div className="flex  bg-white justify-center" >
-        <AppLogin/>
-        <form action="" className="flex flex-col p-14 bg-grey/1 gap-7">
+    <AppAuthWrapper>
+      <form action="" className="flex flex-col p-14 bg-grey/1 gap-4 max-sm:mx-5 max-sm:p-8">
           <h1 className="text-center text-3xl font-900">Create Your Account</h1>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="font-700 font-Lato text-sm ">User Name</label>
-            <input className="p-3 rounded-xl w-96 border-none" type="text" placeholder="user name"  />
+            <label htmlFor="user_name" className="font-700 font-Lato text-sm ">User Name</label>
+            <input className="p-2 rounded-xl border-none" type="text" placeholder="user name" id="user_name" />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="font-700 font-Lato text-sm">Email</label>
-            <input className="p-3 rounded-xl w-96 border-none" type="Email" placeholder="Email" />
+            <label htmlFor="email" className="font-700 font-Lato text-sm">Email</label>
+            <input className="p-2 rounded-xl border-none" type="Email" placeholder="Email" id="email"/>
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="font-700  font-Lato text-sm">Phone</label>
-            <input className="p-3 rounded-xl w-96 border-none" type="text" placeholder="Phone"  />
+            <label htmlFor="phone" className="font-700  font-Lato text-sm">Phone</label>
+            <input className="p-2 rounded-xl  border-none" type="text" placeholder="Phone" id="phone" />
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="" className="font-700 text-sm font-Lato ">Create Password</label>
-            <input className="p-3 rounded-xl w-96 border-none" type="password" placeholder="Create Password" />
+            <input className="p-2 rounded-xl  border-none" type="password" placeholder="Create Password" id="create-password" />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="font-700 text-sm font-Lato">Confrim Password</label>
-            <input className="p-3 rounded-xl w-96 border-none" type="password" placeholder="Re-enter your Password"  />
+            <label htmlFor="confirm-password" className="font-700 text-sm font-Lato">Confrim Password</label>
+            <input className="p-3 rounded-xl border-none" type="password" placeholder="Re-enter your Password" id="confirm-password"/>
           </div>
           <div className="flex flex-row  gap-4" >
             <div className="flex items-center">
@@ -49,9 +44,7 @@ const Signup = () => {
           <button className="bg-black text-white rounded-3xl p-2">Create account</button>
           <span className="text-center text-sm ">Have an account?<Link  to="/login" className="text-red-500  underline">Log in</Link></span>
         </form>
-      </div>
-      <AppFooter />
-    </div>
+    </AppAuthWrapper>
   )
 }
 export default Signup

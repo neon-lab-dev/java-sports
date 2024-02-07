@@ -33,7 +33,7 @@ body {
 .sign-up{
 	writing-mode: vertical-lr;
 
-	@media (max-width: 600px){
+	@media (max-width: 680px){
 		writing-mode: horizontal-tb;
 	}
 }

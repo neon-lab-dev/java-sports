@@ -1,27 +1,18 @@
-import AppFooter from "@/components/reusable/AppFooter"
-import AppHeader from "@/components/reusable/AppHeader"
 import { Link } from "react-router-dom"
-import AppLogin from "@/components/reusable/AppLogin"
+import AppAuthWrapper from "@/components/reusable/AppAuthWrapper"
 const Otp = () => {
   return (
-    <div className="warpper">
-       <div>
-      <AppHeader />
-      <div className="flex bg-white justify-center">
-        <AppLogin />
-        <form action="" className="flex flex-col p-16 bg-grey/1 gap-10">
+    <AppAuthWrapper>
+         <form action="" className="flex flex-col p-14 bg-grey/1 gap-6 max-sm:mx-5 max-sm:p-8">
           <h1 className=" text-4xl font-700">Otp verification</h1>
           <div className="flex flex-col gap-2">
-            <label htmlFor="" className="font-700 font-Lato text-sm ">Enter the Otp</label>
-            <input className="p-3 rounded-xl w-96 border-none" type="text" placeholder="Otp" value="" />
+            <label htmlFor="otp" className="font-700 font-Lato text-sm ">Enter OTP</label>
+            <input className="p-2 rounded-xl  border-none" type="text" placeholder="Otp"  id="otp"/>
           </div>
           <button className="bg-black text-white font-700  rounded-3xl font-Lato  p-3 mx-14">Verify</button>
-          <span className="text-center text-sm ">Don't recevied ?<Link  to="#" className="text-red-500  underline">Send again</Link></span>
+          <span className="text-center text-sm ">Don't recevied ?<Link  to="/otp-verification" className="text-red-500  underline">Send again</Link></span>
         </form>
-      </div>
-      <AppFooter />
-    </div>
-    </div>
+    </AppAuthWrapper>
   )
 }
 

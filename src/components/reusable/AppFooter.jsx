@@ -3,8 +3,7 @@ import logo from '@assets/images/Vector.svg'
 const AppFooter = () => {
   return (
       <div className="wrapper py-5 flex justify-between">
-      <div className='flex flex-col justify-center align-center'>
-        <h1 className='text-xs'>JAVA SPORTS</h1>
+      <div className=''>
         <img src={logo} alt="" />
       </div>
       <div className='font-Lato font-700'>

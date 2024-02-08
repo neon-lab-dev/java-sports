@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom"
 import AppAuthWrapper from "@/components/reusable/AppAuthWrapper"
+import AppLayout from "@/components/reusable/AppLayout"
 
 const Signup = () => {
   return (
-    <AppAuthWrapper>
-      <form action="" className="flex flex-col p-14 bg-grey/1 gap-4 max-sm:mx-5 max-sm:p-8">
+    <AppLayout>
+      <AppAuthWrapper>
+        <form action="" className="flex flex-col p-14 bg-grey/1 gap-4 max-sm:mx-5 max-sm:p-8">
           <h1 className="text-center text-3xl font-900">Create Your Account</h1>
           <div className="flex flex-col gap-2">
             <label htmlFor="user_name" className="font-700 font-Lato text-sm ">User Name</label>
@@ -12,7 +14,7 @@ const Signup = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="font-700 font-Lato text-sm">Email</label>
-            <input className="p-2 rounded-xl border-none" type="Email" placeholder="Email" id="email"/>
+            <input className="p-2 rounded-xl border-none" type="Email" placeholder="Email" id="email" />
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="phone" className="font-700  font-Lato text-sm">Phone</label>
@@ -24,7 +26,7 @@ const Signup = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="confirm-password" className="font-700 text-sm font-Lato">Confrim Password</label>
-            <input className="p-3 rounded-xl border-none" type="password" placeholder="Re-enter your Password" id="confirm-password"/>
+            <input className="p-3 rounded-xl border-none" type="password" placeholder="Re-enter your Password" id="confirm-password" />
           </div>
           <div className="flex flex-row  gap-4" >
             <div className="flex items-center">
@@ -40,11 +42,12 @@ const Signup = () => {
               <label htmlFor="default-radio-2" className="ms-2 text-sm font-medium text-black-900 dark:text-black-300">others</label>
             </div>
           </div>
-          <span className="text-center text-[10px]">By clicking on sign-up, you agree to java sports <Link  to="/forgot-password" className="text-red-500  underline">Terms and Conditions of Use.</Link></span>
+          <span className="text-center text-[10px]">By clicking on sign-up, you agree to java sports <Link to="/forgot-password" className="text-red-500  underline">Terms and Conditions of Use.</Link></span>
           <button className="bg-black text-white rounded-3xl p-2">Create account</button>
-          <span className="text-center text-sm ">Have an account?<Link  to="/login" className="text-red-500  underline">Log in</Link></span>
+          <span className="text-center text-sm ">Have an account?<Link to="/login" className="text-red-500  underline">Log in</Link></span>
         </form>
-    </AppAuthWrapper>
+      </AppAuthWrapper>
+    </AppLayout>
   )
 }
 export default Signup

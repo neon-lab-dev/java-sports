@@ -1,8 +1,10 @@
 import AppAuthWrapper from "@/components/reusable/AppAuthWrapper"
+import AppLayout from "@/components/reusable/AppLayout"
 
 const ChangePassword = () => {
   return (
-    <AppAuthWrapper>
+    <AppLayout>
+       <AppAuthWrapper>
       <form action="" className="flex flex-col p-14 bg-grey/1 gap-4 max-sm:mx-5 max-sm:p-8">
           <h1 className=" text-4xl font-700">Reset password</h1>
           <div className="flex flex-col gap-2">
@@ -16,6 +18,7 @@ const ChangePassword = () => {
           <button className="bg-black text-white font-700  rounded-3xl font-Lato  p-3 mx-14"> Submit</button>
         </form>
     </AppAuthWrapper>
+    </AppLayout>
   )
 }
 export default ChangePassword

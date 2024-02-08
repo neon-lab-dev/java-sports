@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import AppAuthWrapper from "@/components/reusable/AppAuthWrapper"
+import AppLayout from "@/components/reusable/AppLayout"
 
 const Login = () => {
   return (
-    <AppAuthWrapper>
+    <AppLayout>
+      <AppAuthWrapper>
       <form action="" className="flex flex-col p-14 bg-grey/1 gap-4 max-sm:mx-5 max-sm:p-8">
         <h1 className=" text-4xl font-700">Login</h1>
         <div className="flex flex-col gap-2">
@@ -19,6 +21,7 @@ const Login = () => {
         <span className="text-center text-sm ">Don't Have an account ?<Link  to="/signup" className="text-red-500  underline">Create an Account</Link></span>
       </form>
     </AppAuthWrapper>
+    </AppLayout>
   )
 }
 

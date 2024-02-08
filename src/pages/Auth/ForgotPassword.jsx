@@ -1,9 +1,11 @@
 import AppAuthWrapper from "@/components/reusable/AppAuthWrapper"
+import AppLayout from "@/components/reusable/AppLayout"
 import { Link } from "react-router-dom"
 
 const ForgotPassword = () => {
   return (
-    <AppAuthWrapper>
+    <AppLayout>
+      <AppAuthWrapper>
       <form action="" className="flex flex-col p-14 bg-grey/1 gap-4 max-sm:mx-5 max-sm:p-8">
         <h1 className=" text-4xl font-700">Forgot password</h1>
         <div className="flex flex-col gap-2">
@@ -14,6 +16,7 @@ const ForgotPassword = () => {
         <span className="text-center text-sm ">Don't received ?<Link  to="/forgot-password" className="text-red-500  underline">Send again</Link></span>
       </form>
     </AppAuthWrapper>
+    </AppLayout>
   )
 }
 export default ForgotPassword

@@ -44,18 +44,10 @@ body {
 	padding: 0;
 	background-color: hsla(220, 12%, 95%, 1);
 }
+.sign-up{
+	writing-mode: vertical-lr;
 
-.slick-slide {
-	background: linear-gradient(180deg, #000000 0%, rgba(34, 34, 34, 0.2) 100%);
-	background-image: url('../src/assets/images/hero-bg.svg');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.slick-slide img {
-	float: right;
-	width: 768px;
-	height: 700px;
-	aspect-ratio: 1/1;
+	@media (max-width: 680px){
+		writing-mode: horizontal-tb;
+	}
 }

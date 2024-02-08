@@ -11,5 +11,5 @@ const AppDesktopNavbar = () => {
     </div>
   )
 }
-
 export default AppDesktopNavbar
+

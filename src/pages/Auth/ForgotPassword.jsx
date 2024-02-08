@@ -16,5 +16,4 @@ const ForgotPassword = () => {
     </AppAuthWrapper>
   )
 }
-
 export default ForgotPassword

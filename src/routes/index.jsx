@@ -6,8 +6,7 @@ const RoutesContainer = () => {
   const SignupPage = lazy(() => import('@/pages/Auth/Signup'));
   const ChangePasswordPage = lazy(() => import('@/pages/Auth/ChangePassword'));
   const ForgotPasswordPage = lazy(() => import('@/pages/Auth/ForgotPassword'));
-  // @ts-ignore
-  const OtpPage = lazy(() => import('@/pages/Auth/otp'));
+  const OtpPage = lazy(() => import('@/pages/Auth/Otp'));
   const NotFoundPage = lazy(() => import('@/pages/NotFound'));
   const HomePage = lazy(() => import("@/pages/Home"));
 

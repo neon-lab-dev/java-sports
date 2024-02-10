@@ -5,6 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+	::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: #cccccc;
+		border-radius: 6px;
+	}
 
 	h1,
 	h2,
@@ -34,4 +42,11 @@ body {
 	@media (max-width: 680px){
 		writing-mode: horizontal-tb;
 	}
+}
+
+.hero-slider {
+	background-image: url('@/assets/images/hero-bg.svg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }

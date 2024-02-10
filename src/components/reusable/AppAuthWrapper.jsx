@@ -5,7 +5,8 @@ import "../../../src/index.css"
 
 const AppAuthWrapper = ({ children }) => {
     return (
-        <div className="flex max-xl:flex-row max-sm:flex-col-reverse max-lg:flex-row max-md:flex-col-reverse max-2xl:flex-row bg-white justify-center ">
+        <div className="flex max-xl:flex-row max-sm:flex-col-reverse max-lg:flex-row max-md:flex-col-reverse max-2xl:flex-row bg-white justify-center">
+            <div className='m-4 flex max-xl:flex-row max-sm:flex-col-reverse max-lg:flex-row max-md:flex-col-reverse max-2xl:flex-row bg-white justify-center'>
             <div className="flex bg-black max-sm:flex-col max-md:flex-col max-sm:mx-5">
                 <div className=" sign-up rotate-180 max-sm:rotate-0 max-md:rotate-0">
                     <div className=" flex flex-col max-sm:flex-col-reverse max-md:flex-col-reverse" >
@@ -19,6 +20,7 @@ const AppAuthWrapper = ({ children }) => {
                 </div>
             </div>
             {children}
+            </div>
         </div>
     )
 }

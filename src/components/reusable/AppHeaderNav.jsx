@@ -34,7 +34,9 @@ const AppHeaderNav = () => {
             <img src={ logo } alt="Java Sports" />
           </a>
         </span>
-        <span className='w-[700px] mr-[32px]'>
+        {/* TEMPORARY COMMENT  */}
+        {/* <span className='w-[700px] mr-[32px]'> */}
+        <span className='w-[400px] mr-[32px]'>
           <AppSearchBar placeholder={ 'Search for “ Bats ”' } onSearch={ handleOnSearch } />
         </span>
         <ul className='flex items-center gap-[46px]'>

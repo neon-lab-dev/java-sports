@@ -4,7 +4,8 @@ import AppProductSlider from "@/components/reusable/AppProductSlider"
 import AppFooter from "@/components/reusable/AppFooter"
 
 // @ts-ignore
-import BannerImg from '@assets/images/banner-1.svg'
+{/* TEMPORARY COMMENT  */ }
+// import BannerImg from '@assets/images/banner-1.svg'
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`
@@ -48,9 +49,10 @@ const HomePage = () => {
           </div>
         </div>
 
-        <picture>
+        {/* TEMPORARY COMMENT  */ }
+        {/* <picture>
           <img src={ BannerImg } alt="Banner Image" />
-        </picture>
+        </picture> */}
       </section>
 
       <section className={ `${sectionWrapper}` }>

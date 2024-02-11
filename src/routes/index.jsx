@@ -6,22 +6,21 @@ const RoutesContainer = () => {
   const SignupPage = lazy(() => import('@/pages/Auth/Signup'));
   const ChangePasswordPage = lazy(() => import('@/pages/Auth/ChangePassword'));
   const ForgotPasswordPage = lazy(() => import('@/pages/Auth/ForgotPassword'));
-  // @ts-ignore
-  const OtpPage = lazy(() => import('@/pages/Auth/otp'));
+  const OtpPage = lazy(() => import('@/pages/Auth/Otp'));
   const NotFoundPage = lazy(() => import('@/pages/NotFound'));
   const HomePage = lazy(() => import("@/pages/Home"));
 
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Suspense fallback={ <>Loading...</> }>
       <Router>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/otp-verification" element={<OtpPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ChangePasswordPage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/login" element={ <LoginPage /> } />
+          <Route path="/signup" element={ <SignupPage /> } />
+          <Route path="/otp-verification" element={ <OtpPage /> } />
+          <Route path="/forgot-password" element={ <ForgotPasswordPage /> } />
+          <Route path="/reset-password" element={ <ChangePasswordPage /> } />
+          <Route path="/" element={ <HomePage /> } />
+          <Route path="*" element={ <NotFoundPage /> } />
         </Routes>
       </Router>
     </Suspense>

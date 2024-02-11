@@ -26,7 +26,7 @@ const AppCarousel = () => {
     <Slider { ...settings }>
       {/* SLIDE 1 */ }
       <>
-        <div className={ `${parentContainer}` }>
+        <div className={ `${parentContainer} hero-slider`}>
           <div className={ `${wrapper}` }>
             <span className={ `${label}` }>JAVa sports</span>
             <h1 className={ `${contentText}` }>
@@ -44,7 +44,7 @@ const AppCarousel = () => {
 
       {/* SLIDE 2 */ }
       <>
-        <div className={ `${parentContainer}` }>
+        <div className={ `${parentContainer} hero-slider` }>
           <div className={ `${wrapper}` }>
             <span className={ `${label}`}>JAVa sports</span>
             <h1 className={ `${contentText}` }>

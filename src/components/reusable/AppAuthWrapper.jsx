@@ -1,7 +1,6 @@
-import React from 'react'
 // @ts-ignore
 import hero from '../../assets/images/Hero.svg'
-import "../../../src/index.css"
+import "@/index.css"
 
 const AppAuthWrapper = ({ children }) => {
     return (

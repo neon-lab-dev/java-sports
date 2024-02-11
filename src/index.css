@@ -50,3 +50,11 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+.card-shadow { 
+	box-shadow: 0px 1px 7px 0px hsla(0, 0%, 0%, 0.12);
+}
+
+.lg-light {
+	background: linear-gradient(90.07deg, #2987B9 16.56%, #FFFFFF 99.95%);
+}

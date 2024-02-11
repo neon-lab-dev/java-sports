@@ -11,16 +11,16 @@ const RoutesContainer = () => {
   const HomePage = lazy(() => import("@/pages/Home"));
 
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Suspense fallback={ <>Loading...</> }>
       <Router>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/otp-verification" element={<OtpPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ChangePasswordPage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/login" element={ <LoginPage /> } />
+          <Route path="/signup" element={ <SignupPage /> } />
+          <Route path="/otp-verification" element={ <OtpPage /> } />
+          <Route path="/forgot-password" element={ <ForgotPasswordPage /> } />
+          <Route path="/reset-password" element={ <ChangePasswordPage /> } />
+          <Route path="/" element={ <HomePage /> } />
+          <Route path="*" element={ <NotFoundPage /> } />
         </Routes>
       </Router>
     </Suspense>

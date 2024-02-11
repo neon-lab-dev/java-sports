@@ -1,9 +1,14 @@
 import { useState } from 'react'
 
+// @ts-ignore
 import logo from '@assets/images/Vector.svg'
+// @ts-ignore
 import locationIcon from '@assets/icons/location.svg'
+// @ts-ignore
 import wishlistIcon from '@assets/icons/wishlist.svg'
+// @ts-ignore
 import cartIcon from '@assets/icons/cart.svg'
+// @ts-ignore
 import profileIcon from '@assets/icons/profile.svg'
 
 // Components
@@ -29,10 +34,10 @@ const AppHeaderNav = () => {
             <img src={ logo } alt="Java Sports" />
           </a>
         </span>
-        <span className='w-[700px]'>
+        <span className='w-[700px] mr-[32px]'>
           <AppSearchBar placeholder={ 'Search for “ Bats ”' } onSearch={ handleOnSearch } />
         </span>
-        <ul className='flex items-center gap-4'>
+        <ul className='flex items-center gap-[46px]'>
           <li className={ navWrapper }>
             <span>
               <img src={ locationIcon } alt="Location" />

@@ -21,23 +21,10 @@ import closeIcon from "@assets/icons/close.svg";
 // Components
 import AppSearchBar from "./AppSearchBar";
 import { Link } from "react-router-dom";
-
-const LINKS = [
-  "Appreal",
-  "Batting Gears",
-  "Bats",
-  "Balls",
-  "Wicket Keeping",
-  "Shoes",
-  "Helmate",
-  "Kitbags",
-  "Protection",
-  "Accessories",
-  "My Account",
-  "Logout",
-];
+import ACCORDION_LINKS from "@/assets/constants/accordion_links";
 
 const AppHeaderNav = () => {
+  const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState(" 542/133 ,Lucknow");
   const sidebarRef = useRef(null);
@@ -147,19 +134,27 @@ const AppHeaderNav = () => {
           <span className="font-400">Phone: {user.phone}</span>
         </div>
         <div className="flex flex-col">
-          {LINKS.map((link, i) => (
-            <button
-              key={link}
-              className={`flex items-center justify-between px-6 py-3 border-grey-light font-700 ${i === 0 ? "border-y" : "border-b"} ${link.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${link.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
-            >
-              <span>{link}</span>
-              {!(link.toLowerCase() === "logout") ? (
-                <img src={chevronDownIcon} className="w-6" />
-              ) : (
-                <span />
-              )}
-            </button>
+          {ACCORDION_LINKS.map((link, i) => (
+            <LinkDropdown
+              key={link.label}
+              link={link}
+              i={i}
+              activeDropdown={activeDropdown}
+              setActiveDropdown={setActiveDropdown}
+            />
           ))}
+          <LinkDropdown
+            link={{ label: "My Account" }}
+            i={ACCORDION_LINKS.length}
+            activeDropdown={activeDropdown}
+            setActiveDropdown={setActiveDropdown}
+          />
+          <LinkDropdown
+            link={{ label: "Logout" }}
+            i={ACCORDION_LINKS.length + 1}
+            activeDropdown={activeDropdown}
+            setActiveDropdown={setActiveDropdown}
+          />
         </div>
       </aside>
     </>
@@ -167,3 +162,47 @@ const AppHeaderNav = () => {
 };
 
 export default AppHeaderNav;
+
+const LinkDropdown = ({
+  link: { label, dropdowns = null },
+  i,
+  setActiveDropdown,
+  activeDropdown,
+}) => (
+  <div
+    className={`flex flex-col px-6 py-3 border-grey-light font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
+  >
+    <button
+      onClick={() => setActiveDropdown(activeDropdown === i ? null : i)}
+      className="flex justify-between w-full"
+    >
+      <span>{label}</span>
+      {!(label.toLowerCase() === "logout") ? (
+        <img src={chevronDownIcon} className="w-6" />
+      ) : (
+        <span />
+      )}
+    </button>
+    {dropdowns && (
+      <div
+        className="flex flex-col justify-center gap-2 overflow-y-hidden transition-all"
+        style={{
+          height:
+            activeDropdown === i
+              ? `${(33.6 + 8) * dropdowns.length + 20}px` // 33.6 is the height of each link and 8 is the gap between each link and 20 is the padding to center the links
+              : "0px",
+        }}
+      >
+        {dropdowns.map((dropdown, i) => (
+          <Link
+            key={i}
+            to="/"
+            className="px-3 py-1 border font-400 border-grey-light"
+          >
+            {dropdown.label}
+          </Link>
+        ))}
+      </div>
+    )}
+  </div>
+);

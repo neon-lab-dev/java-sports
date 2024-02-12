@@ -20,6 +20,7 @@ import chevronDownIcon from "@assets/icons/chevron-down.svg";
 import closeIcon from "@assets/icons/close.svg";
 // Components
 import AppSearchBar from "./AppSearchBar";
+import { Link } from "react-router-dom";
 
 const LINKS = [
   "Appreal",
@@ -70,13 +71,13 @@ const AppHeaderNav = () => {
             <img src={menuIcon} />
           </button>
           <span>
-            <a href="/">
+            <Link to="/">
               <img
                 src={logo}
                 alt="Java Sports"
                 className="w-11 sm:w-14 md:min-w-24"
               />
-            </a>
+            </Link>
           </span>
           <div className="w-[400px] hidden md:block">
             <AppSearchBar
@@ -92,7 +93,7 @@ const AppHeaderNav = () => {
               <span className={navLink}>{location}</span>
             </li>
             <li>
-              <a href="#" className={navWrapper}>
+              <Link to="#" className={navWrapper}>
                 <span>
                   <img
                     src={wishlistIcon}
@@ -101,22 +102,22 @@ const AppHeaderNav = () => {
                   />
                 </span>
                 <span className={navLink}>Wishlist</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className={navWrapper}>
+              <Link to="#" className={navWrapper}>
                 <span>
                   <img src={cartIcon} alt="Cart" className={navLinkImg} />
                 </span>
                 <span className={navLink}>My Cart</span>
-              </a>
+              </Link>
             </li>
-            <a href="/login" className={`${navWrapper} hidden md:flex`}>
+            <Link to="/login" className={`${navWrapper} hidden md:flex`}>
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>
               <span className={navLink}>{user.name}</span>
-            </a>
+            </Link>
           </ul>
         </nav>
         <div className="block w-full px-8 py-3 md:hidden">

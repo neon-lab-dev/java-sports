@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AppDesktopNavbar from "./AppDesktopNavbar";
 import AppHeaderNav from "./AppHeaderNav";
 
@@ -48,16 +49,16 @@ const AppHeader = () => {
             <ul className="flex gap-8">
               {HEADER_LINKS.socialLinks.map(({ label, link, icon }) => (
                 <li key={label}>
-                  <a href={link} target="_blank" rel="noreferrer">
+                  <Link to={link} target="_blank" rel="noreferrer">
                     <img src={icon} alt={label} />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
             <ul className="flex capitalize gap-9">
               {HEADER_LINKS.others.map(({ label, path }) => (
                 <li key={path}>
-                  <a href={path}>{label}</a>
+                  <Link to={path}>{label}</Link>
                 </li>
               ))}
             </ul>

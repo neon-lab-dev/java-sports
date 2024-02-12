@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ROUTES from "./routes";
 import AppLayout from "@/components/reusable/AppLayout";
+import AppLoading from "@/components/reusable/AppLoading";
 
 const RoutesContainer = () => {
   return (
@@ -14,7 +15,7 @@ const RoutesContainer = () => {
               path={path}
               element={
                 <AppLayout>
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<AppLoading />}>
                     {Wrapper ? (
                       <Wrapper>
                         <Component />

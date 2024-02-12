@@ -1,7 +1,5 @@
-import AppHeader from "@/components/reusable/AppHeader"
 import Hero from "./Hero"
 import AppProductSlider from "@/components/reusable/AppProductSlider"
-import AppFooter from "@/components/reusable/AppFooter"
 
 // @ts-ignore
 {/* TEMPORARY COMMENT  */ }
@@ -16,7 +14,6 @@ const HomePage = () => {
 
   return (
     <>
-      <AppHeader />
       <Hero />
       <section className={ `${sectionWrapper}` }>
         {/* Top Rated Bats */ }
@@ -37,7 +34,7 @@ const HomePage = () => {
       {/* Banner */ }
       <section className='h-[524px] bg-neutral-white lg-light flex justify-center items-center'>
         <div className={ `${wrapper}` }>
-          <div className="flex flex-col justify-center items-start">
+          <div className="flex flex-col items-start justify-center">
             <span className={ `${label} pt-[59px]` }>JAVA sports</span>
             <h1 className={ `${contentText}` }>
               All New Junior<br /> Cricket Bat Range!
@@ -62,7 +59,6 @@ const HomePage = () => {
           <AppProductSlider type={ 'accessories' } />
         </section>
       </section>
-      <AppFooter />
     </>
   )
 }

@@ -17,7 +17,9 @@ const AppFooter = () => {
   return (
     <div className='flex flex-col px-14 py-10 pt-16 gap-2 max-sm:px-5'>
       <div className=" flex justify-between gap-7 max-sm:flex-col max-sm:px-1 max-lg:flex-col">
-        <img className=" max-lg:px-[250px] max-lg:py-16 max-sm:px-[100px] max-sm:py-6" src={logo} alt="logo" />
+        <div className='flex justify-center'>
+        <img className='p-1' src={logo} alt="logo" />
+        </div>
         <div className='font-Lato font-700 flex flex-col gap-2'>
 
           {/* Explore Menu */}

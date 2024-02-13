@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // @ts-ignore
 import logo from "@assets/images/Vector.svg";
@@ -27,6 +27,7 @@ const AppHeaderNav = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState(" 542/133 ,Lucknow");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
 
   const user = {
@@ -45,16 +46,22 @@ const AppHeaderNav = () => {
   const navLink = `font-Jakarta text-4 font-500 leading-4 hidden lg:block`;
   const navLinkImg = "w-5 h-5 md:w-6 md:h-6";
 
-  const toggleSidebar = () => {
-    if (!sidebarRef.current) return;
-    sidebarRef.current.classList.toggle("-translate-x-full");
-  };
+  useEffect(() => {
+    const toggleSidebar = () => {
+      if (!sidebarRef.current) return;
+      if (isSidebarOpen)
+        sidebarRef.current.classList.remove("-translate-x-full");
+      else sidebarRef.current.classList.add("-translate-x-full");
+      console.log("Sidebar Toggled");
+    };
+    toggleSidebar();
+  }, [isSidebarOpen]);
 
   return (
     <>
       <div className="flex flex-col items-center pt-4 bg-white md:py-5">
         <nav className="flex items-center justify-between w-full gap-8 px-6 md:gap-16 md:justify-center">
-          <button className="md:hidden" onClick={toggleSidebar}>
+          <button className="md:hidden" onClick={() => setIsSidebarOpen(true)}>
             <img src={menuIcon} />
           </button>
           <span>
@@ -118,7 +125,10 @@ const AppHeaderNav = () => {
         ref={sidebarRef}
         className="fixed inset-0 z-50 max-h-screen pb-4 overflow-y-scroll transition-transform -translate-x-full bg-white font-Lato h-dvh w-dvw max-w-80"
       >
-        <button className="absolute p-2 top-2 right-2" onClick={toggleSidebar}>
+        <button
+          className="absolute p-2 top-2 right-2"
+          onClick={() => setIsSidebarOpen(false)}
+        >
           <img src={closeIcon} className="w-9" />
         </button>
         <div className="flex flex-col px-6 py-5">
@@ -157,6 +167,13 @@ const AppHeaderNav = () => {
           />
         </div>
       </aside>
+      {isSidebarOpen && (
+        <div
+          onScroll={(e) => e.stopPropagation()} //todo: stop body scrolling when sidebar is open
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
     </>
   );
 };

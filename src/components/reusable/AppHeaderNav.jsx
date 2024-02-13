@@ -82,7 +82,7 @@ const AppHeaderNav = () => {
               onSearch={handleOnSearch}
             />
           </div>
-          <ul className="flex items-center gap-3 lg:gap-6 lg:gap-10">
+          <ul className="flex items-center gap-3 lg:gap-10">
             <li className={`${navWrapper} hidden xl:flex`}>
               <span>
                 <img src={locationIcon} alt="Location" className={navLinkImg} />

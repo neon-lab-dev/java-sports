@@ -19,7 +19,7 @@ const AppDesktopNavbar = () => {
                       <Link
                         key={label}
                         to={link}
-                        className="px-3 py-2 text-base transition-colors border border-grey-light hover:bg-primary hover:text-white"
+                        className="px-3 py-2 text-base transition-colors border min-w-max border-grey-light hover:bg-primary hover:text-white"
                       >
                         {label}
                       </Link>

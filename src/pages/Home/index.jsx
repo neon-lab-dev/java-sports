@@ -94,12 +94,12 @@ const HomePage = () => {
       <section className={`${sectionWrapper}`}>
         {/* News feed */}
         <section className="wrapper flex flex-col items-center justify-center text-center font-Jakarta pt-6">
-          <span className="font-500 text-lg">News Feed</span>
-          <span className="font-700 text-3xl">Instagram</span>
-          <span className="text-xl my-4 font-500">
+          <span className="font-500 text-base sm:text-lg">News Feed</span>
+          <span className="font-700 text-2xl sm:text-3xl">Instagram</span>
+          <span className="text-base sm:text-xl my-2 sm:my-4 font-500">
             Follow us on social media for more discounts & promotions
           </span>
-          <h2 className="font-Jakarta text-2xl font-500">@javasports</h2>
+          <h2 className="font-Jakarta text-xl sm:text-2xl font-500">@javasports</h2>
           <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 xs:grid-cols-3 2xl:grid-cols-6">
             {POSTS.map((post, index) => (
               <img

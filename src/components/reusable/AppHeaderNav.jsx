@@ -49,10 +49,13 @@ const AppHeaderNav = () => {
   useEffect(() => {
     const toggleSidebar = () => {
       if (!sidebarRef.current) return;
-      if (isSidebarOpen)
-        sidebarRef.current.classList.remove("-translate-x-full");
-      else sidebarRef.current.classList.add("-translate-x-full");
-      console.log("Sidebar Toggled");
+      if (!isSidebarOpen) {
+        document.body.style.overflow = "auto";
+        return sidebarRef.current.classList.add("-translate-x-full");
+      }
+      sidebarRef.current.classList.remove("-translate-x-full");
+      //stop body scrolling when sidebar is open
+      document.body.style.overflow = "hidden";
     };
     toggleSidebar();
   }, [isSidebarOpen]);

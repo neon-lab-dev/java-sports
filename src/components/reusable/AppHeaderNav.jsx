@@ -44,7 +44,7 @@ const AppHeaderNav = () => {
 
   const navWrapper = `flex gap-1 items-center h-7 min-w-max`;
   const navLink = `font-Jakarta text-4 font-500 leading-4 hidden lg:block`;
-  const navLinkImg = "w-5 h-5 md:w-6 md:h-6";
+  const navLinkImg = "w-5 h-5 lg:w-6 lg:h-6";
 
   useEffect(() => {
     const toggleSidebar = () => {
@@ -62,9 +62,9 @@ const AppHeaderNav = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center pt-4 bg-white md:py-5">
-        <nav className="flex items-center justify-between w-full gap-8 px-6 md:gap-16 md:justify-center">
-          <button className="md:hidden" onClick={() => setIsSidebarOpen(true)}>
+      <div className="flex flex-col items-center pt-4 bg-white lg:py-5">
+        <nav className="flex items-center justify-between w-full gap-8 px-6 lg:gap-16 lg:justify-center">
+          <button className="lg:hidden" onClick={() => setIsSidebarOpen(true)}>
             <img src={menuIcon} />
           </button>
           <span>
@@ -72,17 +72,17 @@ const AppHeaderNav = () => {
               <img
                 src={logo}
                 alt="Java Sports"
-                className="w-11 sm:w-14 md:min-w-24"
+                className="w-11 sm:w-14 lg:min-w-24"
               />
             </Link>
           </span>
-          <div className="w-[400px] hidden md:block">
+          <div className="w-[400px] hidden lg:block">
             <AppSearchBar
               placeholder={"Search for “ Bats ”"}
               onSearch={handleOnSearch}
             />
           </div>
-          <ul className="flex items-center gap-3 md:gap-6 lg:gap-10">
+          <ul className="flex items-center gap-3 lg:gap-6 lg:gap-10">
             <li className={`${navWrapper} hidden xl:flex`}>
               <span>
                 <img src={locationIcon} alt="Location" className={navLinkImg} />
@@ -109,7 +109,7 @@ const AppHeaderNav = () => {
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link to="/login" className={`${navWrapper} hidden md:flex`}>
+            <Link to="/login" className={`${navWrapper} hidden lg:flex`}>
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>
@@ -117,7 +117,7 @@ const AppHeaderNav = () => {
             </Link>
           </ul>
         </nav>
-        <div className="block w-full px-8 py-3 md:hidden">
+        <div className="block w-full px-8 py-3 lg:hidden">
           <AppSearchBar
             placeholder={"Search for “ Bats ”"}
             onSearch={handleOnSearch}

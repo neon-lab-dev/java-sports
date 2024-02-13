@@ -1,3 +1,4 @@
+import AppCTAButton from "@/components/reusable/AppCTAButton";
 import Hero from "./Hero";
 import AppProductSlider from "@/components/reusable/AppProductSlider";
 
@@ -69,7 +70,7 @@ const HomePage = () => {
               Fill Your Kit With
               <br /> Personalized Gears
             </h1>
-            <CtaButton text="Customize now" />
+            <AppCTAButton link="/" text="Customize now" />
           </div>
           <picture className="h-full absolute right-0 opacity-30 xs:opacity-100 w-max">
             <img
@@ -99,7 +100,9 @@ const HomePage = () => {
           <span className="text-base sm:text-xl my-2 sm:my-4 font-500">
             Follow us on social media for more discounts & promotions
           </span>
-          <h2 className="font-Jakarta text-xl sm:text-2xl font-500">@javasports</h2>
+          <h2 className="font-Jakarta text-xl sm:text-2xl font-500">
+            @javasports
+          </h2>
           <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 xs:grid-cols-3 2xl:grid-cols-6">
             {POSTS.map((post, index) => (
               <img
@@ -117,14 +120,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-function CtaButton({ text }) {
-  return (
-    <a
-      href="#"
-      className="uppercase text-neutral-black bg-neutral-white px-4 py-2 2xl:py-4 2xl:px-10 text-xs text-Lato font-700"
-    >
-      {text}
-    </a>
-  );
-}

@@ -4,9 +4,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // @ts-ignore
-import HeroImg1 from '@/assets/images/hero-image.svg'
+import HeroImg1 from "@/assets/images/hero-image.svg";
 // @ts-ignore
-import HeroImg2 from '@/assets/images/hero-image2.svg'
+import HeroImg2 from "@/assets/images/hero-image2.svg";
+import AppCTAButton from "./AppCTAButton";
+
+const SILDERS = [
+  {
+    img: HeroImg1,
+    label: "JAVa sports",
+    content: "All New Junior <br/> Cricket Bat Range!",
+    ctaLabel: "explore now",
+    ctaHref: "/",
+  },
+  {
+    img: HeroImg2,
+    label: "JAVa sports",
+    content: "All New Junior <br/> Cricket Bat Range!",
+    ctaLabel: "explore now",
+    ctaHref: "/",
+  },
+];
 
 const AppCarousel = () => {
   var settings = {
@@ -14,65 +32,41 @@ const AppCarousel = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true
+    arrows: false,
+    autoplay: true,
   };
 
-  const parentContainer = `flex items-center jsutify-center`
-  const wrapper = `w-[45%] h-full m-auto`
-  const label = `font-Lato text-[2rem] font-800 leading-[41.6px] text-white uppercase`;
-  const contentText = `text-white uppercase leading-[86px] text-Lato font-800 text-[4.5rem] my-[69px]`;
-
   return (
-    <Slider { ...settings }>
-      {/* SLIDE 1 */ }
-      <>
-        <div className={ `${parentContainer} hero-slider`}>
-          <div className={ `${wrapper}` }>
-            <span className={ `${label}` }>JAVa sports</span>
-            <h1 className={ `${contentText}` }>
-              All New Junior<br /> Cricket Bat Range!
-            </h1>
+    <Slider {...settings}>
+      {SILDERS.map(({ content, ctaLabel, ctaHref, img, label }, index) => (
+        <div
+          key={index}
+          className="hero-slider h-52 xs:h-64 sm:h-[332px] md:h-[450px] lg:h-[600px] relative"
+        >
+          <div className="wrapper flex justify-between items-center h-full max-h-full">
+            <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-8 z-10">
+              <span className="font-Lato text-xs sm:text-lg lg:text-2xl 2xl:text-3xl font-700 text-white uppercase">
+                {label}
+              </span>
+              <h1
+                className="text-white text-base uppercase text-Lato font-700 sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-6xl min-w-max"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
 
-            <CtaButton text={'explore now'}/>
+              <AppCTAButton link={ctaHref} text={ctaLabel} />
+            </div>
+            <picture className="h-full absolute right-0 opacity-80 xs:opacity-100 w-max">
+              <img
+                src={img}
+                alt="Banner Image"
+                className="h-full object-contain object-center"
+              />
+            </picture>
           </div>
-
-          <picture>
-            <img src={ HeroImg1 } alt="Hero image 1" />
-          </picture>
         </div>
-      </>
-
-      {/* SLIDE 2 */ }
-      <>
-        <div className={ `${parentContainer} hero-slider` }>
-          <div className={ `${wrapper}` }>
-            <span className={ `${label}`}>JAVa sports</span>
-            <h1 className={ `${contentText}` }>
-              All New Junior<br /> Cricket Bat Range!
-            </h1>
-
-            <CtaButton text={'explore now'}/>
-          </div>
-
-          <picture>
-            <img src={ HeroImg2 } alt="Hero image 2" />
-          </picture>
-
-        </div>
-      </>
+      ))}
     </Slider>
-
   );
-}
+};
 
-export default AppCarousel
-
-function CtaButton (prop) {
-  const button = `uppercase text-neutral-black bg-neutral-white py-[21px] px-[41px] text-Lato font-700`
-
-  return (
-    <a href="#" className={ `${button}` }>
-      {prop.text}
-    </a>
-  )
-}
+export default AppCarousel;

@@ -3,7 +3,7 @@
 
 const Hero = () => {
   return (
-    <div className="my-[1.125rem] h-[700px] lg-light border">
+    <div className="h-[700px] lg-light border">
       {/* TEMPORARY COMMENT  */ }
       {/* <AppCarousel /> */ }
     </div>

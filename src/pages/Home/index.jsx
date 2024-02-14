@@ -5,6 +5,8 @@ import AppProductSlider from "@/components/reusable/AppProductSlider";
 // @ts-ignore
 import BannerImg from "@assets/images/banner-1.png";
 import postImg from "@assets/images/post.png";
+import ACCESSORIES from "@/assets/mock-data/accessories";
+import PRODUCTS from "@/assets/mock-data/products";
 
 const POSTS = [
   {
@@ -45,7 +47,7 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Top Rated Bats
           </h2>
-          <AppProductSlider type={"product"} />
+          <AppProductSlider items={PRODUCTS} />
         </section>
       </section>
 
@@ -55,7 +57,7 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Featured
           </h2>
-          <AppProductSlider type={"product"} />
+          <AppProductSlider items={PRODUCTS} />
         </section>
       </section>
 
@@ -88,7 +90,7 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Accessories Collection
           </h2>
-          <AppProductSlider type={"accessories"} />
+          <AppProductSlider items={ACCESSORIES} />
         </section>
       </section>
 

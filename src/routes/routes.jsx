@@ -1,5 +1,6 @@
 import { lazy } from "react";
 
+
 const AuthWrapper = lazy(() => import("@/components/reusable/AppAuthWrapper"));
 
 /**
@@ -48,6 +49,11 @@ const ROUTES = [
   {
     path: "*",
     component: lazy(() => import("@/pages/NotFound")),
+  },
+  {
+    path: "otp",
+    component: lazy(() => import("@/pages/Auth/OtpVerification")),
+    wrapper:AuthWrapper,
   },
 ];
 

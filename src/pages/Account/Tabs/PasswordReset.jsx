@@ -39,7 +39,7 @@ const PasswordReset = () => {
       </div>
       <button
         type="submit"
-        className="rounded-lg px-4 py-2.5 bg-blue w-32 sm:w-48 self-end"
+        className="rounded-lg px-4 py-2.5 bg-blue w-32 sm:w-48 self-end text-white"
       >
         Submit
       </button>

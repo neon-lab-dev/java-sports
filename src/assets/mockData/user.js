@@ -35,6 +35,7 @@ const USER = {
       city: "Cityville",
       state: "State 54321",
       country: "United States",
+      isDefault: true,
     },
     {
       title: "Shipping Address 1",
@@ -44,6 +45,7 @@ const USER = {
       city: "Cityville",
       state: "State 54321",
       country: "United States",
+      isDefault: false,
     },
     {
       title: "Shipping Address 2",
@@ -53,6 +55,7 @@ const USER = {
       city: "Cityville",
       state: "State 54321",
       country: "United States",
+      isDefault: false,
     },
   ],
 };

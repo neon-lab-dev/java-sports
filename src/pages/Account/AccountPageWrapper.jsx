@@ -1,6 +1,6 @@
 import TABS from "@/assets/constants/accountPageTabs";
 import USER from "@/assets/mockData/user";
-import paramToWord from "@/utils/paramToWord";
+import { paramToWord } from "@/utils/paramUtils";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 

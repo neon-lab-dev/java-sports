@@ -9,4 +9,5 @@ const paramToWord = (param) => {
     .join(" ");
 };
 
-export default paramToWord;
+
+export  { paramToWord };

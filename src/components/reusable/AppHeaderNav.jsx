@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordion_links";
 import USER from "@/assets/mockData/user";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
-import paramToWord from "@/utils/paramToWord";
+import { paramToWord } from "@/utils/paramUtils";
 
 const AppHeaderNav = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);

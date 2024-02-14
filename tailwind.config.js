@@ -15,6 +15,9 @@ export default {
         'neutral-black': 'hsla(0, 0%, 20%, 1)',
         'gradient-dark': '180deg, #000000 0%, rgba(34, 34, 34, 0.2) 100%'
 			},
+      screens: {
+        xs: "480px",
+      },
     },
     fontFamily: {
 			Lato: ['Lato', 'sans-serif'],

@@ -12,7 +12,7 @@ const AppDesktopNavbar = () => {
         className="flex items-center justify-start gap-4 pb-2 font-semibold max-w-[80%] overflow-x-scroll snap-x snap-mandatory"
       >
         {ACCORDION_LINKS.map(({ dropdowns, label }) => (
-          <AccordianLink
+          <AccordionLink
             key={label}
             label={label}
             dropdowns={dropdowns}
@@ -25,7 +25,7 @@ const AppDesktopNavbar = () => {
 };
 export default AppDesktopNavbar;
 
-const AccordianLink = ({ label, dropdowns, ulRef }) => {
+const AccordionLink = ({ label, dropdowns, ulRef }) => {
 
   const liRef = useRef(null);
   const divRef = useRef(null);
@@ -36,7 +36,6 @@ const AccordianLink = ({ label, dropdowns, ulRef }) => {
       const liPosition = liRef.current.getBoundingClientRect();
       divRef.current.style.top = `${liPosition.top + liPosition.height}px`;
       divRef.current.style.left = `${liPosition.left}px`;
-      console.log("adjusting");
     };
     handleAdjustPosition();
     window.addEventListener("resize", handleAdjustPosition);

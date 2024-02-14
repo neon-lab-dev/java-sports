@@ -63,7 +63,7 @@ const AppHeaderNav = () => {
   return (
     <>
       <div className="flex flex-col items-center pt-4 bg-white lg:py-5">
-        <nav className="flex items-center justify-between w-full gap-8 px-6 lg:gap-16 lg:justify-center">
+        <nav className="flex items-center justify-between w-full gap-8 px-6 lg:gap-16 lg:justify-center lg:h-[123.15px]">
           <button className="lg:hidden" onClick={() => setIsSidebarOpen(true)}>
             <img src={menuIcon} />
           </button>

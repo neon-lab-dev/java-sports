@@ -1,6 +1,6 @@
 const ACCORDION_LINKS = [
   {
-    label: "Appreal",
+    label: "Apparel",
     dropdowns: [
       { label: "All", link: "/" },
       { label: "Jerseys", link: "/" },
@@ -56,11 +56,11 @@ const ACCORDION_LINKS = [
     ],
   },
   {
-    label: "Helmate",
+    label: "Helmet",
     dropdowns: [
       { label: "All", link: "/" },
-      { label: "Steel Helmates", link: "/" },
-      { label: "Titanium Helmates", link: "/" },
+      { label: "Steel Helmets", link: "/" },
+      { label: "Titanium Helmets", link: "/" },
       { label: "Limited Edition", link: "/" },
     ],
   },

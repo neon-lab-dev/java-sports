@@ -124,7 +124,7 @@ const AppHeaderNav = () => {
           />
         </div>
       </div>
-      <aside //todo stop body scrolling when sidebar is open
+      <aside
         ref={sidebarRef}
         className="fixed inset-0 z-50 max-h-screen pb-4 overflow-y-scroll transition-transform -translate-x-full bg-white font-Lato h-dvh w-dvw max-w-80"
       >

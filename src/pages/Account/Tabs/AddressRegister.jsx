@@ -31,7 +31,7 @@ const AddressRegister = () => {
       setValue(key, formData[key]);
     });
     setSearchParams({ tab: "address-register", isEditing: "true" });
-    //todo focus on top of the form and sroll to it
+    //todo focus on top of the form and scroll to it
   };
 
   return (
@@ -127,7 +127,7 @@ const AddressRegister = () => {
               {...register("addressLine2", { required: true })}
             />
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between flex-col md:flex-row">
             <div className="flex flex-col gap-1">
               <label htmlFor="sate" className="font-600 text-lg">
                 State*

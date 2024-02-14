@@ -9,7 +9,7 @@ import HeroImg1 from "@/assets/images/bats-img.svg";
 import HeroImg2 from "@/assets/images/hero-image2.svg";
 import AppCTAButton from "./AppCTAButton";
 
-const SILDERS = [
+const SLIDERS = [
   {
     img: HeroImg1,
     label: "JAVa sports",
@@ -38,7 +38,7 @@ const AppCarousel = () => {
 
   return (
     <Slider {...settings}>
-      {SILDERS.map(({ content, ctaLabel, ctaHref, img, label }, index) => (
+      {SLIDERS.map(({ content, ctaLabel, ctaHref, img, label }, index) => (
         <div
           key={index}
           className="hero-slider h-52 xs:h-64 sm:h-[332px] md:h-[450px] lg:h-[600px] relative"

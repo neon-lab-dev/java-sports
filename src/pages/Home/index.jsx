@@ -4,36 +4,11 @@ import AppProductSlider from "@/components/reusable/AppProductSlider";
 
 // @ts-ignore
 import BannerImg from "@assets/images/banner-1.png";
-import postImg from "@assets/images/post.png";
 import ACCESSORIES from "@/assets/mock-data/accessories";
 import PRODUCTS from "@/assets/mock-data/products";
+import POSTS from "@/assets/mock-data/posts";
 
-const POSTS = [
-  {
-    img: postImg,
-    link: "/",
-  },
-  {
-    img: postImg,
-    link: "/",
-  },
-  {
-    img: postImg,
-    link: "/",
-  },
-  {
-    img: postImg,
-    link: "/",
-  },
-  {
-    img: postImg,
-    link: "/",
-  },
-  {
-    img: postImg,
-    link: "/",
-  },
-];
+
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;

@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // @ts-ignore
-import HeroImg1 from "@/assets/images/hero-image.svg";
+import HeroImg1 from "@/assets/images/bats-img.svg";
 // @ts-ignore
 import HeroImg2 from "@/assets/images/hero-image2.svg";
 import AppCTAButton from "./AppCTAButton";

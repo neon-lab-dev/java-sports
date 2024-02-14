@@ -229,7 +229,7 @@ const LinkDropdown = ({
           >
             {dropdown.label}{" "}
             {dropdown.label.toLowerCase() === "recent orders" && (
-              <>({USER.recentOrders})</>
+              <>({USER.recentOrders.length})</>
             )}
           </Link>
         ))}

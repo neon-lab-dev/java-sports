@@ -41,6 +41,11 @@ const ROUTES = [
     wrapper: AuthWrapper,
   },
   {
+    path: "/account",
+    component: lazy(() => import("@/pages/Account")),
+    wrapper: lazy(() => import("@/pages/Account/AccountPageWrapper")),
+  },
+  {
     path: "*",
     component: lazy(() => import("@/pages/NotFound")),
   },

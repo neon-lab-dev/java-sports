@@ -1,6 +1,6 @@
 // @ts-ignore
 import userImg from "@assets/images/user.svg";
-
+import batImg from "@assets/images/bats-img.svg";
 const USER = {
   name: "Kabir Sah",
   email: "someone@gmail.com",
@@ -12,14 +12,18 @@ const USER = {
       date: "12-12-2021",
       total: "₹ 5000",
       status: "Delivered",
-      img: "",
+      quantity: 1,
+      img: batImg,
+      product: "Elite Series Kashmiri Willow Cricket Bat",
     },
     {
       orderId: "#123456",
       date: "12-12-2021",
       total: "₹ 5000",
       status: "Delivered",
-      img: "",
+      quantity: 1,
+      img: batImg,
+      product: "Elite Series Kashmiri Willow Cricket Bat",
     },
   ],
   shippingAddresses: [

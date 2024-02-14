@@ -44,6 +44,10 @@ const ROUTES = [
     path: "*",
     component: lazy(() => import("@/pages/NotFound")),
   },
+  {
+    path: "cat",
+    component: lazy(() => import("@/pages/Category/category")),
+  },
 ];
 
 export default ROUTES;

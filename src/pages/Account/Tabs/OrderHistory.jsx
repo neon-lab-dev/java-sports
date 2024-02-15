@@ -17,14 +17,14 @@ const OrderHistory = () => {
               <Text text="Order Status" subText={order.orderStatus} />
             </div>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 shadow p-3 rounded-md">
-              <div className="h-60 bg-grey/2 rounded-lg p-2 object-contain object-center max-w-64 sm:w-64">
+              <div className="h-60 bg-grey/2 rounded-lg p-2 lg:h-64 object-contain object-center max-w-64 sm:max-w-none md:w-96 lg:max-w-72 xl:max-w-none sm:w-64 lg:w-[400px]">
                 <img
                   src={order.img}
                   alt={order.product}
                   className="w-full h-full"
                 />
               </div>
-              <div className="flex flex-col gap-4 sm:justify-between lg:p-6">
+              <div className="flex flex-col gap-4 sm:justify-between xl:p-6 w-full">
                 <div className="flex flex-col gap-1">
                   <Text text="Product" subText={order.product} />
                   <Text text="Quantity" subText={order.quantity} />
@@ -33,11 +33,11 @@ const OrderHistory = () => {
                     subText={order.price.currency + order.price.amount}
                   />
                 </div>
-                <div className="flex flex-col sm:flex-col md:flex-row lg:flex-col xl:flex-row xs:flex-row gap-2">
+                <div className="flex flex-col sm:flex-col xl:flex-row xs:flex-row gap-2 xl:justify-between w-full">
                   <button className="rounded-lg px-4 py-2 w-max bg-blue text-white">
                     Download Invoice
                   </button>
-                  <button className="rounded-lg px-3 py-1.5 w-max min-w-40 bg-primary text-white border-grey-light border-2">
+                  <button className="rounded-lg px-3 py-1.5 w-max min-w-40 bg-primary text-white ">
                     Reorder
                   </button>
                 </div>

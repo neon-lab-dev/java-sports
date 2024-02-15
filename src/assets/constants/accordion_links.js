@@ -22,7 +22,7 @@ const ACCORDION_LINKS = [
   {
     label: "Bats",
     dropdowns: [
-      { label: "All", link: "/" },
+      { label: "All", link: "/category" },
       { label: "English Willow", link: "/" },
       { label: "Kashmir Willow", link: "/" },
       { label: "Tennis Bat", link: "/" },

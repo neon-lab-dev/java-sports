@@ -9,6 +9,26 @@ import img2 from '@/assets/images/prostrike-elite-bat-2.svg'
 import img3 from '@/assets/images/prostrike-elite-bat-3.svg'
 import AppCard from '@/components/reusable/AppCard'
 
+    // export const Sort = () => {
+    //     const { filterDispatch } = useFilter();
+      
+    //     const handleSortChange = (option) => {
+    //       filterDispatch({
+    //         type: option,
+    //         payload: option
+    //       });
+    //     }; 
+      // const { state } = useFilter();
+    // const getSortedProducts = (Products, sort) => {
+    //     const sortedProducts = [...products].sort((item1, item2) =>
+    //       sort === "lth"
+    //         ? item1.newPrice - item2.newPrice
+    //         : sort === "htl"
+    //         ? item2.newPrice - item1.newPrice
+    //         : products
+    //     );
+    //     return sortedProducts;
+    //   };
 const category = () => {
     const Product = [
         {
@@ -143,20 +163,13 @@ const category = () => {
             weight:'light'
 
         },
-    ]
-
-    // export const Sort = () => {
-    //     const { filterDispatch } = useFilter();
-      
-    //     const handleSortChange = (option) => {
-    //       filterDispatch({
-    //         type: option,
-    //         payload: option
-    //       });
-    //     }; 
+    ]    
     const [MenuToggle, setMenuToggle] = useState(false)
+
+
     const [Close, setClose] = useState(false)
     const [Items, setItems] = useState(Product)
+
     const filteritems = (cateitem) => {
         const updatedItems = Product.filter((por) => {
             return por.color === cateitem;
@@ -169,17 +182,7 @@ const category = () => {
         });
         setItems(updatedItems);
     } 
-    // const { state } = useFilter();
-    // const getSortedProducts = (Products, sort) => {
-    //     const sortedProducts = [...products].sort((item1, item2) =>
-    //       sort === "lth"
-    //         ? item1.newPrice - item2.newPrice
-    //         : sort === "htl"
-    //         ? item2.newPrice - item1.newPrice
-    //         : products
-    //     );
-    //     return sortedProducts;
-    //   };
+  
     return (
         <>
             <div className='bg-white justify-center relative'>
@@ -206,11 +209,11 @@ const category = () => {
                         </select>
                     </div>
                 </div>
-            </div>
+            </div>          
             <div className='flex flex-col'>
                 <div className='flex gap-4 bg-white'>
-                    <div className='bg-white justify-center py-4 max-lg:hidden pl-[10%]'>
-                        <div className='font-Lato w-[220px] border-2 p-4'>
+                    <div className='bg-white justify-center py-4 max-lg:hidden p'>
+                        <div className='font-Lato w-[220px] border-2 '>
                             <div className='flex flex-col'>
                                 <div className='flex'>
                                     <span className=' pl-2 text-xl font-Lato font-700'>Product Type:</span>

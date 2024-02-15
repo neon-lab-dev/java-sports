@@ -45,8 +45,8 @@ const ROUTES = [
     component: lazy(() => import("@/pages/NotFound")),
   },
   {
-    path: "cat",
-    component: lazy(() => import("@/pages/Category/category")),
+    path: "category",
+    component: lazy(() => import("@/pages/Category/MultiFilters")),
   },
 ];
 

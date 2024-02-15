@@ -10,7 +10,10 @@ const USER = {
     {
       orderId: "#123456",
       date: "12-12-2021",
-      total: "₹ 5000",
+      total: {
+        amount: 5000,
+        currency: "₹",
+      },
       status: "Delivered",
       quantity: 1,
       img: batImg,
@@ -19,7 +22,10 @@ const USER = {
     {
       orderId: "#123456",
       date: "12-12-2021",
-      total: "₹ 5000",
+      total: {
+        amount: 5000,
+        currency: "₹",
+      },
       status: "Delivered",
       quantity: 1,
       img: batImg,

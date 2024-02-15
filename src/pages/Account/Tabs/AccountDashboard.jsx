@@ -64,7 +64,7 @@ const AccountDashboard = () => {
               <tr key={orderId} className="bg-grey/2">
                 <td className={trClasses}>{orderId}</td>
                 <td className={trClasses}>{date}</td>
-                <td className={trClasses}>{total}</td>
+                <td className={trClasses}>{total.currency + total.amount}</td>
                 <td className={trClasses}>{status}</td>
                 <td className={trClasses + " " + "hidden xl:table-cell"}>
                   <Link

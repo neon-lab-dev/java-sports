@@ -5,7 +5,7 @@ import checkboxUnchecked from "@/assets/icons/checkbox-unchecked.svg";
 import checkboxChecked from "@/assets/icons/checkbox-checked.svg";
 import toast from "react-hot-toast";
 import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
-import ErrorLine from "./ErrorLine";
+import ErrorLine from "../ErrorLine";
 
 const Address = () => {
   const [searchParams, setSearchParams] = useSearchParams();

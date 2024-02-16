@@ -1,9 +1,9 @@
 import { EMAIL_REGEX, PHONE_REGEX } from "@/assets/constants/regex";
 import USER from "@/assets/mockData/user";
 import { useForm } from "react-hook-form";
-import toast, { ErrorIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
-import ErrorLine from "./ErrorLine";
+import ErrorLine from "../ErrorLine";
 
 const AccountDetails = () => {
   const [searchParam, setSearchParam] = useSearchParams();

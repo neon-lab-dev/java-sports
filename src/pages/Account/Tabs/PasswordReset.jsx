@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import eyeIcon from "@/assets/icons/eye.svg";
 import eyeClosedIcon from "@/assets/icons/eye-closed.svg";
 import toast from "react-hot-toast";
-import ErrorLine from "./ErrorLine";
+import ErrorLine from "../ErrorLine";
 
 const PasswordReset = () => {
   const {

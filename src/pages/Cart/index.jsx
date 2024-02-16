@@ -4,6 +4,7 @@ import addIcon from "@/assets/icons/add-icon.svg";
 import removeIcon from "@/assets/icons/remove.svg";
 import AppProductSlider from "@/components/reusable/AppProductSlider";
 import ACCESSORIES from "@/assets/mock-data/accessories";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
@@ -20,8 +21,21 @@ const CartPage = () => {
   return (
     <>
       <div className="bg-white py-6">
-        <section className="wrapper ">
+        <section className="wrapper flex flex-col gap-6 sm:gap-12">
           <div className="flex flex-col gap-4">
+            {cartItems.length === 0 && (
+              <div className="flex flex-col items-center justify-center gap-4 my-28">
+                <h2 className="font-Jakarta text-[32px] font-500">
+                  Your cart is empty
+                </h2>
+                <Link
+                  to="/"
+                  className="rounded px-12 py-3 text-lg  min-w-40 bg-blue-400 text-white xl:w-96 disabled:opacity-45 max-w-72 "
+                >
+                  Continue Shopping
+                </Link>
+              </div>
+            )}
             {cartItems.map((item) => (
               <CartItem
                 item={item}
@@ -30,6 +44,11 @@ const CartPage = () => {
               />
             ))}
           </div>
+          {cartItems.length > 0 && (
+            <button className="rounded self-center sm:self-end px-12 py-3 text-lg  min-w-40 bg-blue-400 text-white xl:w-96 disabled:opacity-45 max-w-72 ">
+              Proceed to Checkout
+            </button>
+          )}
         </section>
       </div>
       <section className="bg-neutral-white pb-4 lg:block hidden mt-6">

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import heartIcon from '@/assets/icons/heart.svg'
 import wishlistIcon from '@assets/icons/wishlist-filled.svg'
 
@@ -45,5 +46,4 @@ const AppCard = (props) => {
     </article>
   )
 }
-
 export default AppCard

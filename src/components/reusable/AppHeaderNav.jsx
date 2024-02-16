@@ -90,7 +90,7 @@ const AppHeaderNav = () => {
               <span className={navLink}>{location}</span>
             </li>
             <li>
-              <Link to="#" className={navWrapper}>
+              <Link to="./wishlist" className={navWrapper}>
                 <span>
                   <img
                     src={wishlistIcon}

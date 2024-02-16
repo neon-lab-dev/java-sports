@@ -50,6 +50,11 @@ const ROUTES = [
     component: lazy(() => import("@/pages/Auth/OtpVerification")),
     wrapper:AuthWrapper,
   },
+  {
+    path: "wishlist",
+    component: lazy(() => import("@/pages/wishlist/Wishlist")),
+  }
+  
 ];
 
 export default ROUTES;

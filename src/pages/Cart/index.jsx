@@ -2,6 +2,8 @@ import PRODUCTS from "@/assets/mockData/products";
 import { useState } from "react";
 import addIcon from "@/assets/icons/add-icon.svg";
 import removeIcon from "@/assets/icons/remove.svg";
+import AppProductSlider from "@/components/reusable/AppProductSlider";
+import ACCESSORIES from "@/assets/mock-data/accessories";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
@@ -16,19 +18,30 @@ const CartPage = () => {
   ]);
 
   return (
-    <div className="bg-white py-6">
-      <section className="wrapper ">
-        <div className="flex flex-col gap-4">
-          {cartItems.map((item) => (
-            <CartItem
-              item={item}
-              key={item.productId}
-              setCartItems={setCartItems}
-            />
-          ))}
-        </div>
+    <>
+      <div className="bg-white py-6">
+        <section className="wrapper ">
+          <div className="flex flex-col gap-4">
+            {cartItems.map((item) => (
+              <CartItem
+                item={item}
+                key={item.productId}
+                setCartItems={setCartItems}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+      <section className="bg-neutral-white pb-4 lg:block hidden mt-6">
+        {/* Featured */}
+        <section className="wrapper">
+          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
+            Products you might like
+          </h2>
+          <AppProductSlider items={ACCESSORIES} />
+        </section>
       </section>
-    </div>
+    </>
   );
 };
 export default CartPage;

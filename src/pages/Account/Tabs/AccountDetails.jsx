@@ -1,18 +1,28 @@
+import { EMAIL_REGEX, PHONE_REGEX } from "@/assets/constants/regex";
 import USER from "@/assets/mockData/user";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { ErrorIcon } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
+import ErrorLine from "./ErrorLine";
 
 const AccountDetails = () => {
   const [searchParam, setSearchParam] = useSearchParams();
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   const toggleIsEditing = (isEditing) => {
     setSearchParam({ tab: "account-details", isEditing: isEditing });
+    Object.keys(USER).forEach((key) => {
+      setValue(key, USER[key]);
+    });
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     setSearchParam({ tab: "account-details", isEditing: "false" });
     reset();
     toast.success("Changes saved successfully");
@@ -20,7 +30,6 @@ const AccountDetails = () => {
 
   const onReset = () => {
     setSearchParam({ tab: "account-details", isEditing: "false" });
-    toast.success("Changes cancelled");
   };
 
   return (
@@ -68,19 +77,27 @@ const AccountDetails = () => {
               type="text"
               placeholder="Kabir Sah"
               className="bg-grey/2 px-4 py-3"
-              {...register("name", { required: true })}
+              {...register("name", { required: true, minLength: 4 })}
             />
+            {errors.name && errors.name.type === "minLength" && (
+              <ErrorLine message="Name must be at least 3 characters long" />
+            )}
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="phone" className="font-600 text-lg">
-              Phone
+              Phone*
             </label>
             <input
               type="tel"
-              placeholder="5824658726"
+              placeholder="+91 9876123786"
               className="bg-grey/2 px-4 py-3"
-              {...register("phone", { required: true })}
+              {...register("phone", {
+                //valid only for Indian phone numbers with country code
+                required: true,
+                validate: (value) => PHONE_REGEX.test(value) || "Invalid phone",
+              })}
             />
+            {errors.phone && <ErrorLine message={errors.phone.message} />}
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="font-600 text-lg">
@@ -90,8 +107,12 @@ const AccountDetails = () => {
               type="email"
               placeholder="someone@gmail.com"
               className="bg-grey/2 px-4 py-3"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                validate: (value) => EMAIL_REGEX.test(value) || "Invalid email",
+              })}
             />
+            {errors.email && <ErrorLine message={errors.email.message} />}
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="image" className="font-600 text-lg">
@@ -103,6 +124,7 @@ const AccountDetails = () => {
               className="bg-grey/2 px-4 py-3"
               {...register("image", { required: true })}
             />
+            {errors.image && <ErrorLine message="Please upload an image" />}
           </div>
           <div className="flex gap-4 justify-center items-center sm:col-span-2 mt-4">
             <button

@@ -5,32 +5,38 @@ import checkboxUnchecked from "@/assets/icons/checkbox-unchecked.svg";
 import checkboxChecked from "@/assets/icons/checkbox-checked.svg";
 import toast from "react-hot-toast";
 import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
+import ErrorLine from "./ErrorLine";
 
-const AddressRegister = () => {
+const Address = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { register, handleSubmit, getValues, setValue, watch, reset } =
-    useForm();
-
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     toast.success("Address registered successfully");
-    setSearchParams({ tab: "address-register", isEditing: "false" });
+    setSearchParams({ tab: "addresses", isEditing: "false" });
     reset();
   };
 
   const onReset = () => {
-    toast.success("Address registration cancelled");
-    setSearchParams({ tab: "address-register", isEditing: "false" });
+    setSearchParams({ tab: "addresses", isEditing: "false" });
+    reset();
   };
 
   const handleEditAddress = (id) => {
     const formData = SHIPPING_ADDRESSES.find((address) => address.id === id);
-    reset(formData);
+    reset();
     //set form data
     Object.keys(formData).forEach((key) => {
       setValue(key, formData[key]);
     });
-    setSearchParams({ tab: "address-register", isEditing: "true" });
+    setSearchParams({ tab: "addresses", isEditing: "true" });
     //todo focus on top of the form and scroll to it
   };
 
@@ -42,19 +48,16 @@ const AddressRegister = () => {
             <span className="font-Lato font-600">{address.title}</span>
             <button
               onClick={() => handleEditAddress(address.id)}
-              className="font-Lato font-600 text-blue"
+              className="font-Lato font-600 text-blue disabled:opacity-40"
+              disabled={searchParams.get("isEditing") === "true"}
             >
               Edit
             </button>
           </div>
           {Object.keys(address).map((key, i) => {
-            if (key === "title" || key === "img") return null;
-            return <span key={i}>{USER.shippingAddresses[0][key]}</span>;
+            if (["title", "img", "id"].includes(key)) return null;
+            return <span key={i}>{address[key]}</span>;
           })}
-          <div className="flex mt-4 sm:mt-6 sm:gap-6 flex-col sm:flex-row">
-            <span>Phone: {USER.phone}</span>
-            <span>Email: {USER.email}</span>
-          </div>
         </div>
       ))}
       {searchParams.get("isEditing") != "true" ? (
@@ -62,7 +65,7 @@ const AddressRegister = () => {
           type="submit"
           className="rounded-lg px-4 py-2.5 bg-blue w-max text-white"
           onClick={() =>
-            setSearchParams({ tab: "address-register", isEditing: "true" })
+            setSearchParams({ tab: "addresses", isEditing: "true" })
           }
         >
           Add a new address
@@ -73,39 +76,6 @@ const AddressRegister = () => {
           className="flex flex-col gap-3 mt-8"
         >
           <div className="flex flex-col gap-1">
-            <label htmlFor="name" className="font-600 text-lg">
-              Full Name*
-            </label>
-            <input
-              type="text"
-              placeholder="Kabir Sah"
-              className="bg-grey/2 px-4 py-3"
-              {...register("name", { required: true })}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="phone" className="font-600 text-lg">
-              Phone
-            </label>
-            <input
-              type="tel"
-              placeholder=" +1 (555) 123-4567"
-              className="bg-grey/2 px-4 py-3"
-              {...register("phone", { required: true })}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="font-600 text-lg">
-              Email*
-            </label>
-            <input
-              type="email"
-              placeholder="someone@gmail.com"
-              className="bg-grey/2 px-4 py-3"
-              {...register("email", { required: true })}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
             <label htmlFor="addressLine1" className="font-600 text-lg">
               Address Line 1*
             </label>
@@ -113,8 +83,15 @@ const AddressRegister = () => {
               type="text"
               placeholder="123 Main Street"
               className="bg-grey/2 px-4 py-3"
-              {...register("addressLine1", { required: true })}
+              {...register("addressLine1", {
+                required: true,
+                validate: (value) =>
+                  value.trim().length > 4 || "Please enter a valid address",
+              })}
             />
+            {errors.addressLine1 && (
+              <ErrorLine message={errors.addressLine1.message} />
+            )}
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="addressLine2" className="font-600 text-lg">
@@ -124,10 +101,17 @@ const AddressRegister = () => {
               type="text"
               placeholder="Apt 4B"
               className="bg-grey/2 px-4 py-3"
-              {...register("addressLine2", { required: true })}
+              {...register("addressLine2", {
+                required: true,
+                validate: (value) =>
+                  value.trim().length > 4 || "Please enter a valid address",
+              })}
             />
+            {errors.addressLine2 && (
+              <ErrorLine message={errors.addressLine2.message} />
+            )}
           </div>
-          <div className="flex justify-between flex-col md:flex-row">
+          <div className="flex justify-between flex-col md:flex-row gap-3">
             <div className="flex flex-col gap-1">
               <label htmlFor="sate" className="font-600 text-lg">
                 State*
@@ -136,8 +120,13 @@ const AddressRegister = () => {
                 type="text"
                 placeholder="Cityville, State 54321"
                 className="bg-grey/2 px-4 py-3"
-                {...register("state", { required: true })}
+                {...register("state", {
+                  required: true,
+                  validate: (value) =>
+                    value.trim().length > 4 || "Please enter a valid state",
+                })}
               />
+              {errors.state && <ErrorLine message={errors.state.message} />}
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="city" className="font-600 text-lg">
@@ -147,8 +136,13 @@ const AddressRegister = () => {
                 type="text"
                 placeholder="Cityville, State 54321"
                 className="bg-grey/2 px-4 py-3"
-                {...register("city", { required: true })}
+                {...register("city", {
+                  required: true,
+                  validate: (value) =>
+                    value.trim().length > 4 || "Please enter a valid city",
+                })}
               />
+              {errors.city && <ErrorLine message={errors.city.message} />}
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="pincode" className="font-600 text-lg">
@@ -158,8 +152,13 @@ const AddressRegister = () => {
                 type="text"
                 placeholder="Cityville, State 54321"
                 className="bg-grey/2 px-4 py-3"
-                {...register("pincode", { required: true })}
+                {...register("pincode", {
+                  required: true,
+                  validate: (value) =>
+                    value.trim().length > 4 || "Please enter a valid pincode",
+                })}
               />
+              {errors.pincode && <ErrorLine message={errors.pincode.message} />}
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -170,13 +169,17 @@ const AddressRegister = () => {
               type="text"
               placeholder="Apt 4B"
               className="bg-grey/2 px-4 py-3"
-              {...register("landmark", { required: true })}
+              {...register("landmark", {
+                required: true,
+                validate: (value) =>
+                  value.trim().length > 4 || "Please enter a valid landmark",
+              })}
             />
+            {errors.landmark && <ErrorLine message={errors.landmark.message} />}
           </div>
           <button
             type="button"
             onClick={() => {
-              console.log(getValues("isPrimary"));
               setValue("isPrimary", !getValues("isPrimary"));
             }}
             className="flex gap-3 items-center cursor-pointer"
@@ -206,4 +209,4 @@ const AddressRegister = () => {
     </div>
   );
 };
-export default AddressRegister;
+export default Address;

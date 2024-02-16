@@ -2,7 +2,7 @@ import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
 import USER from "@/assets/mockData/user";
 
 const RecentOrders = () => {
-  const address = SHIPPING_ADDRESSES[0];
+  const address = SHIPPING_ADDRESSES[0]; 
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 wrapper lg:w-full lg:m-0 max-w-5xl">

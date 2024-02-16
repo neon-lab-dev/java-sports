@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import AccountDashboard from "./Tabs/AccountDashboard";
 import AccountDetails from "./Tabs/AccountDetails";
-import AddressRegister from "./Tabs/AddressRegister";
+import AddressRegister from "./Tabs/Address";
 import OrderHistory from "./Tabs/OrderHistory";
 import PasswordReset from "./Tabs/PasswordReset";
 import RecentOrders from "./Tabs/RecentOrders";
@@ -11,7 +11,7 @@ const TAB_COMPONENTS = {
   "recent-orders": RecentOrders,
   "order-history": OrderHistory,
   "password-reset": PasswordReset,
-  "address-register": AddressRegister,
+  "addresses": AddressRegister,
   "account-details": AccountDetails,
 };
 

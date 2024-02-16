@@ -1,15 +1,12 @@
 const SHIPPING_ADDRESSES = [
   {
     title: "Default Shipping Address",
-    name: "Kabir Sah",
-    address: "123 Main Street",
-    apartment: "Apt 4B",
-    city: "Cityville",
+    addressLine1: "123 Main Street",
+    addressLine2: "Apt 4B",
+    city: "City ville",
     state: "State 54321",
-    country: "United States",
+    country: "India",
     isDefault: true,
-    email: "someone@gmail.com",
-    phone: "5824658726",
     id: 1,
   },
 ];

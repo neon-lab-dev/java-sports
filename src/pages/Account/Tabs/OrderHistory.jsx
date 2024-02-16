@@ -6,6 +6,7 @@ const OrderHistory = () => {
       {ORDER_HISTORY.map((order, i) => {
         return (
           <div
+            id={`product-${order.orderId}`}
             key={order.id}
             className={`flex gap-3 w-full flex-col ${i !== ORDER_HISTORY.length - 1 ? "border-b-2 border-grey-light pb-6" : ""}`}
           >

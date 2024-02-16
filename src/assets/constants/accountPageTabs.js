@@ -3,7 +3,7 @@ const ACCOUNT_PAGE_TABS = [
   "recent-orders",
   "order-history",
   "password-reset",
-  "address-register",
+  "addresses",
   "account-details",
 ];
 export default ACCOUNT_PAGE_TABS;

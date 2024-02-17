@@ -1,5 +1,6 @@
 import USER from "@/assets/mockData/user";
 import { Link } from "react-router-dom";
+import HeadingWithLink from "../HeadingWithLink";
 
 const AccountDashboard = () => {
   const tableRowClasses =
@@ -9,7 +10,7 @@ const AccountDashboard = () => {
     <div className="flex flex-col sm:wrapper lg:m-0 lg:w-full">
       {/* profile info  */}
       <div className="wrapper sm:w-auto sm:m-0">
-        <Heading
+        <HeadingWithLink
           heading="Account Dashboard"
           button={{
             label: "Edit",
@@ -37,7 +38,7 @@ const AccountDashboard = () => {
       </div>
       {/* recent orders  */}
       <div className="border-y border-grey-light py-6 px-4">
-        <Heading
+        <HeadingWithLink
           heading="Recent Orders"
           button={{
             label: "View full order history",
@@ -51,7 +52,11 @@ const AccountDashboard = () => {
             <tr>
               {["Order Id", "Order Date", "Order Total", "Status"].map(
                 (heading) => (
-                  <th scope="col" className="px-4 py-3 xs:px-5 sm:px-6 lg:py-6 lg:px-7" key={heading}>
+                  <th
+                    scope="col"
+                    className="px-4 py-3 xs:px-5 sm:px-6 lg:py-6 lg:px-7"
+                    key={heading}
+                  >
                     <div className="flex items-center font-Lato font-700 text-sm xs:text-lg sm:text-xl lg:text-2xl">
                       {heading}
                     </div>
@@ -114,14 +119,3 @@ const AccountDashboard = () => {
   );
 };
 export default AccountDashboard;
-
-const Heading = ({ heading, button: { label, link } }) => {
-  return (
-    <div className="flex gap-8 text-base sm:text-base 2xl:text-lg">
-      <span className="font-Lato font-600">{heading}</span>
-      <Link to={link} className="font-Lato font-600 text-blue">
-        {label}
-      </Link>
-    </div>
-  );
-};

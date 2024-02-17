@@ -1,5 +1,5 @@
-const ErrorLine = ({ message }) => {
+const AppFormErrorLine = ({ message }) => {
   return <span className="text-primary text-xs md:text-sm">{message}</span>;
 };
 
-export default ErrorLine;
+export default AppFormErrorLine;

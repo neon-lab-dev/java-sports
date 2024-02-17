@@ -1,6 +1,7 @@
 // @ts-ignore
-import userImg from "@assets/images/user.svg";
-import batImg from "@assets/images/bats-img.svg";
+import userImg from "@/assets/images/user.svg";
+// @ts-ignore
+import batImg from "@/assets/images/bats-img.svg";
 const USER = {
   name: "Kabir Sah",
   email: "someone@gmail.com",

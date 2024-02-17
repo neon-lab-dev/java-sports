@@ -1,9 +1,9 @@
 import { EMAIL_REGEX, PHONE_REGEX } from "@/assets/constants/regex";
 import USER from "@/assets/mockData/user";
+import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
-import ErrorLine from "../ErrorLine";
 
 const AccountDetails = () => {
   const [searchParam, setSearchParam] = useSearchParams();
@@ -80,7 +80,7 @@ const AccountDetails = () => {
               {...register("name", { required: true, minLength: 4 })}
             />
             {errors.name && errors.name.type === "minLength" && (
-              <ErrorLine message="Name must be at least 3 characters long" />
+              <AppFormErrorLine message="Name must be at least 3 characters long" />
             )}
           </div>
           <div className="flex flex-col gap-1">
@@ -97,7 +97,7 @@ const AccountDetails = () => {
                 validate: (value) => PHONE_REGEX.test(value) || "Invalid phone",
               })}
             />
-            {errors.phone && <ErrorLine message={errors.phone.message} />}
+            {errors.phone && <AppFormErrorLine message={errors.phone.message} />}
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="font-600 text-lg">
@@ -112,7 +112,7 @@ const AccountDetails = () => {
                 validate: (value) => EMAIL_REGEX.test(value) || "Invalid email",
               })}
             />
-            {errors.email && <ErrorLine message={errors.email.message} />}
+            {errors.email && <AppFormErrorLine message={errors.email.message} />}
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="image" className="font-600 text-lg">
@@ -124,7 +124,7 @@ const AccountDetails = () => {
               className="bg-grey/2 px-4 py-3"
               {...register("image", { required: true })}
             />
-            {errors.image && <ErrorLine message="Please upload an image" />}
+            {errors.image && <AppFormErrorLine message="Please upload an image" />}
           </div>
           <div className="flex gap-4 justify-center items-center sm:col-span-2 mt-4">
             <button

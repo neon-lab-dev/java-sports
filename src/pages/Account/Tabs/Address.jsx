@@ -1,11 +1,10 @@
-import USER from "@/assets/mockData/user";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import checkboxUnchecked from "@/assets/icons/checkbox-unchecked.svg";
 import checkboxChecked from "@/assets/icons/checkbox-checked.svg";
 import toast from "react-hot-toast";
 import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
-import ErrorLine from "../ErrorLine";
+import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
 
 const Address = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -90,7 +89,7 @@ const Address = () => {
               })}
             />
             {errors.addressLine1 && (
-              <ErrorLine message={errors.addressLine1.message} />
+              <AppFormErrorLine message={errors.addressLine1.message} />
             )}
           </div>
           <div className="flex flex-col gap-1">
@@ -108,7 +107,7 @@ const Address = () => {
               })}
             />
             {errors.addressLine2 && (
-              <ErrorLine message={errors.addressLine2.message} />
+              <AppFormErrorLine message={errors.addressLine2.message} />
             )}
           </div>
           <div className="flex justify-between flex-col md:flex-row gap-3">
@@ -126,7 +125,9 @@ const Address = () => {
                     value.trim().length > 4 || "Please enter a valid state",
                 })}
               />
-              {errors.state && <ErrorLine message={errors.state.message} />}
+              {errors.state && (
+                <AppFormErrorLine message={errors.state.message} />
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="city" className="font-600 text-lg">
@@ -142,7 +143,9 @@ const Address = () => {
                     value.trim().length > 4 || "Please enter a valid city",
                 })}
               />
-              {errors.city && <ErrorLine message={errors.city.message} />}
+              {errors.city && (
+                <AppFormErrorLine message={errors.city.message} />
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="pincode" className="font-600 text-lg">
@@ -158,7 +161,9 @@ const Address = () => {
                     value.trim().length > 4 || "Please enter a valid pincode",
                 })}
               />
-              {errors.pincode && <ErrorLine message={errors.pincode.message} />}
+              {errors.pincode && (
+                <AppFormErrorLine message={errors.pincode.message} />
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -175,7 +180,9 @@ const Address = () => {
                   value.trim().length > 4 || "Please enter a valid landmark",
               })}
             />
-            {errors.landmark && <ErrorLine message={errors.landmark.message} />}
+            {errors.landmark && (
+              <AppFormErrorLine message={errors.landmark.message} />
+            )}
           </div>
           <button
             type="button"

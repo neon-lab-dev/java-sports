@@ -1,10 +1,10 @@
-import { EMAIL_REGEX, PASSWORD_REGEX } from "@/assets/constants/regex";
+import {  PASSWORD_REGEX } from "@/assets/constants/regex";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import eyeIcon from "@/assets/icons/eye.svg";
 import eyeClosedIcon from "@/assets/icons/eye-closed.svg";
 import toast from "react-hot-toast";
-import ErrorLine from "../ErrorLine";
+import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
 
 const PasswordReset = () => {
   const {
@@ -62,10 +62,10 @@ const PasswordReset = () => {
         </div>
 
         {errors.newPassword && errors.newPassword.type === "minLength" && (
-          <ErrorLine message="Password must be at least 8 characters long" />
+          <AppFormErrorLine message="Password must be at least 8 characters long" />
         )}
         {errors.newPassword && (
-          <ErrorLine message={errors.newPassword.message} />
+          <AppFormErrorLine message={errors.newPassword.message} />
         )}
       </div>
       <div className="flex flex-col gap-1">
@@ -99,7 +99,7 @@ const PasswordReset = () => {
         </div>
         {errors.confirmNewPassword &&
           errors.confirmNewPassword.type === "validate" && (
-            <ErrorLine message="Passwords do not match" />
+            <AppFormErrorLine message="Passwords do not match" />
           )}
       </div>
       <button

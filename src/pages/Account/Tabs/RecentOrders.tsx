@@ -1,5 +1,6 @@
 import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
 import USER from "@/assets/mockData/user";
+import Text from "../Text";
 
 const RecentOrders = () => {
   const address = SHIPPING_ADDRESSES[0]; 
@@ -67,13 +68,3 @@ const RecentOrders = () => {
 };
 export default RecentOrders;
 
-const Text = ({ text, subText }) => {
-  return (
-    <span className="font-600 text-lg sm:text-xl">
-      {text}:{" "}
-      <span className="text-grey/6 font-400 text-base sm:text-lg">
-        {subText}
-      </span>
-    </span>
-  );
-};

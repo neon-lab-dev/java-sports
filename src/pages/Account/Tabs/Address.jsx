@@ -80,7 +80,7 @@ const Address = () => {
             </label>
             <input
               type="text"
-              placeholder="123 Main Street"
+              placeholder="123, MG Road"
               className="bg-grey/2 px-4 py-3"
               {...register("addressLine1", {
                 required: true,
@@ -117,7 +117,7 @@ const Address = () => {
               </label>
               <input
                 type="text"
-                placeholder="Cityville, State 54321"
+                placeholder="Karnataka"
                 className="bg-grey/2 px-4 py-3"
                 {...register("state", {
                   required: true,
@@ -135,7 +135,7 @@ const Address = () => {
               </label>
               <input
                 type="text"
-                placeholder="Cityville, State 54321"
+                placeholder="Bengaluru"
                 className="bg-grey/2 px-4 py-3"
                 {...register("city", {
                   required: true,
@@ -153,7 +153,7 @@ const Address = () => {
               </label>
               <input
                 type="text"
-                placeholder="Cityville, State 54321"
+                placeholder="560001"
                 className="bg-grey/2 px-4 py-3"
                 {...register("pincode", {
                   required: true,

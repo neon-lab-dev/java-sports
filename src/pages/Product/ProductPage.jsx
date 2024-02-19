@@ -38,7 +38,7 @@ const ProductPage = ({ product }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-12">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-12 pt-8">
       {/* //image gallery for large screens */}
       <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex">
         <div className="flex flex-col gap-3">
@@ -111,7 +111,7 @@ const ProductPage = ({ product }) => {
               <img
                 src={img}
                 alt={product.name}
-                className="w-full min-h-64 h-max object-center object-contain"
+                className="w-full min-h-64 h-64 object-center object-contain"
               />
             </div>
           ))}
@@ -159,23 +159,27 @@ const ProductPage = ({ product }) => {
         <div className="flex gap-2 sm:gap-6 flex-col lg:flex-row">
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>
-            <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
-              <button
-                className="px-2 w-full h-full"
-                onClick={() => adjustCartQuantity(false)}
-              >
-                <img src={removeIcon} alt="remove" />
-              </button>
-              <span className="border-x-2 border-grey/1 px-4">
-                {selectedSpecs.quantity}
-              </span>
-              <button
-                onClick={() => adjustCartQuantity(true)}
-                className="px-2 w-full h-full"
-              >
-                <img src={addIcon} alt="add" />
-              </button>
-            </div>
+            {product.stock > 0 ? (
+              <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
+                <button
+                  className="px-2 w-full h-full"
+                  onClick={() => adjustCartQuantity(false)}
+                >
+                  <img src={removeIcon} alt="remove" />
+                </button>
+                <span className="border-x-2 border-grey/1 px-4">
+                  {selectedSpecs.quantity}
+                </span>
+                <button
+                  onClick={() => adjustCartQuantity(true)}
+                  className="px-2 w-full h-full"
+                >
+                  <img src={addIcon} alt="add" />
+                </button>
+              </div>
+            ) : (
+              <span className="text-primary">Out of stock</span>
+            )}
           </div>
           {product.colors && (
             <>
@@ -238,7 +242,10 @@ const ProductPage = ({ product }) => {
             ))}
           </ul>
         </div>
-        <button className="bg-primary text-white py-3 rounded-md mt-2">
+        <button
+          disabled={product.stock === 0}
+          className="bg-primary text-white py-3 rounded-md mt-2 disabled:opacity-50"
+        >
           Buy Now
         </button>
         <button

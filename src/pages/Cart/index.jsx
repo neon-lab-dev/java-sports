@@ -45,7 +45,7 @@ const CartPage = () => {
           {cartItems.length > 0 && (
             <Link
               to="#"
-              className="rounded self-center sm:self-end px-12 py-3 text-lg  min-w-40 bg-blue-400 text-white xl:w-96 disabled:opacity-45 max-w-72 "
+              className="rounded self-center sm:self-end px-4 sm:px-12 py-3 text-lg  min-w-40 bg-blue-400 text-white xl:w-96 disabled:opacity-45 max-w-72 "
             >
               Proceed to Checkout
             </Link>

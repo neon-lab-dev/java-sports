@@ -1,13 +1,18 @@
 import heartIcon from "@/assets/icons/heart.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
-import { useState } from "react";
+import buttonNextSlide from "@/assets/images/Button - Next slide.svg";
+import { useRef, useState } from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import toast from "react-hot-toast";
 // @ts-ignore
 import addIcon from "@/assets/images/plus.svg";
 // @ts-ignore
 import removeIcon from "@/assets/images/minus.svg";
+import Slider from "react-slick";
 
 const ProductPage = ({ product }) => {
+  let sliderRef = useRef(null);
   const [selectedSpecs, setSelectedSpecs] = useState({
     size: product.sizes[0],
     quantity: 1,
@@ -33,8 +38,9 @@ const ProductPage = ({ product }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-12 ">
-      <div className="border-2 border-[#E4E4E4] rounded-md p-4 flex gap-4 justify-center items-start w-full relative">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-12">
+      {/* //image gallery for large screens */}
+      <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex">
         <div className="flex flex-col gap-3">
           {product.images.map((img, index) => {
             if (index === 0) return null; // skip the first image as it is already displayed as main image
@@ -44,6 +50,7 @@ const ProductPage = ({ product }) => {
                 key={index}
               >
                 <img
+                  loading="lazy"
                   src={img}
                   alt={product.name}
                   className="w-full h-full object-center object-contain"
@@ -63,12 +70,61 @@ const ProductPage = ({ product }) => {
           <img src={heartIcon} alt="heart icon" />
         </button>
       </div>
+      {/* //image gallery for small screens */}
+      <div className="w-full sm:hidden">
+        <Slider
+          // @ts-ignore
+          ref={(slider) => (sliderRef = slider)}
+          {...{
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            lazyLoad: "ondemand",
+          }}
+          className="flex w-full"
+        >
+          {product.images.map((img, index) => (
+            <div
+              key={index}
+              className="w-full relative p-4 px-12 rounded-lg border-2 border-[#E4E4E4] "
+            >
+              <button className="absolute top-4 right-4 cursor-pointer">
+                <img src={heartIcon} alt="heart icon" />
+              </button>
+              <button
+                // @ts-ignore
+                onClick={() => sliderRef.slickNext()}
+                className="absolute top-1/2 right-2  transform -translate-y-1/2"
+              >
+                <img src={buttonNextSlide} alt="next slide" />
+              </button>
+              <button
+                // @ts-ignore
+                onClick={() => sliderRef.slickPrev()}
+                className="absolute top-1/2 left-2 transform rotate-180 -translate-y-1/2"
+              >
+                <img src={buttonNextSlide} alt="next slide" />
+              </button>
+              <img
+                src={img}
+                alt={product.name}
+                className="w-full min-h-64 h-max object-center object-contain"
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-[600]">{product.name}</h1>
-        <div className="flex flex-col gap-1 text-lg">
-          <span className="text-primary text-sm font-500">Special Price </span>
+        <h1 className="text-2xl lg:text-3xl font-[600]">{product.name}</h1>
+        <div className="flex flex-col gap-1 text-base sm:text-lg">
+          <span className="text-primary text-xs sm:text-sm font-500">
+            Special Price{" "}
+          </span>
           <div className="flex gap-3 items-center">
-            <span className="text-neutral-black text-3xl font-500">
+            <span className="text-neutral-black text-2xl lg:text-3xl font-500">
               ₹{product.baseprice}
             </span>
             <span className="text-[#999999] line-through">
@@ -81,14 +137,14 @@ const ProductPage = ({ product }) => {
           </div>
         </div>
         <hr />
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1 sm:gap-2">
           <span className="font-500 text-neutral-black text-xl">Size</span>
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
             {product.sizes.map((size, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedSpecs((prev) => ({ ...prev, size }))}
-                className={`px-5 py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
+                className={`px-4 sm:px-5 py-1.5 sm:py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
                   selectedSpecs.size === size
                     ? "border-primary text-primary"
                     : "border-[#E4E4E4] text-neutral-black"
@@ -100,7 +156,7 @@ const ProductPage = ({ product }) => {
           </div>
         </div>
         <hr />
-        <div className="flex gap-6 items-center">
+        <div className="flex gap-2 sm:gap-6 flex-col lg:flex-row">
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>
             <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
@@ -123,7 +179,8 @@ const ProductPage = ({ product }) => {
           </div>
           {product.colors && (
             <>
-              <hr className="h-[80%] w-[1.5px] bg-grey-light opacity-50 self-end" />
+              <hr className="h-[80%] w-[1.5px] bg-grey-light opacity-50 self-end hidden md:block" />
+              <hr className=" bg-grey-light opacity-50 md:hidden" />
               <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
                 <span>Color</span>
                 <div className="flex gap-3">

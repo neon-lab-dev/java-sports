@@ -4,6 +4,9 @@ import AppCard from '@/components/reusable/AppCard'
 import right from '@assets/icons/right.svg'
 import pervious from '@assets/icons/pre.svg'
 import next from '@assets/icons/next.svg'
+import AppProductSlider from '@/components/reusable/AppProductSlider'
+import ACCESSORIES from "@/assets/mock-data/accessories";
+
 
 
 const wishlist = () => {
@@ -44,16 +47,9 @@ const wishlist = () => {
                 <div className='bg-white max-sm:pl-0 pl-[9%] flex flex-col p-5'>
                     <div className='flex justify-between pr-[5%]'>
                         <span className='font-700 font-Lato text-3xl'>Products you might like</span>
-                        <div className='flex gap-2 align-middle'>
-                            <img src={pervious} alt="pervious-slider"/>
-                            <img src={next} alt="pervious-slider"/>
-                        </div>
                     </div>
-                    <div className='grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2'>
-                        <AppCard/>
-                        <AppCard/>
-                        <AppCard/>
-                        <AppCard/>
+                    <div className=''>
+                        <AppProductSlider items={ACCESSORIES}/>
                     </div>
                 </div>
             </div>

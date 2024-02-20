@@ -18,25 +18,25 @@ const wishlist = () => {
                 <div className=''>
                     <div className=' p-3 bg-grey/1'>
                         <div className=''>
-                            <span className=' pl-[11%] max-sm:pl-[3%] font-Lato text-xl font-700 '>Home {`>>`} <span className='text-red-500'>Wishlist</span></span>
+                            <span className=' pl-[9%] max-sm:pl-[10%] max-lg:pl-[5%] font-Lato text-xl font-700 '>Home {`>>`} <span className='text-red-500'>Wishlist</span></span>
                         </div>
                     </div>
-                    <div className='bg-white pl-[11%] max-sm:pl-[3%] flex flex-col gap-3'>
-                        <div className='my-3'>
-                            <button className='border-black  bg-neutral-white border rounded-xl p-2 '>
-                                <div className='flex'>
+                    <div className='bg-white pl-[9%] max-sm:pl-[3%] max-lg:pl-[5%] flex flex-col gap-4'>
+                        <div className='py-5'>
+                            <button className='border-black  bg-neutral-white border rounded-xl p-1'>
+                                <div className='flex gap-1'>
                                     <Link to="/">
                                         <img src={right} alt="right-arrow" />
                                     </Link>
-                                    <span className='max-sm:text-xs p-1'>Contiune Shopping</span>
+                                    <span className='max-sm:text-2xs p-1'>Contiune Shopping</span>
                                 </div>
                             </button>
                         </div>
                         <div>
                             <span className='font-700 font-Lato text-2xl py-16'>Wishlist- 5 items</span>
                         </div>
-                        <div className=' bg-white flex max-md:justify-center'>
-                            <div className="bg-white grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-10 ">
+                        <div className=' bg-white flex max-lg:justify-center'>
+                            <div className="bg-white grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5 ">
                                 <AppWishlistCard />
                                 <AppWishlistCard />
                                 <AppWishlistCard />

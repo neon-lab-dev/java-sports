@@ -3,7 +3,7 @@
 import close from '@assets/icons/Wishlist-close.svg'
 import bat from "@assets/images/bats-img.svg"
 const AppWishlistCard = (props) => {
-  const cardWrapper = `  w-[300px] max-sm:w-[280px] rounded-2xl bg-white p-6 border m-3`;
+  const cardWrapper = `  w-[300px] max-sm:w-[260px] max-xl:w-[280px] rounded-2xl bg-white p-6 border m-3 `;
   const imageWrapper = `bg-grey/1 rounded-2xl my-4 p-3 flex justify-center items-center  `
   return (
     <article className={ `${cardWrapper} card-shadow` }>

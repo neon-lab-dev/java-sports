@@ -1,5 +1,8 @@
+// @ts-nocheck
 import heartIcon from '@/assets/icons/heart.svg'
 import wishlistIcon from '@assets/icons/wishlist-filled.svg'
+
+
 
 /**
  * @props
@@ -36,8 +39,7 @@ const AppCard = (props) => {
               <span>₹{ props.discounted }</span>
             </li>
           </ul>
-
-          <div className='w-[47px] h-[47px]'>
+          <div  className='w-[47px] h-[47px]'>
             <img src={ wishlistIcon } alt='Add to Cart' />
           </div>
         </div>
@@ -45,5 +47,4 @@ const AppCard = (props) => {
     </article>
   )
 }
-
 export default AppCard

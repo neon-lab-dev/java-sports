@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'primary/2':'hsla(356, 84%, 59%, 1)',
 				'primary': 'hsla(356, 84%, 59%, 1)',
         'grey/1': 'hsla(220, 12%, 95%, 1)',
         'grey/2': '#E4E4E4',

@@ -20,6 +20,10 @@ const ROUTES = [
     component: lazy(() => import("@/pages/Cart")),
   },
   {
+    path: "/product/:productId",
+    component: lazy(() => import("@/pages/Product")),
+  },
+  {
     path: "/login",
     component: lazy(() => import("@/pages/Auth/Login")),
     wrapper: AuthWrapper,

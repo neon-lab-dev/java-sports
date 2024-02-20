@@ -85,7 +85,7 @@ const AppHeaderNav = () => {
               <span className={navLink}>{location}</span>
             </li>
             <li>
-              <Link to="#" className={navWrapper}>
+              <Link to="/wishlist" className={navWrapper}>
                 <span>
                   <img
                     src={wishlistIcon}
@@ -97,14 +97,14 @@ const AppHeaderNav = () => {
               </Link>
             </li>
             <li>
-              <Link to="#" className={navWrapper}>
+              <Link to="cart" className={navWrapper}>
                 <span>
                   <img src={cartIcon} alt="Cart" className={navLinkImg} />
                 </span>
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link to="/login" className={`${navWrapper} hidden lg:flex`}>
+            <Link to="/account" className={`${navWrapper} hidden lg:flex`}>
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>

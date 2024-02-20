@@ -1,12 +1,12 @@
 // @ts-nocheck
-import img1 from '@assets/images/prostrike-elite-bat.svg'
-import img2 from '@assets/images/prostrike-elite-bat-2.svg'
+import img1 from '@assets/images/hammer.svg'
+import img2 from '@assets/images/running-shoe.svg'
 
 
 
 export const items = [
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'red',
@@ -17,7 +17,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'red',
@@ -28,7 +28,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'white',
@@ -39,7 +39,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'black',
@@ -51,7 +51,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'red',
@@ -62,7 +62,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'red',
@@ -73,7 +73,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '400',
         discounted: '500',
         color: 'white',
@@ -85,7 +85,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '900',
         discounted: '300',
         color: 'white',
@@ -97,7 +97,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '900',
         discounted: '300',
         img:img1,
@@ -108,7 +108,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '900',
         discounted: '300',
        
@@ -120,7 +120,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '900',
         discounted: '300',
         color: 'white',
@@ -131,7 +131,7 @@ export const items = [
 
     },
     {
-        title: 'ProStrike Elite Cricket Bat',
+        title: 'Bat Hammer',
         price: '900',
         discounted: '300',
         color: 'white',
@@ -142,3 +142,6 @@ export const items = [
 
     },
 ]    
+
+
+

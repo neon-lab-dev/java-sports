@@ -1,12 +1,12 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { items } from "./MockData/items";
+import { items } from "./MockData/Kit";
 import AppCard from "@/components/reusable/AppCard";
 import tune from '@/assets/icons/tune.svg'
 import sort from '@/assets/icons/sort.svg'
 
 
-export default function MultiFilters() {
+export default function Appreal() {
     const [MenuToggle, setMenuToggle] = useState(false)
     const labelWrapper = `w-full py-2 ms-1 text-xs font-Lato font-700`
     const [selectedFilters, setSelectedFilters] = useState([]);
@@ -39,10 +39,10 @@ export default function MultiFilters() {
             <div className='bg-white justify-center relative'>
                 <div className=' p-3 bg-grey/1'>
                     <div className=''>
-                        <span className=' pl-[9%] max-sm:pl-0 font-Lato text-[16px] font-700 align-middle'>Home {`>>`} Bats {`>>`} <span className='text-red-500'>All</span></span>
+                        <span className=' pl-[9%]  font-Lato text-[16px] font-700 align-middle'>Home {`>>`} KitBags {`>>`} <span className='text-red-500'>All</span></span>
                     </div>
                 </div>
-                <div className='p-5 pl-[9%] max-sm:pl-0 flex justify-between max-lg:pr-10 max-lg:pl-10 pr-[10%]'>
+                <div className='p-5 pl-[9%]  flex justify-between max-lg:pr-10 max-lg:pl-10 pr-[10%]'>
                     <div className='flex '>
                         <span className='text-[16px] font-Lato font-700 p-2'>Fillter</span>
                         <button onClick={() => setMenuToggle((prev) => !prev)} > <img src={tune} alt="" /></button>
@@ -52,7 +52,7 @@ export default function MultiFilters() {
                             <div className='font-Lato  border-2 p-3 absolute bg-white top-0 left-0'>
                                 <div className='flex flex-col'>
                                     <div className='flex'>
-                                        <span className=' pl-2 text-xl font-Lato font-700'>Product Type:</span>
+                                        <span className=' pl-2 text-xl font-Lato font-700'>Bag Type:</span>
                                     </div>
                                     <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
                                         <li class="w-full">
@@ -64,13 +64,19 @@ export default function MultiFilters() {
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input className="p-2" onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
-                                                <label className={`${labelWrapper}`} htmlFor="Bags" id="Bags">Kashmir Willow</label>
+                                                <label className={`${labelWrapper}`} htmlFor="Bags" id="Bags">Backpacks</label>
                                             </div>
                                         </li>
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
-                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">English Willow</label>
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Duffel Bags</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full">
+                                            <div class="flex items-center ps-3">
+                                                <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Wheelie Bags</label>
                                             </div>
                                         </li>
                                     </ul>
@@ -81,51 +87,68 @@ export default function MultiFilters() {
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size3" />
-                                                <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">Size3</label>
+                                                <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">All</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full">
+                                            <div class="flex items-center ps-3">
+                                                <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size3" />
+                                                <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">Small</label>
                                             </div>
                                         </li>
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="size4" />
-                                                <label htmlFor="size4" className={`${labelWrapper}`} id="Bags">Size5</label>
+                                                <label htmlFor="size4" className={`${labelWrapper}`} id="Bags">Medium</label>
                                             </div>
                                         </li>
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size6" />
-                                                <label htmlFor="size6" className={`${labelWrapper}`} id="Bags">Size6</label>
+                                                <label htmlFor="size6" className={`${labelWrapper}`} id="Bags">Large</label>
                                             </div>
                                         </li>
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
-                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">black</label>
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Extra Large</label>
                                             </div>
                                         </li>
                                     </ul>
                                     <div className='flex'>
-                                        <span className='pl-2 text-xl font-Lato font-700'>Weight:</span>
+                                        <span className='pl-2 text-xl font-Lato font-700'>Color:</span>
                                     </div>
                                     <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
-                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">light</label>
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">All</label>
                                             </div>
                                         </li>
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="" />
-                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Medium</label>
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Blue</label>
                                             </div>
                                         </li>
                                         <li class="w-full">
                                             <div class="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
-                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Heavy</label>
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Green</label>
                                             </div>
                                         </li>
-
+                                        <li class="w-full">
+                                            <div class="flex items-center ps-3">
+                                                <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">White</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full">
+                                            <div class="flex items-center ps-3">
+                                                <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
+                                                <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Black</label>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -212,7 +235,7 @@ export default function MultiFilters() {
                     <div className=' font-Lato  border-2 p-3'>
                         <div className='flex flex-col'>
                             <div className='flex'>
-                                <span className=' pl-2 text-xl font-Lato font-700'>Product Type:</span>
+                                <span className=' pl-2 text-xl font-Lato font-700'>Bag Type:</span>
                             </div>
                             <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
                                 <li class="w-full">
@@ -224,13 +247,19 @@ export default function MultiFilters() {
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input className="p-2" onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
-                                        <label className={`${labelWrapper}`} htmlFor="Bags" id="Bags">Kashmir Willow</label>
+                                        <label className={`${labelWrapper}`} htmlFor="Bags" id="Bags">Backpacks</label>
                                     </div>
                                 </li>
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
-                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">English Willow</label>
+                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Duffel Bags</label>
+                                    </div>
+                                </li>
+                                <li class="w-full">
+                                    <div class="flex items-center ps-3">
+                                        <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
+                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Wheelie Bags</label>
                                     </div>
                                 </li>
                             </ul>
@@ -241,25 +270,31 @@ export default function MultiFilters() {
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size3" />
-                                        <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">Size3</label>
+                                        <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">All</label>
                                     </div>
                                 </li>
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="size4" />
-                                        <label htmlFor="size4" className={`${labelWrapper}`} id="Bags">Size5</label>
+                                        <label htmlFor="size4" className={`${labelWrapper}`} id="Bags">Small</label>
                                     </div>
                                 </li>
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size6" />
-                                        <label htmlFor="size6" className={`${labelWrapper}`} id="Bags">Size6</label>
+                                        <label htmlFor="size6" className={`${labelWrapper}`} id="Bags">Medium</label>
                                     </div>
                                 </li>
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
-                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">black</label>
+                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Large</label>
+                                    </div>
+                                </li>
+                                <li class="w-full">
+                                    <div class="flex items-center ps-3">
+                                        <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
+                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Extra Large</label>
                                     </div>
                                 </li>
                             </ul>
@@ -267,6 +302,12 @@ export default function MultiFilters() {
                                 <span className='pl-2 text-xl font-Lato font-700'>color</span>
                             </div>
                             <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
+                                <li class="w-full">
+                                    <div class="flex items-center ps-3">
+                                        <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
+                                        <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">All</label>
+                                    </div>
+                                </li>
                                 <li class="w-full">
                                     <div class="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />

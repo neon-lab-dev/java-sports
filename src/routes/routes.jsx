@@ -48,6 +48,26 @@ const ROUTES = [
     path: "category",
     component: lazy(() => import("@/pages/Category/MultiFilters")),
   },
+  {
+    path: "ApprealCategory",
+    component: lazy(() => import("@/pages/Category/Apperal")),
+  },
+  {
+    path: "BallCategory",
+    component: lazy(() => import("@/pages/Category/Balls")),
+  },
+  {
+    path: "KitCategory",
+    component: lazy(() => import("@/pages/Category/Kits")),
+  },
+  {
+    path: "AccessoriesCategory",
+    component: lazy(() => import("@/pages/Category/Acceriores")),
+  },
+  {
+    path: "ShoeCategory",
+    component: lazy(() => import("@/pages/Category/Shoes")),
+  },
 ];
 
 export default ROUTES;

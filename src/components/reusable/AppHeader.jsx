@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import AppDesktopNavbar from "./AppDesktopNavbar";
 import AppHeaderNav from "./AppHeaderNav";
 
 // @ts-ignore
 import Facebook from "@/assets/icons/facebook.svg";
 // @ts-ignore
 import Instagram from "@/assets/icons/instagram.svg";
+import AppMegaMenu from "./AppMegaMenu";
 
 const HEADER_LINKS = {
   socialLinks: [
@@ -67,8 +67,8 @@ const AppHeader = () => {
         {/* HEADER NAVBAR */}
         <AppHeaderNav />
 
-        {/* DESKTOP NAVBAR */}
-        <AppDesktopNavbar />
+        {/* Mega Menu */}
+        <AppMegaMenu />
       </header>
     </>
   );

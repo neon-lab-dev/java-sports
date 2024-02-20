@@ -5,7 +5,7 @@ const Signup = () => {
         <form action="" className="flex flex-col gap-4 p-14 bg-grey/1 max-sm:mx-5 max-sm:p-8">
           <h1 className="text-3xl text-center font-900">Create Your Account</h1>
           <div className="flex flex-col gap-2">
-            <label htmlFor="user_name" className="text-sm font-700 font-Lato ">User Name</label>
+            <label htmlFor="user-name" className="text-sm font-700 font-Lato ">User Name</label>
             <input className="p-2 border-none rounded-xl" type="text" placeholder="user name" id="user_name" />
           </div>
           <div className="flex flex-col gap-2">

@@ -36,7 +36,7 @@ const wishlist = () => {
                             <span className='font-700 font-Lato text-2xl py-16'>Wishlist- 5 items</span>
                         </div>
                         <div className=' bg-white flex max-lg:justify-center'>
-                            <div className="bg-white grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5 ">
+                            <div className="bg-white grid grid-cols-4 max-xl:grid-col s-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5 ">
                                 <AppWishlistCard />
                                 <AppWishlistCard />
                                 <AppWishlistCard />
@@ -50,7 +50,7 @@ const wishlist = () => {
                 </div>
                 <div className='bg-white'>
                     <div className=" bg-white wrapper py-10">
-                        <span className=" font-Lato pt-[44px] text-4xl font-700 ">
+                        <span className=" font-Lato pt-[44px] text-[32px] font-700 ">
                             Products you might like
                         </span>
                         <AppProductSlider items={ACCESSORIES} />

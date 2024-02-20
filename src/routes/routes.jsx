@@ -16,6 +16,10 @@ const ROUTES = [
     component: lazy(() => import("@/pages/Home")),
   },
   {
+    path: "/cart",
+    component: lazy(() => import("@/pages/Cart")),
+  },
+  {
     path: "/product/:productId",
     component: lazy(() => import("@/pages/Product")),
   },
@@ -43,6 +47,11 @@ const ROUTES = [
     path: "/otp-verification",
     component: lazy(() => import("@/pages/Auth/Otp")),
     wrapper: AuthWrapper,
+  },
+  {
+    path: "/account",
+    component: lazy(() => import("@/pages/Account")),
+    wrapper: lazy(() => import("@/pages/Account/AccountPageWrapper")),
   },
   {
     path: "*",

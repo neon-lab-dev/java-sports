@@ -2,7 +2,7 @@ import ACCORDION_LINKS from "@/assets/constants/accordion_links";
 import * as Menubar from "@radix-ui/react-menubar";
 import { Link } from "react-router-dom";
 
-const MenubarDemo = () => {
+const AppMegaMenu = () => {
   return (
     <div className="bg-white my-3 pt-5">
       <Menubar.Root className="wrapper flex gap-9 overflow-x-scroll snap-x snap-mandatory pb-3">
@@ -35,4 +35,4 @@ const MenubarDemo = () => {
   );
 };
 
-export default MenubarDemo;
+export default AppMegaMenu;

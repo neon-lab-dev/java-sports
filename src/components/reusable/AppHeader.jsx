@@ -5,7 +5,7 @@ import AppHeaderNav from "./AppHeaderNav";
 import Facebook from "@/assets/icons/facebook.svg";
 // @ts-ignore
 import Instagram from "@/assets/icons/instagram.svg";
-import MenubarDemo from "./AppMegaMenu";
+import AppMegaMenu from "./AppMegaMenu";
 
 const HEADER_LINKS = {
   socialLinks: [
@@ -67,8 +67,8 @@ const AppHeader = () => {
         {/* HEADER NAVBAR */}
         <AppHeaderNav />
 
-        {/* DESKTOP NAVBAR */}
-        <MenubarDemo />
+        {/* Mega Menu */}
+        <AppMegaMenu />
       </header>
     </>
   );

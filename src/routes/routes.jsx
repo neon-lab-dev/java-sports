@@ -51,7 +51,7 @@ const ROUTES = [
   },
   {
     path: "*",
-    component: lazy(() => import("@/pages/NotFound")),
+    component: lazy(() => import("@/pages/Error503")),
   },
   {
     path: "otp",

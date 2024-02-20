@@ -2,11 +2,13 @@ import starIcon from "@/assets/icons/star.svg";
 import ReviewComWrapper from "../ReviewComWrapper,";
 const CustomerReviews = ({ product }) => {
   const { reviews } = product;
+
   const ratingsInNumbers = () => {
-    const r =
-      reviews.reduce((acc, review) => {
-        return (acc + review.rating) / reviews.length;
-      }, 0) || 0;
+    const totalRatings = reviews.reduce(
+      (acc, review) => acc + review.rating,
+      0
+    );
+    const r = totalRatings / reviews.length;
     return r.toFixed(2);
   };
 

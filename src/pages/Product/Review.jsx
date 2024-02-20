@@ -1,4 +1,5 @@
 import starIcon from "@/assets/icons/star.svg";
+import starOutlineIcon from "@/assets/icons/start-outline.svg";
 import thumbsupIcon from "@/assets/icons/thumbs-up.svg";
 import toast from "react-hot-toast";
 
@@ -25,10 +26,15 @@ const Review = ({ review, showBorder }) => {
         <span>{review.time}</span>
       </div>
       <div className="flex gap-1">
-        {Array(review.rating)
+        {Array(5)
           .fill()
           .map((_, index) => (
-            <img key={index} src={starIcon} alt="star" className="h-5 sm:h-6" />
+            <img
+              key={index}
+              src={index < review.rating ? starIcon : starOutlineIcon}
+              alt="star"
+              className="h-5 sm:h-6"
+            />
           ))}
       </div>
       <p className="font-Lato text-black text-sm sm:text-base leading-6 lg:w-[80%]">
@@ -38,7 +44,11 @@ const Review = ({ review, showBorder }) => {
         onClick={wasHelpful}
         className="flex gap-3 items-center hover:opacity-60 transition-all"
       >
-        <img src={thumbsupIcon} alt="thumbsup" className="scale-90 sm:scale-100" />
+        <img
+          src={thumbsupIcon}
+          alt="thumbsup"
+          className="scale-90 sm:scale-100"
+        />
         <span className="text-[#47617A] text-sm sm:text-base">Was Helpful</span>
       </button>
     </div>

@@ -63,7 +63,7 @@ const ProductPage = ({ product }) => {
           <img
             src={product.images[0]}
             alt={product.name}
-            className="w-full max-h-[500px] object-center object-contain h-full"
+            className="max-h-[500px] object-center object-contain h-full"
           />
         </div>
         <button className="absolute top-4 right-4 cursor-pointer">

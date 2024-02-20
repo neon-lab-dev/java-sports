@@ -1,7 +1,7 @@
 import heartIcon from "@/assets/icons/heart.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import buttonNextSlide from "@/assets/images/Button - Next slide.svg";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import toast from "react-hot-toast";
@@ -10,9 +10,13 @@ import addIcon from "@/assets/images/plus.svg";
 // @ts-ignore
 import removeIcon from "@/assets/images/minus.svg";
 import Slider from "react-slick";
+import HoverImagePreview from "./HoverImagePreview";
 
 const ProductPage = ({ product }) => {
   let sliderRef = useRef(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const imgRef = useRef(null);
+  const [activeImage, setActiveImage] = useState(0);
   const [selectedSpecs, setSelectedSpecs] = useState({
     size: product.sizes[0],
     quantity: 1,
@@ -37,17 +41,34 @@ const ProductPage = ({ product }) => {
     toast.success(`${selectedSpecs.quantity} ${product.name} added to cart`);
   };
 
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const x = e.clientX - rect.left; //x position within the element.
+    const y = e.clientY - rect.top; //y position within the element.
+    //convert the x and y to percentage
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+    setCursorPosition({ x: xPercent, y: yPercent });
+  };
+
+  useEffect(() => {
+    console.log(cursorPosition);
+  }, [cursorPosition]);
+
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-12 pt-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 pt-8">
       {/* //image gallery for large screens */}
-      <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex">
+      <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex max-h-[80vh]">
         <div className="flex flex-col gap-3">
           {product.images.map((img, index) => {
-            if (index === 0) return null; // skip the first image as it is already displayed as main image
+            if(index > 3) return null;
             return (
               <div
-                className="w-36 h-36 aspect-square border-[#E4E4E4] border-2 rounded-md p-3 border-opacity-40"
+                className={`w-24 h-24 aspect-square border-2 rounded-md p-3 border-opacity-40 ${activeImage === index ? "border-black" : "border-[#E4E4E4]"}`}
                 key={index}
+                onMouseEnter={() => setActiveImage(index)}
               >
                 <img
                   loading="lazy"
@@ -60,11 +81,27 @@ const ProductPage = ({ product }) => {
           })}
         </div>
         <div className="h-full w-full mx-auto flex items-center justify-center overflow-hidden p-3">
-          <img
-            src={product.images[0]}
-            alt={product.name}
-            className="max-h-[500px] object-center object-contain h-full"
-          />
+          <div className="w-full flex items-center justify-center relative overflow-hidden max-h-full">
+            <img
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              onMouseMove={handleMouseMove}
+              ref={imgRef}
+              src={product.images[activeImage]}
+              alt={product.name}
+              className="object-center object-contain max-h-96 h-full w-full lg:max-h-[calc(80vh-4rem)] border-2 border-white hover:border-[#e4e4e464] rounded-md "
+            />
+            <div
+              className="h-32 w-32 bg-gray-400 bg-opacity-0 lg:bg-opacity-40 absolute transition-opacity"
+              style={{
+                top: `${cursorPosition.y}%`,
+                left: `${cursorPosition.x}%`,
+                transform: "translate(-50%, -50%)",
+                pointerEvents: "none",
+                opacity: isHovering ? 1 : 0,
+              }}
+            />
+          </div>
         </div>
         <button className="absolute top-4 right-4 cursor-pointer">
           <img src={heartIcon} alt="heart icon" />
@@ -117,7 +154,13 @@ const ProductPage = ({ product }) => {
           ))}
         </Slider>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 relative">
+        {/* image preview thing */}
+        <HoverImagePreview
+          img={product.images[activeImage]}
+          show={isHovering}
+          cursorPosition={cursorPosition}
+        />
         <h1 className="text-2xl lg:text-3xl font-[600]">{product.name}</h1>
         <div className="flex flex-col gap-1 text-base sm:text-lg">
           <span className="text-primary text-xs sm:text-sm font-500">

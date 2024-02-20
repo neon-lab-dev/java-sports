@@ -53,10 +53,6 @@ const ProductPage = ({ product }) => {
     setCursorPosition({ x: xPercent, y: yPercent });
   };
 
-  useEffect(() => {
-    console.log(cursorPosition);
-  }, [cursorPosition]);
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 pt-8">
       {/* //image gallery for large screens */}

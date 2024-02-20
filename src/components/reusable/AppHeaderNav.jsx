@@ -12,8 +12,7 @@ import cartIcon from "@assets/icons/cart.svg";
 import profileIcon from "@assets/icons/profile.svg";
 // @ts-ignore
 import menuIcon from "@assets/icons/menu.svg";
-// @ts-ignore
-import userImg from "@assets/images/user.svg";
+
 // @ts-ignore
 import chevronDownIcon from "@assets/icons/chevron-down.svg";
 // @ts-ignore
@@ -22,6 +21,9 @@ import closeIcon from "@assets/icons/close.svg";
 import AppSearchBar from "./AppSearchBar";
 import { Link } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordion_links";
+import USER from "@/assets/mockData/user";
+import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
+import { paramToWord } from "@/utils/paramUtils";
 
 const AppHeaderNav = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -29,13 +31,6 @@ const AppHeaderNav = () => {
   const [location, setLocation] = useState(" 542/133 ,Lucknow");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
-
-  const user = {
-    name: "Kabir Sah",
-    email: "someone@gmail.com",
-    phone: "5824658726",
-    img: userImg,
-  };
 
   const handleOnSearch = (e) => {
     e.preventDefault();
@@ -90,7 +85,7 @@ const AppHeaderNav = () => {
               <span className={navLink}>{location}</span>
             </li>
             <li>
-              <Link to="./wishlist" className={navWrapper}>
+              <Link to="/wishlist" className={navWrapper}>
                 <span>
                   <img
                     src={wishlistIcon}
@@ -102,18 +97,18 @@ const AppHeaderNav = () => {
               </Link>
             </li>
             <li>
-              <Link to="#" className={navWrapper}>
+              <Link to="cart" className={navWrapper}>
                 <span>
                   <img src={cartIcon} alt="Cart" className={navLinkImg} />
                 </span>
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link to="/login" className={`${navWrapper} hidden lg:flex`}>
+            <Link to="/account" className={`${navWrapper} hidden lg:flex`}>
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>
-              <span className={navLink}>{user.name}</span>
+              <span className={navLink}>{USER.name}</span>
             </Link>
           </ul>
         </nav>
@@ -137,14 +132,14 @@ const AppHeaderNav = () => {
         <div className="flex flex-col px-6 py-5">
           <div className="flex items-center justify-start gap-4 mb-3">
             <img
-              src={user.img}
-              alt={user.name}
+              src={USER.img}
+              alt={USER.name}
               className="w-12 rounded-full aspect-square"
             />
-            <span className="text-2xl font-500">{user.name}</span>
+            <span className="text-2xl font-500">{USER.name}</span>
           </div>
-          <span className="font-400">Email: {user.email}</span>
-          <span className="font-400">Phone: {user.phone}</span>
+          <span className="font-400">Email: {USER.email}</span>
+          <span className="font-400">Phone: {USER.phone}</span>
         </div>
         <div className="flex flex-col">
           {ACCORDION_LINKS.map((link, i) => (
@@ -154,19 +149,30 @@ const AppHeaderNav = () => {
               i={i}
               activeDropdown={activeDropdown}
               setActiveDropdown={setActiveDropdown}
+              setIsSidebarOpen={setIsSidebarOpen}
             />
           ))}
           <LinkDropdown
-            link={{ label: "My Account" }}
+            link={{
+              label: "My Account",
+              dropdowns: ACCOUNT_PAGE_TABS.map((tab) => ({
+                label: paramToWord(tab),
+                link: `/account?tab=${tab}`,
+              })),
+            }}
             i={ACCORDION_LINKS.length}
             activeDropdown={activeDropdown}
             setActiveDropdown={setActiveDropdown}
+            setIsSidebarOpen={setIsSidebarOpen}
           />
           <LinkDropdown
-            link={{ label: "Logout" }}
+            link={{
+              label: "Logout",
+            }}
             i={ACCORDION_LINKS.length + 1}
             activeDropdown={activeDropdown}
             setActiveDropdown={setActiveDropdown}
+            setIsSidebarOpen={setIsSidebarOpen}
           />
         </div>
       </aside>
@@ -188,6 +194,7 @@ const LinkDropdown = ({
   i,
   setActiveDropdown,
   activeDropdown,
+  setIsSidebarOpen,
 }) => (
   <div
     className={`flex flex-col px-6 py-3 border-grey-light font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
@@ -216,10 +223,14 @@ const LinkDropdown = ({
         {dropdowns.map((dropdown, i) => (
           <Link
             key={i}
-            to="/"
+            onClick={() => setIsSidebarOpen(false)}
+            to={dropdown.link}
             className="px-3 py-1 border font-400 border-grey-light"
           >
-            {dropdown.label}
+            {dropdown.label}{" "}
+            {dropdown.label.toLowerCase() === "recent orders" && (
+              <>({USER.recentOrders.length})</>
+            )}
           </Link>
         ))}
       </div>

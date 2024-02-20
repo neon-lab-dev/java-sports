@@ -59,7 +59,7 @@ const AppFooter = () => {
 
         <div className='font-Lato font-700 flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <h1 >Secure Shopping</h1>
+            <h1  className='uppercase'>Secure Shopping</h1>
             <button className='lg:hidden' onClick={() => setExploreMenuToggle((prev) => !prev)}>
               {!ExploreMenuToggle ? (
                 <img className="" src={plus} alt="" />
@@ -91,7 +91,7 @@ const AppFooter = () => {
 
         <div className='font-Lato font-700 flex flex-col gap-2 '>
           <div className='flex justify-between'>
-            <h1 >Why Us</h1>
+            <h1 className='uppercase' >Why Us</h1>
             <button className='lg:hidden' onClick={() => setSecureToggle((prev) => !prev)}>
               {!SecureToggle ? (
                 <img className="" src={plus} alt="" />
@@ -122,7 +122,7 @@ const AppFooter = () => {
 
         <div className='font-Lato font-700 flex flex-col gap-2 max'>
           <div className='flex justify-between'>
-            <h1 >Customer Support</h1>
+            <h1  className='uppercase'>Customer Support</h1>
             <button className='lg:hidden' onClick={() => setCustomerMenuToggle((prev) => !prev)}>
               {!CustomerMenuToggle ? (
                 <img className="" src={plus} alt="" />
@@ -154,7 +154,7 @@ const AppFooter = () => {
 
         <div className='font-Lato font-700 flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <h1 >Connect with Us</h1>
+            <h1  className='uppercase'>Connect with Us</h1>
             <button className='lg:hidden' onClick={() => setConnectMenuToggle((prev) => !prev)}>
               {!ConnectMenuToggle ? (
                 <img className="" src={plus} alt="" />
@@ -189,7 +189,7 @@ const AppFooter = () => {
 
         <div className='font-Lato font-700 flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <h1 >Visit Our Java Store</h1>
+            <h1 className='uppercase'>Visit Our Java Store</h1>
             <button className='lg:hidden' onClick={() => setVistMenuToggle((prev) => !prev)}>
               {!VistMenuToggle ? (
                 <img className="" src={plus} alt="" />

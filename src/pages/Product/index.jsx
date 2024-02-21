@@ -40,7 +40,7 @@ const ProductMainPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 py-8">
+    <div className="flex flex-col gap-2 pb-8">
       <section className="bg-white pb-8">
         <div className="wrapper">
           <ProductPage product={product} />

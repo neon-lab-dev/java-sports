@@ -6,6 +6,7 @@ import Facebook from "@/assets/icons/facebook.svg";
 // @ts-ignore
 import Instagram from "@/assets/icons/instagram.svg";
 import AppMegaMenu from "./AppMegaMenu";
+import AppBreadCrumb from "./AppBreadCrumb";
 
 const HEADER_LINKS = {
   socialLinks: [
@@ -69,6 +70,7 @@ const AppHeader = () => {
 
         {/* Mega Menu */}
         <AppMegaMenu />
+        <AppBreadCrumb />
       </header>
     </>
   );

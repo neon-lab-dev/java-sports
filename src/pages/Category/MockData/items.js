@@ -1,7 +1,7 @@
-// @ts-nocheck
+// @ts-ignore
 import img1 from '@assets/images/prostrike-elite-bat.svg'
+// @ts-ignore
 import img2 from '@assets/images/prostrike-elite-bat-2.svg'
-
 
 export const items = [
     {

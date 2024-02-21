@@ -41,7 +41,7 @@ const RecentOrders = () => {
               </div>
               <Text text="Order Status" subText={order.status} />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 shadow p-3 sm:p-5 rounded-lg">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 card-shadow p-3 sm:p-5 rounded-lg">
               <div className="h-60  bg-grey/2 rounded-lg p-2 max-w-64 sm:w-64 lg:max-w-none lg:w-[400px] md:h-72">
                 <img
                   src={order.img}

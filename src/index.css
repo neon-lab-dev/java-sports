@@ -58,3 +58,27 @@ body {
 .lg-light {
 	background: linear-gradient(90.07deg, #2987B9 16.56%, #FFFFFF 99.95%);
 }
+
+
+
+.range-field{
+	-webkit-appearance: none;
+	outline: 180px;
+	width: 180px;
+	height: 10px;
+	background: #999999;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.range-field::-webkit-slider-thumb{
+	-webkit-appearance: none;
+	width: 20px;	
+	height: 20px;
+	border-radius: 50%;
+	background: white;
+	box-shadow: -410px 0 0 400px  #EE3F4C;
+	;
+	cursor: pointer;
+}
+

@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 const RecentOrders = () => {
   const address = SHIPPING_ADDRESSES[0];
 
-  const handleCancelOrder = (orderId: string) => {
+  const handleCancelOrder = (orderId) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You are trying to cancel the order. This action cannot be undone.",

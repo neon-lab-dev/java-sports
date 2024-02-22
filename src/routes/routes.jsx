@@ -89,7 +89,11 @@ const ROUTES = [
   {
     path: "wishlist",
     component: lazy(() => import("@/pages/wishlist/Wishlist")),
-  }
+  },
+  {
+    path: "contactus",
+    component: lazy(() => import("@/pages/Checkout/contactUs")),
+  },
   
 ];
 

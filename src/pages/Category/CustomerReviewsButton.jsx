@@ -19,16 +19,17 @@ const OPTIONS = [
 
 const CustomerReviewsButton = ({ value, setValue }) => {
   return (
-    <div>
-      <span>Customer Reviews:</span>
+    <div className="flex flex-col gap-1 font-Lato">
+      <span className="text-lg font-700">Customer Reviews:</span>
       <div className="flex flex-col">
         {OPTIONS.map(({ label, value: val }, i) => (
-          <div className="flex gap-3" key={i}>
+          <div className="flex gap-3 font-500" key={i}>
             <input
               checked={val === value}
               onChange={() => {
                 setValue(val);
               }}
+              className="accent-black"
               type="checkbox"
               id={val}
             />

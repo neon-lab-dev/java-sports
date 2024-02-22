@@ -67,6 +67,14 @@ const ROUTES = [
     component: lazy(() => import("@/pages/wishlist/Wishlist")),
   },
   {
+    path: "contactus",
+    component: lazy(() => import("@/pages/ContactUs/contactus")),
+  },
+  {
+    path: "checkout",
+    component: lazy(() => import("@/pages/Checkout/checkout")),
+  },
+  {
     path: "/:category",
     component: lazy(() => import("@/pages/Category")),
   },

@@ -20,15 +20,16 @@ import closeIcon from "@assets/icons/close.svg";
 // Components
 import AppSearchBar from "./AppSearchBar";
 import { Link } from "react-router-dom";
-import ACCORDION_LINKS from "@/assets/constants/accordion_links";
+import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
 import USER from "@/assets/mockData/user";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
 import { paramToWord } from "@/utils/paramUtils";
+import generateLink from "@/utils/generateLink";
 
 const AppHeaderNav = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
-  const [location, setLocation] = useState(" 542/133 ,Lucknow");
+  const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -56,9 +57,9 @@ const AppHeaderNav = () => {
   }, [isSidebarOpen]);
 
   return (
-    <>
-      <div className="flex flex-col items-center pt-4 bg-white lg:py-5">
-        <nav className="flex items-center justify-between w-full gap-8 px-6 lg:gap-16 lg:justify-center lg:h-[123.15px]">
+    <div className="bg-white">
+      <div className="flex flex-col items-center pt-4 lg:py-5 wrapper">
+        <nav className="flex items-center justify-between w-full gap-8 lg:gap-16">
           <button className="lg:hidden" onClick={() => setIsSidebarOpen(true)}>
             <img src={menuIcon} />
           </button>
@@ -71,13 +72,13 @@ const AppHeaderNav = () => {
               />
             </Link>
           </span>
-          <div className="w-[400px] hidden lg:block">
+          <div className="w-[400px] lg:w-full hidden lg:block">
             <AppSearchBar
               placeholder={"Search for “ Bats ”"}
               onSearch={handleOnSearch}
             />
           </div>
-          <ul className="flex items-center gap-3 lg:gap-10">
+          <ul className="flex items-center gap-3 lg:gap-5">
             <li className={`${navWrapper} hidden xl:flex`}>
               <span>
                 <img src={locationIcon} alt="Location" className={navLinkImg} />
@@ -97,7 +98,7 @@ const AppHeaderNav = () => {
               </Link>
             </li>
             <li>
-              <Link to="cart" className={navWrapper}>
+              <Link to="/cart" className={navWrapper}>
                 <span>
                   <img src={cartIcon} alt="Cart" className={navLinkImg} />
                 </span>
@@ -112,7 +113,7 @@ const AppHeaderNav = () => {
             </Link>
           </ul>
         </nav>
-        <div className="block w-full px-8 py-3 lg:hidden">
+        <div className="block w-full py-3 lg:hidden">
           <AppSearchBar
             placeholder={"Search for “ Bats ”"}
             onSearch={handleOnSearch}
@@ -145,7 +146,18 @@ const AppHeaderNav = () => {
           {ACCORDION_LINKS.map((link, i) => (
             <LinkDropdown
               key={link.label}
-              link={link}
+              link={{
+                label: link.label,
+                dropdowns: link.dropdowns.map((dropdown) => {
+                  return {
+                    label: dropdown,
+                    link: generateLink({
+                      category: link.label,
+                      type: dropdown,
+                    }),
+                  };
+                }),
+              }}
               i={i}
               activeDropdown={activeDropdown}
               setActiveDropdown={setActiveDropdown}
@@ -183,7 +195,7 @@ const AppHeaderNav = () => {
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
-    </>
+    </div>
   );
 };
 

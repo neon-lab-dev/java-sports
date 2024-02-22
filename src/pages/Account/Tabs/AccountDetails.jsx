@@ -34,7 +34,7 @@ const AccountDetails = () => {
 
   return (
     <div className="flex flex-col gap-6 wrapper lg:w-auto lg:m-0 max-w-4xl">
-      <div className=" shadow rounded-md p-4 sm:pr-12">
+      <div className=" card-shadow rounded-md p-4 sm:pr-12">
         <div className="flex gap-8 text-base sm:text-base 2xl:text-lg w-full justify-between">
           <span className="font-Lato font-600">Account Details</span>
           <button

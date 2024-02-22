@@ -42,7 +42,7 @@ const Address = () => {
   return (
     <div className="flex flex-col gap-3 max-w-2xl wrapper lg:m-0 lg:w-full">
       {SHIPPING_ADDRESSES.map((address, i) => (
-        <div key={i} className="flex flex-col gap-0 shadow p-4 rounded-lg">
+        <div key={i} className="flex flex-col gap-0 card-shadow p-4 rounded-lg">
           <div className="flex gap-8 justify-between text-base sm:text-base 2xl:text-lg mb-3">
             <span className="font-Lato font-600">{address.title}</span>
             <button

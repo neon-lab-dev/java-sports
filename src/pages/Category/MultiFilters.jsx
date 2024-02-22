@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { items } from "./MockData/items";
 import AppCard from "@/components/reusable/AppCard";
 import tune from '@/assets/icons/tune.svg'
@@ -37,11 +37,11 @@ export default function MultiFilters() {
     return (
         <div className="bg-white ">
             <div className='bg-white justify-center relative'>
-                <div className=' p-3 bg-grey/1'>
+                {/* <div className=' p-3 bg-grey/1'>
                     <div className=''>
                         <span className=' pl-[9%] max-sm:pl-0 font-Lato text-[16px] font-700 align-middle'>Home {`>>`} Bats {`>>`} <span className='text-red-500'>All</span></span>
                     </div>
-                </div>
+                </div> */}
                 <div className='p-5 pl-[9%] max-sm:pl-0 flex justify-between max-lg:pr-10 max-lg:pl-10 pr-[10%]'>
                     <div className='flex '>
                         <span className='text-[16px] font-Lato font-700 p-2'>Fillter</span>
@@ -54,21 +54,21 @@ export default function MultiFilters() {
                                     <div className='flex'>
                                         <span className=' pl-2 text-xl font-Lato font-700'>Product Type:</span>
                                     </div>
-                                    <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                    <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                                 <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">All</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input className="p-2" onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                                 <label className={`${labelWrapper}`} htmlFor="Bags" id="Bags">Kashmir Willow</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                                 <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">English Willow</label>
                                             </div>
@@ -77,27 +77,27 @@ export default function MultiFilters() {
                                     <div className='flex'>
                                         <span className='pl-2 text-xl font-Lato font-700'>Size:</span>
                                     </div>
-                                    <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                    <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size3" />
                                                 <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">Size3</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="size4" />
                                                 <label htmlFor="size4" className={`${labelWrapper}`} id="Bags">Size5</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size6" />
                                                 <label htmlFor="size6" className={`${labelWrapper}`} id="Bags">Size6</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
                                                 <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">black</label>
                                             </div>
@@ -106,21 +106,21 @@ export default function MultiFilters() {
                                     <div className='flex'>
                                         <span className='pl-2 text-xl font-Lato font-700'>Weight:</span>
                                     </div>
-                                    <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                    <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                                 <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">light</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="" />
                                                 <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Medium</label>
                                             </div>
                                         </li>
-                                        <li class="w-full">
-                                            <div class="flex items-center ps-3">
+                                        <li className="w-full">
+                                            <div className="flex items-center ps-3">
                                                 <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                                 <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Heavy</label>
                                             </div>
@@ -132,47 +132,47 @@ export default function MultiFilters() {
                                 <div className='flex'>
                                     <span className='pl-2 text-xl font-Lato font-700'>Price Range:</span>
                                 </div>
-                                <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                    <li class="w-full">
-                                        <div class="flex items-center ps-3">
+                                <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                    <li className="w-full">
+                                        <div className="flex items-center ps-3">
                                             <input id="All2-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                            <label for="All2-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
+                                            <label htmlFor="All2-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
                                         </div>
                                     </li>
-                                    <div class="ml-2 mb-6">
+                                    <div className="ml-2 mb-6">
                                         <div className='flex justify-between '>
                                             <label className="text-xs font-700 font-Lato" htmlFor="range" >₹400</label>
                                             <label className="text-xs font-700 font-Lato" htmlFor="range" >₹2000</label>
                                         </div>
-                                        <input type="range" name='range' id='range' class="range-field " min="400" max="2000" />
+                                        <input type="range" name='range' id='range' className="range-field " min="400" max="2000" />
                                     </div>
                                 </ul>
                                 <div className='flex justify-center'>
                                     <span className='text-xl font-Lato font-700'>Customer Ratings:</span>
                                 </div>
-                                <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                    <li class="w-full">
-                                        <div class="flex items-center ps-3">
-                                            <input id="Allr-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                            <label for="Allr-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
+                                <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                    <li className="w-full">
+                                        <div className="flex items-center ps-3">
+                                            <input id="Allr-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                            <label htmlFor="Allr-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
                                         </div>
                                     </li>
-                                    <li class="w-full">
-                                        <div class="flex items-center ps-3">
-                                            <input id="4star-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                            <label for="4star-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">4 stars & above</label>
+                                    <li className="w-full">
+                                        <div className="flex items-center ps-3">
+                                            <input id="4star-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                            <label htmlFor="4star-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">4 stars & above</label>
                                         </div>
                                     </li>
-                                    <li class="w-full">
-                                        <div class="flex items-center ps-3">
-                                            <input id="3star-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                            <label for="3star-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">3 stars & above</label>
+                                    <li className="w-full">
+                                        <div className="flex items-center ps-3">
+                                            <input id="3star-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                            <label htmlFor="3star-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">3 stars & above</label>
                                         </div>
                                     </li>
-                                    <li class="w-full">
-                                        <div class="flex items-center ps-3">
-                                            <input id="2star-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                            <label for="2star-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">2 stars & above</label>
+                                    <li className="w-full">
+                                        <div className="flex items-center ps-3">
+                                            <input id="2star-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                            <label htmlFor="2star-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">2 stars & above</label>
                                         </div>
                                     </li>
                                 </ul>
@@ -180,11 +180,11 @@ export default function MultiFilters() {
                                 <div className='flex'>
                                     <span className=' pl-2 text-xl font-Lato font-700'>New Arivals:</span>
                                 </div>
-                                <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                    <li class="w-full">
-                                        <div class="flex items-center ps-3">
-                                            <input id="vue-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                            <label for="vue-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">Show new arrivals only</label>
+                                <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                    <li className="w-full">
+                                        <div className="flex items-center ps-3">
+                                            <input id="vue-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                            <label htmlFor="vue-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">Show new arrivals only</label>
                                         </div>
                                     </li>
                                 </ul>
@@ -214,21 +214,21 @@ export default function MultiFilters() {
                             <div className='flex'>
                                 <span className=' pl-2 text-xl font-Lato font-700'>Product Type:</span>
                             </div>
-                            <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                            <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                         <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">All</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input className="p-2" onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                         <label className={`${labelWrapper}`} htmlFor="Bags" id="Bags">Kashmir Willow</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                         <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">English Willow</label>
                                     </div>
@@ -237,27 +237,27 @@ export default function MultiFilters() {
                             <div className='flex'>
                                 <span className='pl-2 text-xl font-Lato font-700'>Size:</span>
                             </div>
-                            <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                            <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size3" />
                                         <label htmlFor="size3" className={`${labelWrapper}`} id="Bags">Size3</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="size4" />
                                         <label htmlFor="size4" className={`${labelWrapper}`} id="Bags">Size5</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="size6" />
                                         <label htmlFor="size6" className={`${labelWrapper}`} id="Bags">Size6</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
                                         <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">black</label>
                                     </div>
@@ -266,21 +266,21 @@ export default function MultiFilters() {
                             <div className='flex'>
                                 <span className='pl-2 text-xl font-Lato font-700'>color</span>
                             </div>
-                            <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                            <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="red" id="" />
                                         <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">Red</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="white" id="" />
                                         <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">White</label>
                                     </div>
                                 </li>
-                                <li class="w-full">
-                                    <div class="flex items-center ps-3">
+                                <li className="w-full">
+                                    <div className="flex items-center ps-3">
                                         <input onClick={() => handleFilterButtonClick(event.target.value)} type="checkbox" name="" value="black" id="" />
                                         <label htmlFor="Bags" className={`${labelWrapper}`} id="Bags">black</label>
                                     </div>
@@ -292,47 +292,47 @@ export default function MultiFilters() {
                         <div className='flex'>
                             <span className='pl-2 text-xl font-Lato font-700'>Price Range:</span>
                         </div>
-                        <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                            <li class="w-full">
-                                <div class="flex items-center ps-3">
+                        <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                            <li className="w-full">
+                                <div className="flex items-center ps-3">
                                     <input id="All2-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                    <label for="All2-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
+                                    <label htmlFor="All2-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
                                 </div>
                             </li>
-                            <div class="ml-2 mb-6">
+                            <div className="ml-2 mb-6">
                                 <div className='flex justify-between '>
                                     <label className="text-xs font-700 font-Lato" htmlFor="range" >₹400</label>
                                     <label className="text-xs font-700 font-Lato" htmlFor="range" >₹2000</label>
                                 </div>
-                                <input type="range" name='range' id='range' class="range-field " min="400" max="2000" />
+                                <input type="range" name='range' id='range' className="range-field " min="400" max="2000" />
                             </div>
                         </ul>
                         <div className='flex justify-center'>
                             <span className='text-xl font-Lato font-700'>Customer Ratings:</span>
                         </div>
-                        <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                            <li class="w-full">
-                                <div class="flex items-center ps-3">
-                                    <input id="Allr-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                    <label for="Allr-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
+                        <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                            <li className="w-full">
+                                <div className="flex items-center ps-3">
+                                    <input id="Allr-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                    <label htmlFor="Allr-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">All</label>
                                 </div>
                             </li>
-                            <li class="w-full">
-                                <div class="flex items-center ps-3">
-                                    <input id="4star-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                    <label for="4star-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">4 stars & above</label>
+                            <li className="w-full">
+                                <div className="flex items-center ps-3">
+                                    <input id="4star-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                    <label htmlFor="4star-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">4 stars & above</label>
                                 </div>
                             </li>
-                            <li class="w-full">
-                                <div class="flex items-center ps-3">
-                                    <input id="3star-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                    <label for="3star-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">3 stars & above</label>
+                            <li className="w-full">
+                                <div className="flex items-center ps-3">
+                                    <input id="3star-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                    <label htmlFor="3star-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">3 stars & above</label>
                                 </div>
                             </li>
-                            <li class="w-full">
-                                <div class="flex items-center ps-3">
-                                    <input id="2star-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                    <label for="2star-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">2 stars & above</label>
+                            <li className="w-full">
+                                <div className="flex items-center ps-3">
+                                    <input id="2star-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                    <label htmlFor="2star-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">2 stars & above</label>
                                 </div>
                             </li>
                         </ul>
@@ -340,11 +340,11 @@ export default function MultiFilters() {
                         <div className='flex'>
                             <span className=' pl-2 text-xl font-Lato font-700'>New Arivals:</span>
                         </div>
-                        <ul class="w-48 text-sm font-medium text-gray-900 bg-white">
-                            <li class="w-full">
-                                <div class="flex items-center ps-3">
-                                    <input id="vue-checkbox" type="checkbox" value="" class="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
-                                    <label for="vue-checkbox" class="w-full py-2 ms-1 text-xs font-Lato font-700">Show new arrivals only</label>
+                        <ul className="w-48 text-sm font-medium text-gray-900 bg-white">
+                            <li className="w-full">
+                                <div className="flex items-center ps-3">
+                                    <input id="vue-checkbox" type="checkbox" value="" className="w-4 h-4 text-gray-600 bg-gray-900 border-gray-900 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-1 " />
+                                    <label htmlFor="vue-checkbox" className="w-full py-2 ms-1 text-xs font-Lato font-700">Show new arrivals only</label>
                                 </div>
                             </li>
                         </ul>

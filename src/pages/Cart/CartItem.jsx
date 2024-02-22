@@ -7,9 +7,17 @@ import addIcon from "@/assets/icons/add-icon.svg";
 // @ts-ignore
 import removeIcon from "@/assets/icons/remove.svg";
 import { todayPlusDays } from "@/utils/dateUtils";
+import toast from "react-hot-toast";
 
 const CartItem = ({ item, setCartItems }) => {
   const product = PRODUCTS.find((p) => p._id === item.productId);
+  const handleBuyNow = () => {
+    if (item.quantity > product.stock) {
+      toast.error(
+        `Only ${product.stock} items are available, Please reduce the quantity`
+      );
+    }
+  };
   return (
     <div className="flex flex-col sm:flex-row gap-3 shadow p-3 rounded-md">
       <div className="h-60 bg-grey/1 rounded-lg p-2 lg:h-64 object-contain object-center max-w-64 sm:max-w-none md:w-96 lg:max-w-72 xl:max-w-none sm:w-64 lg:w-[400px]">
@@ -68,6 +76,7 @@ const CartItem = ({ item, setCartItems }) => {
         <div className="flex gap-4 flex-col lg:flex-row w-full">
           <button
             disabled={item.quantity === 0}
+            onClick={handleBuyNow}
             className="rounded px-3 py-1.5  min-w-40 bg-primary text-white xl:w-96 w-full disabled:opacity-45 max-w-72 lg:max-w-none"
           >
             Buy Now

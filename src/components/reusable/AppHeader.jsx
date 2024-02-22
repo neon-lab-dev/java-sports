@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import AppHeaderNav from "./AppHeaderNav";
-
-
+import AppBreadCrumb from "./AppBreadCrumb";
 import AppMegaMenu from "./AppMegaMenu";
 import HEADER_LINKS from "@/assets/constants/headerLinks";
-
-
 
 const AppHeader = () => {
   return (
@@ -36,6 +33,7 @@ const AppHeader = () => {
 
         {/* Mega Menu */}
         <AppMegaMenu />
+        <AppBreadCrumb />
       </header>
     </>
   );

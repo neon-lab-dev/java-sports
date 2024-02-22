@@ -16,7 +16,7 @@ const OrderItem = ({ order, isLastItem }) => {
         </div>
         <Text text="Order Status" subText={order.orderStatus} />
       </div>
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 shadow p-3 rounded-md">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 card-shadow p-3 rounded-md">
         <div className="h-60 bg-grey/2 rounded-lg p-2 lg:h-64 object-contain object-center max-w-64 sm:max-w-none md:w-96 lg:max-w-72 xl:max-w-none sm:w-64 lg:w-[400px]">
           <img src={order.img} alt={order.product} className="w-full h-full" />
         </div>

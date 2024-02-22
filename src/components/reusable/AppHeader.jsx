@@ -1,44 +1,8 @@
 import { Link } from "react-router-dom";
 import AppHeaderNav from "./AppHeaderNav";
-
-// @ts-ignore
-import Facebook from "@/assets/icons/facebook.svg";
-// @ts-ignore
-import Instagram from "@/assets/icons/instagram.svg";
+import AppBreadCrumb from "./AppBreadCrumb";
 import AppMegaMenu from "./AppMegaMenu";
-
-const HEADER_LINKS = {
-  socialLinks: [
-    {
-      link: "https://facebook.com",
-      icon: Facebook,
-      label: "Facebook",
-    },
-    {
-      link: "https://instagram.com",
-      icon: Instagram,
-      label: "Instagram",
-    },
-  ],
-  others: [
-    {
-      path: "/about",
-      label: "About Us",
-    },
-    {
-      path: "/payment-delivery",
-      label: "Payment & delivery",
-    },
-    {
-      path: "/contact",
-      label: "Contact Us",
-    },
-    {
-      path: "/help",
-      label: "Help",
-    },
-  ],
-};
+import HEADER_LINKS from "@/assets/constants/headerLinks";
 
 const AppHeader = () => {
   return (
@@ -69,6 +33,7 @@ const AppHeader = () => {
 
         {/* Mega Menu */}
         <AppMegaMenu />
+        <AppBreadCrumb />
       </header>
     </>
   );

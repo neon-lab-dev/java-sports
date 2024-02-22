@@ -10,11 +10,6 @@ const wishlist = () => {
         <>
             <div className='flex flex-col'>
                 <div className=''>
-                    <div className=' p-3 bg-grey/1'>
-                        <div className=''>
-                            <span className=' pl-[9%] max-sm:pl-[10%] max-lg:pl-[5%] font-Lato text-xl font-700 '>Home { `>>` } <span className='text-red-500'>Wishlist</span></span>
-                        </div>
-                    </div>
                     <div className='bg-white pl-[9%] max-sm:pl-[3%] max-lg:pl-[5%] flex flex-col gap-4'>
                         <div className='py-5'>
                             <button className='border-black  bg-neutral-white border rounded-xl p-1'>

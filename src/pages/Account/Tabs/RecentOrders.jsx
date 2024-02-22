@@ -1,9 +1,30 @@
 import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
 import USER from "@/assets/mockData/user";
 import Text from "../Text";
+import Swal from "sweetalert2";
 
 const RecentOrders = () => {
-  const address = SHIPPING_ADDRESSES[0]; 
+  const address = SHIPPING_ADDRESSES[0];
+
+  const handleCancelOrder = (orderId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are trying to cancel the order. This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Order Cancelled!",
+          text: "Your order has been cancelled.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 wrapper lg:w-full lg:m-0 max-w-5xl">
@@ -20,7 +41,7 @@ const RecentOrders = () => {
               </div>
               <Text text="Order Status" subText={order.status} />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 shadow p-3 sm:p-5 rounded-lg">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 card-shadow p-3 sm:p-5 rounded-lg">
               <div className="h-60  bg-grey/2 rounded-lg p-2 max-w-64 sm:w-64 lg:max-w-none lg:w-[400px] md:h-72">
                 <img
                   src={order.img}
@@ -36,26 +57,26 @@ const RecentOrders = () => {
                     text="Total Price"
                     subText={order.total.currency + order.total.amount}
                   />
-                  <div className="flex flex-col gap-0 rounded-lg mt-6">
+                  <div className="flex flex-col gap-0 rounded-lg mt-3">
                     <div className="flex gap-8 text-base sm:text-base mb-2">
                       <span className="font-Lato font-600">
                         {address.title}
                       </span>
-                      <button className="font-Lato font-600 text-blue">
-                        Edit
-                      </button>
                     </div>
                     {Object.keys(address).map((key, i) => {
                       if (key === "title" || key === "img") return null;
                       return (
-                        <span className="text-xs text-grey/6" key={i}>
+                        <span className="text-sm text-grey/6" key={i}>
                           {USER.shippingAddresses[0][key]}
                         </span>
                       );
                     })}
                   </div>
                 </div>
-                <button className="rounded-lg px-6 py-1.5 w-max bg-primary bg-white border-2 border-grey-light self-end ">
+                <button
+                  onClick={() => handleCancelOrder(order.orderId)}
+                  className="rounded-lg px-6 py-1.5 w-max bg-primary bg-white border-2 border-grey-light self-end "
+                >
                   Cancel
                 </button>
               </div>
@@ -67,4 +88,3 @@ const RecentOrders = () => {
   );
 };
 export default RecentOrders;
-

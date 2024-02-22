@@ -12,7 +12,7 @@ const CartPage = () => {
     },
     {
       productId: "65ce1905247feb2254f7fa56",
-      quantity: 4,
+      quantity: 77,
     },
   ]);
 

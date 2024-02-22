@@ -10,8 +10,9 @@ export const adjustCartQuantity = ({
   setCartItems((prev) => {
     return prev.map((item) => {
       if (item.productId === productId) {
-        if (isToIncrease && item.quantity === stock) {
+        if (isToIncrease && item.quantity >= stock) {
           toast.error("Only " + stock + " items available in stock.");
+          return item;
         }
         return {
           ...item,

@@ -1,7 +1,6 @@
 import TABS from "@/assets/constants/accountPageTabs";
-import PRODUCTS from "@/assets/mock-data/products";
 import USER from "@/assets/mockData/user";
-import AppProductSlider from "@/components/reusable/AppProductSlider";
+import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
 import { paramToWord } from "@/utils/paramUtils";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -39,15 +38,7 @@ const AccountPageWrapper = ({ children }) => {
           </div>
         </section>
       </div>
-      <section className="bg-neutral-white pb-4 lg:block hidden">
-        {/* Featured */}
-        <section className="wrapper">
-          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-            Products you might like
-          </h2>
-          <AppProductSlider items={PRODUCTS} />
-        </section>
-      </section>
+      <AppProductsYouMightLike />
     </div>
   );
 };

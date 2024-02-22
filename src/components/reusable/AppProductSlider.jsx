@@ -12,9 +12,9 @@ import AppCard from "./AppCard";
 
 const AppProductSlider = ({ items }) => {
   return (
-    <div className="py-[20px] flex overflow-x-auto gap-[36px]">
+    <div className="py-[20px] flex overflow-x-auto gap-4">
       {items.map((item, index) => (
-        <AppCard key={index} {...item} />
+        <AppCard key={index} {...item} className="min-w-56" />
       ))}
     </div>
   );

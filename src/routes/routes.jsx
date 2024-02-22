@@ -58,30 +58,6 @@ const ROUTES = [
     component: lazy(() => import("@/pages/NotFound")),
   },
   {
-    path: "category",
-    component: lazy(() => import("@/pages/Category/MultiFilters")),
-  },
-  {
-    path: "ApprealCategory",
-    component: lazy(() => import("@/pages/Category/Apperal")),
-  },
-  {
-    path: "BallCategory",
-    component: lazy(() => import("@/pages/Category/Balls")),
-  },
-  {
-    path: "KitCategory",
-    component: lazy(() => import("@/pages/Category/Kits")),
-  },
-  {
-    path: "AccessoriesCategory",
-    component: lazy(() => import("@/pages/Category/Acceriores")),
-  },
-  {
-    path: "ShoeCategory",
-    component: lazy(() => import("@/pages/Category/Shoes")),
-  },
-    {
     path: "otp",
     component: lazy(() => import("@/pages/Auth/OtpVerification")),
     wrapper: AuthWrapper,
@@ -98,7 +74,10 @@ const ROUTES = [
     path: "checkout",
     component: lazy(() => import("@/pages/Checkout/checkout")),
   },
-  
+  {
+    path: "/:category",
+    component: lazy(() => import("@/pages/Category")),
+  },
 ];
 
 export default ROUTES;

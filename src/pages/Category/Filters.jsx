@@ -41,7 +41,7 @@ const Filters = ({ types }) => {
   }, [filters]);
 
   return (
-    <div className="border-2 p-3 flex flex-col gap-2 rounded-md">
+    <div className="border-2 p-3 flex flex-col gap-2 rounded-md min-w-64">
       <MultiSelectFilterItem
         title="Product Type"
         options={types.dropdowns

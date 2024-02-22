@@ -31,14 +31,14 @@ const CategoryLayout = () => {
           >
             <Filters types={types} />
           </div>
-          <div className="grid grid-cols-1 gap-5 mt-5 mx-auto md:grid-cols-2 2xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:gap-8 mt-5 mx-auto sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
             {PRODUCTS.map((item, idx) => (
               <AppCard
                 key={`items-${idx}`}
                 title={item.title}
                 price={item.price}
                 discounted={item.discounted}
-                image={item.img}
+                image={item.image}
               />
             ))}
           </div>

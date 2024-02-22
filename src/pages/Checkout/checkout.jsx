@@ -12,7 +12,7 @@ const checkout = () => {
     const intialvalue = 1
     const [count, setCount] = useState(intialvalue);
     return (
-        <div className='bg-white px-[140px] py-10 flex flex-col gap-10 max-lg:px-4'>
+        <div className='bg-white px-[140px] py-10 flex flex-col gap-10 max-xl:px-4'>
             <div className=' bg-white flex flex-col gap-5 justify-center shadow-xl  p-6 '>
                 <div className='flex justify-between'>
                     <span className='text-3xl font-700 font-Lato'>Login Id</span>
@@ -41,14 +41,14 @@ const checkout = () => {
                     <span className='text-3xl font-500 max-sm:text-lg'>Order Summery</span>
                     <img className='w-[30px] h-[30px] rounded-[50%] border' src={close} alt="" />
                 </div>
-                <div className='flex gap-4 max-sm:flex-col max-sm:justify-center'>
+                <div className=' w-[300px] flex gap-4 max-sm:flex-col max-sm:justify-center'>
                     <div className='p-5'>
-                        <div className='bg-grey/1 p-10 rounded-xl '>
+                        <div className='bg-grey/1 p-10 w-[250px] rounded-xl '>
                             <img src={bat} alt="" />
                         </div>
                     </div>
                     <div className='flex flex-col max-md:flex-col gap-4 '>
-                        <span className='text-2xl'><span className='font-700'>Product:</span> Elite Series Kashmiri Willow Cricket Bat</span>
+                        <span className='text-2xl '><span className='font-700'>Product:</span> Elite Series Kashmiri Willow Cricket Bat</span>
                         <span>Delivery by 28-01-2024</span>
                         <span className='text-xl font-500'>Quantity</span>
                         <div className="flex">
@@ -60,8 +60,8 @@ const checkout = () => {
                         <span className='text-xl'><span className='font-500'>Discount : </span>₹00.00</span>
                         <span className='text-xl'><span className='font-500'>Delivery charges :</span> ₹00.00</span>
                         <div className='flex'>
-                            <input className="pr-24 pl-3 py-1 max-sm:pr-2  border max-sm:text-xs text-xl " type="text" placeholder="Enter the Coupon code" id="user" />
-                            <button className='bg-grey/1 px-16 max-sm:px-2 font-500'>Apply</button>
+                            <input className="pr-24 pl-3 py-1 max-lg:pr-2  border max-sm:text-xs text-xl " type="text" placeholder="Enter the Coupon code" id="user" />
+                            <button className='bg-grey/1 px-16 max-lg:px-2 font-500'>Apply</button>
                         </div>
                         <button className="bg-red-500 text-lg p-1 text-white"> Proceed to Pay</button>
                     </div>

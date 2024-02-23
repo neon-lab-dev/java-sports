@@ -1,6 +1,6 @@
 const generateLink = ({ category, type }) => {
-  const categoryParam = category.toLowerCase().replace(" ", "-");
-  const typeParam = type.toLowerCase().replace(" ", "-");
+  const categoryParam = category.toLowerCase().split(" ").join("-");
+  const typeParam = type.toLowerCase().split(" ").join("-");
   return `/${categoryParam}/${typeParam}`;
 };
 

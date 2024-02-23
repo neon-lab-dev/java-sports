@@ -6,6 +6,7 @@ import loaction from '@assets/images/Group.svg'
 import plus from '@assets/images/plus.svg'
 import minus from '@assets/images/minus.svg'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const AppFooter = () => {
   const [MenuToggle, setMenuToggle] = useState(false)
@@ -134,7 +135,7 @@ const AppFooter = () => {
           {CustomerMenuToggle && (
             <div className='p-2 m-2'>
               <ul className='font-lato font-500 text-base list-disc'>
-                <li>Contact us</li>
+                <li><Link to="/contact">Contact us</Link></li>
                 <li>FAQs</li>
                 <li>Size Guide</li>
                 <li>Shipping & Return</li>
@@ -143,15 +144,12 @@ const AppFooter = () => {
           )}
           <hr className='h-0.3 bg-black lg:hidden' />
           <ul className='font-500 list-disc px-6 text-[14px] max-sm:hidden  max-lg:hidden'>
-            <li>Contact us</li>
+          <li><Link to="/contact">Contact us</Link></li>
             <li>FAQs</li>
             <li>Size Guide</li>
             <li>Shipping & Return</li>
           </ul>
         </div>
-
-
-
         <div className='font-Lato font-700 flex flex-col gap-2'>
           <div className='flex justify-between'>
             <h1  className='uppercase'>Connect with Us</h1>

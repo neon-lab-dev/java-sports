@@ -20,7 +20,7 @@ const CategoryLayout = () => {
     <div className="bg-white py-6 overflow-hidden">
       <section className="wrapper max-w-[1500px]">
         <FilterHeader setShowFilters={setShowFilters} />
-        <div className="flex gap-5 mt-4">
+        <div className="flex gap-5 mt-4 sm:mt-6">
           <div className="hidden lg:block">
             <Filters types={types} />
           </div>
@@ -31,7 +31,7 @@ const CategoryLayout = () => {
           >
             <Filters types={types} />
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:gap-8 mt-5 mx-auto sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:gap-8 mx-auto sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
             {PRODUCTS.map((item, idx) => (
               <AppCard
                 key={`items-${idx}`}

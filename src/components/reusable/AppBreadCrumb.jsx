@@ -1,3 +1,4 @@
+import { paramToWord } from "@/utils/paramUtils";
 import { Link, useLocation } from "react-router-dom";
 
 const AppBreadCrumb = () => {
@@ -17,7 +18,7 @@ const AppBreadCrumb = () => {
               className={index === pathnames.length - 1 ? "text-primary" : ""}
               to={to}
             >
-              {value}
+              {paramToWord(value)}
             </Link>
           </span>
         );

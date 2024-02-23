@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MultiSelectFilterItem from "./MultiSelectFilterItem";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { paramToWord, wordToParam } from "@/utils/paramUtils";
 import CustomerReviewsButton from "./CustomerReviewsButton";
 import ShowNewArrivalsButton from "./ShowNewArrivalsButton";
@@ -18,14 +18,13 @@ const DEFAULT_FILTERS = {
 };
 
 const Filters = ({ types }) => {
-  const [searchParams] = useSearchParams();
+  const { type } = useParams();
   const customFilters = FILTERS.find(
     (filter) => filter.param === wordToParam(types.label)
   );
   const location = useLocation();
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   useEffect(() => {
-    const type = searchParams.get("type");
     if (
       !type ||
       type.toLowerCase() === "all" ||
@@ -34,7 +33,7 @@ const Filters = ({ types }) => {
       return setFilters(DEFAULT_FILTERS);
     setFilters((prev) => ({ ...prev, type: [type] }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]);
+  }, [type, location.pathname]);
 
   useEffect(() => {
     console.log("filters", filters);

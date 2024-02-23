@@ -67,7 +67,7 @@ const ROUTES = [
     component: lazy(() => import("@/pages/wishlist/Wishlist")),
   },
   {
-    path: "contactus",
+    path: "contact",
     component: lazy(() => import("@/pages/ContactUs/contactus")),
   },
   {
@@ -76,6 +76,10 @@ const ROUTES = [
   },
   {
     path: "/:category",
+    component: lazy(() => import("@/pages/Category")),
+  },
+  {
+    path: "/:category/:type",
     component: lazy(() => import("@/pages/Category")),
   },
 ];

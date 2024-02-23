@@ -77,7 +77,7 @@ const contactUs = () => {
                         allowFullScreen=""
                         aria-hidden="false"
                         tabIndex="0"
-                        title="Java Sport"
+                        title="JavaSport"
                     />
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MultiSelectFilterItem from "./MultiSelectFilterItem";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { paramToWord, wordToParam } from "@/utils/paramUtils";
 import CustomerReviewsButton from "./CustomerReviewsButton";
 import ShowNewArrivalsButton from "./ShowNewArrivalsButton";

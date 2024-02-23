@@ -78,6 +78,10 @@ const ROUTES = [
     path: "/:category",
     component: lazy(() => import("@/pages/Category")),
   },
+  {
+    path: "/:category/:type",
+    component: lazy(() => import("@/pages/Category")),
+  },
 ];
 
 export default ROUTES;

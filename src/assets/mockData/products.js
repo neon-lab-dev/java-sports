@@ -40,7 +40,7 @@ const PRODUCTS = [
     keyFeatures: "Multiple color options",
     specification: "golf club",
     baseprice: 4554.71,
-    discountedprice: 5061.29,
+    discountedprice: 3061.29,
     category: "baseball",
     sub_category: "Toys",
     size: "womens",

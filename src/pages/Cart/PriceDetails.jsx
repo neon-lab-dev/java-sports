@@ -27,7 +27,7 @@ const PriceDetails = ({
         <span className="text-green-400 text-[17px]">Free</span>
       </div>
       <hr />
-      <div className={flex + " font-600"}>
+      <div className={flex + " font-700"}>
         <span>Total Amount</span>
         <span>₹{finalAmount}</span>
       </div>

@@ -10,7 +10,7 @@ import {
   getTotalAmount,
 } from "@/utils/cartUtils";
 import PRODUCTS from "@/assets/mockData/products";
-import PlaceOrderButton from "./PlaceOrderButton";
+import EmptyCart from "./EmptyCart";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
@@ -35,11 +35,11 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="bg-white py-6">
-        <section className="flex flex-col xl:flex-row gap-12 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
-          <div className="flex flex-col gap-6 sm:gap-12 flex-grow">
-            <div className="flex flex-col gap-4">
-              {cartItems.length === 0 && (
+      {cartItems.length > 0 ? (
+        <div className="bg-white py-6">
+          <section className="flex flex-col xl:flex-row gap-12 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
+            <div className="flex flex-col gap-6 sm:gap-12 flex-grow">
+              <div className="flex flex-col gap-4">
                 <div className="flex flex-col items-center justify-center gap-4 my-28">
                   <h2 className="font-Jakarta text-[32px] font-500">
                     Your cart is empty
@@ -51,25 +51,27 @@ const CartPage = () => {
                     Continue Shopping
                   </Link>
                 </div>
-              )}
-              {cartItems.map((item) => (
-                <CartItem
-                  item={item}
-                  key={item.productId}
-                  quantity={item.quantity}
-                  setCartItems={setCartItems}
-                />
-              ))}
+                {cartItems.map((item) => (
+                  <CartItem
+                    item={item}
+                    key={item.productId}
+                    quantity={item.quantity}
+                    setCartItems={setCartItems}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-          <PriceDetails
-            totalAmount={getTotalAmount(products, cartItems)}
-            discountAmount={getDiscountedAmount(products, cartItems)}
-            totalItems={cartItems.length}
-            finalAmount={getFinalAmount(products, cartItems)}
-          />
-        </section>
-      </div>
+            <PriceDetails
+              totalAmount={getTotalAmount(products, cartItems)}
+              discountAmount={getDiscountedAmount(products, cartItems)}
+              totalItems={cartItems.length}
+              finalAmount={getFinalAmount(products, cartItems)}
+            />
+          </section>
+        </div>
+      ) : (
+        <EmptyCart />
+      )}
       <section className="bg-neutral-white pb-4 lg:block hidden mt-6">
         {/* Featured */}
         <section className="wrapper">

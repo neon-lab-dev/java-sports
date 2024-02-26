@@ -35,7 +35,7 @@ const CartItem = ({ item, setCartItems, quantity }) => {
           </div>
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity:</span>
-            <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
+            <div className="flex items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
               <button
                 className="px-2 w-full h-full"
                 onClick={() => {
@@ -72,7 +72,7 @@ const CartItem = ({ item, setCartItems, quantity }) => {
             <span className="text-xs sm:text-sm line-through font-400  text-grey-dark">
               ₹{(product.baseprice * quantity).toFixed(2)}
             </span>
-            <span className="text-base xs:text-lg sm:text-xl font-600 text-black">
+            <span className="text-base xs:text-lg font-600 text-black">
               ₹{(product.discountedprice * quantity).toFixed(2)}
             </span>
             <span className="text-xs xs:text-base sm:text-lg font-600 text-green-500">

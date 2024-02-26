@@ -36,7 +36,7 @@ const CartPage = () => {
   return (
     <>
       <div className="bg-white py-6">
-        <section className="flex flex-col xl:flex-row gap-8 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
+        <section className="flex flex-col xl:flex-row gap-12 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
           <div className="flex flex-col gap-6 sm:gap-12 flex-grow">
             <div className="flex flex-col gap-4">
               {cartItems.length === 0 && (
@@ -60,9 +60,6 @@ const CartPage = () => {
                   setCartItems={setCartItems}
                 />
               ))}
-            </div>
-            <div className="hidden xl:flex">
-              <PlaceOrderButton />
             </div>
           </div>
           <PriceDetails

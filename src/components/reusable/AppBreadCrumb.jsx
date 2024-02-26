@@ -6,7 +6,7 @@ const AppBreadCrumb = () => {
   const pathnames = location.pathname.split("/").filter((x) => x);
   if (location.pathname === "/") return null;
   return (
-    <div className="wrapper pb-3 sm:pb-4 font-600 text-lg sm:text-xl flex gap-1 items-center">
+    <div className="wrapper py-[0.5rem] text-lg flex gap-1 items-center">
       <Link to="/">Home</Link>
       {pathnames.map((value, index) => {
         const to = `/${pathnames.slice(0, index + 1).join("/")}`;

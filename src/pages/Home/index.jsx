@@ -44,10 +44,10 @@ const HomePage = () => {
               Cricket Full Kit
             </span>
             <h1 className="text-white text-base uppercase text-Lato font-700 sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-6xl min-w-max">
-              Fill Your Kit With
-              <br /> Personalized Gears
+              Something new
+              <br /> is coming
             </h1>
-            <AppCTAButton link="/" text="Customize now" />
+            {/* <AppCTAButton link="/" text="Customize now" /> */}
           </div>
           <picture className="h-full absolute right-0 opacity-30 xs:opacity-100 w-max">
             <img

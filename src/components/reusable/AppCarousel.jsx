@@ -33,7 +33,7 @@ const AppCarousel = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    autoplay: true,
+    // autoplay: true,
   };
 
   return (
@@ -41,11 +41,11 @@ const AppCarousel = () => {
       {SLIDERS.map(({ content, ctaLabel, ctaHref, img, label }, index) => (
         <div
           key={index}
-          className="hero-slider h-52 xs:h-64 sm:h-[332px] md:h-[450px] lg:h-[600px] relative"
+          className="hero-slider h-[200px] lg:h-[400px] relative"
         >
           <div className="wrapper flex justify-between items-center h-full max-h-full">
             <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-8 z-10">
-              <span className="font-Lato text-xs sm:text-lg lg:text-2xl 2xl:text-3xl font-700 text-white uppercase">
+              <span className="font-Lato text-xs sm:text-[1rem] xl:text-2xl font-700 text-white uppercase">
                 {label}
               </span>
               <h1
@@ -59,7 +59,7 @@ const AppCarousel = () => {
               <img
                 src={img}
                 alt="Banner Image"
-                className="h-full object-contain object-center"
+                className="w-[140px] sm:w-auto h-full object-contain object-center"
               />
             </picture>
           </div>

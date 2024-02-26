@@ -19,7 +19,7 @@ const HoverImagePreview = ({ img, show, cursorPosition = { x: 0, y: 0 } }) => {
   return (
     <div
       ref={containerRef}
-      className={`absolute hidden lg:block top-0 right-4 w-full h-full max-h-[80vh] z-[999] bg-grey-light rounded-lg transition-all overflow-hidden ${
+      className={`absolute hidden lg:block top-0 right-4 w-full h-full max-h-[80vh] z-[999] bg-white shadow-lg border-2 border-gray-300 border-opacity-40 rounded-lg transition-all overflow-hidden ${
         show ? "scale-100" : "scale-0"
       }`}
     >

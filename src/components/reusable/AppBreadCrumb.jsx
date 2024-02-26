@@ -4,9 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 const AppBreadCrumb = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
-  if (location.pathname === "/") return null;
 
   const excludeLinks = [
+    "/",
     "/login",
     "/signup",
     "/otp",

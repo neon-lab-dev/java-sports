@@ -1,14 +1,11 @@
-import AppCTAButton from "@/components/reusable/AppCTAButton";
 import Hero from "./Hero";
 import AppProductSlider from "@/components/reusable/AppProductSlider";
 
 // @ts-ignore
-import BannerImg from "@assets/images/banner-1.png";
+import BannerImg from "@assets/images/personalized-kit.png";
 import ACCESSORIES from "@/assets/mock-data/accessories";
 import PRODUCTS from "@/assets/mock-data/products";
 import POSTS from "@/assets/mock-data/posts";
-
-
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
@@ -37,7 +34,7 @@ const HomePage = () => {
       </section>
 
       {/* Banner */}
-      <section className="h-64 md:h-80 lg:h-96 2xl:h-[524px] bg-neutral-white lg-light relative">
+      <section className="h-[200px] xs:h-[250px] lg:h-[300px] xl:h-[400px] bg-neutral-white lg-light relative overflow-hidden">
         <div className="wrapper flex justify-between items-center h-full max-h-full">
           <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-8 z-10">
             <span className="font-Lato text-xs sm:text-lg lg:text-2xl 2xl:text-3xl font-700 text-white uppercase">
@@ -47,19 +44,18 @@ const HomePage = () => {
               Something new
               <br /> is coming
             </h1>
-            {/* <AppCTAButton link="/" text="Customize now" /> */}
           </div>
-          <picture className="h-full absolute right-0 opacity-30 xs:opacity-100 w-max">
+          <picture className="h-full z-10 min-w-fit flex items-center justify-center">
             <img
               src={BannerImg}
               alt="Banner Image"
-              className="h-full object-cover object-center"
+              className="w-[140px] h-[140px] sm:w-56 md:w-fit md:p-6 xs:h-full object-contain object-center"
             />
           </picture>
         </div>
       </section>
 
-      <section className={`${sectionWrapper}`}>
+      <section className={`${sectionWrapper}`} id="top-rated-bats">
         {/* Accessories Collection */}
         <section className="wrapper">
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
@@ -80,7 +76,7 @@ const HomePage = () => {
           <h2 className="font-Jakarta text-xl sm:text-2xl font-500">
             @javasports
           </h2>
-          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 xs:grid-cols-3 2xl:grid-cols-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 xs:grid-cols-3 2xl:grid-cols-6 max-w-[280px] xs:max-w-[500px] 2xl:max-w-[2400px]">
             {POSTS.map((post, index) => (
               <img
                 key={index}

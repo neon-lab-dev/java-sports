@@ -40,17 +40,6 @@ const CartPage = () => {
           <section className="flex flex-col xl:flex-row gap-12 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
             <div className="flex flex-col gap-6 sm:gap-12 flex-grow">
               <div className="flex flex-col gap-4">
-                <div className="flex flex-col items-center justify-center gap-4 my-28">
-                  <h2 className="font-Jakarta text-[32px] font-500">
-                    Your cart is empty
-                  </h2>
-                  <Link
-                    to="/"
-                    className="text-center rounded px-12 py-3 text-lg  min-w-40 bg-blue-400 text-white xl:w-96 disabled:opacity-45 max-w-72 "
-                  >
-                    Continue Shopping
-                  </Link>
-                </div>
                 {cartItems.map((item) => (
                   <CartItem
                     item={item}

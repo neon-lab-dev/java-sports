@@ -12,32 +12,32 @@ import accImg5 from "@/assets/images/thigh-protection.svg";
 const ACCESSORIES = [
   {
     title: "ProStrike Elite Cricket Bat",
-    price: "400",
-    discounted: "500",
+    discountedprice: "400",
+    baseprice: "500",
     image: accImg1,
   },
   {
     title: "ProStrike Elite Cricket Bat",
-    price: "825",
-    discounted: "900",
+    discountedprice: "825",
+    baseprice: "900",
     image: accImg2,
   },
   {
     title: "ProStrike Elite Cricket Bat",
-    price: "700",
-    discounted: "800",
+    discountedprice: "700",
+    baseprice: "800",
     image: accImg3,
   },
   {
     title: "ProStrike Elite Cricket Bat",
-    price: "400",
-    discounted: "1200",
+    discountedprice: "400",
+    baseprice: "1200",
     image: accImg4,
   },
   {
     title: "ProStrike Elite Cricket Bat",
-    price: "400",
-    discounted: "1200",
+    discountedprice: "400",
+    baseprice: "1200",
     image: accImg5,
   },
 ];

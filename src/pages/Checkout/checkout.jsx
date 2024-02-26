@@ -68,7 +68,7 @@ const checkout = () => {
                     <input className="pr-24 pl-3 py-1 max-sm:pr-2 border max-sm:text-xs text-xl " type="text" placeholder="Enter the Coupon code" id="user" />
                     <button className='bg-grey/1 pr-24 pl-24  max-sm:pr-2  max-sm:pl-2 font-500'>Apply</button>
                 </div>
-                <button className="bg-red-500 text-lg p-1 text-white lg:hidden"> Proceed to Pay</button>
+                <button className="bg-red-500 text-lg p-1 text-white lg:hidden rounded-md"> Proceed to Pay</button>
             </div>
         </div>
     )

@@ -5,6 +5,17 @@ const AppBreadCrumb = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
   if (location.pathname === "/") return null;
+
+  const excludeLinks = [
+    "/login",
+    "/signup",
+    "/otp",
+    "/forgot-password",
+    "/reset-password",
+  ];
+
+  if (excludeLinks.includes(location.pathname)) return null;
+
   return (
     <div className="wrapper py-[0.5rem] text-lg flex gap-1 items-center">
       <Link to="/">Home</Link>

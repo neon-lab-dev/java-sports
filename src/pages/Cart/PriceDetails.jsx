@@ -10,7 +10,7 @@ const PriceDetails = ({
     "flex justify-between text-base sm:text-lg gap-6 min-w-max w-full";
   return (
     <div className="shadow-md border border-gray-200 border-opacity-40 sticky xl:top-4 rounded-md px-4 py-5 sm:p-6 bg-white h-fit flex  flex-col gap-3 text-gray-700 min-w-96 min-h-80 justify-center">
-      <span className="uppercase text-xl font-500 text-grey/6">
+      <span className="uppercase text-xl font-600 text-black">
         Price Details
       </span>
       <hr />
@@ -35,7 +35,7 @@ const PriceDetails = ({
       <span className="text-sm text-grey-dark">
         You will save ₹{discountAmount} on this order
       </span>
-      <div className="xl:hidden">
+      <div className="">
         <PlaceOrderButton />
       </div>
     </div>

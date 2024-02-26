@@ -28,7 +28,7 @@ const AppWishlistCard = (props) => {
             </li>
           </ul>
         </div>
-          <button className='bg-primary/2 text-white font-500 text-lg  p-1 rounded'>Move TO Cart</button>
+          <button className='bg-primary/2 text-white font-500 text-lg  p-1 rounded'>Move to Cart</button>
       </div>
     </article>
   )

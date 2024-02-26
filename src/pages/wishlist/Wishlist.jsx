@@ -27,7 +27,7 @@ const wishlist = () => {
                 <div className='m-6'>
 
                 </div>
-                <div className='bg-white'>
+                <div className='bg-white max-lg:hidden'>
                     <div className=" bg-white wrapper py-10">
                         <span className=" font-Lato pt-[44px] text-[32px] font-700 ">
                             Products you might like

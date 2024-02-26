@@ -99,7 +99,7 @@ const ProductPage = ({ product }) => {
             />
           </div>
         </div>
-        <button className="absolute top-4 right-4 cursor-pointer">
+        <button className="absolute top-2 right-2 cursor-pointer">
           <img src={heartIcon} alt="heart icon" />
         </button>
       </div>

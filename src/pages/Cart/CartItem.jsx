@@ -7,29 +7,32 @@ import addIcon from "@/assets/icons/add-icon.svg";
 // @ts-ignore
 import removeIcon from "@/assets/icons/remove.svg";
 import { todayPlusDays } from "@/utils/dateUtils";
-import toast from "react-hot-toast";
+import { calculatePercentage } from "@/utils/calculatePercentage";
 
-const CartItem = ({ item, setCartItems }) => {
+const CartItem = ({ item, setCartItems, quantity }) => {
   const product = PRODUCTS.find((p) => p._id === item.productId);
-  const handleBuyNow = () => {
-    if (item.quantity > product.stock) {
-      toast.error(
-        `Only ${product.stock} items are available, Please reduce the quantity`
-      );
-    }
-  };
+
   return (
     <div className="flex flex-col sm:flex-row gap-3 shadow p-3 rounded-md">
-      <div className="h-60 bg-grey/1 rounded-lg p-2 lg:h-64 object-contain object-center max-w-64 sm:max-w-none md:w-96 lg:max-w-72 xl:max-w-none sm:w-64 lg:w-[400px]">
+      <div className="h-60 bg-grey/1 rounded-lg p-2 lg:h-64 object-contain object-center sm:max-w-none md:w-96 lg:max-w-72 xl:max-w-none sm:w-64 lg:w-[400px]">
         <img
           src={product.images[0].url}
           alt={product.name}
           className="w-full h-full"
         />
       </div>
-      <div className="flex flex-col gap-4 sm:justify-between xl:p-3 w-full">
+      <div className="flex flex-col gap-2 sm:gap-3 sm:justify-between xl:p-3 w-full">
         <div className="flex flex-col gap-1">
-          <TextSubtext text="Product" subText={product.name} />
+          <div className="flex justify-between gap-6">
+            <TextSubtext text="Product" subText={product.name} />
+            <span className="text-[#666666] font-400 text-base min-w-max hidden 2xl:inline pt-1">
+              Delivery by {todayPlusDays(2)} {/* 2 days from now */}
+            </span>
+            <span className="text-[#666666] font-400 text-base min-w-max hidden lg:inline 2xl:hidden pt-0.5">
+              Delivery by {todayPlusDays(2).split(",")[0]}
+              <br /> {todayPlusDays(2).split(",")[1]} {/* 2 days from now */}
+            </span>
+          </div>
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity:</span>
             <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
@@ -65,31 +68,30 @@ const CartItem = ({ item, setCartItems }) => {
               </button>
             </div>
           </div>
-          <TextSubtext
-            text="Total Price"
-            subText={`₹${(product.discountedprice * item.quantity).toFixed(2)}`}
-          />
-          <span className="text-[#666666] font-400 text-base sm:text-lg">
-            Delivery by {todayPlusDays(2)} {/* 2 days from now */}
-          </span>
+          <div className="flex gap-3 my-1 items-center">
+            <span className="text-xs sm:text-sm line-through font-400  text-grey-dark">
+              ₹{(product.baseprice * quantity).toFixed(2)}
+            </span>
+            <span className="text-base xs:text-lg sm:text-xl font-600 text-black">
+              ₹{(product.discountedprice * quantity).toFixed(2)}
+            </span>
+            <span className="text-xs xs:text-base sm:text-lg font-600 text-green-500">
+              ₹{calculatePercentage(product.baseprice, product.discountedprice)}
+              % off
+            </span>
+          </div>
         </div>
-        <div className="flex gap-4 flex-col lg:flex-row w-full">
-          <button
-            disabled={item.quantity === 0}
-            onClick={handleBuyNow}
-            className="rounded px-3 py-1.5  min-w-40 bg-primary text-white xl:w-96 w-full disabled:opacity-45 max-w-72 lg:max-w-none"
-          >
-            Buy Now
-          </button>
-          <button
-            onClick={() => {
-              removeCartItem({ productId: item.productId, setCartItems });
-            }}
-            className="rounded px-3 py-1.5 w-full max-w-72 min-w-40 bg-transparent border-2 border-grey-dark text-black "
-          >
-            Remove
-          </button>
-        </div>
+        <span className="text-[#666666] font-400 text-sm sm:text-base lg:hidden">
+          Delivery by {todayPlusDays(2)} {/* 2 days from now */}
+        </span>
+        <button
+          onClick={() => {
+            removeCartItem({ productId: item.productId, setCartItems });
+          }}
+          className="rounded px-3 py-1.5 sm:max-w-72 w-full min-w-40 bg-transparent border-2 border-grey-dark text-black"
+        >
+          Remove
+        </button>
       </div>
     </div>
   );

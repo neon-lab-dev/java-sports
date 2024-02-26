@@ -19,14 +19,14 @@ const AppWishlistCard = (props) => {
       <div className='flex flex-col gap-1'>
         <span className='font-Lato font-700 text-[16px]'>{ props.title } Pro Elite Bat</span>
         <div className='flex justify-between items-center'>
-          <ul className='flex gap-1 items-center'>
+          <ul className='flex gap-1 items-center gap-2'>
             <li className='font-Lato font-700 text-lg'>
               <span>₹{ props.price } 600</span>
             </li>
             <li className='font-Lato font-500 text-sm line-through'>
               <span>₹{ props.discounted } 900</span>
             </li>
-            <li className='font-Lato font-700 text-sm text-green-400'>
+            <li className='font-Lato font-700 text-[13px] text-green-400'>
               <span>₹{ props.discounted } 30%</span>
             </li>
           </ul>

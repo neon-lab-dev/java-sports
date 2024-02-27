@@ -18,7 +18,7 @@ const AppCard = ({
   image,
   baseprice,
   discountedprice,
-  variant = "default",
+  className = "",
 }) => {
   const isWislisted = false;
   const handleAddToCart = () => {
@@ -31,11 +31,7 @@ const AppCard = ({
 
   return (
     <div
-      className={`sm:min-w-[300px] snap-center xs:snap-start min-w-[230px] card-shadow rounded-xl p-3 sm:p-4 flex flex-col gap-2 ${
-        variant === "default"
-          ? "h-[330px] sm:h-[400px]"
-          : "h-[375px] sm:h-[425px]"
-      }`}
+      className={`sm:min-w-[300px] snap-center xs:snap-start min-w-[230px] card-shadow rounded-xl p-3 sm:p-4 flex flex-col gap-2 "h-[330px] sm:h-[400px] ${className}`}
     >
       <div className="flex justify-between items-center">
         <span className="font-Lato font-700 text-[11px] text-grey-light">
@@ -57,9 +53,7 @@ const AppCard = ({
         />
       </div>
       <span className="text-base sm:text-lg">{title}</span>
-      <div
-        className={`flex ${variant !== "default" ? "flex-col" : "justify-between items-center"}`}
-      >
+      <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
           <span className="font-Lato font-700">₹{discountedprice}</span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
@@ -69,22 +63,13 @@ const AppCard = ({
             {calculatePercentage(baseprice, discountedprice)}% off
           </span>
         </span>
-        {variant === "default" ? (
-          <button onClick={handleAddToCart}>
-            <img
-              src={wishlistIcon}
-              alt="Add to Cart"
-              className="w-9 sm:w-10 h-9 sm:h-10"
-            />
-          </button>
-        ) : (
-          <button
-            onClick={handleAddToCart}
-            className="bg-primary/2 text-white font-500 text-lg p-1 rounded w-full mt-3"
-          >
-            Move to Cart
-          </button>
-        )}
+        <button onClick={handleAddToCart}>
+          <img
+            src={wishlistIcon}
+            alt="Add to Cart"
+            className="w-9 sm:w-10 h-9 sm:h-10"
+          />
+        </button>
       </div>
     </div>
   );

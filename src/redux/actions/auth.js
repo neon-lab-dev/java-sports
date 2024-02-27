@@ -1,13 +1,13 @@
 // @ts-nocheck
+import API from "@/api";
 import axios from "axios";
-import { server } from '../store';
 
 export const login = (email, password) => async dispatch => {
     try {
         dispatch({ type: 'loginRequest' });
 
         const { data } = await axios.post(
-            `${ server }/login`,
+            API.login,
             { email, password },
             {
                 headers: {
@@ -26,7 +26,7 @@ export const loadUser = () => async dispatch => {
     try {
       dispatch({ type: 'loadUserRequest' });
   
-      const { data } = await axios.get(`${server}/me`, {
+      const { data } = await axios.get(API.user, {
         withCredentials: true,
       });
       dispatch({ type: 'loadUserSuccess', payload: data.user });
@@ -41,7 +41,7 @@ export const loadUser = () => async dispatch => {
     try {
       dispatch({ type: 'logOutRequest' });
   
-      const { data } = await axios.get(`${server}/logout`, {
+      const { data } = await axios.get(API.logout, {
         withCredentials: true,
       });
       dispatch({ type: 'logOutSuccess', payload: data.message });

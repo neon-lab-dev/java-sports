@@ -33,13 +33,7 @@ const CategoryLayout = () => {
           </div>
           <div className="grid grid-cols-1 gap-5 sm:gap-8 mx-auto sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
             {PRODUCTS.map((item, idx) => (
-              <AppCard
-                key={`items-${idx}`}
-                title={item.title}
-                price={item.price}
-                discounted={item.discounted}
-                image={item.image}
-              />
+              <AppCard key={`items-${idx}`} {...item} />
             ))}
           </div>
         </div>

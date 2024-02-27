@@ -8,7 +8,7 @@ const AppHeader = () => {
   return (
     <>
       <header>
-        <nav className="hidden py-4 bg-grey/1 md:block">
+        {/* <nav className="hidden py-4 bg-grey/1 md:block">
           <div className="wrapper flex justify-between items-center text-grey-dark text-[12px] font-[500] font-Jakarta">
             <ul className="flex gap-8">
               {HEADER_LINKS.socialLinks.map(({ label, link, icon }) => (
@@ -27,7 +27,7 @@ const AppHeader = () => {
               ))}
             </ul>
           </div>
-        </nav>
+        </nav> */}
         {/* HEADER NAVBAR */}
         <AppHeaderNav />
 

@@ -16,7 +16,7 @@ const AppMegaMenu = () => {
   }, [parent, child]);
 
   return (
-    <div className="bg-white my-3 pt-5 hidden lg:block">
+    <div className="bg-white mt-3 pt-5 hidden lg:block">
       <div className="flex justify-center items-center wrapper">
         <Menubar.Root
           className="flex gap-9 overflow-x-scroll snap-x snap-mandatory pb-3 w-fit"
@@ -32,7 +32,7 @@ const AppMegaMenu = () => {
                 onMouseLeave={() =>
                   setIsHovering((prev) => ({ ...prev, parent: false }))
                 }
-                className={`text-lg sm:text-2xl snap-start font-400 min-w-max transition-all outline-none ${
+                className={`text-lg sm:text-[1.2rem] snap-start font-500 min-w-max transition-all outline-none ${
                   activeValue === dropdown.label
                     ? "text-primary underline underline-offset-2"
                     : "text-black"
@@ -53,13 +53,13 @@ const AppMegaMenu = () => {
                 >
                   <div className="min-w-40 w-full p-1 bg-white rounded-sm shadow-xl flex flex-col gap-1">
                     {dropdown.dropdowns.map((item, i) => (
-                      <Menubar.Item key={i} className="">
+                      <Menubar.Item key={i} className="outline-none">
                         <Link
                           to={generateLink({
                             category: dropdown.label,
                             type: item,
                           })}
-                          className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors border min-w-max border-grey-light hover:bg-primary hover:text-white block"
+                          className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary hover:text-white block"
                         >
                           {item}
                         </Link>

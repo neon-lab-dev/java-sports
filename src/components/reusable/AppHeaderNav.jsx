@@ -68,7 +68,7 @@ const AppHeaderNav = () => {
               <img
                 src={logo}
                 alt="Java Sports"
-                className="w-11 sm:w-14 lg:min-w-24"
+                className="w-9 sm:w-12 lg:min-w-[85px] lg:h-[85px]"
               />
             </Link>
           </span>
@@ -209,7 +209,7 @@ const LinkDropdown = ({
   setIsSidebarOpen,
 }) => (
   <div
-    className={`flex flex-col px-6 py-3 border-grey-light font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
+    className={`flex flex-col px-6 py-3 font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
   >
     <button
       onClick={() => setActiveDropdown(activeDropdown === i ? null : i)}
@@ -237,7 +237,7 @@ const LinkDropdown = ({
             key={i}
             onClick={() => setIsSidebarOpen(false)}
             to={dropdown.link}
-            className="px-3 py-1 border font-400 border-grey-light"
+            className="px-3 py-1 font-400"
           >
             {dropdown.label}{" "}
             {dropdown.label.toLowerCase() === "recent orders" && (

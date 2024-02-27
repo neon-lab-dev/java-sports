@@ -52,6 +52,7 @@ const ROUTES = [
     path: "/account",
     component: lazy(() => import("@/pages/Account")),
     wrapper: lazy(() => import("@/pages/Account/AccountPageWrapper")),
+    isProtected:true, redirect:"/login"
   },
   {
     path: "*",
@@ -83,5 +84,4 @@ const ROUTES = [
     component: lazy(() => import("@/pages/Category")),
   },
 ];
-
 export default ROUTES;

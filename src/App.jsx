@@ -1,9 +1,31 @@
+// @ts-nocheck
 import '@/index.css'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import RoutesContainer from './routes'
+import { loadUser } from './redux/actions/auth';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
+  const { message, error } = useSelector(state => state.login);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, message]);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
     <div>
       <Toaster

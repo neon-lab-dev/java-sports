@@ -3,8 +3,10 @@ import { useSearchParams } from "react-router-dom";
 import checkboxUnchecked from "@/assets/icons/checkbox-unchecked.svg";
 import checkboxChecked from "@/assets/icons/checkbox-checked.svg";
 import toast from "react-hot-toast";
-import SHIPPING_ADDRESSES from "@/assets/mockData/shippingAddress";
 import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/api/user";
+import { useSelector } from "react-redux";
 
 const Address = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +19,7 @@ const Address = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const { user } = useSelector((state) => state.user);
   const onSubmit = (data) => {
     toast.success("Address registered successfully");
     setSearchParams({ tab: "addresses", isEditing: "false" });
@@ -29,7 +32,7 @@ const Address = () => {
   };
 
   const handleEditAddress = (id) => {
-    const formData = SHIPPING_ADDRESSES.find((address) => address.id === id);
+    const formData = user[id];
     reset();
     //set form data
     Object.keys(formData).forEach((key) => {
@@ -41,24 +44,33 @@ const Address = () => {
 
   return (
     <div className="flex flex-col gap-3 max-w-2xl wrapper lg:m-0 lg:w-full">
-      {SHIPPING_ADDRESSES.map((address, i) => (
-        <div key={i} className="flex flex-col gap-0 card-shadow p-4 rounded-lg">
-          <div className="flex gap-8 justify-between text-base sm:text-base 2xl:text-lg mb-3">
-            <span className="font-Lato font-600">{address.title}</span>
-            <button
-              onClick={() => handleEditAddress(address.id)}
-              className="font-Lato font-600 text-blue disabled:opacity-40"
-              disabled={searchParams.get("isEditing") === "true"}
-            >
-              Edit
-            </button>
-          </div>
-          {Object.keys(address).map((key, i) => {
-            if (["title", "img", "id"].includes(key)) return null;
-            return <span key={i}>{address[key]}</span>;
-          })}
-        </div>
-      ))}
+      {user.primaryaddress && (
+        <AddressCard
+          address={user.primaryaddress}
+          searchParams={searchParams}
+          handleEditAddress={() => handleEditAddress("primaryaddress")}
+          title="Default Shipping Address"
+        />
+      )}
+      {user.secondaryaddress && (
+        <AddressCard
+          address={user.secondaryaddress}
+          searchParams={searchParams}
+          handleEditAddress={() => handleEditAddress("secondaryaddress")}
+          title="Shipping Address 1"
+        />
+      )}
+      {user.thirdaddress && (
+        <AddressCard
+          address={user.thirdaddress}
+          searchParams={searchParams}
+          handleEditAddress={() => handleEditAddress("thirdaddress")}
+          title="Shipping Address 2"
+        />
+      )}
+      {!(user.primaryaddress && user.secondaryaddress && user.thirdaddress) && (
+        <div>No shipping addresses found.</div>
+      )}
       {searchParams.get("isEditing") != "true" ? (
         <button
           type="submit"
@@ -148,14 +160,14 @@ const Address = () => {
               )}
             </div>
             <div className="flex flex-col gap-1">
-              <label htmlFor="pincode" className="font-600 text-lg">
+              <label htmlFor="pin_code" className="font-600 text-lg">
                 Pincode/ZIP*
               </label>
               <input
                 type="text"
                 placeholder="560001"
                 className="bg-grey/2 px-4 py-3"
-                {...register("pincode", {
+                {...register("pin_code", {
                   required: true,
                   validate: (value) =>
                     value.trim().length > 4 || "Please enter a valid pincode",
@@ -217,3 +229,24 @@ const Address = () => {
   );
 };
 export default Address;
+
+const AddressCard = ({ address, searchParams, handleEditAddress, title }) => {
+  return (
+    <div className="flex flex-col gap-0 card-shadow p-4 rounded-lg">
+      <div className="flex gap-8 justify-between text-base sm:text-base 2xl:text-lg mb-3">
+        <span className="font-Lato font-600">{title}</span>
+        <button
+          onClick={() => handleEditAddress()}
+          className="font-Lato font-600 text-blue disabled:opacity-40"
+          disabled={searchParams.get("isEditing") === "true"}
+        >
+          Edit
+        </button>
+      </div>
+      <span>{address.address}</span>
+      <span>{address.city}</span>
+      <span>{address.state}</span>
+      <span>{address.pin_code}</span>
+    </div>
+  );
+};

@@ -8,6 +8,7 @@ const API = {
   login: BACKEND_BASE_URL + "/login",
   forgotPassword: BACKEND_BASE_URL + "/password/forgot",
   resetPassword: BACKEND_BASE_URL + "/password/reset", //=> /:token
+  updatePassword: BACKEND_BASE_URL + "/password/update",
   logout: BACKEND_BASE_URL + "/logout",
   user: BACKEND_BASE_URL + "/me",
   updateUser: BACKEND_BASE_URL + "/me/update",

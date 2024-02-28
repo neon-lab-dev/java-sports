@@ -1,11 +1,11 @@
 import { EMAIL_REGEX, PHONE_REGEX } from "@/assets/constants/regex";
 import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 import avatar from "@/assets/images/avatar.jpg";
-import { getUser } from "@/api/user";
+import { getUser, updateUserDetails } from "@/api/user";
 import { useSelector } from "react-redux";
 const AccountDetails = () => {
   const { user } = useSelector((state) => state.user);
@@ -18,18 +18,33 @@ const AccountDetails = () => {
     formState: { errors },
   } = useForm();
 
+  const queryClient = useQueryClient();
+
   const toggleIsEditing = (isEditing) => {
     setSearchParam({ tab: "account-details", isEditing: isEditing });
     setValue("full_name", user.full_name);
     setValue("email", user.email);
     setValue("phoneNo", user.phoneNo);
-    setValue("avatar", user.avatar.url);
   };
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => updateUserDetails(data),
+    onError: (error) => {
+      toast.error(error);
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+      setSearchParam({ tab: "account-details", isEditing: "false" });
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      reset();
+    },
+  });
+
   const onSubmit = (data) => {
-    setSearchParam({ tab: "account-details", isEditing: "false" });
-    reset();
-    toast.success("Changes saved successfully");
+    console.log(data);
+    mutate(data);
   };
 
   const onReset = () => {
@@ -129,7 +144,16 @@ const AccountDetails = () => {
               type="file"
               accept="image/*"
               className="bg-grey/2 px-4 py-3"
-              {...register("avatar", { required: true })}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                  setValue("avatar", reader.result);
+                };
+
+                reader.readAsDataURL(file);
+              }}
             />
             {errors.image && (
               <AppFormErrorLine message="Please upload an image" />
@@ -147,7 +171,7 @@ const AccountDetails = () => {
               type="submit"
               className="rounded px-4 py-2 w-max bg-blue text-white"
             >
-              Save changes
+              {isPending ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </form>

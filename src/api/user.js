@@ -100,3 +100,64 @@ export const sendOtp = (otp) => {
       });
   });
 };
+
+export const updateUserAddress = (data) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(API.updateUserAddress, data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Address update failed, please try again"
+        );
+      });
+  });
+};
+
+export const updateUserPassword = (data) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(API.updatePassword, data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message ||
+            "Password update failed, please try again"
+        );
+      });
+  });
+};
+
+export const updateUserDetails = (data) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(API.updateUser, data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Details update failed, please try again"
+        );
+      });
+  });
+};

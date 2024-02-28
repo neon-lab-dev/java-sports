@@ -17,7 +17,6 @@ const AccountDashboard = () => {
   });
   const tableRowClasses =
     "px-4 py-3 xs:px-5 sm:px-6 lg:py-6 lg:px-7 border-b-8 sm:border-b-[15px] border-white";
-
   return (
     <div className="flex flex-col sm:wrapper lg:m-0 lg:w-full">
       {/* profile info  */}
@@ -115,32 +114,30 @@ const AccountDashboard = () => {
         </>
       )}
       {/* shipping addresses  */}
-      {user?.primaryaddress ||
+      {(user?.primaryaddress ||
         user?.secondaryaddress ||
-        (user?.thirdaddress && (
-          <div className="grid grid-cols-1 gap-4 wrapper sm:m-0 sm:w-full md:grid-cols-2 xl:grid-cols-3 py-8">
-            {user?.primaryaddress && (
-              <div className="flex flex-col gap-1">
-                <span className="font-600 text-lg">
-                  Default Shipping Address
-                </span>
-                <AddressComp {...user.primaryaddress} />
-              </div>
-            )}
-            {user?.secondaryaddress && (
-              <div className="flex flex-col gap-1">
-                <span className="font-600 text-lg">Shipping Address 1</span>
-                <AddressComp {...user.secondaryaddress} />
-              </div>
-            )}
-            {user?.thirdaddress && (
-              <div className="flex flex-col gap-1">
-                <span className="font-600 text-lg">Shipping Address 2</span>
-                <AddressComp {...user.thirdaddress} />
-              </div>
-            )}
-          </div>
-        ))}
+        user?.thirdaddress) && (
+        <div className="grid grid-cols-1 gap-4 wrapper sm:m-0 sm:w-full md:grid-cols-2 xl:grid-cols-3 py-8">
+          {user?.primaryaddress && (
+            <div className="flex flex-col gap-1">
+              <span className="font-600 text-lg">Shipping Address 1</span>
+              <AddressComp {...user.primaryaddress} />
+            </div>
+          )}
+          {user?.secondaryaddress && (
+            <div className="flex flex-col gap-1">
+              <span className="font-600 text-lg">Shipping Address 2</span>
+              <AddressComp {...user.secondaryaddress} />
+            </div>
+          )}
+          {user?.thirdaddress && (
+            <div className="flex flex-col gap-1">
+              <span className="font-600 text-lg">Shipping Address 3</span>
+              <AddressComp {...user.thirdaddress} />
+            </div>
+          )}
+        </div>
+      )}
       <hr />
     </div>
   );

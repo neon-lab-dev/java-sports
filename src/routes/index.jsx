@@ -7,15 +7,20 @@ import AppLoading from "@/components/reusable/AppLoading";
 import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
 
-
 const RoutesContainer = () => {
-  const { isAuthenticated } = useSelector(state => state.login);
+  const { isAuthenticated } = useSelector((state) => state.user);
   return (
     <Router>
       <Routes>
         {ROUTES.map(
           (
-            { component: Component, path, wrapper: Wrapper, isProtected,redirect },
+            {
+              component: Component,
+              path,
+              wrapper: Wrapper,
+              isProtected,
+              redirect,
+            },
             index
           ) => {
             const ComponentWithWrapper = Wrapper ? (
@@ -27,7 +32,7 @@ const RoutesContainer = () => {
             );
 
             const ComponentWithAuth = isProtected ? (
-              <ProtectedRoute isAuthenticated={isAuthenticated} redriect={redirect}>
+              <ProtectedRoute isAuthenticated={isAuthenticated} redirect={redirect}>
                 {ComponentWithWrapper}
               </ProtectedRoute>
             ) : (

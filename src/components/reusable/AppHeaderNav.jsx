@@ -29,7 +29,8 @@ import generateLink from "@/utils/generateLink";
 import { useSelector } from "react-redux";
 
 const AppHeaderNav = () => {
-  const {user,isAuthenticated} = useSelector(state => state.login)
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
   const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState("India");
@@ -112,7 +113,9 @@ const AppHeaderNav = () => {
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>
-              <span className={navLink}>{isAuthenticated?user.full_name:"login"}</span>
+              <span className={navLink}>
+                {isAuthenticated ? user.full_name : "Login"}
+              </span>
             </Link>
           </ul>
         </nav>

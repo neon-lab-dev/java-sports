@@ -9,6 +9,8 @@ const AuthWrapper = lazy(() => import("@/components/reusable/AppAuthWrapper"));
  *  - path: string - the path of the route
  *  - component: React.lazy - the component to render when the route is matched
  *  - wrapper?: React.lazy - the wrapper component to use for the route
+ * - isProtected?: boolean - if the route is protected
+ * - redirect?: string - the path to redirect to if the route is protected
  */
 const ROUTES = [
   {
@@ -52,7 +54,8 @@ const ROUTES = [
     path: "/account",
     component: lazy(() => import("@/pages/Account")),
     wrapper: lazy(() => import("@/pages/Account/AccountPageWrapper")),
-    isProtected:true, redirect:"/login"
+    isProtected: true,
+    redirect: "/login",
   },
   {
     path: "*",

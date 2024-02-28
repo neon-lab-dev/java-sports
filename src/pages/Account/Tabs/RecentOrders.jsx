@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllMyOrders } from "@/api/orders";
 import { useEffect, useState } from "react";
 import { getRecentOrders } from "@/utils/order-utils";
+import { Link } from "react-router-dom";
+import emptyCartImg from "@/assets/icons/empty-carts.svg";
 
 const RecentOrders = () => {
   const { data, isLoading, isError } = useQuery({
@@ -109,7 +111,18 @@ const RecentOrders = () => {
           );
         })
       ) : (
-        <p className="text-center">No recent orders</p>
+        <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
+          <img src={emptyCartImg} className="h-36" />
+          <h2 className="font-Jakarta font-500 text-2xl xs:text-2xl">
+            You have no orders yet!
+          </h2>
+          <Link
+            to="/"
+            className="rounded text-center px-3 py-2 w-full text-base block uppercase font-600 min-w-40 bg-primary text-white lg:mt-2 xs:max-w-60"
+          >
+            Continue Shopping
+          </Link>
+        </div>
       )}
     </div>
   );

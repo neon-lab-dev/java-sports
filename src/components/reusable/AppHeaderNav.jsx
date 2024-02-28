@@ -20,13 +20,17 @@ import chevronDownIcon from "@assets/icons/chevron-down.svg";
 import closeIcon from "@assets/icons/close.svg";
 // Components
 import AppSearchBar from "./AppSearchBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
 import USER from "@/assets/mockData/user";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
 import { paramToWord } from "@/utils/paramUtils";
 import generateLink from "@/utils/generateLink";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { logout } from "@/api/user";
+import toast from "react-hot-toast";
+import { logoutUser } from "@/redux/slices/userSlice";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -213,45 +217,74 @@ const LinkDropdown = ({
   setActiveDropdown,
   activeDropdown,
   setIsSidebarOpen,
-}) => (
-  <div
-    className={`flex flex-col px-6 py-3 font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
-  >
-    <button
-      onClick={() => setActiveDropdown(activeDropdown === i ? null : i)}
-      className="flex justify-between w-full"
+}) => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.user);
+
+  const { mutate } = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+      toast.success("Logged out successfully");
+      navigate("/");
+      dispatch(logoutUser());
+    },
+    onError: () => {
+      toast.error("Failed to logout");
+    },
+  });
+  const handleLogout = () => {
+    mutate();
+  };
+  return (
+    <div
+      className={`flex flex-col px-6 py-3 font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
     >
-      <span>{label}</span>
-      {!(label.toLowerCase() === "logout") ? (
-        <img src={chevronDownIcon} className="w-6" />
-      ) : (
-        <span />
-      )}
-    </button>
-    {dropdowns && (
-      <div
-        className="flex flex-col justify-center gap-2 overflow-y-hidden transition-all"
-        style={{
-          height:
-            activeDropdown === i
-              ? `${(33.6 + 8) * dropdowns.length + 20}px` // 33.6 is the height of each link and 8 is the gap between each link and 20 is the padding to center the links
-              : "0px",
+      <button
+        onClick={() => {
+          setActiveDropdown(activeDropdown === i ? null : i);
+          if (label.toLowerCase() === "logout") {
+            handleLogout();
+            setIsSidebarOpen(false);
+          }
         }}
+        className="flex justify-between w-full"
       >
-        {dropdowns.map((dropdown, i) => (
-          <Link
-            key={i}
-            onClick={() => setIsSidebarOpen(false)}
-            to={dropdown.link}
-            className="px-3 py-1 font-400"
-          >
-            {dropdown.label}{" "}
-            {dropdown.label.toLowerCase() === "recent orders" && (
-              <>({USER.recentOrders.length})</>
-            )}
-          </Link>
-        ))}
-      </div>
-    )}
-  </div>
-);
+        <span>
+          {label.toLowerCase() !== "logout"
+            ? label
+            : isAuthenticated && "Logout"}
+        </span>
+        {!(label.toLowerCase() === "logout") ? (
+          <img src={chevronDownIcon} className="w-6" />
+        ) : (
+          <span />
+        )}
+      </button>
+      {dropdowns && (
+        <div
+          className="flex flex-col justify-center gap-2 overflow-y-hidden transition-all"
+          style={{
+            height:
+              activeDropdown === i
+                ? `${(33.6 + 8) * dropdowns.length + 20}px` // 33.6 is the height of each link and 8 is the gap between each link and 20 is the padding to center the links
+                : "0px",
+          }}
+        >
+          {dropdowns.map((dropdown, i) => (
+            <Link
+              key={i}
+              onClick={() => setIsSidebarOpen(false)}
+              to={dropdown.link}
+              className="px-3 py-1 font-400"
+            >
+              {dropdown.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

@@ -7,6 +7,7 @@ import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/api/user";
 import { useSelector } from "react-redux";
+import noAddress from "@/assets/images/no-address.jpg";
 
 const Address = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -69,7 +70,12 @@ const Address = () => {
         />
       )}
       {!(user.primaryaddress && user.secondaryaddress && user.thirdaddress) && (
-        <div>No shipping addresses found.</div>
+        <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
+          <img src={noAddress} className="h-36" />
+          <h2 className="font-Jakarta font-500 text-2xl xs:text-2xl">
+            You have not added any addresses yet!
+          </h2>
+        </div>
       )}
       {searchParams.get("isEditing") != "true" ? (
         <button

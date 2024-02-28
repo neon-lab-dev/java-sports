@@ -39,10 +39,14 @@ const FilterHeader = ({ setShowFilters }) => {
           id="sort-by"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="bg-gray-50 border border-gray-300 p-1 text-base"
+          className="bg-gray-50 border border-gray-300 p-1 text-base cursor-pointer"
         >
           {SORTING_OPTIONS.map((option, i) => (
-            <option className="font-500 text-base" key={i} value={option}>
+            <option
+              className="font-500 text-base cursor-pointer"
+              key={i}
+              value={option}
+            >
               {option}
             </option>
           ))}

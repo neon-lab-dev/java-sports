@@ -40,14 +40,20 @@ const AppCard = ({ product, className = "" }) => {
           />
         </button>
       </div>
-      <div className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md">
+      <Link
+        to={`/product/${product._id}`}
+        className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md group"
+      >
         <img
           src={product.images[0].url}
           alt={product.name}
-          className="w-full h-full object-contain object-center "
+          className="w-full h-full object-contain object-center group-hover:scale-105 transition-all"
         />
-      </div>
-      <Link to={`/product/${product._id}`} className="text-base sm:text-lg hover:underline hover:text-blue transition-all">
+      </Link>
+      <Link
+        to={`/product/${product._id}`}
+        className="text-base sm:text-lg hover:underline hover:text-blue transition-all"
+      >
         {
           //show only four words
           product.name.split(" ").slice(0, 4).join(" ")

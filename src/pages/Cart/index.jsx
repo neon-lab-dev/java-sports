@@ -11,6 +11,7 @@ import {
 } from "@/utils/cartUtils";
 import PRODUCTS from "@/assets/mockData/products";
 import EmptyCart from "./EmptyCart";
+import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
@@ -61,15 +62,7 @@ const CartPage = () => {
       ) : (
         <EmptyCart />
       )}
-      <section className="bg-neutral-white pb-4 lg:block hidden mt-6">
-        {/* Featured */}
-        <section className="wrapper">
-          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-            Products you might like
-          </h2>
-          <AppProductSlider items={ACCESSORIES} />
-        </section>
-      </section>
+      <AppProductsYouMightLike/>
     </>
   );
 };

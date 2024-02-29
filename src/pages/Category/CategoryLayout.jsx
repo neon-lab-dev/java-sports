@@ -35,7 +35,7 @@ const CategoryLayout = () => {
             {PRODUCTS.map((item, idx) => (
               <AppCard
                 key={`items-${idx}`}
-                {...item}
+                product={item}
                 className="w-full max-w-[280px] mx-auto sm:min-w-[48%] md:min-w-[300px] xl:min-w-[275px] 2xl:min-w-[300px]"
               />
             ))}

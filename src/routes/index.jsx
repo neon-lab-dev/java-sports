@@ -8,7 +8,9 @@ import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
 
 const RoutesContainer = () => {
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, isAuthenticating } = useSelector(
+    (state) => state.user
+  );
   return (
     <Router>
       <Routes>
@@ -18,8 +20,8 @@ const RoutesContainer = () => {
               component: Component,
               path,
               wrapper: Wrapper,
-              isProtected,
-              redirect,
+              protectFromUnauthenticated,
+              protectFromAuthenticated,
             },
             index
           ) => {
@@ -31,13 +33,21 @@ const RoutesContainer = () => {
               <Component />
             );
 
-            const ComponentWithAuth = isProtected ? (
-              <ProtectedRoute isAuthenticated={isAuthenticated} redirect={redirect}>
-                {ComponentWithWrapper}
-              </ProtectedRoute>
-            ) : (
-              ComponentWithWrapper
-            );
+            const ComponentWithAuth =
+              (protectFromUnauthenticated || protectFromAuthenticated) ? (
+                <ProtectedRoute
+                  isAuthenticated={
+                    protectFromAuthenticated
+                      ? !isAuthenticated
+                      : isAuthenticated
+                  }
+                  redirect={protectFromAuthenticated ? "/account" : "/login"}
+                >
+                  {ComponentWithWrapper}
+                </ProtectedRoute>
+              ) : (
+                ComponentWithWrapper
+              );
             return (
               <Route
                 key={index}
@@ -45,7 +55,7 @@ const RoutesContainer = () => {
                 element={
                   <AppLayout>
                     <Suspense fallback={<AppLoading />}>
-                      {ComponentWithAuth}
+                      {isAuthenticating ? <AppLoading /> : ComponentWithAuth}
                     </Suspense>
                   </AppLayout>
                 }

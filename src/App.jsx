@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUser } from "./api/user";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./redux/slices/userSlice";
+import { setIsAuthenticating, setUser } from "./redux/slices/userSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     if (!isLoading && !isError) {
       dispatch(setUser(data.user));
+      dispatch(setIsAuthenticating(false));
     }
   }, [isLoading, data, isError]);
 

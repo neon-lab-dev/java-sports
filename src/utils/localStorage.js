@@ -32,6 +32,7 @@ export const setLocalStorage = (key, value) => {
   if (typeof value === "string") {
     localStorage.setItem(key, value);
   } else {
+    console.log(value);
     localStorage.setItem(key, JSON.stringify(value));
   }
 };

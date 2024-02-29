@@ -5,6 +5,9 @@ import { calculatePercentage } from "@/utils/calculatePercentage";
 import wishlistIcon from "@assets/icons/wishlist-filled.svg";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slices/cartSlice";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 
 /**
  * @props
@@ -15,8 +18,22 @@ import { Link } from "react-router-dom";
  */
 
 const AppCard = ({ product, className = "" }) => {
+  const dispatch = useDispatch();
   const isWislisted = false;
   const handleAddToCart = () => {
+    const items = getLocalStorage("cartItems", []);
+    let updatedItems = [];
+    const isAlreadyAdded = items.find((item) => item.id === product._id);
+    if (isAlreadyAdded) {
+      updatedItems = items.map((item) =>
+        item.id === product._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      updatedItems = [...items, { id: product._id, quantity: 1 }];
+    }
+    setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${product.name} to cart!`);
   };
 

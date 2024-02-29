@@ -1,4 +1,3 @@
-import PRODUCTS from "@/assets/mock-data/products";
 import AppCard from "@/components/reusable/AppCard";
 import Filters from "./Filters";
 import FilterHeader from "./FilterHeader";
@@ -7,15 +6,28 @@ import { useParams } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
 import { wordToParam } from "@/utils/paramUtils";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getFilteredProducts } from "@/api/products";
 
 const CategoryLayout = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const { category } = useParams();
+  const { category, type } = useParams();
   const types = ACCORDION_LINKS.filter(
     ({ label }) => wordToParam(label) === category
   )[0];
-  if (!types) return <NotFound />;
 
+  const { isLoading, data, isError } = useQuery({
+    queryKey: ["allFilteredProducts", { type, category }],
+    queryFn: () =>
+      getFilteredProducts({
+        type: type === "all" ? category : type,
+        categoryType: types?.type,
+      }),
+  });
+
+  if (!types) return <NotFound />;
+  if (isError) return <NotFound />;
+  if (isLoading) return <h1>Loading...</h1>;
   return (
     <div className="bg-white py-6 overflow-hidden">
       <section className="wrapper max-w-[1500px]">
@@ -32,7 +44,7 @@ const CategoryLayout = () => {
             <Filters types={types} />
           </div>
           <div className="grid grid-cols-1 gap-3 lg:gap-8 sm:grid-cols-2 mx-auto xl:grid-cols-3 3xl:grid-cols-4 w-full sm:w-max h-fit">
-            {PRODUCTS.map((item, idx) => (
+            {data?.products?.map((item, idx) => (
               <AppCard
                 key={`items-${idx}`}
                 product={item}

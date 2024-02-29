@@ -62,7 +62,7 @@ const CartPage = () => {
       ) : (
         <EmptyCart />
       )}
-      <AppProductsYouMightLike/>
+      <AppProductsYouMightLike />
     </>
   );
 };

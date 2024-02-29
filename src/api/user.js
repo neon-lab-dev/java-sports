@@ -148,7 +148,7 @@ export const updateUserDetails = (data) => {
       .put(API.updateUser, data, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {

@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import avatar from "@/assets/images/avatar.jpg";
 import { getUser, updateUserDetails } from "@/api/user";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 const AccountDetails = () => {
   const { user } = useSelector((state) => state.user);
   const [searchParam, setSearchParam] = useSearchParams();
@@ -19,6 +20,7 @@ const AccountDetails = () => {
   } = useForm();
 
   const queryClient = useQueryClient();
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const toggleIsEditing = (isEditing) => {
     setSearchParam({ tab: "account-details", isEditing: isEditing });
@@ -43,9 +45,21 @@ const AccountDetails = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-    mutate(data);
+    const formData = new FormData();
+
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+
+    if (selectedAvatar) {
+      formData.append("file", selectedAvatar);
+    }
+    mutate(formData);
   };
+
+  useEffect(() => {
+    console.log(selectedAvatar);
+  }, [selectedAvatar]);
 
   const onReset = () => {
     setSearchParam({ tab: "account-details", isEditing: "false" });
@@ -95,7 +109,7 @@ const AccountDetails = () => {
               type="text"
               placeholder="Kabir Sah"
               className="bg-grey/2 px-4 py-3"
-              {...register("full_name", { required: true, minLength: 4 })}
+              {...register("full_name", { required: false, minLength: 4 })}
             />
             {errors.name && errors.name.type === "minLength" && (
               <AppFormErrorLine message="Name must be at least 3 characters long" />
@@ -111,7 +125,7 @@ const AccountDetails = () => {
               className="bg-grey/2 px-4 py-3"
               {...register("phoneNo", {
                 //valid only for Indian phone numbers with country code
-                required: true,
+                required: false,
                 validate: (value) => PHONE_REGEX.test(value) || "Invalid phone",
               })}
             />
@@ -128,7 +142,7 @@ const AccountDetails = () => {
               placeholder="someone@gmail.com"
               className="bg-grey/2 px-4 py-3"
               {...register("email", {
-                required: true,
+                required: false,
                 validate: (value) => EMAIL_REGEX.test(value) || "Invalid email",
               })}
             />
@@ -146,13 +160,15 @@ const AccountDetails = () => {
               className="bg-grey/2 px-4 py-3"
               onChange={(e) => {
                 const file = e.target.files[0];
-                const reader = new FileReader();
-
-                reader.onloadend = () => {
-                  setValue("avatar", reader.result);
-                };
-
-                reader.readAsDataURL(file);
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setSelectedAvatar(file);
+                  };
+                  reader.readAsDataURL(file);
+                } else {
+                  setSelectedAvatar(null);
+                }
               }}
             />
             {errors.image && (

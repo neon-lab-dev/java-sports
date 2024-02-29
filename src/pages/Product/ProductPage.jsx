@@ -1,7 +1,7 @@
 import heartIcon from "@/assets/icons/heart.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import buttonNextSlide from "@/assets/images/Button - Next slide.svg";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import toast from "react-hot-toast";
@@ -18,9 +18,9 @@ const ProductPage = ({ product }) => {
   const imgRef = useRef(null);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSpecs, setSelectedSpecs] = useState({
-    size: product.sizes[0],
+    size: product.size,
     quantity: 1,
-    color: product.colors ? product.colors[0] : null,
+    color: product.color,
   });
 
   const adjustCartQuantity = (isToIncrease) => {
@@ -59,7 +59,7 @@ const ProductPage = ({ product }) => {
       <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex max-h-[80vh]">
         <div className="flex flex-col gap-3">
           {product.images.map((img, index) => {
-            if(index > 3) return null;
+            if (index > 3) return null;
             return (
               <div
                 className={`w-24 h-24 aspect-square border-2 rounded-md p-3 border-opacity-40 ${activeImage === index ? "border-black" : "border-[#E4E4E4]"}`}
@@ -68,8 +68,7 @@ const ProductPage = ({ product }) => {
               >
                 <img
                   loading="lazy"
-                  src={img}
-                  alt={product.name}
+                  src={img.url}
                   className="w-full h-full object-center object-contain"
                 />
               </div>
@@ -83,8 +82,7 @@ const ProductPage = ({ product }) => {
               onMouseLeave={() => setIsHovering(false)}
               onMouseMove={handleMouseMove}
               ref={imgRef}
-              src={product.images[activeImage]}
-              alt={product.name}
+              src={product.images[activeImage].url}
               className="object-center object-contain max-h-96 h-full w-full lg:max-h-[calc(80vh-4rem)] border-2 border-white hover:border-[#e4e4e464] rounded-md "
             />
             <div
@@ -142,8 +140,7 @@ const ProductPage = ({ product }) => {
                 <img src={buttonNextSlide} alt="next slide" />
               </button>
               <img
-                src={img}
-                alt={product.name}
+                src={img.url}
                 className="w-full min-h-64 h-64 object-center object-contain"
               />
             </div>
@@ -153,7 +150,7 @@ const ProductPage = ({ product }) => {
       <div className="flex flex-col gap-4 relative">
         {/* image preview thing */}
         <HoverImagePreview
-          img={product.images[activeImage]}
+          img={product.images[activeImage].url}
           show={isHovering}
           cursorPosition={cursorPosition}
         />
@@ -179,7 +176,7 @@ const ProductPage = ({ product }) => {
         <div className="flex flex-col gap-1 sm:gap-2">
           <span className="font-500 text-neutral-black text-xl">Size</span>
           <div className="flex gap-3 flex-wrap">
-            {product.sizes.map((size, index) => (
+            {[product.size].map((size, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedSpecs((prev) => ({ ...prev, size }))}
@@ -220,14 +217,14 @@ const ProductPage = ({ product }) => {
               <span className="text-primary">Out of stock</span>
             )}
           </div>
-          {product.colors && (
+          {product.color && (
             <>
               <hr className="h-[80%] w-[1.5px] bg-grey-light opacity-50 self-end hidden md:block" />
               <hr className=" bg-grey-light opacity-50 md:hidden" />
               <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
                 <span>Color</span>
                 <div className="flex gap-3">
-                  {product.colors.map((color, index) => (
+                  {product.color.split(",").map((color, index) => (
                     <button
                       onClick={() =>
                         setSelectedSpecs((prev) => ({ ...prev, color }))
@@ -254,7 +251,7 @@ const ProductPage = ({ product }) => {
           <span className="font-500 text-neutral-black text-xl">
             Shipping Details
           </span>
-          <ul>
+          {/* <ul> //todo
             {product.shippingDetails.map((detail, index) => (
               <li
                 key={index}
@@ -263,23 +260,7 @@ const ProductPage = ({ product }) => {
                 {detail}
               </li>
             ))}
-          </ul>
-        </div>
-        <hr />
-        <div className="flex flex-col gap-2">
-          <span className="font-500 text-neutral-black text-lg">
-            In The Box
-          </span>
-          <ul>
-            {product.inTheBox.map((detail, index) => (
-              <li
-                key={index}
-                className="text-neutral-black list-disc list-inside ml-4 tex-xs"
-              >
-                {detail}
-              </li>
-            ))}
-          </ul>
+          </ul> */}
         </div>
         <button
           disabled={product.stock === 0}

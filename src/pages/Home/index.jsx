@@ -3,12 +3,21 @@ import AppProductSlider from "@/components/reusable/AppProductSlider";
 
 // @ts-ignore
 import BannerImg from "@assets/images/personalized-kit.png";
-import ACCESSORIES from "@/assets/mock-data/accessories";
-import PRODUCTS from "@/assets/mock-data/products";
 import POSTS from "@/assets/mock-data/posts";
+import { useQuery } from "@tanstack/react-query";
+import { getTopRatedBats } from "@/api/products";
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
+
+  const {
+    data: topRatedBats,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["topRatedBats"],
+    queryFn: getTopRatedBats,
+  });
 
   return (
     <>
@@ -19,7 +28,9 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Top Rated Bats
           </h2>
-          <AppProductSlider items={PRODUCTS} />
+          {isLoading
+            ? "Loading..."
+            : !isError && <AppProductSlider items={topRatedBats.products} />}
         </section>
       </section>
 
@@ -29,7 +40,9 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Featured
           </h2>
-          <AppProductSlider items={PRODUCTS} />
+          {isLoading
+            ? "Loading..."
+            : !isError && <AppProductSlider items={topRatedBats.products} />}
         </section>
       </section>
 
@@ -61,7 +74,9 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Accessories Collection
           </h2>
-          <AppProductSlider items={ACCESSORIES} />
+          {isLoading
+            ? "Loading..."
+            : !isError && <AppProductSlider items={topRatedBats.products} />}
         </section>
       </section>
 

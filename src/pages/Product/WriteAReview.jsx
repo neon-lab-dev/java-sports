@@ -2,8 +2,16 @@ import { useForm } from "react-hook-form";
 import crossIcon from "@/assets/icons/cross.svg";
 import starIcon from "@/assets/icons/star.svg";
 import starOutlineIcon from "@/assets/icons/start-outline.svg";
+import { useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { writeAReview } from "@/api/products";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const WriteAReview = ({ setIsWritingAReview }) => {
+  const { productId } = useParams();
+  const { user } = useSelector((state) => state.user);
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -14,9 +22,26 @@ const WriteAReview = ({ setIsWritingAReview }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    setIsWritingAReview(false);
-    reset();
+    mutate({
+      ...data,
+      productId,
+    });
   };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => writeAReview(data),
+    onError: (error) => {
+      toast.error(error);
+    },
+    onSuccess: () => {
+      toast.success("Review submitted successfully");
+      setIsWritingAReview(false);
+      reset();
+      queryClient.invalidateQueries({
+        queryKey: ["product", productId],
+      });
+    },
+  });
 
   return (
     <>
@@ -79,7 +104,7 @@ const WriteAReview = ({ setIsWritingAReview }) => {
             type="submit"
             className="bg-black text-white py-2.5 rounded-md self-end px-12 sm:px-24 disabled:opacity-50"
           >
-            Submit
+            {isPending ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>

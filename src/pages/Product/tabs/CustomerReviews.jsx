@@ -28,7 +28,9 @@ const CustomerReviews = ({ product }) => {
             <div className="flex flex-col items-center justify-center gap-3">
               <div className="flex gap-3 items-center justify-center">
                 <img src={starIcon} alt="star" />
-                <span className="text-2xl font-500">{ratingsInNumbers()}</span>
+                <span className="text-2xl font-500">
+                  {isNaN(ratingsInNumbers()) ? 0 : ratingsInNumbers()}
+                </span>
               </div>
               <span className="text-lg">{reviews.length} Reviews</span>
             </div>

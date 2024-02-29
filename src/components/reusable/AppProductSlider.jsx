@@ -14,7 +14,7 @@ const AppProductSlider = ({ items }) => {
   return (
     <div className="py-[20px] px-1 snap-x snap-mandatory flex overflow-x-auto gap-4 w-full">
       {items.map((item, index) => (
-        <AppCard key={index} {...item} className="min-w-56" />
+        <AppCard key={index} product={item} className="min-w-56" />
       ))}
     </div>
   );

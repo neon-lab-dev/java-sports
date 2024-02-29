@@ -4,6 +4,7 @@ import crossIcon from "@/assets/icons/cross.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import wishlistIcon from "@assets/icons/wishlist-filled.svg";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 /**
  * @props
@@ -13,20 +14,14 @@ import toast from "react-hot-toast";
  * Discounted price
  */
 
-const AppCard = ({
-  title,
-  image,
-  baseprice,
-  discountedprice,
-  className = "",
-}) => {
+const AppCard = ({ product, className = "" }) => {
   const isWislisted = false;
   const handleAddToCart = () => {
-    toast.success(`Added ${title} to cart!`);
+    toast.success(`Added ${product.name} to cart!`);
   };
 
   const handleAddToWishlist = () => {
-    toast.success(`Added ${title} to wishlist!`);
+    toast.success(`Added ${product.name} to wishlist!`);
   };
 
   return (
@@ -45,22 +40,28 @@ const AppCard = ({
           />
         </button>
       </div>
-      <div className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md p-1">
+      <div className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md">
         <img
-          src={image}
-          alt={title}
+          src={product.images[0].url}
+          alt={product.name}
           className="w-full h-full object-contain object-center "
         />
       </div>
-      <span className="text-base sm:text-lg">{title}</span>
+      <Link to={`/product/${product._id}`} className="text-base sm:text-lg hover:underline hover:text-blue transition-all">
+        {
+          //show only four words
+          product.name.split(" ").slice(0, 4).join(" ")
+        }
+      </Link>
       <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
-          <span className="font-Lato font-700">₹{discountedprice}</span>
+          <span className="font-Lato font-700">₹{product.discountedprice}</span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
-            ₹{baseprice}
+            ₹{product.baseprice}
           </span>
           <span className="text-[#00B553] font-500">
-            {calculatePercentage(baseprice, discountedprice)}% off
+            {calculatePercentage(product.baseprice, product.discountedprice)}%
+            off
           </span>
         </span>
         <button onClick={handleAddToCart}>

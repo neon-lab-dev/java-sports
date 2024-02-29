@@ -6,6 +6,9 @@ import KeyFeatures from "./tabs/KeyFeatures";
 import Specifications from "./tabs/Specifications";
 import CustomerReviews from "./tabs/CustomerReviews";
 import TabPage from "./tabs";
+import { useQuery } from "@tanstack/react-query";
+import AppLoading from "@/components/reusable/AppLoading";
+import { getAProduct } from "@/api/products";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const TABS = [
@@ -25,7 +28,6 @@ export const TABS = [
 
 const ProductMainPage = () => {
   const { productId } = useParams();
-  const product = PRODUCTS_FOR_PRODUCT_PAGE.find((p) => p._id === productId);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -39,11 +41,34 @@ const ProductMainPage = () => {
     setSearchParams({ activeTab: tab });
   };
 
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["product", productId],
+    queryFn: () => getAProduct(productId),
+  });
+
+  if (isLoading) return <AppLoading />;
+  if (isError)
+    return (
+      <h1>
+        Product not found
+        {JSON.stringify(error)}
+      </h1>
+    );
+
   return (
     <div className="flex flex-col gap-2 pb-8">
       <section className="bg-white pb-8">
         <div className="wrapper">
-          <ProductPage product={product} />
+          {product.product ? (
+            <ProductPage product={product.product} />
+          ) : (
+            <span>Product not found</span>
+          )}
         </div>
       </section>
       <div className="flex justify-evenly py-2">
@@ -61,7 +86,7 @@ const ProductMainPage = () => {
           </button>
         ))}
       </div>
-      <TabPage product={product} />
+      <TabPage product={product.product} />
     </div>
   );
 };

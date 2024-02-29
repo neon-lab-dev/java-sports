@@ -57,12 +57,10 @@ const AccountDetails = () => {
     mutate(formData);
   };
 
-  useEffect(() => {
-    console.log(selectedAvatar);
-  }, [selectedAvatar]);
-
   const onReset = () => {
     setSearchParam({ tab: "account-details", isEditing: "false" });
+    reset();
+    setSelectedAvatar(null);
   };
 
   return (
@@ -81,8 +79,12 @@ const AccountDetails = () => {
         <div className="flex flex-col py-5">
           <div className="flex items-center justify-start gap-4 mb-3">
             <img
-              src={user?.avatar?.url || avatar}
-              className="w-9 sm:w-14 rounded-full aspect-square"
+              src={
+                selectedAvatar
+                  ? URL.createObjectURL(selectedAvatar)
+                  : user?.avatar?.url || avatar
+              }
+              className="w-9 sm:w-14 rounded-full aspect-square object-cover object-center"
             />
             <span className="text-2xl font-Lato md:text-4xl font-500">
               {user.full_name}

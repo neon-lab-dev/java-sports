@@ -5,9 +5,11 @@ import { calculatePercentage } from "@/utils/calculatePercentage";
 import wishlistIcon from "@assets/icons/wishlist-filled.svg";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/slices/cartSlice";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addToWishlist, removeFromWishlist } from "@/api/products";
+import { useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
 
 /**
  * @props
@@ -18,8 +20,12 @@ import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
  */
 
 const AppCard = ({ product, className = "" }) => {
-  const isWislisted = false;
-  
+  const { user } = useSelector((state) => state.user);
+  const isWishlisted = user?.wishlist.filter(
+    (item) => item.product === product._id
+  ).length;
+  const queryClient = useQueryClient();
+
   const handleAddToCart = () => {
     const items = getLocalStorage("cartItems", []);
     let updatedItems = [];
@@ -37,8 +43,24 @@ const AppCard = ({ product, className = "" }) => {
     toast.success(`Added ${product.name} to cart!`);
   };
 
-  const handleAddToWishlist = () => {
-    toast.success(`Added ${product.name} to wishlist!`);
+  const { mutate, isPending } = useMutation({
+    mutationFn: (id) =>
+      isWishlisted ? removeFromWishlist(id) : addToWishlist(id),
+    onSuccess: () => {
+      toast.success(
+        `${isWishlisted ? "Removed" : "Added"} ${product.name} ${
+          isWishlisted ? "from" : "to"
+        } wishlist!`
+      );
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const handleWishlist = () => {
+    mutate(product._id);
   };
 
   return (
@@ -49,12 +71,20 @@ const AppCard = ({ product, className = "" }) => {
         <span className="font-Lato font-700 text-[11px] text-grey-light">
           Java Sports
         </span>
-        <button onClick={handleAddToWishlist} className="cursor-pointer">
-          <img
-            src={!isWislisted ? heartIcon : crossIcon}
-            alt="Wishlist"
-            className="w-7 h-7 sm:w-8 sm:h-8"
-          />
+        <button
+          disabled={isPending}
+          onClick={handleWishlist}
+          className="cursor-pointer"
+        >
+          {isPending ? (
+            <ClipLoader size={26} color="#00B553" />
+          ) : (
+            <img
+              src={!isWishlisted ? heartIcon : crossIcon}
+              alt="Wishlist"
+              className="w-7 h-7 sm:w-8 sm:h-8 hover:text-primary`"
+            />
+          )}
         </button>
       </div>
       <Link

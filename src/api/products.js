@@ -86,3 +86,49 @@ export const getFilteredProducts = ({ type, categoryType }) => {
       });
   });
 };
+
+export const addToWishlist = (productId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        API.addToWishlist,
+        {
+          id: productId,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Something went wrong, please try again"
+        );
+      });
+  });
+};
+
+export const removeFromWishlist = (productId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${API.removeFromWishlist}?id=${productId}`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Something went wrong, please try again"
+        );
+      });
+  });
+};

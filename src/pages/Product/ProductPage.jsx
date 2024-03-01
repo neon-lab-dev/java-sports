@@ -11,6 +11,7 @@ import addIcon from "@/assets/images/plus.svg";
 import removeIcon from "@/assets/images/minus.svg";
 import Slider from "react-slick";
 import HoverImagePreview from "./HoverImagePreview";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 
 const ProductPage = ({ product }) => {
   let sliderRef = useRef(null);
@@ -37,8 +38,19 @@ const ProductPage = ({ product }) => {
     }
   };
 
-  const handleAddToCart = () => {
-    toast.success(`${selectedSpecs.quantity} ${product.name} added to cart`);
+  const handleAddToCart = (quantity) => {
+    const items = getLocalStorage("cartItems", []);
+    let updatedItems = [];
+    const isAlreadyAdded = items.find((item) => item.id === product._id);
+    if (isAlreadyAdded) {
+      updatedItems = items.map((item) =>
+        item.id === product._id ? { ...item, quantity } : item
+      );
+    } else {
+      updatedItems = [...items, { id: product._id, quantity }];
+    }
+    setLocalStorage("cartItems", updatedItems);
+    toast.success(`Added ${product.name} to cart!`);
   };
 
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -269,7 +281,7 @@ const ProductPage = ({ product }) => {
           Buy Now
         </button>
         <button
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart(selectedSpecs.quantity)}
           className="rounded-md border-2 border-grey-dark py-3"
         >
           Add to Cart

@@ -18,8 +18,8 @@ import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
  */
 
 const AppCard = ({ product, className = "" }) => {
-  const dispatch = useDispatch();
   const isWislisted = false;
+  
   const handleAddToCart = () => {
     const items = getLocalStorage("cartItems", []);
     let updatedItems = [];

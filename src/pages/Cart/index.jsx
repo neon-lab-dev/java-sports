@@ -9,30 +9,25 @@ import {
   getFinalAmount,
   getTotalAmount,
 } from "@/utils/cartUtils";
-import PRODUCTS from "@/assets/mockData/products";
 import EmptyCart from "./EmptyCart";
 import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
+import { getLocalStorage } from "@/utils/localStorage";
+import { useQueries } from "@tanstack/react-query";
+import { getAProduct } from "@/api/products";
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      productId: "65ce1905247feb2254f7fa81",
-      quantity: 1,
-    },
-    {
-      productId: "65ce1905247feb2254f7fa56",
-      quantity: 1,
-    },
-  ]);
-  const [products, setProducts] = useState();
+  const [cartItems, setCartItems] = useState(getLocalStorage("cartItems", []));
 
-  useEffect(() => {
-    const products = PRODUCTS.filter((p) =>
-      cartItems.map((item) => item.productId).includes(p._id)
-    );
-    // @ts-ignore
-    setProducts(products);
-  }, [cartItems]);
+  const res = useQueries({
+    queries: (() => {
+      return cartItems.map((item) => {
+        return {
+          queryKey: ["product", item.id],
+          queryFn: () => getAProduct(item.id),
+        };
+      });
+    })(),
+  });
 
   return (
     <>
@@ -41,22 +36,42 @@ const CartPage = () => {
           <section className="flex flex-col xl:flex-row gap-12 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
             <div className="flex flex-col gap-6 sm:gap-12 flex-grow">
               <div className="flex flex-col gap-4">
-                {cartItems.map((item) => (
+                {res.map((item, i) => (
                   <CartItem
                     item={item}
-                    key={item.productId}
-                    quantity={item.quantity}
+                    key={i}
+                    cartItems={cartItems}
                     setCartItems={setCartItems}
                   />
                 ))}
               </div>
             </div>
-            <PriceDetails
-              totalAmount={getTotalAmount(products, cartItems)}
-              discountAmount={getDiscountedAmount(products, cartItems)}
-              totalItems={cartItems.length}
-              finalAmount={getFinalAmount(products, cartItems)}
-            />
+            {
+              //only show price details if all the responses are loaded
+              res.every((r) => r.isSuccess) && (
+                <PriceDetails
+                  totalAmount={getTotalAmount(
+                    res.map((r) => {
+                      return r.data.product;
+                    }),
+                    cartItems
+                  )}
+                  discountAmount={getDiscountedAmount(
+                    res.map((r) => {
+                      return r.data.product;
+                    }),
+                    cartItems
+                  )}
+                  totalItems={cartItems.length}
+                  finalAmount={getFinalAmount(
+                    res.map((r) => {
+                      return r.data.product;
+                    }),
+                    cartItems
+                  )}
+                />
+              )
+            }
           </section>
         </div>
       ) : (

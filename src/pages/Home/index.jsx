@@ -6,6 +6,7 @@ import BannerImg from "@assets/images/personalized-kit.png";
 import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getTopRatedBats } from "@/api/products";
+import AppLoading from "@/components/reusable/AppLoading";
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
@@ -28,9 +29,11 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Top Rated Bats
           </h2>
-          {isLoading
-            ? "Loading..."
-            : !isError && <AppProductSlider items={topRatedBats.products} />}
+          {isLoading ? (
+            <AppLoading className="h-[300px]" />
+          ) : (
+            !isError && <AppProductSlider items={topRatedBats.products} />
+          )}
         </section>
       </section>
 
@@ -40,9 +43,11 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Featured
           </h2>
-          {isLoading
-            ? "Loading..."
-            : !isError && <AppProductSlider items={topRatedBats.products} />}
+          {isLoading ? (
+            <AppLoading className="h-[300px]" />
+          ) : (
+            !isError && <AppProductSlider items={topRatedBats.products} />
+          )}
         </section>
       </section>
 
@@ -74,9 +79,11 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Accessories Collection
           </h2>
-          {isLoading
-            ? "Loading..."
-            : !isError && <AppProductSlider items={topRatedBats.products} />}
+          {isLoading ? (
+            <AppLoading className="h-[250px]" />
+          ) : (
+            !isError && <AppProductSlider items={topRatedBats.products} />
+          )}
         </section>
       </section>
 

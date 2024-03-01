@@ -23,7 +23,12 @@ const CategoryLayout = () => {
     queryFn: () =>
       getFilteredProducts({
         type: type === "all" ? category : type,
-        categoryType: types?.type,
+        categoryType:
+          type === "all"
+            ? types.type
+            : types.type === "category"
+              ? "sub_category"
+              : "sub_category2",
       }),
   });
 

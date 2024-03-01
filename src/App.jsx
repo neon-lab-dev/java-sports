@@ -18,9 +18,11 @@ function App() {
   });
 
   useEffect(() => {
+    if (!isLoading) {
+      dispatch(setIsAuthenticating(false));
+    }
     if (!isLoading && !isError) {
       dispatch(setUser(data.user));
-      dispatch(setIsAuthenticating(false));
     }
   }, [isLoading, data, isError]);
 

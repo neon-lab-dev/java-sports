@@ -62,20 +62,26 @@ export const writeAReview = (data) => {
   });
 };
 
+const getType = (type) => {
+  if (type === "wicketkeeping") return "WicketKeeping";
+  if (type === "inner-thighpad") return "Inner ThighPad";
+  if (type === "sunglass") return "SunGlass";
+  if (type === "on-field") return "On-Field";
+  if (type === "athletic-supporter") return " Athletic Supporter";
+  if (type === "caps-&-hats") return "Caps & Hats";
+  if (type === "wristband") return "WristBand";
+  return paramToWord(type);
+};
+
 export const getFilteredProducts = ({ type, categoryType }) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        `${API.getAllProducts}?${categoryType}=${
-          type === "wicketkeeping" ? "WicketKeeping" : paramToWord(type)
-        }`,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .get(`${API.getAllProducts}?${categoryType}=${getType(type)}`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })

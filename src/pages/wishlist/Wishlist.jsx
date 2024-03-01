@@ -4,7 +4,17 @@ import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLi
 import { useSelector } from "react-redux";
 
 const Wishlist = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex justify-center items-center h-[50vh] w-full">
+        <span className="text-2xl text-grey-light text-center ">
+          Please login to see your wishlist
+        </span>
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex flex-col">

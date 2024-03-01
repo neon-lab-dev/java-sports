@@ -31,7 +31,7 @@ const contactUs = () => {
                         </div>
                         <div className='flex'>
                             <img src={loaction} alt="location" />
-                            <p className='text-white text-lg'>Java Sports Pvt Ltd
+                            <p className='text-white text-[12px]'>Java Sports Pvt Ltd
                                 Ground & First Floor, Chak Bairiya,
                                 Karanpur, Illahibagh, <br />
                                 Near Illahibagh Petrol Pump,
@@ -69,11 +69,11 @@ const contactUs = () => {
                 <span className='text-4xl font-700 p-6'> View On Map </span>
             </div>
             <div className='flex justify-center p-10'>
-                <div className='max-md:hidden'>
+                <div className='max-lg:hidden'>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.4767009195157!2d85.15455507485021!3d25.589071215717933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed589d3565c8c7%3A0xf197d8a4b0688b5d!2s90%20Feet%20Rd%2C%20Patna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1708607935356!5m2!1sen!2sin"
-                        height="500vh"
-                        width="800vh"
+                        height="500"
+                        width="1000"
                         frameBorder="0"
                         style={{ border: 0 }}
                         allowFullScreen=""
@@ -82,7 +82,7 @@ const contactUs = () => {
                         title="JavaSport"
                     />
                 </div>
-                <div className='md:hidden'>
+                <div className='lg:hidden'>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.4767009195157!2d85.15455507485021!3d25.589071215717933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed589d3565c8c7%3A0xf197d8a4b0688b5d!2s90%20Feet%20Rd%2C%20Patna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1708607935356!5m2!1sen!2sin"
                         height="300"

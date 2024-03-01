@@ -19,7 +19,7 @@ const AppFooter = () => {
     <div className='flex flex-col px-14 py-10 pt-16 gap-2 max-sm:px-5'>
       <div className=" flex justify-between gap-7 max-sm:flex-col max-sm:px-1 max-lg:flex-col">
         <div className='flex justify-center'>
-        <img className='p-1' src={logo} alt="logo" />
+          <img className='p-1' src={logo} alt="logo" />
         </div>
         <div className='font-Lato font-700 flex flex-col gap-2'>
 
@@ -37,30 +37,29 @@ const AppFooter = () => {
           {MenuToggle && (
             <div className='p-2 m-2'>
               <ul className='font-lato font-500 text-base list-disc'>
-                <li className=''>Bats</li>
-                <li>Balls</li>
-                <li>Protective Gear</li>
-                <li>FootWear</li>
-                <li>Apparel</li>
-                <li>Accessiories</li>
+                <li><Link to="/bats/all">Bats</Link></li>
+                <li><Link to="/balls/all">Balls</Link></li>
+                <li><Link to="/wicket-keeping/all">WicketKeeping</Link></li>
+                <li><Link to="/shoes/all">Shoes</Link></li>
+                <li><Link to="/apparel/all">Apparel</Link></li>
+                <li><Link to="/accessories/all">Accessories</Link></li>
               </ul>
             </div>
           )}
           <hr className='h-0.3 bg-black lg:hidden' />
           <ul className='font-500 list-disc px-6 text-[14px] max-sm:hidden max-lg:hidden'>
-            <li>Bats</li>
-            <li>Balls</li>
-            <li>Protective Gear</li>
-            <li>FootWear</li>
-            <li>Apparel</li>
-            <li>Accessiories</li>
+            <li><Link to="/bats/all">Bats</Link></li>
+            <li><Link to="/balls/all">Balls</Link></li>
+            <li><Link to="/wicket-keeping/all">WicketKeeping</Link></li>
+            <li><Link to="/shoes/all">Shoes</Link></li>
+            <li><Link to="/apparel/all">Apparel</Link></li>
+            <li><Link to="/accessories/all">Accessories</Link></li>
           </ul>
         </div>
 
-
         <div className='font-Lato font-700 flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <h1  className='uppercase'>Secure Shopping</h1>
+            <h1 className='uppercase'>Legal</h1>
             <button className='lg:hidden' onClick={() => setExploreMenuToggle((prev) => !prev)}>
               {!ExploreMenuToggle ? (
                 <img className="" src={plus} alt="" />
@@ -72,19 +71,17 @@ const AppFooter = () => {
           {ExploreMenuToggle && (
             <div className='p-2 m-2'>
               <ul className='font-lato font-500 text-base list-disc'>
-                <li>Privacy Policy</li>
-                <li>Terms & Conditions</li>
-                <li>Payment Options</li>
-                <li>SSL Encrypted</li>
+                <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+                <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
+                <li><Link to="/shipping-and-returns">Shipping & Returns</Link></li>
               </ul>
             </div>
           )}
           <hr className='h-0.3 bg-black lg:hidden' />
           <ul className='font-500 list-disc px-6 text-[14px] max-sm:hidden max-lg:hidden'>
-            <li>Privacy Policy</li>
-            <li>Terms & Conditions</li>
-            <li>Payment Options</li>
-            <li>SSL Encrypted</li>
+            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+            <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
+            <li><Link to="/shipping-and-returns">Shipping & Returns</Link></li>
           </ul>
         </div>
 
@@ -92,7 +89,7 @@ const AppFooter = () => {
 
         <div className='font-Lato font-700 flex flex-col gap-2 '>
           <div className='flex justify-between'>
-            <h1 className='uppercase' >Why Us</h1>
+            <h1 className='uppercase' >Company</h1>
             <button className='lg:hidden' onClick={() => setSecureToggle((prev) => !prev)}>
               {!SecureToggle ? (
                 <img className="" src={plus} alt="" />
@@ -104,26 +101,24 @@ const AppFooter = () => {
           {SecureToggle && (
             <div className='p-2 m-2'>
               <ul className='font-lato font-500 text-base list-disc'>
-                <li>Quality Assurance</li>
-                <li>Expert Advice</li>
-                <li>Fast Shipping</li>
-                <li>100% Satisfaction Guarantee</li>
+                <li><Link to="/about-us">About Us</Link></li>
+                <li><Link to="/contact">Contact Us</Link></li>
+                <li><Link to="/size-guide">Size Guide</Link></li>
               </ul>
             </div>
           )}
           <hr className='h-0.3 bg-black lg:hidden' />
           <ul className='font-500 list-disc px-6 text-[14px] max-sm:hidden  max-lg:hidden'>
-            <li>Quality Assurance</li>
-            <li>Expert Advice</li>
-            <li>Fast Shipping</li>
-            <li>100% Satisfaction Guarantee</li>
+            <li><Link to="/about-us">About Us</Link></li>
+            <li><Link to="/contact">Contact Us</Link></li>
+            <li><Link to="/size-guide">Size Guide</Link></li>
           </ul>
         </div>
 
 
-        <div className='font-Lato font-700 flex flex-col gap-2 max'>
+        {/* <div className='font-Lato font-700 flex flex-col gap-2 max'>
           <div className='flex justify-between'>
-            <h1  className='uppercase'>Customer Support</h1>
+            <h1 className='uppercase'>Customer Support</h1>
             <button className='lg:hidden' onClick={() => setCustomerMenuToggle((prev) => !prev)}>
               {!CustomerMenuToggle ? (
                 <img className="" src={plus} alt="" />
@@ -144,15 +139,17 @@ const AppFooter = () => {
           )}
           <hr className='h-0.3 bg-black lg:hidden' />
           <ul className='font-500 list-disc px-6 text-[14px] max-sm:hidden  max-lg:hidden'>
-          <li><Link to="/contact">Contact us</Link></li>
+            <li><Link to="/contact">Contact us</Link></li>
             <li>FAQs</li>
             <li>Size Guide</li>
             <li>Shipping & Return</li>
           </ul>
-        </div>
+        </div> */}
+
+
         <div className='font-Lato font-700 flex flex-col gap-2'>
           <div className='flex justify-between'>
-            <h1  className='uppercase'>Connect with Us</h1>
+            <h1 className='uppercase'>Connect with Us</h1>
             <button className='lg:hidden' onClick={() => setConnectMenuToggle((prev) => !prev)}>
               {!ConnectMenuToggle ? (
                 <img className="" src={plus} alt="" />
@@ -165,20 +162,20 @@ const AppFooter = () => {
             <div className='p-2 m-2'>
               <ul className='font-lato font-500 text-base list-disc flex gap-3'>
                 <img src={facebook} alt="" />
-                <span>@Javasport</span>
+                <span><Link to="">@Javasport</Link></span>
                 <img src={insta} alt="" />
-                <span>@Javasport</span>
+                <span><Link to="">@Javasport</Link></span>
               </ul>
             </div>)
           }
           <hr className='h-0.3 bg-black lg:hidden' />
           <div className='font-Lato font-500 flex flex-row gap-2 justify-center max-sm:hidden  max-lg:hidden'>
             <img src={facebook} alt="facebook" />
-            <span>@Javasport</span>
+            <span><Link to="">@Javasport</Link></span>
           </div>
           <div className='font-Lato font-500 flex flex-row gap-2 justify-center max-sm:hidden  max-lg:hidden'>
             <img src={insta} alt="insta" />
-            <span>@Javasport</span>
+            <span><Link to="">@Javasport</Link></span>
           </div>
         </div>
 
@@ -200,13 +197,13 @@ const AppFooter = () => {
             <div className='p-1 m-1'>
               <ul className='font-lato font-500 text-base list-disc flex gap-3'>
                 <img src={loaction} alt="" />
-                <span>Address of the store</span>
+                <span><Link to="">Address of the store</Link></span>
               </ul>
             </div>)
           }
           <div className='font-Lato font-500 flex flex-row gap-2 max-sm:hidden  max-lg:hidden'>
             <img src={loaction} alt="" />
-            <span>Address of the store</span>
+            <span><Link to="https://www.google.com/maps/place/90+Feet+Rd,+Patna,+Bihar/@25.589066,85.15713,16z/data=!4m6!3m5!1s0x39ed589d3565c8c7:0xf197d8a4b0688b5d!8m2!3d25.5890664!4d85.15713!16s%2Fg%2F11byl6rs5m?hl=en&entry=ttu">Address of the store</Link></span>
           </div>
         </div>
       </div>

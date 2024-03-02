@@ -6,6 +6,7 @@ import CustomerReviewsButton from "./CustomerReviewsButton";
 import ShowNewArrivalsButton from "./ShowNewArrivalsButton";
 import PriceRange from "./PriceRange";
 import FILTERS from "@/assets/categoryFilters/filters";
+import TypeFilter from "./TypeFilter";
 
 const DEFAULT_FILTERS = {
   type: [],
@@ -41,14 +42,10 @@ const Filters = ({ types }) => {
 
   return (
     <div className="border-2 p-3 flex flex-col gap-2 rounded-md min-w-64 lg:min-w-fit 2xl:min-w-64">
-      <MultiSelectFilterItem
-        title="Product Type"
-        options={types.dropdowns
-          .filter((link) => link !== "All")
-          .map((link) => wordToParam(link))}
-        value={filters.type}
-        setValue={(val) => setFilters((prev) => ({ ...prev, type: val }))}
-        resetValue={() => setFilters((prev) => ({ ...prev, type: [] }))}
+      <TypeFilter
+        options={types.dropdowns.map((link) => {
+          return { label: link, value: wordToParam(link) };
+        })}
       />
       {customFilters?.filters.map((filter, i) => {
         if (filter.type !== "multiselect") return null;

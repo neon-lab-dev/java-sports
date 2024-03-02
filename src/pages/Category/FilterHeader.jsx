@@ -6,8 +6,6 @@ const SORTING_OPTIONS = [
   "Most Relevant",
   "Low to High price",
   "High to low price",
-  "Most Popular",
-  "Most Rating",
 ];
 
 const FilterHeader = ({ setShowFilters }) => {

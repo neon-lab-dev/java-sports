@@ -10,7 +10,7 @@ import { useSearchParams } from "react-router-dom";
 const AccountPageWrapper = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useSelector((state) => state.user);
-  
+
   const { data: myOrders } = useQuery({
     queryKey: ["myOrders"],
     queryFn: getAllMyOrders,
@@ -34,12 +34,14 @@ const AccountPageWrapper = ({ children }) => {
             Welcome, {user.full_name}
           </h1>
           <div className="flex justify-between w-full gap-8 border-t border-opacity-50 border-grey-light pb-12 pt-6 sm:pt-12">
-            <div className="flex-col gap-4 hidden lg:flex border-grey-light border-x border-opacity-50 w-64 min-w-64 h-max">
-              {TABS.map((tab) => (
+            <div className="flex-col hidden lg:flex border-grey-light border-x border-opacity-50 w-64 min-w-64 h-max">
+              {TABS.map((tab, i) => (
                 <button
                   key={tab}
                   onClick={() => setSearchParams({ tab })}
-                  className={`px-4 py-4 border-y border-grey-light border-opacity-50 font-500 font-Lato ${tab === searchParams.get("tab") ? "bg-primary text-white" : ""}`}
+                  className={`px-4 py-4 border-grey-light border-opacity-50 font-500 font-Lato ${tab === searchParams.get("tab") ? "bg-primary text-white" : ""} ${
+                    i === 0 ? " border-y" : "border-b"
+                  }`}
                 >
                   {paramToWord(tab)}{" "}
                 </button>

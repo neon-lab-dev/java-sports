@@ -38,14 +38,16 @@ const ROUTES = [
     protectFromAuthenticated: true,
   },
   {
-    path: "/reset-password",
+    path: "/reset-password/:resetToken",
     component: lazy(() => import("@/pages/Auth/ChangePassword")),
     wrapper: AuthWrapper,
+    protectedFromAuthenticated: true,
   },
   {
     path: "/forgot-password",
     component: lazy(() => import("@/pages/Auth/ForgotPassword")),
     wrapper: AuthWrapper,
+    protectedFromAuthenticated: true,
   },
   {
     path: "/otp-verification",

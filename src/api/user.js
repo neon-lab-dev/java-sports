@@ -161,3 +161,47 @@ export const updateUserDetails = (data) => {
       });
   });
 };
+
+export const forgetPassword = (email) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        API.forgotPassword,
+        { email },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Password reset failed, please try again"
+        );
+      });
+  });
+};
+
+export const changePasswordUsingToken = ({ data, resetToken }) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${API.resetPassword}/${resetToken}`, data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Password reset failed, please try again"
+        );
+      });
+  });
+};

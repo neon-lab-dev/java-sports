@@ -14,7 +14,6 @@ import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLi
 import { getLocalStorage } from "@/utils/localStorage";
 import { useQueries } from "@tanstack/react-query";
 import { getAProduct } from "@/api/products";
-import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState(getLocalStorage("cartItems", []));

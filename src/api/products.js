@@ -138,3 +138,43 @@ export const removeFromWishlist = (productId) => {
       });
   });
 };
+
+export const getHelmets = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.getAllProducts}?category=Helmets`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Something went wrong, please try again"
+        );
+      });
+  });
+};
+
+export const getAccessories = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.getAllProducts}?sub_category=Accessories`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Something went wrong, please try again"
+        );
+      });
+  });
+};

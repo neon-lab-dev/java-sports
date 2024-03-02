@@ -5,7 +5,7 @@ import AppProductSlider from "@/components/reusable/AppProductSlider";
 import BannerImg from "@assets/images/personalized-kit.png";
 import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
-import { getTopRatedBats } from "@/api/products";
+import { getAccessories, getHelmets, getTopRatedBats } from "@/api/products";
 import AppLoading from "@/components/reusable/AppLoading";
 
 const HomePage = () => {
@@ -18,6 +18,22 @@ const HomePage = () => {
   } = useQuery({
     queryKey: ["topRatedBats"],
     queryFn: getTopRatedBats,
+  });
+  const {
+    data: featuredProducts,
+    isLoading: isFeaturedProductsLoading,
+    isError: isFeaturedProductsError,
+  } = useQuery({
+    queryKey: ["featuredProducts"],
+    queryFn: getHelmets,
+  });
+  const {
+    data: accessories,
+    isLoading: isAccessoriesLoading,
+    isError: isAccessoriesError,
+  } = useQuery({
+    queryKey: ["accessories"],
+    queryFn: getAccessories,
   });
 
   return (
@@ -43,10 +59,12 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Featured
           </h2>
-          {isLoading ? (
+          {isFeaturedProductsLoading ? (
             <AppLoading className="h-[300px]" />
           ) : (
-            !isError && <AppProductSlider items={topRatedBats.products} />
+            !isFeaturedProductsError && (
+              <AppProductSlider items={featuredProducts.products} />
+            )
           )}
         </section>
       </section>
@@ -79,10 +97,12 @@ const HomePage = () => {
           <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
             Accessories Collection
           </h2>
-          {isLoading ? (
+          {isAccessoriesLoading ? (
             <AppLoading className="h-[250px]" />
           ) : (
-            !isError && <AppProductSlider items={topRatedBats.products} />
+            !isAccessoriesError && (
+              <AppProductSlider items={accessories.products} />
+            )
           )}
         </section>
       </section>

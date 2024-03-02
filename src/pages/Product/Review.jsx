@@ -15,7 +15,7 @@ const Review = ({ review, showBorder }) => {
     >
       <div className="flex gap-2 items-center">
         <img
-          src={review.image || avatarPlaceholder}
+          src={review.avatar || avatarPlaceholder}
           alt="star"
           className="w-9 h-9 sm:h-12 sm:w-12 rounded-full object-cover object-center"
         />

@@ -90,7 +90,6 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
               ₹{(data.product.discountedprice * quantity).toFixed(2)}
             </span>
             <span className="text-xs xs:text-base sm:text-lg font-600 text-green-500">
-              ₹
               {calculatePercentage(
                 data.product.baseprice,
                 data.product.discountedprice

@@ -11,7 +11,7 @@ import { addToWishlist, removeFromWishlist } from "@/api/products";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
-
+import noImage from "@assets/images/no-image.jpg";
 /**
  * @props
  * Title
@@ -101,8 +101,9 @@ const AppCard = ({ product, className = "" }) => {
         className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md group"
       >
         <img
-          src={product.images[0].url}
+          src={product?.images[0]?.url || noImage}
           alt={product.name}
+          onError={(e) => (e.currentTarget.src = noImage)} // set this image if the provided url does not work
           className="w-full h-full object-contain object-center group-hover:scale-105 transition-all"
         />
       </Link>

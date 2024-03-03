@@ -36,6 +36,14 @@ const AppCarousel = () => {
     autoplay: true,
   };
 
+  //scroll by 60vh when app cta button is clicked
+  const handleScroll = () => {
+    window.scrollBy({
+      top: window.innerHeight * 0.6,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <Slider {...settings}>
       {SLIDERS.map(({ content, ctaLabel, ctaHref, img, label }, index) => (
@@ -61,7 +69,7 @@ const AppCarousel = () => {
                 className="text-white text-base uppercase text-Lato font-700 sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-6xl min-w-max"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
-              <AppCTAButton link={ctaHref} text={ctaLabel} />
+              <AppCTAButton action={handleScroll} text={ctaLabel} />
             </div>
             <picture className="h-full z-10 min-w-fit ">
               <img

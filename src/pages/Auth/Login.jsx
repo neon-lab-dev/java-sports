@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
-import { setUser } from "@/redux/slices/userSlice";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { setIsAuthenticating, setUser } from "@/redux/slices/userSlice";
 import { login } from "@/api/user";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -19,8 +20,9 @@ const Login = () => {
     onError: (error) => {
       toast.error(error);
     },
-    onSuccess: (data) => {
-      dispatch(setUser(data.user));
+    onSuccess: () => {
+      dispatch(setIsAuthenticating(true));
+      queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate("/account");
     },
   });

@@ -7,18 +7,18 @@ const TypeFilter = ({ options }) => {
     <div className="flex flex-col gap-1 font-Lato">
       <span className="text-lg font-700">Product Type:</span>
       <div className="flex flex-col">
-        {options.map(({ label, value: val }, i) => (
+        {options.map(({ label }, i) => (
           <div className="flex gap-3 font-500" key={i}>
             <input
-              checked={val === type}
+              checked={label === decodeURI(type)}
               onChange={() => {
-                navigate(`/${category}/${val}`);
+                navigate(`/${category}/${label}`);
               }}
               className="accent-black"
               type="checkbox"
-              id={val}
+              id={label}
             />
-            <label htmlFor={val}>{label}</label>
+            <label htmlFor={label}>{label}</label>
           </div>
         ))}
       </div>

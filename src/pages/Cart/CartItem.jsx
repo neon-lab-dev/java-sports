@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const CartItem = ({ item, setCartItems, cartItems }) => {
   const { isError, isLoading, data } = item;
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return null;
   if (isError) return null;
 
   const quantity =

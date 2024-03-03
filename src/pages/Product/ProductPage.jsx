@@ -12,6 +12,10 @@ import removeIcon from "@/assets/images/minus.svg";
 import Slider from "react-slick";
 import HoverImagePreview from "./HoverImagePreview";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { splitString } from "@/utils/splitString";
 
 const ProductPage = ({ product }) => {
   let sliderRef = useRef(null);
@@ -19,9 +23,9 @@ const ProductPage = ({ product }) => {
   const imgRef = useRef(null);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSpecs, setSelectedSpecs] = useState({
-    size: product.size,
+    size: splitString(product.size)[0],
     quantity: 1,
-    color: product.color,
+    color: splitString(product.color)[0],
   });
 
   const adjustCartQuantity = (isToIncrease) => {
@@ -63,6 +67,25 @@ const ProductPage = ({ product }) => {
     const xPercent = (x / rect.width) * 100;
     const yPercent = (y / rect.height) * 100;
     setCursorPosition({ x: xPercent, y: yPercent });
+  };
+
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const handleBuyNow = () => {
+    if (isAuthenticated) {
+      navigate("/checkout?buyNow=true");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to place an order!",
+        confirmButtonText: "Login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login?redirect=/product/" + product._id);
+        }
+      });
+    }
   };
 
   return (
@@ -188,7 +211,7 @@ const ProductPage = ({ product }) => {
         <div className="flex flex-col gap-1 sm:gap-2">
           <span className="font-500 text-neutral-black text-xl">Size</span>
           <div className="flex gap-3 flex-wrap">
-            {[product.size].map((size, index) => (
+            {splitString(product.size).map((size, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedSpecs((prev) => ({ ...prev, size }))}
@@ -236,7 +259,7 @@ const ProductPage = ({ product }) => {
               <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
                 <span>Color</span>
                 <div className="flex gap-3">
-                  {product.color.split(",").map((color, index) => (
+                  {splitString(product.color).map((color, index) => (
                     <button
                       onClick={() =>
                         setSelectedSpecs((prev) => ({ ...prev, color }))
@@ -275,6 +298,7 @@ const ProductPage = ({ product }) => {
           </ul> */}
         </div>
         <button
+          onClick={handleBuyNow}
           disabled={product.stock === 0}
           className="bg-primary text-white py-3 rounded-md mt-2 disabled:opacity-50"
         >

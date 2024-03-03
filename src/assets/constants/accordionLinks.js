@@ -1,82 +1,248 @@
 const ACCORDION_LINKS = [
   {
     label: "Clothing",
-    dropdowns: [
-      "All",
-      "On-Field",
-      "Base Layer",
-      "Athletic Supporter",
-      "Socks",
-      "Caps & Hats",
-      "WristBand",
-    ],
     type: "sub_category",
+    queryAs: "Clothing",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "On-Field",
+        queryAs: "On-Field",
+      },
+      {
+        label: "Base Layer",
+        queryAs: "Base Layer",
+      },
+      {
+        label: "Athletic Supporter",
+        queryAs: " Athletic Supporter",
+      },
+      {
+        label: "Socks",
+        queryAs: "Socks",
+      },
+      {
+        label: "Caps & Hats",
+        queryAs: "Caps & Hats",
+      },
+      {
+        label: "Wrist Band",
+        queryAs: "WristBand",
+      },
+    ],
+    filters: null,
   },
   {
     label: "Batting Gear",
-    dropdowns: ["All", "Gloves", "Leg Guard", "Inner Gloves"],
     type: "sub_category",
+    queryAs: "Batting Gear",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Gloves",
+        queryAs: "Gloves",
+      },
+      {
+        label: "Leg Guard",
+        queryAs: "Leg Guard",
+      },
+      {
+        label: "Inner Gloves",
+        queryAs: "Inner Gloves",
+      },
+    ],
+    filters: null,
   },
   {
     label: "Bat",
+    type: "sub_category",
+    queryAs: "Bat",
     dropdowns: [
-      "All",
-      "English Willow",
-      "Kashmir Willow",
-      "Tennis",
-      "Player Edition",
+      {
+        label: "All",
+      },
+      {
+        label: "English Willow",
+        queryAs: "English Willow",
+      },
+      {
+        label: "Kashmir Willow",
+        queryAs: "Kashmir Willow",
+      },
+      {
+        label: "Tennis",
+        queryAs: "Tennis",
+      },
+      {
+        label: "Player Edition",
+        queryAs: "Player Edition",
+      },
     ],
-    type: "sub_category",
+    filters: null,
   },
-  // {
-  //   label: "Ball",
-  //   dropdowns: ["All", "Red Leather", "White Leather", "Tennis Ball"],
-  //   type: "sub_category2",
-  // },
   {
-    label: "WicketKeeping",
-    dropdowns: ["All", "Gloves", "Leg Guard", "Inner Gloves"],
+    label: "Wicket Keeping",
     type: "sub_category",
+    queryAs: "WicketKeeping",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Gloves",
+        queryAs: "Gloves",
+      },
+      {
+        label: "Leg Guard",
+        queryAs: "Leg Guard",
+      },
+      {
+        label: "Inner Gloves",
+        queryAs: "Inner Gloves",
+      },
+    ],
+    filters: null,
   },
   {
     label: "Shoes",
-    dropdowns: ["All", "Bowling", "Spikes", "Rubber Studs"],
     type: "category",
+    queryAs: "Shoes",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Bowling",
+        queryAs: "Bowling",
+      },
+      {
+        label: "Spikes",
+        queryAs: "Spikes",
+      },
+      {
+        label: "Rubber Studs",
+        queryAs: "Rubber Studs",
+      },
+    ],
   },
   {
     label: "Helmets",
-    dropdowns: ["All", "Steel", "Titanium", "Limited Edition"],
     type: "category",
+    queryAs: "Helmets",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Steel",
+        queryAs: "Steel",
+      },
+      {
+        label: "Titanium",
+        queryAs: "Titanium",
+      },
+      {
+        label: "Limited Edition",
+        queryAs: "Limited Edition",
+      },
+    ],
   },
   {
     label: "Bags",
-    dropdowns: ["All", "Kitbags", "Wheelie", "Duffle", "Backpack", "Bat Cover"],
     type: "sub_category",
+    queryAs: "Bags",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Kitbags",
+        queryAs: "Kitbags",
+      },
+      {
+        label: "Wheelie",
+        queryAs: "Wheelie",
+      },
+      {
+        label: "Duffle",
+        queryAs: "Duffle",
+      },
+      {
+        label: "Backpack",
+        queryAs: "Backpack",
+      },
+      {
+        label: "Bat Cover",
+        queryAs: "Bat Cover",
+      },
+    ],
   },
   {
     label: "Protection",
-    dropdowns: [
-      "All",
-      "Thigh Pad",
-      "Chest Guard",
-      "Arm Guard",
-      "Abdominal Guard",
-      "Inner ThighPad",
-    ],
     type: "sub_category",
+    queryAs: "Protection",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Thigh Pad",
+        queryAs: "Thigh Pad",
+      },
+      {
+        label: "Chest Guard",
+        queryAs: "Chest Guard",
+      },
+      {
+        label: "Arm Guard",
+        queryAs: "Arm Guard",
+      },
+      {
+        label: "Abdominal Guard",
+        queryAs: "Abdominal Guard",
+      },
+      {
+        label: "Inner ThighPad",
+        queryAs: "Inner ThighPad",
+      },
+    ],
   },
   {
     label: "Accessories",
-    dropdowns: [
-      "All",
-      "Ball",
-      "SunGlass",
-      "Bat Grips",
-      "Bat Care",
-      "Stumps",
-      "Other",
-    ],
     type: "sub_category",
+    queryAs: "Accessories",
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Bat Grips",
+        queryAs: "Bat Grips",
+      },
+      {
+        label: "Bat Care",
+        queryAs: "Bat Care",
+      },
+      {
+        label: "Stumps",
+        queryAs: "Stumps",
+      },
+      {
+        label: "Other",
+        queryAs: "Other",
+      },
+    ],
+  },
+  {
+    label: "Ball",
+    type: "sub_category2",
+    queryAs: "Ball",
+    dropdowns: null,
+    filters: null,
   },
 ];
 

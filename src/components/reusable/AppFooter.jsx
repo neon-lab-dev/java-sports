@@ -8,6 +8,35 @@ import minus from "@assets/images/minus.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+const LINKS = {
+  exploreOurRange: [
+    {
+      title: "Bat",
+      href: "/Bat/All",
+    },
+    {
+      title: "Ball",
+      href: "/Ball",
+    },
+    {
+      title: "Protective Gear",
+      href: "/Protection/All",
+    },
+    {
+      title: "Foot Wear",
+      href: "/Batting Gear/Leg Guard",
+    },
+    {
+      title: "Clothing",
+      href: "/Clothing/All",
+    },
+    {
+      title: "Accessories",
+      href: "/Accessories/All",
+    },
+  ],
+};
+
 const AppFooter = () => {
   const [MenuToggle, setMenuToggle] = useState(false);
   const [ExploreMenuToggle, setExploreMenuToggle] = useState(false);
@@ -39,23 +68,21 @@ const AppFooter = () => {
           {MenuToggle && (
             <div className="p-2 m-2">
               <ul className="font-lato font-500 text-base list-disc">
-                <li className="">Bats</li>
-                <li>Balls</li>
-                <li>Protective Gear</li>
-                <li>FootWear</li>
-                <li>Apparel</li>
-                <li>Accessiories</li>
+                {LINKS.exploreOurRange.map((link, i) => (
+                  <Link className="hover:underline" key={i} to={link.href}>
+                    <li>{link.title}</li>
+                  </Link>
+                ))}
               </ul>
             </div>
           )}
           <hr className="h-0.3 bg-black lg:hidden" />
           <ul className="font-500 list-disc px-6 text-[14px] max-sm:hidden max-lg:hidden">
-            <li>Bats</li>
-            <li>Balls</li>
-            <li>Protective Gear</li>
-            <li>FootWear</li>
-            <li>Apparel</li>
-            <li>Accessiories</li>
+            {LINKS.exploreOurRange.map((link, i) => (
+              <Link className="hover:underline" key={i} to={link.href}>
+                <li>{link.title}</li>
+              </Link>
+            ))}
           </ul>
         </div>
 

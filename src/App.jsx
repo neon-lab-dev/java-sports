@@ -14,7 +14,7 @@ function App() {
     queryKey: ["user"],
     queryFn: getUser,
     staleTime: Infinity,
-    retry: 2,
+    retry: 0,
   });
 
   useEffect(() => {

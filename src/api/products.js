@@ -62,21 +62,36 @@ export const writeAReview = (data) => {
   });
 };
 
-const getType = (type) => {
-  if (type === "wicketkeeping") return "WicketKeeping";
-  if (type === "inner-thighpad") return "Inner ThighPad";
-  if (type === "sunglass") return "SunGlass";
-  if (type === "on-field") return "On-Field";
-  if (type === "athletic-supporter") return " Athletic Supporter";
-  if (type === "caps-&-hats") return "Caps & Hats";
-  if (type === "wristband") return "WristBand";
-  return paramToWord(type);
-};
+// const getType = (type) => {
+//   if (type === "wicketkeeping") return "WicketKeeping";
+//   if (type === "inner-thighpad") return "Inner ThighPad";
+//   if (type === "sunglass") return "SunGlass";
+//   if (type === "on-field") return "On-Field";
+//   if (type === "athletic-supporter") return " Athletic Supporter";
+//   if (type === "caps-&-hats") return "Caps & Hats";
+//   if (type === "wristband") return "WristBand";
+//   return paramToWord(type);
+// };
 
-export const getFilteredProducts = ({ type, categoryType }) => {
+export const getFilteredProducts = ({
+  category,
+  categoryType,
+  mainCategoryLabel,
+}) => {
+  const url = `${API.getAllProducts}?${
+    categoryType && categoryType.toLowerCase() === "all"
+      ? mainCategoryLabel
+      : mainCategoryLabel === "category"
+        ? "sub_category"
+        : "sub_category2"
+  }=${
+    categoryType && categoryType.toLowerCase() === "all"
+      ? category
+      : categoryType
+  }`;
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.getAllProducts}?${categoryType}=${getType(type)}`, {
+      .get(url, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

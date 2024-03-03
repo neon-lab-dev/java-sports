@@ -13,8 +13,8 @@ const HomePage = () => {
 
   const {
     data: topRatedBats,
-    isLoading,
-    isError,
+    isLoading: isTopRatedBatsLoading,
+    isError: isTopRatedBatsError,
   } = useQuery({
     queryKey: ["topRatedBats"],
     queryFn: getTopRatedBats,
@@ -39,35 +39,35 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <section className={`${sectionWrapper}`}>
-        {/* Top Rated Bats */}
-        <section className="wrapper">
-          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-            Top Rated Bats
-          </h2>
-          {isLoading ? (
-            <AppLoading className="h-[300px]" />
-          ) : (
-            !isError && <AppProductSlider items={topRatedBats.products} />
-          )}
+      {!isTopRatedBatsError && (
+        <section className={`${sectionWrapper}`}>
+          {/* Top Rated Bats */}
+          <section className="wrapper">
+            <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
+              Top Rated Bats
+            </h2>
+            <AppProductSlider
+              items={topRatedBats?.products}
+              isLoading={isTopRatedBatsLoading}
+            />
+          </section>
         </section>
-      </section>
+      )}
 
-      <section className={`${sectionWrapper}`}>
-        {/* Featured */}
-        <section className="wrapper">
-          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-            Featured
-          </h2>
-          {isFeaturedProductsLoading ? (
-            <AppLoading className="h-[300px]" />
-          ) : (
-            !isFeaturedProductsError && (
-              <AppProductSlider items={featuredProducts.products} />
-            )
-          )}
+      {!isFeaturedProductsError && (
+        <section className={`${sectionWrapper}`}>
+          {/* Featured */}
+          <section className="wrapper">
+            <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
+              Featured
+            </h2>
+            <AppProductSlider
+              items={featuredProducts?.products}
+              isLoading={isFeaturedProductsLoading}
+            />
+          </section>
         </section>
-      </section>
+      )}
 
       {/* Banner */}
       <section className="h-[200px] xs:h-[250px] lg:h-[300px] xl:h-[400px] bg-neutral-white lg-light relative overflow-hidden">
@@ -91,21 +91,20 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className={`${sectionWrapper}`} id="top-rated-bats">
-        {/* Accessories Collection */}
-        <section className="wrapper">
-          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-            Accessories Collection
-          </h2>
-          {isAccessoriesLoading ? (
-            <AppLoading className="h-[250px]" />
-          ) : (
-            !isAccessoriesError && (
-              <AppProductSlider items={accessories.products} />
-            )
-          )}
+      {!isAccessoriesError && (
+        <section className={`${sectionWrapper}`} id="top-rated-bats">
+          {/* Accessories Collection */}
+          <section className="wrapper">
+            <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
+              Accessories Collection
+            </h2>
+            <AppProductSlider
+              items={accessories?.products}
+              isLoading={isAccessoriesLoading}
+            />
+          </section>
         </section>
-      </section>
+      )}
 
       <section className={`${sectionWrapper}`}>
         {/* News feed */}

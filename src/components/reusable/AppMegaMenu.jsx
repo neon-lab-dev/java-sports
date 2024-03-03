@@ -1,5 +1,4 @@
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
-import generateLink from "@/utils/generateLink";
 import * as Menubar from "@radix-ui/react-menubar";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -38,36 +37,39 @@ const AppMegaMenu = () => {
                     : "text-black"
                 }`}
               >
-                {dropdown.label}
+                {dropdown.dropdowns ? (
+                  dropdown.label
+                ) : (
+                  <Link to={`/${dropdown.label}`}>{dropdown.label}</Link>
+                )}
               </Menubar.Trigger>
-              <Menubar.Portal>
-                <Menubar.Content
-                  onMouseEnter={() =>
-                    setIsHovering((prev) => ({ ...prev, child: true }))
-                  }
-                  onMouseLeave={() =>
-                    setIsHovering((prev) => ({ ...prev, child: false }))
-                  }
-                  align="center"
-                  className="pt-4"
-                >
-                  <div className="min-w-40 w-full p-1 bg-white rounded-sm shadow-xl flex flex-col gap-1">
-                    {dropdown.dropdowns.map((item, i) => (
-                      <Menubar.Item key={i} className="outline-none">
-                        <Link
-                          to={generateLink({
-                            category: dropdown.label,
-                            type: item,
-                          })}
-                          className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary hover:text-white block"
-                        >
-                          {item}
-                        </Link>
-                      </Menubar.Item>
-                    ))}
-                  </div>
-                </Menubar.Content>
-              </Menubar.Portal>
+              {dropdown.dropdowns && (
+                <Menubar.Portal>
+                  <Menubar.Content
+                    onMouseEnter={() =>
+                      setIsHovering((prev) => ({ ...prev, child: true }))
+                    }
+                    onMouseLeave={() =>
+                      setIsHovering((prev) => ({ ...prev, child: false }))
+                    }
+                    align="center"
+                    className="pt-4"
+                  >
+                    <div className="min-w-40 w-full p-1 bg-white rounded-sm shadow-xl flex flex-col gap-1">
+                      {dropdown?.dropdowns?.map((item, i) => (
+                        <Menubar.Item key={i} className="outline-none">
+                          <Link
+                            to={`/${dropdown.label}/${item.label}`}
+                            className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary hover:text-white block"
+                          >
+                            {item.label}
+                          </Link>
+                        </Menubar.Item>
+                      ))}
+                    </div>
+                  </Menubar.Content>
+                </Menubar.Portal>
+              )}
             </Menubar.Menu>
           ))}
         </Menubar.Root>

@@ -1,36 +1,19 @@
-// @ts-nocheck
 import { useEffect, useRef, useState } from "react";
-
-// @ts-ignore
 import logo from "@assets/images/Vector.svg";
-// @ts-ignore
 import locationIcon from "@assets/icons/location.svg";
-// @ts-ignore
 import wishlistIcon from "@assets/icons/wishlist.svg";
-// @ts-ignore
 import cartIcon from "@assets/icons/cart.svg";
-// @ts-ignore
 import profileIcon from "@assets/icons/profile.svg";
-// @ts-ignore
 import menuIcon from "@assets/icons/menu.svg";
-
-// @ts-ignore
 import chevronDownIcon from "@assets/icons/chevron-down.svg";
-// @ts-ignore
 import closeIcon from "@assets/icons/close.svg";
-// Components
 import AppSearchBar from "./AppSearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
-import USER from "@/assets/mockData/user";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
+import { useSelector } from "react-redux";
 import { paramToWord } from "@/utils/paramUtils";
-import generateLink from "@/utils/generateLink";
-import { useDispatch, useSelector } from "react-redux";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { logout } from "@/api/user";
-import toast from "react-hot-toast";
-import { logoutUser } from "@/redux/slices/userSlice";
+import avatar from "@assets/images/avatar.jpg";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -40,7 +23,6 @@ const AppHeaderNav = () => {
   const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
-
   const handleOnSearch = (e) => {
     e.preventDefault();
     console.log("Search Product !!");
@@ -113,7 +95,10 @@ const AppHeaderNav = () => {
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link to="/account" className={`${navWrapper} hidden lg:flex`}>
+            <Link
+              to={isAuthenticated ? "/account" : "/login"}
+              className={`${navWrapper} hidden lg:flex`}
+            >
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>
@@ -141,32 +126,33 @@ const AppHeaderNav = () => {
           <img src={closeIcon} className="w-9" />
         </button>
         <div className="flex flex-col px-6 py-5">
-          <div className="flex items-center justify-start gap-4 mb-3">
-            <img
-              src={USER.img}
-              alt={USER.name}
-              className="w-12 rounded-full aspect-square"
-            />
-            <span className="text-2xl font-500">{USER.name}</span>
-          </div>
-          <span className="font-400">Email: {USER.email}</span>
-          <span className="font-400">Phone: {USER.phone}</span>
+          {isAuthenticated && (
+            <>
+              <div className="flex items-center justify-start gap-4 mb-3">
+                <img
+                  src={user?.avatar?.url || avatar}
+                  alt={user.full_name}
+                  className="w-12 rounded-full aspect-square object-cover object-center"
+                />
+                <span className="text-2xl font-500">{
+                user.full_name
+                }</span>
+              </div>
+              <span className="font-400">Email: {user.email}</span>
+              <span className="font-400">Phone: {user.phoneNo}</span>
+            </>
+          )}
         </div>
         <div className="flex flex-col">
           {ACCORDION_LINKS.map((link, i) => (
             <LinkDropdown
-              key={link.label}
-              link={{
+              key={i}
+              links={{
                 label: link.label,
-                dropdowns: link.dropdowns.map((dropdown) => {
-                  return {
-                    label: dropdown,
-                    link: generateLink({
-                      category: link.label,
-                      type: dropdown,
-                    }),
-                  };
-                }),
+                dropdowns: link.dropdowns?.map((dropdown) => ({
+                  label: dropdown.label,
+                  link: `/${link.label}/${dropdown.label}`,
+                })),
               }}
               i={i}
               activeDropdown={activeDropdown}
@@ -174,28 +160,23 @@ const AppHeaderNav = () => {
               setIsSidebarOpen={setIsSidebarOpen}
             />
           ))}
-          <LinkDropdown
-            link={{
-              label: "My Account",
-              dropdowns: ACCOUNT_PAGE_TABS.map((tab) => ({
-                label: paramToWord(tab),
-                link: `/account?tab=${tab}`,
-              })),
-            }}
-            i={ACCORDION_LINKS.length}
-            activeDropdown={activeDropdown}
-            setActiveDropdown={setActiveDropdown}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-          <LinkDropdown
-            link={{
-              label: "Logout",
-            }}
-            i={ACCORDION_LINKS.length + 1}
-            activeDropdown={activeDropdown}
-            setActiveDropdown={setActiveDropdown}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
+          {isAuthenticated && (
+            <LinkDropdown
+              links={{
+                label: "My Account",
+                dropdowns: ACCOUNT_PAGE_TABS.map((tab) => ({
+                  label: paramToWord(tab),
+                  link: `/account?tab=${tab}`,
+                })),
+              }}
+              i={ACCORDION_LINKS.length}
+              activeDropdown={activeDropdown}
+              setActiveDropdown={setActiveDropdown}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+
+          {/* //todo: add the link for logout */}
         </div>
       </aside>
       {isSidebarOpen && (
@@ -212,32 +193,13 @@ const AppHeaderNav = () => {
 export default AppHeaderNav;
 
 const LinkDropdown = ({
-  link: { label, dropdowns = null },
+  links: { label, dropdowns = null },
   i,
   setActiveDropdown,
   activeDropdown,
   setIsSidebarOpen,
 }) => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
-
-  const { mutate } = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["user"]);
-      toast.success("Logged out successfully");
-      navigate("/");
-      dispatch(logoutUser());
-    },
-    onError: () => {
-      toast.error("Failed to logout");
-    },
-  });
-  const handleLogout = () => {
-    mutate();
-  };
   return (
     <div
       className={`flex flex-col px-6 py-3 font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
@@ -245,23 +207,15 @@ const LinkDropdown = ({
       <button
         onClick={() => {
           setActiveDropdown(activeDropdown === i ? null : i);
-          if (label.toLowerCase() === "logout") {
-            handleLogout();
+          if (!dropdowns) {
+            navigate(`/${label}`);
             setIsSidebarOpen(false);
           }
         }}
         className="flex justify-between w-full"
       >
-        <span>
-          {label.toLowerCase() !== "logout"
-            ? label
-            : isAuthenticated && "Logout"}
-        </span>
-        {!(label.toLowerCase() === "logout") ? (
-          <img src={chevronDownIcon} className="w-6" />
-        ) : (
-          <span />
-        )}
+        <span>{label}</span>
+        {dropdowns ? <img src={chevronDownIcon} className="w-6" /> : <span />}
       </button>
       {dropdowns && (
         <div

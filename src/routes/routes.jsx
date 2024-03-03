@@ -76,6 +76,7 @@ const ROUTES = [
   {
     path: "/checkout",
     component: lazy(() => import("@/pages/Checkout/checkout")),
+    protectFromUnauthenticated: true,
   },
   {
     path: "/:category",

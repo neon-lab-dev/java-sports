@@ -51,7 +51,15 @@ const ProductPage = ({ product }) => {
         item.id === product._id ? { ...item, quantity } : item
       );
     } else {
-      updatedItems = [...items, { id: product._id, quantity }];
+      updatedItems = [
+        ...items,
+        {
+          id: product._id,
+          quantity,
+          color: selectedSpecs.color,
+          size: selectedSpecs.size,
+        },
+      ];
     }
     setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${product.name} to cart!`);

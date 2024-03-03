@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist, removeFromWishlist } from "@/api/products";
 import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
+import { splitString } from "@/utils/splitString";
 
 /**
  * @props
@@ -37,7 +38,15 @@ const AppCard = ({ product, className = "" }) => {
           : item
       );
     } else {
-      updatedItems = [...items, { id: product._id, quantity: 1 }];
+      updatedItems = [
+        ...items,
+        {
+          id: product._id,
+          quantity: 1,
+          color: product.color,
+          size: splitString(product.size)[0],
+        },
+      ];
     }
     setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${product.name} to cart!`);

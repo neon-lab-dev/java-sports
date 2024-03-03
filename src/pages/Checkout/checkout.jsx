@@ -64,7 +64,7 @@ const Checkout = () => {
               Delivery Address
             </span>
             <Link to="/account?tab=addresses" className="text-blue font-500">
-              Change
+              Edit
             </Link>
           </div>
           <div className="flex gap-3 flex-col lg:flex-row">

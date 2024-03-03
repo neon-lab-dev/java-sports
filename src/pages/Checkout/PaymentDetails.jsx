@@ -1,11 +1,46 @@
+import API from "@/api";
+import { handleCheckout, handleGetApiKey } from "@/api/orders";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 const PaymentDetails = ({
   totalAmount,
   totalItems,
   finalAmount,
   discountAmount,
 }) => {
+  const { user } = useSelector((state) => state.user);
   const flex =
     "flex justify-between text-base sm:text-lg gap-6 min-w-max w-full";
+
+  const checkoutHandler = async () => {
+    const key = await handleGetApiKey();
+    const res = await handleCheckout(finalAmount);
+    const options = {
+      key: key,
+      amount: res.order.amount,
+      currency: "INR",
+      name: "Java Sports",
+      description: "",
+      image: "java-sports.svg",
+      order_id: res.order.id,
+      callback_url: API.paymentVerification,
+      prefill: {
+        name: user.full_name,
+        email: user.email,
+        contact: user.phoneNo,
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#121212",
+      },
+    };
+    const razor = new window.Razorpay(options);
+    razor.open();
+  };
+
   return (
     <div className="shadow-md border border-gray-200 border-opacity-40 sticky xl:top-4 rounded-md px-4 py-5 sm:p-6 bg-white h-fit flex flex-col gap-3 text-gray-700 sm:min-w-96 min-h-80 justify-center">
       <span className="uppercase text-xl font-600 text-black">
@@ -43,7 +78,10 @@ const PaymentDetails = ({
           />
           <button className="bg-grey/1 font-500 px-6 py-1">Apply</button>
         </div>
-        <button className="bg-red-500 text-lg py-2 text-white rounded-[5px] font-500">
+        <button
+          onClick={checkoutHandler}
+          className="bg-red-500 text-lg py-2 text-white rounded-[5px] font-500"
+        >
           Proceed to Pay
         </button>
       </div>

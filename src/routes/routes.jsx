@@ -87,6 +87,11 @@ const ROUTES = [
     component: lazy(() => import("@/pages/Category")),
   },
   {
+    path: "/paymentsuccess",
+    component: lazy(() => import("@/pages/Checkout/PaymentSuccess")),
+    protectFromUnauthenticated: true,
+  },
+  {
     path: "*",
     component: lazy(() => import("@/pages/NotFound")),
   },

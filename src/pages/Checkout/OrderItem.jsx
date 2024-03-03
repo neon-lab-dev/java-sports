@@ -30,10 +30,10 @@ const OrderItem = ({ item, response }) => {
           </span>
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-xl font-500">
-              ₹{data.product.baseprice}
+              ₹{data.product.discountedprice}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{data.product.discountedprice}
+              ₹{data.product.baseprice}
             </span>
             <span className="text-[#00B553] font-500">
               {calculatePercentage(

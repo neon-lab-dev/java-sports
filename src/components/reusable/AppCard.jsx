@@ -42,9 +42,14 @@ const AppCard = ({ product, className = "" }) => {
         ...items,
         {
           id: product._id,
+          product: product._id,
           quantity: 1,
           color: product.color,
           size: splitString(product.size)[0],
+          name: product.name,
+          image: product.images[0].url,
+          price: product.discountedprice,
+          basePrice: product.baseprice,
         },
       ];
     }

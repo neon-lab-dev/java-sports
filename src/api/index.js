@@ -39,6 +39,9 @@ const API = {
 
   //coupon routes
   applyDiscount: BACKEND_BASE_URL + "/discount",
+
+  //others
+  getPaymentKey: BACKEND_BASE_URL + "/getkey",
 };
 
 export default API;

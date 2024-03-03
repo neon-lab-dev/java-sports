@@ -11,6 +11,7 @@ const AppBreadCrumb = () => {
     "/otp",
     "/forgot-password",
     "/reset-password",
+    "/paymentsuccess",
   ];
 
   const excludeDynamicLinks = ["/product"];

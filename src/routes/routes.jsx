@@ -41,18 +41,18 @@ const ROUTES = [
     path: "/reset-password/:resetToken",
     component: lazy(() => import("@/pages/Auth/ChangePassword")),
     wrapper: AuthWrapper,
-    protectedFromAuthenticated: true,
   },
   {
     path: "/forgot-password",
     component: lazy(() => import("@/pages/Auth/ForgotPassword")),
     wrapper: AuthWrapper,
-    protectedFromAuthenticated: true,
+    protectFromAuthenticated: true,
   },
   {
     path: "/otp-verification",
     component: lazy(() => import("@/pages/Auth/Otp")),
     wrapper: AuthWrapper,
+    protectFromAuthenticated: true,
   },
   {
     path: "/account",
@@ -61,24 +61,20 @@ const ROUTES = [
     protectFromUnauthenticated: true,
   },
   {
-    path: "*",
-    component: lazy(() => import("@/pages/NotFound")),
-  },
-  {
-    path: "otp",
+    path: "/otp",
     component: lazy(() => import("@/pages/Auth/OtpVerification")),
     wrapper: AuthWrapper,
   },
   {
-    path: "wishlist",
+    path: "/wishlist",
     component: lazy(() => import("@/pages/Wishlist/Wishlist")),
   },
   {
-    path: "contact",
+    path: "/contact",
     component: lazy(() => import("@/pages/ContactUs/contactus")),
   },
   {
-    path: "checkout",
+    path: "/checkout",
     component: lazy(() => import("@/pages/Checkout/checkout")),
   },
   {
@@ -88,6 +84,10 @@ const ROUTES = [
   {
     path: "/:category/:type",
     component: lazy(() => import("@/pages/Category")),
+  },
+  {
+    path: "*",
+    component: lazy(() => import("@/pages/NotFound")),
   },
 ];
 export default ROUTES;

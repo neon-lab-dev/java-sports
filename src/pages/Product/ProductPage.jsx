@@ -73,6 +73,13 @@ const ProductPage = ({ product }) => {
   const navigate = useNavigate();
   const handleBuyNow = () => {
     if (isAuthenticated) {
+      localStorage.removeItem("buyNowProduct");
+      setLocalStorage("buyNowProduct", {
+        id: product._id,
+        quantity: selectedSpecs.quantity,
+        color: selectedSpecs.color,
+        size: selectedSpecs.size,
+      });
       navigate("/checkout?buyNow=true");
     } else {
       Swal.fire({

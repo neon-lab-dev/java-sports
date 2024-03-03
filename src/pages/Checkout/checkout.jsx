@@ -1,122 +1,141 @@
-// @ts-nocheck
-import profile from "@/assets/icons/Ellipse.svg";
-import close from "@assets/icons/close.svg";
-import bat from "@assets/images/prostrike-elite-bat-2.svg";
-import remove from "@assets/images/minus.svg";
-import plus from "@assets/images/plus.svg";
-import { useState } from "react";
+import avatar from "@assets/images/avatar.jpg";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useSearchParams } from "react-router-dom";
+import AddressBox from "./AddressBox";
+import PaymentDetails from "./PaymentDetails";
+import { getLocalStorage } from "@/utils/localStorage";
+import OrderItem from "./OrderItem";
+import { useQueries } from "@tanstack/react-query";
+import { getAProduct } from "@/api/products";
+import CartPageSkeleton from "@/components/skeletons/CartPageSkeleton";
+import {
+  getDiscountedAmount,
+  getFinalAmount,
+  getTotalAmount,
+} from "@/utils/cartUtils";
 
-const checkout = () => {
-  const intialvalue = 0;
-  const [count, setCount] = useState(intialvalue);
+const Checkout = () => {
+  const { user } = useSelector((state) => state.user);
+  const [searchParams] = useSearchParams();
+  const [selectedAddress, setSelectedAddress] = useState("primaryaddress");
+  const [orderItems] = useState(() => {
+    if (searchParams.get("buyNow") === "true") {
+      return [getLocalStorage("buyNowProduct", {})];
+    } else {
+      return getLocalStorage("cartItems", []);
+    }
+  });
+
+  const res = useQueries({
+    queries: orderItems.map((item) => ({
+      queryKey: ["product", item.id],
+      queryFn: () => getAProduct(item.id),
+    })),
+  });
+
   return (
-    <div className="bg-white px-[140px] py-10 flex flex-col gap-10 max-xl:px-4">
-      <div className=" bg-white flex flex-col gap-5 justify-center shadow-xl  p-6 ">
-        <div className="flex justify-between">
-          <span className="text-3xl font-700 font-Lato">Login Id</span>
-          <span className="text-blue font-500">Edit</span>
-        </div>
-        <div className="flex items-center gap-2 ">
-          <img src={profile} alt="profile-image" />
-          <span className="font-500">Kabir Sah</span>
-        </div>
-        <span> Email: www.kabirsah@gmail.com</span>
-        <span> Phone: 5824658726</span>
-      </div>
-      <div className="flex flex-col gap-5 justify-center shadow-xl  p-6 m-2">
-        <div className="flex justify-between">
-          <span className="text-3xl font-700 font-Lato">Shopping Address</span>
-          <span className="text-blue font-500">Edit</span>
-        </div>
-        <div className="flex flex-col gap-3">
-          <span>
-            Kabir Sah ,123 Main Street , Apt 4B , Cityville, State 54321 ,United
-            States
-          </span>
-          <span>Phone: +1 (555) 123-4567</span>
-          <span>Email: kabir.sah@example.com</span>
-        </div>
-      </div>
-      <div className="shadow-xl p-6 m-2 flex flex-col gap-2">
-        <div className="flex justify-between p-2">
-          <span className="text-3xl font-500 max-sm:text-lg p-5">
-            Order Summery
-          </span>
-          <img
-            className="w-[30px] h-[30px] rounded-[50%] border"
-            src={close}
-            alt=""
-          />
-        </div>
-        <div className="flex gap-4 max-sm:flex-col max-sm:justify-center">
-          <div className="p-10  bg-grey/1 rounded-xl  flex justify-center">
-            <img src={bat} alt="" />
+    <div className="bg-white py-10">
+      <section className="wrapper flex flex-col gap-4">
+        <div className="flex flex-col gap-5 justify-center card-shadow p-6 rounded-md">
+          <div className="flex justify-between">
+            <span className="text-xl sm:text-3xl  font-700 font-Lato">
+              Logged in as
+            </span>
+            <span className="text-blue font-500"></span>
           </div>
-          <div className="flex flex-col gap-4 ">
-            <span className="text-2xl">
-              <span className="font-700">Product:</span> Elite Series Kashmiri
-              Willow Cricket Bat
+          <div className="flex items-center gap-2 ">
+            <img
+              src={user?.avatar?.url || avatar}
+              className="w-12 h-12 rounded-full object-cover object-center"
+            />
+            <Link to="/account" className="font-500 text-xl hover:underline">
+              {user?.full_name}
+            </Link>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span>Email: {user?.email}</span>
+            <span>Phone: {user?.phoneNo}</span>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 justify-center card-shadow p-6 rounded-md">
+          <div className="flex justify-between">
+            <span className="text-xl sm:text-3xl font-700 font-Lato">
+              Delivery Address
             </span>
-            <span>Delivery by 28-01-2024</span>
-            <span className="text-xl font-500">Quantity</span>
-            <div className="flex">
-              <button
-                onClick={() => setCount((prev) => prev - 1)}
-                className="border px-2 p-1"
-              >
-                <img src={remove} alt="minus" />
-              </button>
-              <div className="border p-1 px-2 text-lg">{count}</div>
-              <button
-                onClick={() => setCount((prev) => prev + 1)}
-                className="border p-1 px-2"
-              >
-                <img src={plus} alt="plus" />
-              </button>
-            </div>
-            <span className="text-xl">
-              <span className="font-500">Total Price:</span> ₹149.99
-            </span>
-            <span className="text-xl">
-              <span className="font-500">Discount : </span>₹00.00
-            </span>
-            <span className="text-xl">
-              <span className="font-500">Delivery charges :</span> ₹00.00
-            </span>
-            <div className="flex  max-lg:hidden">
-              <input
-                className="pr-24 pl-3 py-1 max-sm:pr-2  border max-sm:text-xs text-xl "
-                type="text"
-                placeholder="Enter the Coupon code"
-                id="user"
+            <Link to="/account?tab=addresses" className="text-blue font-500">
+              Change
+            </Link>
+          </div>
+          <div className="flex gap-3 flex-col lg:flex-row">
+            {["primaryaddress", "secondaryaddress", "thirdaddress"].map(
+              (address, i) => (
+                <AddressBox
+                  key={i}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
+                  address={address}
+                  i={i}
+                />
+              )
+            )}
+          </div>
+        </div>
+        {
+          //render only when all the queries are loaded
+          res.every((r) => r.isSuccess) ? (
+            <div className="flex gap-6 flex-col xl:flex-row">
+              <div className="flex flex-col flex-grow gap-4 card-shadow p-6 rounded-md">
+                <div className="flex justify-between">
+                  <span className="text-xl sm:text-3xl font-700 font-Lato">
+                    Order Summery
+                  </span>
+                  <Link
+                    to={
+                      searchParams.get("buyNow") === "true"
+                        ? `/product/${orderItems[0].id}`
+                        : "/cart"
+                    }
+                    className="text-blue font-500 text-lg"
+                  >
+                    Edit
+                  </Link>
+                </div>
+                <div className="flex gap-5 flex-col">
+                  {orderItems.map((item, index) => (
+                    <OrderItem key={index} item={item} response={res[index]} />
+                  ))}
+                  {orderItems.length === 0 && <span>No items in the cart</span>}
+                </div>
+              </div>
+              <PaymentDetails
+                totalAmount={getTotalAmount(
+                  res.map((r) => {
+                    return r.data.product;
+                  }),
+                  orderItems
+                )}
+                discountAmount={getDiscountedAmount(
+                  res.map((r) => {
+                    return r.data.product;
+                  }),
+                  orderItems
+                )}
+                totalItems={orderItems.length}
+                finalAmount={getFinalAmount(
+                  res.map((r) => {
+                    return r.data.product;
+                  }),
+                  orderItems
+                )}
               />
-              <button className="bg-grey/1 px-16  max-sm:px-2 font-500">
-                Apply
-              </button>
             </div>
-            <button className="bg-red-500 text-lg p-1 text-white  max-lg:hidden rounded-[5px]">
-              {" "}
-              Proceed to Pay
-            </button>
-          </div>
-        </div>
-        <div className="flex lg:hidden p-1">
-          <input
-            className="pr-24 pl-3 py-1 max-sm:pr-2 border max-sm:text-xs text-xl "
-            type="text"
-            placeholder="Enter the Coupon code"
-            id="user"
-          />
-          <button className="bg-grey/1 pr-24 pl-24  max-sm:pr-2  max-sm:pl-2 font-500">
-            Apply
-          </button>
-        </div>
-        <button className="bg-red-500 text-lg p-1 text-white lg:hidden rounded-[5px]">
-          {" "}
-          Proceed to Pay
-        </button>
-      </div>
+          ) : (
+            <CartPageSkeleton />
+          )
+        }
+      </section>
     </div>
   );
 };
-export default checkout;
+export default Checkout;

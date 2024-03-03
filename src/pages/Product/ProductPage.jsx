@@ -25,7 +25,7 @@ const ProductPage = ({ product }) => {
   const [selectedSpecs, setSelectedSpecs] = useState({
     size: splitString(product.size)[0],
     quantity: 1,
-    color: splitString(product.color)[0],
+    color: splitString(product.Availablecolor)[0],
   });
 
   const adjustCartQuantity = (isToIncrease) => {
@@ -274,7 +274,7 @@ const ProductPage = ({ product }) => {
               <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
                 <span>Color</span>
                 <div className="flex gap-3">
-                  {splitString(product.color).map((color, index) => (
+                  {splitString(product.Availablecolor).map((color, index) => (
                     <button
                       onClick={() =>
                         setSelectedSpecs((prev) => ({ ...prev, color }))

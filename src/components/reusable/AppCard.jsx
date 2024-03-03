@@ -98,7 +98,7 @@ const AppCard = ({ product, className = "" }) => {
       </div>
       <Link
         to={`/product/${product._id}`}
-        className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md group"
+        className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md group overflow-hidden"
       >
         <img
           src={product?.images[0]?.url || noImage}

@@ -9,7 +9,7 @@ const FOOTER_LINKS = {
       links: [
         {
           label: "Bat",
-          url: "Bat/All",
+          url: "/Bat/All",
         },
         {
           label: "Ball",
@@ -20,8 +20,8 @@ const FOOTER_LINKS = {
           url: "/Protection/All",
         },
         {
-          label: "Foot Wear",
-          url: "/Batting Gear/Leg Guard",
+          label: "Shoes",
+          url: "/Shoes/All",
         },
         {
           label: "Clothing",

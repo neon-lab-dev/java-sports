@@ -94,15 +94,15 @@ const ACCORDION_LINKS = [
       },
       {
         label: "Gloves",
-        queryAs: "Gloves",
+        queryAs: "WGloves",
       },
       {
         label: "Leg Guard",
-        queryAs: "Leg Guard",
+        queryAs: "WLeg Guard",
       },
       {
         label: "Inner Gloves",
-        queryAs: "Inner Gloves",
+        queryAs: "WInner Gloves",
       },
     ],
     filters: null,

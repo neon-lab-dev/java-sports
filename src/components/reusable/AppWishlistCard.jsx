@@ -106,10 +106,10 @@ const AppWishlistCard = ({ productId }) => {
         <div className="flex justify-between items-center">
           <ul className="flex  items-center gap-2">
             <li className="font-Lato font-700 text-lg">
-              <span>₹{data.product.baseprice}</span>
+              <span>₹{data.product.discountedprice}</span>
             </li>
             <li className="font-Lato font-500 text-sm line-through">
-              <span>₹{data.product.discountedprice}</span>
+              <span>₹{data.product.baseprice}</span>
             </li>
             <li className="font-Lato font-700 text-[13px] text-green-400">
               <span>

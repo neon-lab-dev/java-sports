@@ -63,9 +63,14 @@ const ProductPage = ({ product }) => {
         ...items,
         {
           id: product._id,
-          quantity,
+          product: product._id,
+          quantity: selectedSpecs.quantity,
           color: selectedSpecs.color,
           size: selectedSpecs.size,
+          name: product.name,
+          image: product.images[0].url,
+          price: product.discountedprice,
+          basePrice: product.baseprice,
         },
       ];
     }

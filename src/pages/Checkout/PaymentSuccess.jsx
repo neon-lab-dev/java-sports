@@ -2,20 +2,41 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import NotFound from "../NotFound";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createOrder } from "@/api/orders";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLocalStorage } from "@/utils/localStorage";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { updateCartItemsCount } from "@/redux/slices/userSlice";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   if (!searchParams.get("reference")) return <NotFound />;
   // Redirect to 404 if no reference is found
+
+  // If there are no items in the cart, show a message
+  if (getLocalStorage("cartItems", []).length === 0) {
+    return (
+      <div className="bg-white py-10 h-80">
+        <section className="wrapper flex items-center justify-center flex-col gap-4 h-full">
+          <h1 className="text-2xl font-600 text-black">
+            You have no items in your cart.
+          </h1>
+          <Link
+            to="/"
+            className="text-white font-500 hover:underline bg-primary/2 px-3 py-2 rounded-md"
+          >
+            Continue Shopping
+          </Link>
+        </section>
+      </div>
+    );
+  }
   return <PaymentSuccessChild />;
 };
 
 const PaymentSuccessChild = () => {
   const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const orderData = {
@@ -35,7 +56,7 @@ const PaymentSuccessChild = () => {
     razorpay_payment_id: searchParams.get("reference"),
   };
 
-  const { isLoading, data, isSuccess } = useQuery({
+  const { isLoading, data, isSuccess, isError, error } = useQuery({
     queryFn: () => createOrder(orderData),
     queryKey: ["createOrder", searchParams.get("reference")],
     //request only once when the component mounts
@@ -48,19 +69,41 @@ const PaymentSuccessChild = () => {
       localStorage.removeItem("cartItems");
       toast.success(data.message);
       navigate("/account?tab=recent-orders", { replace: true });
+      dispatch(updateCartItemsCount());
     }
-  }, [data, isSuccess, navigate]);
+    if (isError) {
+      toast.error(error);
+    }
+  }, [data, dispatch, error, isError, isSuccess, navigate]);
 
-  if (isLoading) return <div>Loading...</div>;
   return (
-    <div className="bg-white py-10">
-      <section className="wrapper flex items-center justify-center">
-        <Link
-          to="/"
-          className="text-white font-500 hover:underline bg-primary/2 px-3 py-2 rounded-md"
-        >
-          Continue Shopping
-        </Link>
+    <div className="bg-white py-10 h-80">
+      <section className="wrapper flex items-center justify-center flex-col gap-4 h-full">
+        {isLoading ? (
+          <>
+            <p className="text-gray-500 text-lg">Processing your payment...</p>
+            <p className="text-lg">
+              Do not refresh the page or go back, you will be redirected to your
+              account page once the payment/order is processed.
+            </p>
+          </>
+        ) : !isError ? (
+          <>
+            <h1 className="text-2xl font-600 text-black">
+              Payment Successful!
+            </h1>
+            <Link
+              to="/"
+              className="text-white font-500 hover:underline bg-primary/2 px-3 py-2 rounded-md"
+            >
+              Continue Shopping
+            </Link>
+          </>
+        ) : (
+          <p className="text-red-500 text-lg">
+            Order creation failed. Please try again or contact support.
+          </p>
+        )}
       </section>
     </div>
   );

@@ -25,7 +25,7 @@ const ACCORDION_LINKS = [
       },
       {
         label: "Caps & Hats",
-        queryAs: "Caps & Hats",
+        queryAs: "Caps%20%26%20Hats", // Caps & Hats => url encoded
       },
       {
         label: "Wrist Band",

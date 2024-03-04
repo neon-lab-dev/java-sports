@@ -3,15 +3,15 @@
 import close from '@assets/icons/Wishlist-close.svg'
 import bat from "@assets/images/bats-img.svg"
 const AppWishlistCard = (props) => {
-  const cardWrapper = `  w-[300px]  max-xl:w-[280px] rounded-2xl bg-white p-6 border `;
-  const imageWrapper = `bg-grey/1 w-[25w  0px] h-[240px] max-xl:w-[230px] rounded-2xl my-2 p-8 flex justify-center items-center  `
+  const cardWrapper = `  w-[300px]  max-xl:w-[280px] max-sm:w-[260px] rounded-2xl bg-white p-6  border `;
+  const imageWrapper = `bg-grey/1 w-[25w  0px] h-[240px] max-xl:w-[230px] max-sm:w-[210px] rounded-2xl my-2 p-8 max-sm:p-4 flex justify-center items-center  `
   return (
     <article className={ `${cardWrapper} card-shadow` }>
       <div className="flex justify-between items-center">
         <span className='font-Lato font-700 text-xs text-grey-light'>Java Sports</span>
-        <span>
-          <img src={close} alt='Wishlist' />
-        </span>
+        <div>
+        <img src={close} alt='Wishlist' />
+        </div>
       </div>
       <div className={ `${imageWrapper}`}>
         <img src={ props.img || bat } alt={ props.title } />

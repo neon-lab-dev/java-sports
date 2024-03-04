@@ -1,6 +1,23 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Text from "../Text";
+import { cancelOrder } from "@/api/orders";
+import toast from "react-hot-toast";
 
 const RecentOrderItem = ({ order, isLastItem }) => {
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: () => cancelOrder(order._id),
+    onError: (error) => {
+      toast.error(error);
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ["myOrders"],
+      });
+    },
+  });
+
   return (
     <div
       id={`product-${order._id}`}
@@ -41,10 +58,12 @@ const RecentOrderItem = ({ order, isLastItem }) => {
         </div>
         <div className="flex flex-col sm:flex-col xl:flex-row xs:flex-row gap-2 xl:justify-end w-full">
           <button
-            // onClick={() => handleCancelOrder(order.orderId)}
+            onClick={() => {
+              mutate();
+            }}
             className="rounded-lg px-6 py-1.5 w-max bg-primary bg-white border-2 border-grey-light self-end "
           >
-            Cancel Order
+            {isPending ? "Cancelling..." : "Cancel Order"}
           </button>
         </div>
       </div>

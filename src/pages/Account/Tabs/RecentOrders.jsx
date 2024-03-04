@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import { getAllMyOrders } from "@/api/orders";
 import { useEffect, useState } from "react";
-import { getRecentOrders } from "@/utils/order-utils";
 import { Link } from "react-router-dom";
 import emptyCartImg from "@/assets/icons/empty-carts.svg";
 import RecentOrderItem from "./RecentOrderItem";

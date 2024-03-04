@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
+import CardSkeleton from "../skeletons/CardSkeleton";
 const AppWishlistCard = ({ productId }) => {
   const cardWrapper = `  w-[300px]  max-xl:w-[280px] rounded-2xl bg-white p-6 border `;
   const imageWrapper = `bg-grey/1 w-[25w  0px] h-[240px] max-xl:w-[230px] rounded-2xl my-2 p-8 flex justify-center items-center  `;
@@ -66,7 +67,7 @@ const AppWishlistCard = ({ productId }) => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <CardSkeleton className="h-full" />;
   if (isError) return null;
   return (
     <article className={`${cardWrapper} card-shadow`}>

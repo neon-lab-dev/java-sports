@@ -67,6 +67,7 @@ const PaymentSuccessChild = () => {
   useEffect(() => {
     if (isSuccess) {
       localStorage.removeItem("cartItems");
+      localStorage.removeItem("deliveryAddress");
       toast.success(data.message);
       navigate("/account?tab=recent-orders", { replace: true });
       dispatch(updateCartItemsCount());

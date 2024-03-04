@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import aboutImage from '@assets/images/aboutUs.svg';
+import aboutImage from '@assets/images/aboutus.svg';
 
 const Section = ({ title, desc }) => (
   <div className="font-Lato py-4">

@@ -84,9 +84,14 @@ const ProductPage = ({ product }) => {
       localStorage.removeItem("buyNowProduct");
       setLocalStorage("buyNowProduct", {
         id: product._id,
+        product: product._id,
         quantity: selectedSpecs.quantity,
         color: selectedSpecs.color,
         size: selectedSpecs.size,
+        name: product.name,
+        image: product.images[0].url,
+        price: product.discountedprice,
+        basePrice: product.baseprice,
       });
       navigate("/checkout?buyNow=true");
     } else {

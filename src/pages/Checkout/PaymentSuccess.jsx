@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import NotFound from "../NotFound";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createOrder } from "@/api/orders";
@@ -8,16 +8,16 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const PaymentSuccess = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   if (!searchParams.get("reference")) return <NotFound />;
   // Redirect to 404 if no reference is found
   return <PaymentSuccessChild />;
 };
 
 const PaymentSuccessChild = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { user } = useSelector((state) => state.user);
-
+  const navigate = useNavigate();
   const orderData = {
     shippingInfo: getLocalStorage("deliveryAddress", {
       ...user.primaryaddress,
@@ -38,14 +38,18 @@ const PaymentSuccessChild = () => {
   const { isLoading, data, isSuccess } = useQuery({
     queryFn: () => createOrder(orderData),
     queryKey: ["createOrder", searchParams.get("reference")],
+    //request only once when the component mounts
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
     if (isSuccess) {
       localStorage.removeItem("cartItems");
       toast.success(data.message);
+      navigate("/account?tab=recent-orders", { replace: true });
     }
-  }, [data]);
+  }, [data, isSuccess, navigate]);
 
   if (isLoading) return <div>Loading...</div>;
   return (

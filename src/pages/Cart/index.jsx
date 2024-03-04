@@ -9,67 +9,84 @@ import {
   getFinalAmount,
   getTotalAmount,
 } from "@/utils/cartUtils";
-import PRODUCTS from "@/assets/mockData/products";
 import EmptyCart from "./EmptyCart";
+import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
+import { getLocalStorage } from "@/utils/localStorage";
+import { useQueries } from "@tanstack/react-query";
+import { getAProduct } from "@/api/products";
+import AppSkeleton from "@/components/skeletons/AppSkeleton";
+import CartPageSkeleton from "@/components/skeletons/CartPageSkeleton";
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      productId: "65ce1905247feb2254f7fa81",
-      quantity: 1,
-    },
-    {
-      productId: "65ce1905247feb2254f7fa56",
-      quantity: 1,
-    },
-  ]);
-  const [products, setProducts] = useState();
+  const [cartItems, setCartItems] = useState(getLocalStorage("cartItems", []));
+  const [isLoading, setIsLoading] = useState(true);
+  const res = useQueries({
+    queries: (() => {
+      return cartItems.map((item) => {
+        return {
+          queryKey: ["product", item.id],
+          queryFn: () => getAProduct(item.id),
+        };
+      });
+    })(),
+  });
 
   useEffect(() => {
-    const products = PRODUCTS.filter((p) =>
-      cartItems.map((item) => item.productId).includes(p._id)
-    );
-    // @ts-ignore
-    setProducts(products);
-  }, [cartItems]);
+    if (res.every((r) => !r.isLoading)) {
+      setIsLoading(false);
+    }
+  }, [res]);
 
+  if (isLoading) return <CartPageSkeleton />;
   return (
     <>
       {cartItems.length > 0 ? (
-        <div className="bg-white py-6">
+        <div className="bg-white py-6 flex items-center justify-center">
           <section className="flex flex-col xl:flex-row gap-12 2xl:mx-32 wrapper xl:w-[95%] xl:m-[0_auto] xl:max-w-fit">
             <div className="flex flex-col gap-6 sm:gap-12 flex-grow">
               <div className="flex flex-col gap-4">
-                {cartItems.map((item) => (
+                {res.map((item, i) => (
                   <CartItem
                     item={item}
-                    key={item.productId}
-                    quantity={item.quantity}
+                    key={i}
+                    cartItems={cartItems}
                     setCartItems={setCartItems}
                   />
                 ))}
               </div>
             </div>
-            <PriceDetails
-              totalAmount={getTotalAmount(products, cartItems)}
-              discountAmount={getDiscountedAmount(products, cartItems)}
-              totalItems={cartItems.length}
-              finalAmount={getFinalAmount(products, cartItems)}
-            />
+            {
+              //only show price details if all the responses are loaded
+              res.every((r) => r.isSuccess) && (
+                <PriceDetails
+                  totalAmount={getTotalAmount(
+                    res.map((r) => {
+                      return r.data.product;
+                    }),
+                    cartItems
+                  )}
+                  discountAmount={getDiscountedAmount(
+                    res.map((r) => {
+                      return r.data.product;
+                    }),
+                    cartItems
+                  )}
+                  totalItems={cartItems.length}
+                  finalAmount={getFinalAmount(
+                    res.map((r) => {
+                      return r.data.product;
+                    }),
+                    cartItems
+                  )}
+                />
+              )
+            }
           </section>
         </div>
       ) : (
         <EmptyCart />
       )}
-      <section className="bg-neutral-white pb-4 lg:block hidden mt-6">
-        {/* Featured */}
-        <section className="wrapper">
-          <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-            Products you might like
-          </h2>
-          <AppProductSlider items={ACCESSORIES} />
-        </section>
-      </section>
+      {/* <AppProductsYouMightLike /> */}
     </>
   );
 };

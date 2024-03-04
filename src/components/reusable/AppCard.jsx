@@ -4,7 +4,15 @@ import crossIcon from "@/assets/icons/cross.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import wishlistIcon from "@assets/icons/wishlist-filled.svg";
 import toast from "react-hot-toast";
-
+import { Link } from "react-router-dom";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addToWishlist, removeFromWishlist } from "@/api/products";
+import { useDispatch, useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
+import { splitString } from "@/utils/splitString";
+import noImage from "@assets/images/no-image.jpg";
+import { updateCartItemsCount } from "@/redux/slices/userSlice";
 /**
  * @props
  * Title
@@ -13,78 +21,127 @@ import toast from "react-hot-toast";
  * Discounted price
  */
 
-const AppCard = ({
-  title,
-  image,
-  baseprice,
-  discountedprice,
-  variant = "default",
-}) => {
-  const isWislisted = false;
+const AppCard = ({ product, className = "" }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const isWishlisted = user?.wishlist.filter(
+    (item) => item.product === product._id
+  ).length;
+  const queryClient = useQueryClient();
+
   const handleAddToCart = () => {
-    toast.success(`Added ${title} to cart!`);
+    const items = getLocalStorage("cartItems", []);
+    let updatedItems = [];
+    const isAlreadyAdded = items.find((item) => item.id === product._id);
+    if (isAlreadyAdded) {
+      updatedItems = items.map((item) =>
+        item.id === product._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      updatedItems = [
+        ...items,
+        {
+          id: product._id,
+          product: product._id,
+          quantity: 1,
+          color: product.color,
+          size: splitString(product.size)[0],
+          name: product.name,
+          image: product.images[0].url,
+          price: product.discountedprice,
+          basePrice: product.baseprice,
+        },
+      ];
+    }
+    setLocalStorage("cartItems", updatedItems);
+    dispatch(updateCartItemsCount());
+    toast.success(`Added ${product.name} to cart!`);
   };
 
-  const handleAddToWishlist = () => {
-    toast.success(`Added ${title} to wishlist!`);
+  const { mutate, isPending } = useMutation({
+    mutationFn: (id) =>
+      isWishlisted ? removeFromWishlist(id) : addToWishlist(id),
+    onSuccess: () => {
+      toast.success(
+        `${isWishlisted ? "Removed" : "Added"} ${product.name} ${
+          isWishlisted ? "from" : "to"
+        } wishlist!`
+      );
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const handleWishlist = () => {
+    mutate(product._id);
   };
 
   return (
     <div
-      className={`sm:min-w-[300px] snap-center xs:snap-start min-w-[230px] card-shadow rounded-xl p-3 sm:p-4 flex flex-col gap-2 ${
-        variant === "default"
-          ? "h-[330px] sm:h-[400px]"
-          : "h-[375px] sm:h-[425px]"
-      }`}
+      className={`sm:min-w-[300px] snap-center xs:snap-start min-w-[230px] card-shadow rounded-xl p-3 sm:p-4 flex flex-col gap-2 "h-[330px] sm:h-[400px] ${className}`}
     >
       <div className="flex justify-between items-center">
         <span className="font-Lato font-700 text-[11px] text-grey-light">
           Java Sports
         </span>
-        <button onClick={handleAddToWishlist} className="cursor-pointer">
-          <img
-            src={!isWislisted ? heartIcon : crossIcon}
-            alt="Wishlist"
-            className="w-7 h-7 sm:w-8 sm:h-8"
-          />
+        <button
+          disabled={isPending}
+          onClick={handleWishlist}
+          className="cursor-pointer"
+        >
+          {isPending ? (
+            <ClipLoader size={26} color="#00B553" />
+          ) : (
+            <img
+              src={!isWishlisted ? heartIcon : crossIcon}
+              alt="Wishlist"
+              className="w-7 h-7 sm:w-8 sm:h-8 hover:text-primary`"
+            />
+          )}
         </button>
       </div>
-      <div className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md p-1">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-contain object-center "
-        />
-      </div>
-      <span className="text-base sm:text-lg">{title}</span>
-      <div
-        className={`flex ${variant !== "default" ? "flex-col" : "justify-between items-center"}`}
+      <Link
+        to={`/product/${product._id}`}
+        className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md group overflow-hidden"
       >
+        <img
+          src={product?.images[0]?.url || noImage}
+          alt={product.name}
+          onError={(e) => (e.currentTarget.src = noImage)} // set this image if the provided url does not work
+          className="w-full h-full object-contain object-center group-hover:scale-105 transition-all"
+        />
+      </Link>
+      <Link
+        to={`/product/${product._id}`}
+        className="text-base sm:text-lg hover:underline hover:text-blue transition-all"
+      >
+        {
+          //show only four words
+          product.name.split(" ").slice(0, 4).join(" ")
+        }
+      </Link>
+      <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
-          <span className="font-Lato font-700">₹{discountedprice}</span>
+          <span className="font-Lato font-700">₹{product.discountedprice}</span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
-            ₹{baseprice}
+            ₹{product.baseprice}
           </span>
           <span className="text-[#00B553] font-500">
-            {calculatePercentage(baseprice, discountedprice)}% off
+            {calculatePercentage(product.baseprice, product.discountedprice)}%
+            off
           </span>
         </span>
-        {variant === "default" ? (
-          <button onClick={handleAddToCart}>
-            <img
-              src={wishlistIcon}
-              alt="Add to Cart"
-              className="w-9 sm:w-10 h-9 sm:h-10"
-            />
-          </button>
-        ) : (
-          <button
-            onClick={handleAddToCart}
-            className="bg-primary/2 text-white font-500 text-lg p-1 rounded w-full mt-3"
-          >
-            Move to Cart
-          </button>
-        )}
+        <button onClick={handleAddToCart}>
+          <img
+            src={wishlistIcon}
+            alt="Add to Cart"
+            className="w-9 sm:w-10 h-9 sm:h-10"
+          />
+        </button>
       </div>
     </div>
   );

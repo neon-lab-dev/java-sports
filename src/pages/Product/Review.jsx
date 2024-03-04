@@ -2,7 +2,7 @@ import starIcon from "@/assets/icons/star.svg";
 import starOutlineIcon from "@/assets/icons/start-outline.svg";
 import thumbsupIcon from "@/assets/icons/thumbs-up.svg";
 import toast from "react-hot-toast";
-
+import avatarPlaceholder from "@/assets/images/avatar.jpg";
 const Review = ({ review, showBorder }) => {
   const wasHelpful = () => {
     toast.success("Thanks for your feedback");
@@ -15,11 +15,13 @@ const Review = ({ review, showBorder }) => {
     >
       <div className="flex gap-2 items-center">
         <img
-          src={review.img}
+          src={review.avatar || avatarPlaceholder}
           alt="star"
           className="w-9 h-9 sm:h-12 sm:w-12 rounded-full object-cover object-center"
         />
-        <span className="text-xl sm:text-2xl font-500">{review.name}</span>
+        <span className="text-xl sm:text-2xl font-500">
+          {review.name || "Unknown"}
+        </span>
       </div>
       <div className="flex items-center text-sm gap-6">
         <span>{review.date}</span>
@@ -38,7 +40,7 @@ const Review = ({ review, showBorder }) => {
           ))}
       </div>
       <p className="font-Lato text-black text-sm sm:text-base leading-6 lg:w-[80%]">
-        {review.description}
+        {review.comment}
       </p>
       <button
         onClick={wasHelpful}

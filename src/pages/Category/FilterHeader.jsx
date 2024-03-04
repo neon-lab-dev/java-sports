@@ -2,21 +2,7 @@ import tune from "@/assets/icons/tune.svg";
 import sort from "@/assets/icons/sort.svg";
 import { useEffect, useState } from "react";
 
-const SORTING_OPTIONS = [
-  "Most Relevant",
-  "Low to High price",
-  "High to low price",
-  "Most Popular",
-  "Most Rating",
-];
-
-const FilterHeader = ({ setShowFilters }) => {
-  const [sortBy, setSortBy] = useState(SORTING_OPTIONS[0]);
-
-  useEffect(() => {
-    console.log("sort by", sortBy);
-  }, [sortBy]);
-
+const FilterHeader = ({ setShowFilters, options, sortBy, setSortBy }) => {
   return (
     <div className="flex justify-between items-center font-700 text-[18px] font-Lato">
       {/* //for mobile view */}
@@ -39,10 +25,14 @@ const FilterHeader = ({ setShowFilters }) => {
           id="sort-by"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="bg-gray-50 border border-gray-300 p-1 text-base"
+          className="bg-gray-50 border border-gray-300 p-1 text-base cursor-pointer"
         >
-          {SORTING_OPTIONS.map((option, i) => (
-            <option className="font-500 text-base" key={i} value={option}>
+          {options.map((option, i) => (
+            <option
+              className="font-500 text-base cursor-pointer"
+              key={i}
+              value={option}
+            >
               {option}
             </option>
           ))}

@@ -6,6 +6,7 @@ import CustomerReviewsButton from "./CustomerReviewsButton";
 import ShowNewArrivalsButton from "./ShowNewArrivalsButton";
 import PriceRange from "./PriceRange";
 import FILTERS from "@/assets/categoryFilters/filters";
+import TypeFilter from "./TypeFilter";
 
 const DEFAULT_FILTERS = {
   type: [],
@@ -19,18 +20,18 @@ const DEFAULT_FILTERS = {
 
 const Filters = ({ types }) => {
   const { type } = useParams();
-  const customFilters = FILTERS.find(
-    (filter) => filter.param === wordToParam(types.label)
-  );
+  const customFilters = null;
   const location = useLocation();
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
+
   useEffect(() => {
-    if (
-      !type ||
-      type.toLowerCase() === "all" ||
-      !types.dropdowns.includes(paramToWord(type))
-    )
-      return setFilters(DEFAULT_FILTERS);
+    const isTypeAvailable =
+      type &&
+      (type.toLowerCase() === "all" ||
+        types?.dropdowns?.filter((link) => link.label === decodeURI(type))
+          .length > 0);
+
+    if (isTypeAvailable) return setFilters(DEFAULT_FILTERS);
     setFilters((prev) => ({ ...prev, type: [type] }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, location.pathname]);
@@ -40,16 +41,14 @@ const Filters = ({ types }) => {
   }, [filters]);
 
   return (
-    <div className="border-2 p-3 flex flex-col gap-2 rounded-md min-w-64">
-      <MultiSelectFilterItem
-        title="Product Type"
-        options={types.dropdowns
-          .filter((link) => link !== "All")
-          .map((link) => wordToParam(link))}
-        value={filters.type}
-        setValue={(val) => setFilters((prev) => ({ ...prev, type: val }))}
-        resetValue={() => setFilters((prev) => ({ ...prev, type: [] }))}
-      />
+    <div className="border-2 p-3 flex flex-col gap-2 rounded-md min-w-64 lg:min-w-fit 2xl:min-w-64">
+      {types.dropdowns && types.dropdowns.length > 0 && (
+        <TypeFilter
+          options={types.dropdowns.map((link) => {
+            return { label: link.label };
+          })}
+        />
+      )}
       {customFilters?.filters.map((filter, i) => {
         if (filter.type !== "multiselect") return null;
         return (

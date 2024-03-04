@@ -9,6 +9,8 @@ const AuthWrapper = lazy(() => import("@/components/reusable/AppAuthWrapper"));
  *  - path: string - the path of the route
  *  - component: React.lazy - the component to render when the route is matched
  *  - wrapper?: React.lazy - the wrapper component to use for the route
+ *  - protectFromUnauthenticated?: boolean - if the route should be protected from unauthenticated users
+ *  - protectedFromAuthenticated?: boolean - if the route should be protected from authenticated users
  */
 const ROUTES = [
   {
@@ -27,14 +29,16 @@ const ROUTES = [
     path: "/login",
     component: lazy(() => import("@/pages/Auth/Login")),
     wrapper: AuthWrapper,
+    protectFromAuthenticated: true,
   },
   {
     path: "/signup",
     component: lazy(() => import("@/pages/Auth/Signup")),
     wrapper: AuthWrapper,
+    protectFromAuthenticated: true,
   },
   {
-    path: "/reset-password",
+    path: "/reset-password/:resetToken",
     component: lazy(() => import("@/pages/Auth/ChangePassword")),
     wrapper: AuthWrapper,
   },
@@ -42,37 +46,37 @@ const ROUTES = [
     path: "/forgot-password",
     component: lazy(() => import("@/pages/Auth/ForgotPassword")),
     wrapper: AuthWrapper,
+    protectFromAuthenticated: true,
   },
   {
     path: "/otp-verification",
     component: lazy(() => import("@/pages/Auth/Otp")),
     wrapper: AuthWrapper,
+    protectFromAuthenticated: true,
   },
   {
     path: "/account",
     component: lazy(() => import("@/pages/Account")),
     wrapper: lazy(() => import("@/pages/Account/AccountPageWrapper")),
+    protectFromUnauthenticated: true,
   },
   {
-    path: "*",
-    component: lazy(() => import("@/pages/NotFound")),
-  },
-  {
-    path: "otp",
+    path: "/otp",
     component: lazy(() => import("@/pages/Auth/OtpVerification")),
     wrapper: AuthWrapper,
   },
   {
-    path: "wishlist",
-    component: lazy(() => import("@/pages/wishlist/Wishlist")),
+    path: "/wishlist",
+    component: lazy(() => import("@/pages/Wishlist/Wishlist")),
   },
   {
-    path: "contact",
+    path: "/contact",
     component: lazy(() => import("@/pages/ContactUs/contactus")),
   },
   {
-    path: "checkout",
-    component: lazy(() => import("@/pages/Checkout/checkout")),
+    path: "/checkout",
+    component: lazy(() => import("@/pages/Checkout")),
+    protectFromUnauthenticated: true,
   },
   {
     path: "/:category",
@@ -82,6 +86,38 @@ const ROUTES = [
     path: "/:category/:type",
     component: lazy(() => import("@/pages/Category")),
   },
+  {
+    path: "search",
+    component: lazy(() => import("@/pages/Search")),
+  },
+  {
+    path: "/paymentsuccess",
+    component: lazy(() => import("@/pages/Checkout/PaymentSuccess")),
+    protectFromUnauthenticated: true,
+  },
+  {
+    path: "*",
+    component: lazy(() => import("@/pages/NotFound")),
+  },
+  {
+    path: "/about-us",
+    component: lazy(() => import("@/pages/Footer/AboutUS")),
+  },
+  {
+    path: "/terms-and-conditions",
+    component: lazy(() => import("@pages/Footer/TermsAndConditions")),
+  },
+  {
+    path: "/privacy-policy",
+    component: lazy(() => import("@pages/Footer/PrivacyPolicy")),
+  },
+  {
+    path: "/shipping-and-returns",
+    component: lazy(() => import("@pages/Footer/ShippingAndReturns")),
+  },
+  {
+    path: "/size-guide",
+    component: lazy(() => import("@pages/Footer/SizeGuide")),
+  },
 ];
-
 export default ROUTES;

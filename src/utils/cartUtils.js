@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import { getLocalStorage, setLocalStorage } from "./localStorage";
 
 //adjust quantity of the product by 1
 export const adjustCartQuantity = ({
@@ -7,44 +8,44 @@ export const adjustCartQuantity = ({
   setCartItems,
   stock,
 }) => {
-  setCartItems((prev) => {
-    return prev.map((item) => {
-      if (item.productId === productId) {
-        if (isToIncrease && item.quantity >= stock) {
-          toast.error("Only " + stock + " items available in stock.");
-          return item;
-        }
-        return {
-          ...item,
-          quantity: isToIncrease
-            ? item.quantity === stock
-              ? stock
-              : item.quantity + 1
-            : item.quantity === 0
-              ? 0
-              : item.quantity - 1,
-        };
-      }
-      return item;
-    });
-  });
+  const items = getLocalStorage("cartItems", []);
+  const item = items.find((item) => item.id === productId);
+  if (isToIncrease) {
+    if (item.quantity < stock) {
+      item.quantity++;
+    } else {
+      toast.error("Maximum stock reached");
+    }
+  } else {
+    if (item.quantity > 1) {
+      item.quantity--;
+    } else {
+      toast.error("Minimum stock reached");
+    }
+  }
+  setLocalStorage("cartItems", items);
+  setCartItems(items);
 };
 
 //remove item from the cart
 export const removeCartItem = ({ productId, setCartItems }) => {
-  setCartItems((prev) => {
-    return prev.filter((item) => item.productId !== productId);
-  });
+  const items = getLocalStorage("cartItems", []);
+  console.log(items);
+  const newItems = items.filter((item) => item.id !== productId);
+  console.log(newItems);
+  setLocalStorage("cartItems", newItems);
+  setCartItems(newItems);
 };
 
 export const getTotalAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
+  console.log(products, cartItems);
   return products
     .reduce(
       (acc, product) =>
         acc +
         Number(product.baseprice) *
-          cartItems?.find((item) => item.productId === product._id)?.quantity,
+          cartItems?.find((item) => item.id === product._id)?.quantity,
       0
     )
     .toFixed(2);
@@ -54,7 +55,9 @@ export const getDiscountedAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
   return products
     .reduce((acc, product) => {
-      const cartItem = cartItems?.find((item) => item.productId === product._id);
+      const cartItem = cartItems?.find(
+        (item) => item.id === product._id
+      );
       const price = Number(product.baseprice) - Number(product.discountedprice);
       return acc + price * cartItem?.quantity;
     }, 0)

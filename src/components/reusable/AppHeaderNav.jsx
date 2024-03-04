@@ -1,41 +1,33 @@
 import { useEffect, useRef, useState } from "react";
-
-// @ts-ignore
 import logo from "@assets/images/Vector.svg";
-// @ts-ignore
 import locationIcon from "@assets/icons/location.svg";
-// @ts-ignore
 import wishlistIcon from "@assets/icons/wishlist.svg";
-// @ts-ignore
 import cartIcon from "@assets/icons/cart.svg";
-// @ts-ignore
 import profileIcon from "@assets/icons/profile.svg";
-// @ts-ignore
 import menuIcon from "@assets/icons/menu.svg";
-
-// @ts-ignore
 import chevronDownIcon from "@assets/icons/chevron-down.svg";
-// @ts-ignore
 import closeIcon from "@assets/icons/close.svg";
-// Components
 import AppSearchBar from "./AppSearchBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
-import USER from "@/assets/mockData/user";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
+import { useSelector } from "react-redux";
 import { paramToWord } from "@/utils/paramUtils";
-import generateLink from "@/utils/generateLink";
+import avatar from "@assets/images/avatar.jpg";
 
 const AppHeaderNav = () => {
+  const { isAuthenticated, user, cartItemsCount } = useSelector(
+    (state) => state.user
+  );
+
+  const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
-
-  const handleOnSearch = (e) => {
-    e.preventDefault();
-    console.log("Search Product !!");
+  const handleOnSearch = (q) => {
+    navigate(`/search?q=${q}`);
   };
 
   const navWrapper = `flex gap-1 items-center h-7 min-w-max`;
@@ -74,7 +66,7 @@ const AppHeaderNav = () => {
           </span>
           <div className="w-[400px] lg:w-full hidden lg:block">
             <AppSearchBar
-              placeholder={"Search for “ Bats ”"}
+              placeholder="Search by product name"
               onSearch={handleOnSearch}
             />
           </div>
@@ -87,29 +79,46 @@ const AppHeaderNav = () => {
             </li>
             <li>
               <Link to="/wishlist" className={navWrapper}>
-                <span>
+                <span className="relative">
                   <img
                     src={wishlistIcon}
                     alt="Wishlist"
                     className={navLinkImg}
                   />
+                  {/* //wishlist count */}
+                  {user?.wishlist?.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+                      {user?.wishlist?.length}
+                    </span>
+                  )}
                 </span>
                 <span className={navLink}>Wishlist</span>
               </Link>
             </li>
             <li>
               <Link to="/cart" className={navWrapper}>
-                <span>
+                <span className="relative">
                   <img src={cartIcon} alt="Cart" className={navLinkImg} />
+                  {/* //cart count */}
+                  {cartItemsCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+                      {cartItemsCount}
+                    </span>
+                  )}
                 </span>
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link to="/account" className={`${navWrapper} hidden lg:flex`}>
+            <Link
+              to={isAuthenticated ? "/account" : "/login"}
+              className={`${navWrapper} hidden lg:flex`}
+            >
               <span>
                 <img src={profileIcon} alt="Cart" className={navLinkImg} />
               </span>
-              <span className={navLink}>{USER.name}</span>
+              <span className={navLink}>
+                {isAuthenticated ? user.full_name : "Login"}
+              </span>
             </Link>
           </ul>
         </nav>
@@ -131,32 +140,31 @@ const AppHeaderNav = () => {
           <img src={closeIcon} className="w-9" />
         </button>
         <div className="flex flex-col px-6 py-5">
-          <div className="flex items-center justify-start gap-4 mb-3">
-            <img
-              src={USER.img}
-              alt={USER.name}
-              className="w-12 rounded-full aspect-square"
-            />
-            <span className="text-2xl font-500">{USER.name}</span>
-          </div>
-          <span className="font-400">Email: {USER.email}</span>
-          <span className="font-400">Phone: {USER.phone}</span>
+          {isAuthenticated && (
+            <>
+              <div className="flex items-center justify-start gap-4 mb-3">
+                <img
+                  src={user?.avatar?.url || avatar}
+                  alt={user.full_name}
+                  className="w-12 rounded-full aspect-square object-cover object-center"
+                />
+                <span className="text-2xl font-500">{user.full_name}</span>
+              </div>
+              <span className="font-400">Email: {user.email}</span>
+              <span className="font-400">Phone: {user.phoneNo}</span>
+            </>
+          )}
         </div>
         <div className="flex flex-col">
           {ACCORDION_LINKS.map((link, i) => (
             <LinkDropdown
-              key={link.label}
-              link={{
+              key={i}
+              links={{
                 label: link.label,
-                dropdowns: link.dropdowns.map((dropdown) => {
-                  return {
-                    label: dropdown,
-                    link: generateLink({
-                      category: link.label,
-                      type: dropdown,
-                    }),
-                  };
-                }),
+                dropdowns: link.dropdowns?.map((dropdown) => ({
+                  label: dropdown.label,
+                  link: `/${link.label}/${dropdown.label}`,
+                })),
               }}
               i={i}
               activeDropdown={activeDropdown}
@@ -164,28 +172,23 @@ const AppHeaderNav = () => {
               setIsSidebarOpen={setIsSidebarOpen}
             />
           ))}
-          <LinkDropdown
-            link={{
-              label: "My Account",
-              dropdowns: ACCOUNT_PAGE_TABS.map((tab) => ({
-                label: paramToWord(tab),
-                link: `/account?tab=${tab}`,
-              })),
-            }}
-            i={ACCORDION_LINKS.length}
-            activeDropdown={activeDropdown}
-            setActiveDropdown={setActiveDropdown}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-          <LinkDropdown
-            link={{
-              label: "Logout",
-            }}
-            i={ACCORDION_LINKS.length + 1}
-            activeDropdown={activeDropdown}
-            setActiveDropdown={setActiveDropdown}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
+          {isAuthenticated && (
+            <LinkDropdown
+              links={{
+                label: "My Account",
+                dropdowns: ACCOUNT_PAGE_TABS.map((tab) => ({
+                  label: paramToWord(tab),
+                  link: `/account?tab=${tab}`,
+                })),
+              }}
+              i={ACCORDION_LINKS.length}
+              activeDropdown={activeDropdown}
+              setActiveDropdown={setActiveDropdown}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+
+          {/* //todo: add the link for logout */}
         </div>
       </aside>
       {isSidebarOpen && (
@@ -202,50 +205,52 @@ const AppHeaderNav = () => {
 export default AppHeaderNav;
 
 const LinkDropdown = ({
-  link: { label, dropdowns = null },
+  links: { label, dropdowns = null },
   i,
   setActiveDropdown,
   activeDropdown,
   setIsSidebarOpen,
-}) => (
-  <div
-    className={`flex flex-col px-6 py-3 font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
-  >
-    <button
-      onClick={() => setActiveDropdown(activeDropdown === i ? null : i)}
-      className="flex justify-between w-full"
+}) => {
+  const navigate = useNavigate();
+  return (
+    <div
+      className={`flex flex-col px-6 py-3 font-700 ${i === 0 ? "border-y" : "border-b"} ${label.toLowerCase() === "my account" ? "mt-4" : "mt-0"} ${label.toLowerCase() === "logout" ? "text-primary border-none" : ""}`}
     >
-      <span>{label}</span>
-      {!(label.toLowerCase() === "logout") ? (
-        <img src={chevronDownIcon} className="w-6" />
-      ) : (
-        <span />
-      )}
-    </button>
-    {dropdowns && (
-      <div
-        className="flex flex-col justify-center gap-2 overflow-y-hidden transition-all"
-        style={{
-          height:
-            activeDropdown === i
-              ? `${(33.6 + 8) * dropdowns.length + 20}px` // 33.6 is the height of each link and 8 is the gap between each link and 20 is the padding to center the links
-              : "0px",
+      <button
+        onClick={() => {
+          setActiveDropdown(activeDropdown === i ? null : i);
+          if (!dropdowns) {
+            navigate(`/${label}`);
+            setIsSidebarOpen(false);
+          }
         }}
+        className="flex justify-between w-full"
       >
-        {dropdowns.map((dropdown, i) => (
-          <Link
-            key={i}
-            onClick={() => setIsSidebarOpen(false)}
-            to={dropdown.link}
-            className="px-3 py-1 font-400"
-          >
-            {dropdown.label}{" "}
-            {dropdown.label.toLowerCase() === "recent orders" && (
-              <>({USER.recentOrders.length})</>
-            )}
-          </Link>
-        ))}
-      </div>
-    )}
-  </div>
-);
+        <span>{label}</span>
+        {dropdowns ? <img src={chevronDownIcon} className="w-6" /> : <span />}
+      </button>
+      {dropdowns && (
+        <div
+          className="flex flex-col justify-center gap-2 overflow-y-hidden transition-all"
+          style={{
+            height:
+              activeDropdown === i
+                ? `${(33.6 + 8) * dropdowns.length + 20}px` // 33.6 is the height of each link and 8 is the gap between each link and 20 is the padding to center the links
+                : "0px",
+          }}
+        >
+          {dropdowns.map((dropdown, i) => (
+            <Link
+              key={i}
+              onClick={() => setIsSidebarOpen(false)}
+              to={dropdown.link}
+              className="px-3 py-1 font-400"
+            >
+              {dropdown.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

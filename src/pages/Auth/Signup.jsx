@@ -1,9 +1,26 @@
-import { Link } from "react-router-dom";
+import { signup } from "@/api/user";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { isPending, mutate } = useMutation({
+    mutationFn: (data) => signup(data),
+    onError: (error) => {
+      toast.error(error);
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+      navigate("/otp-verification");
+    },
+  });
+  const { register, handleSubmit } = useForm();
+
   return (
     <form
-      action=""
+      onSubmit={handleSubmit((data) => mutate(data))}
       className="flex flex-col gap-4 p-14 bg-grey/1 max-sm:mx-5 max-sm:p-8"
     >
       <h1 className="text-3xl text-center font-900">Create Your Account</h1>
@@ -15,7 +32,7 @@ const Signup = () => {
           className="p-2 border-none rounded-xl"
           type="text"
           placeholder="Full name"
-          id="user_name"
+          {...register("full_name")}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -26,7 +43,7 @@ const Signup = () => {
           className="p-2 border-none rounded-xl"
           type="Email"
           placeholder="Email"
-          id="email"
+          {...register("email")}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -37,7 +54,7 @@ const Signup = () => {
           className="p-2 border-none rounded-xl"
           type="text"
           placeholder="mobile number"
-          id="phone"
+          {...register("phoneNo")}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -47,7 +64,7 @@ const Signup = () => {
         <input
           className="p-2 border-none rounded-xl"
           type="date"
-          id="phone"
+          {...register("dob")}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -58,7 +75,7 @@ const Signup = () => {
           className="p-2 border-none rounded-xl"
           type="password"
           placeholder="Password"
-          id="create-password"
+          {...register("password")}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -72,7 +89,7 @@ const Signup = () => {
           className="p-3 border-none rounded-xl"
           type="password"
           placeholder="Confirm Password"
-          id="confirm-password"
+          {...register("confirm_password")}
         />
       </div>
 
@@ -83,7 +100,7 @@ const Signup = () => {
         </Link>
       </span>
       <button className="p-2 text-white bg-black rounded-3xl">
-        Create account
+        {isPending ? "Loading..." : "Create Account"}
       </button>
       <span className="text-sm text-center ">
         Have an account?{" "}

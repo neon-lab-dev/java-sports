@@ -1,13 +1,33 @@
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PlaceOrderButton = () => {
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const handlePlaceOrder = () => {
+    if (isAuthenticated) {
+      navigate("/checkout");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to place an order!",
+        confirmButtonText: "Login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login?redirect=/checkout");
+        }
+      });
+    }
+  };
   return (
-    <Link
-      to="/checkout"
+    <button
+      onClick={handlePlaceOrder}
       className="rounded text-center px-3 py-2  sm:p-3 w-full h-full mt-6 xl:mt-0 text-base sm:text-lg block uppercase font-600 min-w-40 bg-primary text-white  disabled:opacity-45 lg:max-w-none"
     >
       Place Order
-    </Link>
+    </button>
   );
 };
 export default PlaceOrderButton;

@@ -1,4 +1,3 @@
-import { paramToWord } from "@/utils/paramUtils";
 import { Link, useLocation } from "react-router-dom";
 
 const AppBreadCrumb = () => {
@@ -12,10 +11,14 @@ const AppBreadCrumb = () => {
     "/otp",
     "/forgot-password",
     "/reset-password",
+    "/paymentsuccess",
   ];
 
-  if (excludeLinks.includes(location.pathname)) return null;
+  const excludeDynamicLinks = ["/product"];
 
+  if (excludeLinks.includes(location.pathname)) return null;
+  if (excludeDynamicLinks.some((link) => location.pathname.includes(link)))
+    return <div className="h-3" />;
   return (
     <div className="wrapper py-[0.5rem] text-lg flex gap-1 items-center">
       <Link to="/">Home</Link>
@@ -29,7 +32,7 @@ const AppBreadCrumb = () => {
               className={index === pathnames.length - 1 ? "text-primary" : ""}
               to={to}
             >
-              {paramToWord(value)}
+              {decodeURI(value)}
             </Link>
           </span>
         );

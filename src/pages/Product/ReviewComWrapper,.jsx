@@ -52,7 +52,7 @@ const ReviewComWrapper = ({ reviews }) => {
             onClick={() => setIsAllReviewsOpen(false)}
             className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-50 flex items-center justify-center backdrop-blur"
           />
-          <div className="h-max p-6 sm:px-12 sm:py-8 w-max max-h-[80vh] max-w-[90vw] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] bg-white overflow-x-scroll rounded-lg">
+          <div className="h-max p-6 sm:px-12 sm:py-8 max-h-[80vh] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] bg-white overflow-x-scroll rounded-lg  w-[80vw] max-w-4xl">
             <button
               onClick={() => setIsAllReviewsOpen(false)}
               className="fixed top-4 right-4 sm:top-6 sm:right-6"

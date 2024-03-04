@@ -53,7 +53,12 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
             </span>
           </div>
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
-            <span>Quantity:</span>
+            <span className="flex items-end gap-2">
+              Quantity:
+              {data.product.stock < 1 && (
+                <span className="text-primary text-sm font-400">(Out of stock)</span>
+              )}
+            </span>
             <div className="flex items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
               <button
                 className="px-2 w-full h-full"

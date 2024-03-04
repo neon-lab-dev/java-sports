@@ -370,14 +370,15 @@ const ProductPage = ({ product }) => {
         </div>
         <button
           onClick={handleBuyNow}
-          disabled={product.stock === 0}
+          disabled={product.stock < 1}
           className="bg-primary text-white py-3 rounded-md mt-2 disabled:opacity-50"
         >
           Buy Now
         </button>
         <button
+          disabled={product.stock < 1}
           onClick={() => handleAddToCart(selectedSpecs.quantity)}
-          className="rounded-md border-2 border-grey-dark py-3"
+          className="rounded-md border-2 border-grey-dark py-3 disabled:opacity-50"
         >
           Add to Cart
         </button>

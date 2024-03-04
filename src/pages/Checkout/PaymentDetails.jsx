@@ -4,7 +4,8 @@ import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PaymentDetails = ({
   totalAmount,
@@ -13,7 +14,9 @@ const PaymentDetails = ({
   discountAmount,
   deliveryAddress,
   orderItems,
+  isSomeItemOutOfStock,
 }) => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user } = useSelector((state) => state.user);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -22,6 +25,17 @@ const PaymentDetails = ({
 
   const checkoutHandler = async () => {
     if (isProcessing) return toast.error("Processing your request");
+    if (isSomeItemOutOfStock)
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Some items are out of stock! Please remove them and try again",
+        confirmButtonText: "Go to Cart",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/cart");
+        }
+      });
     setIsProcessing(true);
     try {
       //store the order details in local storage

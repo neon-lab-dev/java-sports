@@ -130,6 +130,9 @@ const Checkout = () => {
                 )}
                 deliveryAddress={selectedAddress}
                 orderItems={orderItems}
+                isSomeItemOutOfStock={res.some(
+                  (r) => r.data.product.stock < 1
+                )}
               />
             </div>
           ) : (

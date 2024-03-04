@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Section = ({ title, content }) => (
   <div className="font-Lato py-6">
     <h2 className="font-700 text-[24px]">{title}</h2>

@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React from 'react';
 import aboutImage from '@assets/images/aboutUs.svg';
 
 const Section = ({ title, desc }) => (

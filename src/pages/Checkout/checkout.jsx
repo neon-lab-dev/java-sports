@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import AddressBox from "./AddressBox";
 import PaymentDetails from "./PaymentDetails";
-import { getLocalStorage } from "@/utils/localStorage";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 import OrderItem from "./OrderItem";
 import { useQueries } from "@tanstack/react-query";
 import { getAProduct } from "@/api/products";
@@ -33,6 +33,14 @@ const Checkout = () => {
       queryFn: () => getAProduct(item.id),
     })),
   });
+
+  useEffect(() => {
+    setLocalStorage("deliveryAddress", {
+      ...user[selectedAddress],
+      phoneNo: user.phoneNo,
+      pinCode: user[selectedAddress]?.pin_code,
+    });
+  }, [selectedAddress, user]);
 
   return (
     <div className="bg-white py-10">

@@ -19,11 +19,11 @@ const PaymentSuccessChild = () => {
   const { user } = useSelector((state) => state.user);
 
   const orderData = {
-    shippingInfo: {
+    shippingInfo: getLocalStorage("deliveryAddress", {
       ...user.primaryaddress,
       pinCode: user.primaryaddress.pin_code.toString(),
       phoneNo: user.phoneNo.toString(),
-    },
+    }), //get the delivery address from local storage or user's primary address
     orderItems: getLocalStorage("cartItems", []),
     itemsPrice: getLocalStorage("cartItems", [])
       .reduce((acc, item) => acc + item.price * item.quantity, 0)

@@ -1,11 +1,4 @@
-import TextSubtext from "@/components/reusable/AppTextSubtext";
 import { calculatePercentage } from "@/utils/calculatePercentage";
-import { useQuery } from "@tanstack/react-query";
-import { getAProduct } from "@/api/products";
-// @ts-ignore
-import addIcon from "@/assets/images/plus.svg";
-// @ts-ignore
-import removeIcon from "@/assets/images/minus.svg";
 
 const OrderItem = ({ item, response }) => {
   const { data, isLoading, isError } = response;

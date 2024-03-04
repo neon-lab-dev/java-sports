@@ -18,15 +18,17 @@ const OrderHistory = () => {
       {isLoading && <p className="text-center">Loading orders...</p>}
 
       {!isLoading && data?.orders.length > 0 ? (
-        data?.orders?.map((order, i) => {
-          return (
-            <OrderItem
-              key={i}
-              order={order}
-              isLastItem={i === data.orders.length - 1}
-            />
-          );
-        })
+        data?.orders
+          .filter((order) => order.orderStatus !== "Processing")
+          ?.map((order, i) => {
+            return (
+              <OrderItem
+                key={i}
+                order={order}
+                isLastItem={i === data.orders.length - 1}
+              />
+            );
+          })
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
           <img src={emptyCartImg} className="h-36" />

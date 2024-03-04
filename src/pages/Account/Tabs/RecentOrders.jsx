@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getRecentOrders } from "@/utils/order-utils";
 import { Link } from "react-router-dom";
 import emptyCartImg from "@/assets/icons/empty-carts.svg";
+import RecentOrderItem from "./RecentOrderItem";
 
 const RecentOrders = () => {
   const { data, isLoading, isError } = useQuery({
@@ -16,29 +17,11 @@ const RecentOrders = () => {
 
   useEffect(() => {
     if (!isLoading && !isError && data?.orders) {
-      setRecentOrders(getRecentOrders(data.orders));
+      setRecentOrders(
+        data.orders.filter((order) => order.orderStatus === "Processing") || []
+      );
     }
   }, [data, isError, isLoading]);
-
-  const handleCancelOrder = (orderId) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You are trying to cancel the order. This action cannot be undone.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, cancel it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Order Cancelled!",
-          text: "Your order has been cancelled.",
-          icon: "success",
-        });
-      }
-    });
-  };
 
   return (
     <div className="flex flex-col gap-8 sm:gap-12 wrapper lg:w-full lg:m-0 max-w-5xl">
@@ -47,69 +30,13 @@ const RecentOrders = () => {
       )}
       {isLoading && <p className="text-center">Loading orders...</p>}
       {!isLoading && data?.orders.length > 0 ? (
-        recentOrders?.map((order, i) => {
-          return (
-            <div
-              key={order._id}
-              className={`flex gap-3 w-full flex-col ${i !== recentOrders.length - 1 ? "border-b-2 border-grey-light pb-6" : ""}`}
-            >
-              <div className="flex flex-col xs:flex-row justify-between items-start w-full">
-                <div className="flex flex-col">
-                  <Text
-                    text="Date"
-                    subText={new Date(order.createdAt).toLocaleDateString()}
-                  />
-                  <Text text="Order ID" subText={"#" + order._id} />
-                </div>
-                <Text text="Order Status" subText={order.orderStatus} />
-              </div>
-              {order.orderItems?.map((order) => {
-                return (
-                  <div
-                    key={order._id}
-                    className="flex flex-col sm:flex-row gap-3 sm:gap-6 card-shadow p-3 sm:p-5 rounded-lg"
-                  >
-                    <div className="h-60  bg-grey/2 rounded-lg p-2 max-w-64 sm:w-64 lg:max-w-none lg:w-[400px] md:h-72">
-                      <img
-                        src={order.image}
-                        alt={order.name}
-                        className="w-full h-full"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-4 sm:justify-between w-full">
-                      <div className="flex flex-col gap-1">
-                        <Text text="Product" subText={order.name} />
-                        <Text text="Quantity" subText={order.quantity} />
-                        <Text text="Total Price" subText={"₹" + order.price} />
-                        <div className="flex flex-col gap-0 rounded-lg mt-3">
-                          {/* <div className="flex gap-8 text-base sm:text-base mb-2">
-                            <span className="font-Lato font-600">
-                              {address.title}
-                            </span>
-                          </div>
-                          {Object.keys(address).map((key, i) => {
-                            if (key === "title" || key === "img") return null;
-                            return (
-                              <span className="text-sm text-grey/6" key={i}>
-                                {USER.shippingAddresses[0][key]}
-                              </span>
-                            );
-                          })} */}
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => handleCancelOrder(order.orderId)}
-                        className="rounded-lg px-6 py-1.5 w-max bg-primary bg-white border-2 border-grey-light self-end "
-                      >
-                        Cancel Order
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })
+        recentOrders?.map((order, i) => (
+          <RecentOrderItem
+            key={i}
+            order={order}
+            isLastItem={i === recentOrders.length - 1}
+          />
+        ))
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
           <img src={emptyCartImg} className="h-36" />

@@ -34,7 +34,7 @@ const AccountPageWrapper = ({ children }) => {
             Welcome, {user.full_name}
           </h1>
           <div className="flex justify-between w-full gap-8 border-t border-opacity-50 border-grey-light pb-12 pt-6 sm:pt-12">
-            <div className="flex-col hidden lg:flex border-grey-light border-x border-opacity-50 w-64 min-w-64 h-max">
+            <div className="flex-col hidden lg:flex border-grey-light border-x border-opacity-50 w-64 min-w-64 h-max sticky top-4">
               {TABS.map((tab, i) => (
                 <button
                   key={tab}

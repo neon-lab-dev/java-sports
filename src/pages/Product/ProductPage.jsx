@@ -4,6 +4,8 @@ import buttonNextSlide from "@/assets/images/Button - Next slide.svg";
 import { useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import crossIcon from "@/assets/icons/cross.svg";
+
 import toast from "react-hot-toast";
 // @ts-ignore
 import addIcon from "@/assets/images/plus.svg";
@@ -16,9 +18,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { splitString } from "@/utils/splitString";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addToWishlist, removeFromWishlist } from "@/api/products";
+import { ClipLoader, MoonLoader } from "react-spinners";
 
 const ProductPage = ({ product }) => {
   let sliderRef = useRef(null);
+  const { user } = useSelector((state) => state.user);
   const [isHovering, setIsHovering] = useState(false);
   const imgRef = useRef(null);
   const [activeImage, setActiveImage] = useState(0);
@@ -108,6 +114,31 @@ const ProductPage = ({ product }) => {
     }
   };
 
+  const isWishlisted = user?.wishlist.filter(
+    (item) => item.product === product._id
+  ).length;
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (id) =>
+      isWishlisted ? removeFromWishlist(id) : addToWishlist(id),
+    onSuccess: () => {
+      toast.success(
+        `${isWishlisted ? "Removed" : "Added"} ${product.name} ${
+          isWishlisted ? "from" : "to"
+        } wishlist!`
+      );
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const handleWishlist = () => {
+    mutate(product._id);
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 pt-8">
       {/* //image gallery for large screens */}
@@ -152,8 +183,20 @@ const ProductPage = ({ product }) => {
             />
           </div>
         </div>
-        <button className="absolute top-2 right-2 cursor-pointer">
-          <img src={heartIcon} alt="heart icon" />
+        <button
+          onClick={handleWishlist}
+          disabled={isPending}
+          className="absolute top-2 right-2 cursor-pointer"
+        >
+          {isPending ? (
+            <ClipLoader size={26} color="#00B553" />
+          ) : (
+            <img
+              src={!isWishlisted ? heartIcon : crossIcon}
+              alt="Wishlist"
+              className="w-7 h-7 sm:w-8 sm:h-8 hover:text-primary`"
+            />
+          )}
         </button>
       </div>
       {/* //image gallery for small screens */}

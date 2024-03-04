@@ -14,11 +14,15 @@ import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
 import { useSelector } from "react-redux";
 import { paramToWord } from "@/utils/paramUtils";
 import avatar from "@assets/images/avatar.jpg";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { logout } from "@/api/user";
+import toast from "react-hot-toast";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user, cartItemsCount } = useSelector(
     (state) => state.user
   );
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -47,6 +51,20 @@ const AppHeaderNav = () => {
     };
     toggleSidebar();
   }, [isSidebarOpen]);
+
+  const { mutate } = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      toast.success("Logged out successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["user"]
+      });
+      navigate("/");
+    },
+    onError: (err) => {
+      toast.error(err);
+    },
+  });
 
   return (
     <div className="bg-white">
@@ -188,7 +206,29 @@ const AppHeaderNav = () => {
             />
           )}
 
-          {/* //todo: add the link for logout */}
+          {isAuthenticated && (
+            <div className="px-6 py-3 mt-2 font-700 text-primary">
+              <button
+                className="flex justify-between w-full"
+                onClick={() => {
+                  setIsSidebarOpen(false);
+                  mutate();
+                }}
+              >
+                <span>Logout</span>
+              </button>
+            </div>
+          )}
+          {!isAuthenticated && (
+            <Link to="/login" className="px-6 py-3 font-700 mt-2 text-primary">
+              <button
+                className="flex justify-between w-full"
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <span>Login</span>
+              </button>
+            </Link>
+          )}
         </div>
       </aside>
       {isSidebarOpen && (

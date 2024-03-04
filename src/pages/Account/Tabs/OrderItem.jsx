@@ -1,8 +1,10 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Text from "../Text";
 import InvoicePDF from "../InvoicePDF";
+import { useSelector } from "react-redux";
 
 const OrderItem = ({ order, isLastItem }) => {
+  const { user } = useSelector((state) => state.user);
   return (
     <div
       id={`product-${order._id}`}
@@ -44,7 +46,7 @@ const OrderItem = ({ order, isLastItem }) => {
         <div className="flex flex-col sm:flex-col xl:flex-row xs:flex-row gap-2 xl:justify-end w-full">
           <button className="rounded-lg px-4 py-2 w-max bg-blue text-white">
             <PDFDownloadLink
-              document={<InvoicePDF data={JSON.stringify(order, null, 2)} />}
+              document={<InvoicePDF data={order} user={user} />}
               fileName={`invoice-${order._id}.pdf`}
             >
               {({ loading }) => (loading ? "Preparing..." : "Download Invoice")}

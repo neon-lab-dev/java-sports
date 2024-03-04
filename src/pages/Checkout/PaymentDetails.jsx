@@ -4,6 +4,7 @@ import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const PaymentDetails = ({
   totalAmount,
@@ -13,6 +14,7 @@ const PaymentDetails = ({
   deliveryAddress,
   orderItems,
 }) => {
+  const [searchParams] = useSearchParams();
   const { user } = useSelector((state) => state.user);
   const [isProcessing, setIsProcessing] = useState(false);
   const flex =
@@ -31,6 +33,7 @@ const PaymentDetails = ({
           pinCode: user[deliveryAddress]?.pin_code,
         },
         orderItems: orderItems,
+        isBuyNow: searchParams.get("buyNow") === "true",
       });
 
       //proceed to payment

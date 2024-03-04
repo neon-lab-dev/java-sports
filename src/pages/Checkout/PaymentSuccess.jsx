@@ -68,15 +68,18 @@ const PaymentSuccessChild = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.removeItem("orderDetails");
       toast.success(data.message);
-      navigate("/account?tab=recent-orders", { replace: true });
+      if (!orderDetails.isBuyNow) {
+        localStorage.removeItem("cartItems");
+      }
       dispatch(updateCartItemsCount());
+      navigate("/account?tab=recent-orders", { replace: true });
+      localStorage.removeItem("orderDetails");
     }
     if (isError) {
       toast.error(error);
     }
-  }, [data, dispatch, error, isError, isSuccess, navigate]);
+  }, [data, error, isError, isSuccess]);
 
   return (
     <div className="bg-white py-10 h-80">

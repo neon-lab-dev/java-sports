@@ -64,7 +64,7 @@ const ROUTES = [
   },
   {
     path: "wishlist",
-    component: lazy(() => import("@/pages/wishlist/Wishlist")),
+    component: lazy(() => import("@/pages/Wishlist/Wishlist")),
   },
   {
     path: "contact",
@@ -84,7 +84,7 @@ const ROUTES = [
   },
   {
     path: "/about-us",
-    component: lazy(() => import("@/pages/Footer/AboutUs")),
+    component: lazy(() => import("@/pages/Footer/AboutUS")),
   },
   {
     path: "/terms-and-conditions",

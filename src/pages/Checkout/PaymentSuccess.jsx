@@ -14,12 +14,12 @@ const PaymentSuccess = () => {
   // Redirect to 404 if no reference is found
 
   // If there are no items in the cart, show a message
-  if (getLocalStorage("cartItems", []).length === 0) {
+  if (!getLocalStorage("orderDetails", null)) {
     return (
       <div className="bg-white py-10 h-80">
         <section className="wrapper flex items-center justify-center flex-col gap-4 h-full">
           <h1 className="text-2xl font-600 text-black">
-            You have no items in your cart.
+            You have no orders to track.
           </h1>
           <Link
             to="/"
@@ -39,17 +39,19 @@ const PaymentSuccessChild = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const orderDetails = getLocalStorage("orderDetails", null);
   const orderData = {
-    shippingInfo: getLocalStorage("deliveryAddress", {
+    shippingInfo: orderDetails.deliveryAddress || {
       ...user.primaryaddress,
       pinCode: user.primaryaddress.pin_code.toString(),
       phoneNo: user.phoneNo.toString(),
-    }), //get the delivery address from local storage or user's primary address
-    orderItems: getLocalStorage("cartItems", []),
-    itemsPrice: getLocalStorage("cartItems", [])
+    }, //get the delivery address from local storage or user's primary address
+
+    orderItems: orderDetails.orderItems,
+    itemsPrice: orderDetails.orderItems
       .reduce((acc, item) => acc + item.price * item.quantity, 0)
       .toString(), //the total price of all items without coupn discount
-    totalPrice: getLocalStorage("cartItems", [])
+    totalPrice: orderDetails.orderItems
       .reduce((acc, item) => acc + item.price * item.quantity, 0)
       .toString(), //with coupn discount
     discount: "0",
@@ -66,8 +68,7 @@ const PaymentSuccessChild = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.removeItem("cartItems");
-      localStorage.removeItem("deliveryAddress");
+      localStorage.removeItem("orderDetails");
       toast.success(data.message);
       navigate("/account?tab=recent-orders", { replace: true });
       dispatch(updateCartItemsCount());

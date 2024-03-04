@@ -1,6 +1,8 @@
 import API from "@/api";
 import { handleCheckout, handleGetApiKey } from "@/api/orders";
-import axios from "axios";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const PaymentDetails = ({
@@ -8,37 +10,60 @@ const PaymentDetails = ({
   totalItems,
   finalAmount,
   discountAmount,
+  deliveryAddress,
+  orderItems,
 }) => {
   const { user } = useSelector((state) => state.user);
+  const [isProcessing, setIsProcessing] = useState(false);
   const flex =
     "flex justify-between text-base sm:text-lg gap-6 min-w-max w-full";
 
   const checkoutHandler = async () => {
-    const key = await handleGetApiKey();
-    const res = await handleCheckout(finalAmount);
-    const options = {
-      key: key,
-      amount: res.order.amount,
-      currency: "INR",
-      name: "Java Sports",
-      description: "",
-      image: "java-sports.svg",
-      order_id: res.order.id,
-      callback_url: API.paymentVerification,
-      prefill: {
-        name: user.full_name,
-        email: user.email,
-        contact: user.phoneNo,
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#121212",
-      },
-    };
-    const razor = new window.Razorpay(options);
-    razor.open();
+    if (isProcessing) return toast.error("Processing your request");
+    setIsProcessing(true);
+    try {
+      //store the order details in local storage
+      localStorage.removeItem("orderDetails");
+      setLocalStorage("orderDetails", {
+        deliveryAddress: {
+          ...user[deliveryAddress],
+          phoneNo: user.phoneNo,
+          pinCode: user[deliveryAddress]?.pin_code,
+        },
+        orderItems: orderItems,
+      });
+
+      //proceed to payment
+      const key = await handleGetApiKey();
+      const res = await handleCheckout(finalAmount);
+      const options = {
+        key: key,
+        amount: res.order.amount,
+        currency: "INR",
+        name: "Java Sports",
+        description: "",
+        image: "java-sports.svg",
+        order_id: res.order.id,
+        callback_url: API.paymentVerification,
+        prefill: {
+          name: user.full_name,
+          email: user.email,
+          contact: user.phoneNo,
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#121212",
+        },
+      };
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -82,7 +107,7 @@ const PaymentDetails = ({
           onClick={checkoutHandler}
           className="bg-red-500 text-lg py-2 text-white rounded-[5px] font-500"
         >
-          Proceed to Pay
+          {isProcessing ? "Processing..." : "Proceed to Pay"}
         </button>
       </div>
     </div>

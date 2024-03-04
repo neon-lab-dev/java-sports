@@ -34,14 +34,6 @@ const Checkout = () => {
     })),
   });
 
-  useEffect(() => {
-    setLocalStorage("deliveryAddress", {
-      ...user[selectedAddress],
-      phoneNo: user.phoneNo,
-      pinCode: user[selectedAddress]?.pin_code,
-    });
-  }, [selectedAddress, user]);
-
   return (
     <div className="bg-white py-10">
       <section className="wrapper flex flex-col gap-4">
@@ -136,6 +128,8 @@ const Checkout = () => {
                   }),
                   orderItems
                 )}
+                deliveryAddress={selectedAddress}
+                orderItems={orderItems}
               />
             </div>
           ) : (

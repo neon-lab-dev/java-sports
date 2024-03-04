@@ -10,7 +10,7 @@ const OrderHistory = () => {
     queryFn: getAllMyOrders,
   });
   return (
-    <div className="flex flex-col gap-8 sm:gap-12 wrapper lg:w-full lg:m-0 max-w-5xl">
+    <div className="flex flex-col gap-8 sm:gap-12 wrapper lg:w-[calc(100vw-500px)] lg:m-0 max-w-5xl">
       {isError && (
         <p className="text-center">An error occurred while fetching orders</p>
       )}

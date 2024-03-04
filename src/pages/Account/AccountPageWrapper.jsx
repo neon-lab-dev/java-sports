@@ -47,7 +47,7 @@ const AccountPageWrapper = ({ children }) => {
                 </button>
               ))}
             </div>
-            <div className="flex-grow">{children}</div>
+            <div className="flex-grow max-w-full">{children}</div>
           </div>
         </section>
       </div>

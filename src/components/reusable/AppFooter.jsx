@@ -130,9 +130,9 @@ const AppFooter = () => {
             <div className='p-2 m-2'>
               <ul className='font-lato font-500 text-base list-disc flex gap-3'>
                 <img src={ facebook } alt="" />
-                <span><Link to="">@Javasport</Link></span>
+                <span><Link to="https://www.facebook.com/p/Java-sports-100075864027997/?paipv=0&eav=AfbItktfMC5SeAtleHM-MDIWNmvS8-XXEcWr18V1D7E07zc-t7grnm6p7A886zvdIwc&_rdr" target='_blank'>@Javasport</Link></span>
                 <img src={ insta } alt="" />
-                <span><Link to="">@Javasport</Link></span>
+                <span><Link to="https://www.instagram.com/javasports_official/" target='_blank'>@Javasport</Link></span>
               </ul>
             </div>)
           }

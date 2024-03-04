@@ -11,10 +11,14 @@ const TermsAndConditions = () => (
       title="Introduction to Terms and Conditions"
       content={`Java Sport and its affiliates provide their services to you, subject to the terms and conditions given hereunder. If you visit us at www.JavaSport.com, You accept these terms and conditions. Please read these terms and conditions carefully. Further, you are advised to regularly check for any amendments or updates to the terms and conditions from time to time. Java Sport may add to or change or update these Terms of Use, from time to time entirely at its own discretion. You are responsible for checking these Terms of Use periodically to remain in compliance with these terms. Your use of a site after any amendment to the Terms of Use shall constitute your acceptance of these terms and you also agree to be bound by any such changes/revisions. Any clause of terms and conditions if deemed invalid, void or for any reason unenforceable, shall be deemed severable and shall not affect the validity and enforceability of the remaining clauses of the terms and conditions.`}
     />
-    <Section
-      title="Use of Our Service"
-      content={`We collect "personal" information from you when you provide it to us. For example, if you purchase a product from us, we will collect your name, mailing address, telephone number and email address. If you sign up to receive a newsletter, we will collect your email address. If you take advantage of special services offered by us, we may collect other personal information about you. We use your personal information for internal purposes such as processing and to keep you informed of your order.`}
-    />
+
+    <div className="font-Lato">
+      <span className="text-[24px] font-700">Use of Our Service</span>
+      <ul className="list-disc pl-6 text-[14px] font-400">
+        <li>We collect "personal" information from you when you provide it to us. For example, if you purchase a product from us, we will collect your name, mailing address, telephone number and email address. If you sign up to receive a newsletter, we will collect your email address. If you take advantage of special services offered by us, we may collect other personal information about you. We use your personal information for internal purposes such as processing and to keep you informed of your order.</li>
+      </ul>
+    </div>
+
     <Section 
     title='Content'
     content={`Content found on or through this Service are the property of Cricket Gear Website or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.`} />  

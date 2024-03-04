@@ -66,7 +66,7 @@ const AppHeaderNav = () => {
           </span>
           <div className="w-[400px] lg:w-full hidden lg:block">
             <AppSearchBar
-              placeholder={"Search for “ Bats ”"}
+              placeholder="Search by product name"
               onSearch={handleOnSearch}
             />
           </div>

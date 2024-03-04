@@ -4,22 +4,28 @@ import FilterHeader from "./FilterHeader";
 import NotFound from "../NotFound";
 import { useParams } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
-import { wordToParam } from "@/utils/paramUtils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getFilteredProducts } from "@/api/products";
-import AppLoading from "@/components/reusable/AppLoading";
 import Error503 from "../Error503";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
+import sortProducts from "@/utils/sortProducts";
+
+const SORTING_OPTIONS = [
+  "Most Relevant",
+  "Low to High price",
+  "High to low price",
+];
 
 const CategoryLayout = () => {
   const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState(SORTING_OPTIONS[0]);
   const { category, type } = useParams();
   const types = ACCORDION_LINKS.filter(
     ({ label }) => label === decodeURI(category)
   )[0];
 
-  const { isLoading, data, isError, error } = useQuery({
+  const { isLoading, data, isError } = useQuery({
     queryKey: ["allFilteredProducts", { type, category }],
     queryFn: () =>
       getFilteredProducts({
@@ -32,12 +38,16 @@ const CategoryLayout = () => {
   });
 
   if (!types) return <NotFound />;
-  console.log({ isLoading, data, isError, error });
   if (isError) return <Error503 />;
   return (
     <div className="bg-white py-6 overflow-hidden">
       <section className="wrapper max-w-[1500px]">
-        <FilterHeader setShowFilters={setShowFilters} />
+        <FilterHeader
+          setShowFilters={setShowFilters}
+          options={SORTING_OPTIONS}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
 
         <div className="flex gap-5 mt-4 sm:mt-6">
           <div className="hidden lg:block">
@@ -57,7 +67,7 @@ const CategoryLayout = () => {
                 <h1 className="text-2xl font-500">No products found</h1>
               </div>
             ) : (
-              data?.products?.map((item, idx) => (
+              sortProducts(data?.products, sortBy)?.map((item, idx) => (
                 <AppCard
                   key={`items-${idx}`}
                   product={item}

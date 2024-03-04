@@ -75,7 +75,7 @@ const ROUTES = [
   },
   {
     path: "/checkout",
-    component: lazy(() => import("@/pages/Checkout/Checkout")),
+    component: lazy(() => import("@/pages/Checkout/checkout")),
     protectFromUnauthenticated: true,
   },
   {
@@ -98,6 +98,26 @@ const ROUTES = [
   {
     path: "*",
     component: lazy(() => import("@/pages/NotFound")),
+  },
+  {
+    path: "/about-us",
+    component: lazy(() => import("@/pages/Footer/AboutUS")),
+  },
+  {
+    path: "/terms-and-conditions",
+    component: lazy(() => import("@pages/Footer/TermsAndConditions")),
+  },
+  {
+    path: "/privacy-policy",
+    component: lazy(() => import("@pages/Footer/PrivacyPolicy")),
+  },
+  {
+    path: "/shipping-and-returns",
+    component: lazy(() => import("@pages/Footer/ShippingAndReturns")),
+  },
+  {
+    path: "/size-guide",
+    component: lazy(() => import("@pages/Footer/SizeGuide")),
   },
 ];
 export default ROUTES;

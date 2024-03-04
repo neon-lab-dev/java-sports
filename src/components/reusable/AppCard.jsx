@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist, removeFromWishlist } from "@/api/products";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
 import noImage from "@assets/images/no-image.jpg";
+import { updateCartItemsCount } from "@/redux/slices/userSlice";
 /**
  * @props
  * Title
@@ -21,6 +22,7 @@ import noImage from "@assets/images/no-image.jpg";
  */
 
 const AppCard = ({ product, className = "" }) => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const isWishlisted = user?.wishlist.filter(
     (item) => item.product === product._id
@@ -54,6 +56,7 @@ const AppCard = ({ product, className = "" }) => {
       ];
     }
     setLocalStorage("cartItems", updatedItems);
+    dispatch(updateCartItemsCount());
     toast.success(`Added ${product.name} to cart!`);
   };
 

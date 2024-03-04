@@ -14,15 +14,17 @@ import removeIcon from "@/assets/images/minus.svg";
 import Slider from "react-slick";
 import HoverImagePreview from "./HoverImagePreview";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { splitString } from "@/utils/splitString";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist, removeFromWishlist } from "@/api/products";
 import { ClipLoader, MoonLoader } from "react-spinners";
+import { updateCartItemsCount } from "@/redux/slices/userSlice";
 
 const ProductPage = ({ product }) => {
+  const dispatch = useDispatch();
   let sliderRef = useRef(null);
   const { user } = useSelector((state) => state.user);
   const [isHovering, setIsHovering] = useState(false);
@@ -69,6 +71,7 @@ const ProductPage = ({ product }) => {
     }
     setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${product.name} to cart!`);
+    dispatch(updateCartItemsCount());
   };
 
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });

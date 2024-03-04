@@ -1,9 +1,11 @@
+import { getLocalStorage } from "@/utils/localStorage";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
   user: null,
   isAuthenticating: true,
+  cartItemsCount: (() => getLocalStorage("cartItems", [])?.length || 0)(),
 };
 
 export const userSlice = createSlice({
@@ -22,9 +24,17 @@ export const userSlice = createSlice({
     setIsAuthenticating: (state, action) => {
       state.isAuthenticating = action.payload;
     },
+    updateCartItemsCount: (state) => {
+      state.cartItemsCount = getLocalStorage("cartItems", [])?.length || 0;
+    },
   },
 });
 
-export const { setUser, logoutUser, setIsAuthenticating } = userSlice.actions;
+export const {
+  setUser,
+  logoutUser,
+  setIsAuthenticating,
+  updateCartItemsCount,
+} = userSlice.actions;
 
 export default userSlice.reducer;

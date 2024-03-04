@@ -13,7 +13,10 @@ import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
 import CardSkeleton from "../skeletons/CardSkeleton";
+import { updateCartItemsCount } from "@/redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 const AppWishlistCard = ({ productId }) => {
+  const dispatch = useDispatch();
   const cardWrapper = `  w-[300px]  max-xl:w-[280px] rounded-2xl bg-white p-6 border `;
   const imageWrapper = `bg-grey/1 w-[25w  0px] h-[240px] max-xl:w-[230px] rounded-2xl my-2 p-8 flex justify-center items-center  `;
   const queryClient = useQueryClient();
@@ -54,6 +57,7 @@ const AppWishlistCard = ({ productId }) => {
     removeFromWishlist(data.product._id).then(() => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
     });
+    dispatch(updateCartItemsCount());
   };
 
   const { mutate, isPending } = useMutation({

@@ -16,7 +16,9 @@ import { paramToWord } from "@/utils/paramUtils";
 import avatar from "@assets/images/avatar.jpg";
 
 const AppHeaderNav = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { isAuthenticated, user, cartItemsCount } = useSelector(
+    (state) => state.user
+  );
 
   const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
@@ -77,20 +79,32 @@ const AppHeaderNav = () => {
             </li>
             <li>
               <Link to="/wishlist" className={navWrapper}>
-                <span>
+                <span className="relative">
                   <img
                     src={wishlistIcon}
                     alt="Wishlist"
                     className={navLinkImg}
                   />
+                  {/* //wishlist count */}
+                  {user?.wishlist?.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+                      {user?.wishlist?.length}
+                    </span>
+                  )}
                 </span>
                 <span className={navLink}>Wishlist</span>
               </Link>
             </li>
             <li>
               <Link to="/cart" className={navWrapper}>
-                <span>
+                <span className="relative">
                   <img src={cartIcon} alt="Cart" className={navLinkImg} />
+                  {/* //cart count */}
+                  {cartItemsCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+                      {cartItemsCount}
+                    </span>
+                  )}
                 </span>
                 <span className={navLink}>My Cart</span>
               </Link>
@@ -134,9 +148,7 @@ const AppHeaderNav = () => {
                   alt={user.full_name}
                   className="w-12 rounded-full aspect-square object-cover object-center"
                 />
-                <span className="text-2xl font-500">{
-                user.full_name
-                }</span>
+                <span className="text-2xl font-500">{user.full_name}</span>
               </div>
               <span className="font-400">Email: {user.email}</span>
               <span className="font-400">Phone: {user.phoneNo}</span>

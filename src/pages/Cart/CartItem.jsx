@@ -9,8 +9,11 @@ import removeIcon from "@/assets/icons/remove.svg";
 import { todayPlusDays } from "@/utils/dateUtils";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import { Link } from "react-router-dom";
+import { updateCartItemsCount } from "@/redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const CartItem = ({ item, setCartItems, cartItems }) => {
+  const dispatch = useDispatch();
   const { isError, isLoading, data } = item;
 
   if (isLoading) return null;
@@ -104,6 +107,7 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
         <button
           onClick={() => {
             removeCartItem({ productId: data.product._id, setCartItems });
+            dispatch(updateCartItemsCount());
           }}
           className="rounded px-3 py-1.5 sm:max-w-72 w-full min-w-40 bg-transparent border-2 border-grey-dark text-black"
         >

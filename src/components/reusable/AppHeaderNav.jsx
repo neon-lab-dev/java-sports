@@ -20,14 +20,14 @@ const AppHeaderNav = () => {
     (state) => state.user
   );
 
+  const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
-  const handleOnSearch = (e) => {
-    e.preventDefault();
-    console.log("Search Product !!");
+  const handleOnSearch = (q) => {
+    navigate(`/search?q=${q}`);
   };
 
   const navWrapper = `flex gap-1 items-center h-7 min-w-max`;

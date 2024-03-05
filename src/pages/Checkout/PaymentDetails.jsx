@@ -143,7 +143,9 @@ const PaymentDetails = ({
       </div>
       <hr />
       <span className="text-sm text-grey-dark">
-        You will save ₹{discountAmount} on this order
+        You will save ₹{" "}
+        {discountAmount + (coupon.isCouponApplied ? data.discount : 0)} on this
+        order
       </span>
       <div className="flex flex-col gap-2">
         <form

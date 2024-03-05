@@ -83,8 +83,8 @@ const Checkout = () => {
             )}
           </div>
           {!(
-            user.primaryaddress &&
-            user.secondaryaddress &&
+            user.primaryaddress ||
+            user.secondaryaddress ||
             user.thirdaddress
           ) && (
             <AppEmpty

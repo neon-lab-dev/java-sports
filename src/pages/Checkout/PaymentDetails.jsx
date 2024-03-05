@@ -36,7 +36,7 @@ const PaymentDetails = ({
           navigate("/cart");
         }
       });
-    if (!(user.primaryaddress && user.secondaryaddress && user.thirdaddress)) {
+    if (!(user.primaryaddress || user.secondaryaddress || user.thirdaddress)) {
       return Swal.fire({
         icon: "error",
         title: "Oops...",

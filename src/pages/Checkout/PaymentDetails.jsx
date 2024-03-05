@@ -1,10 +1,12 @@
 import API from "@/api";
-import { handleCheckout, handleGetApiKey } from "@/api/orders";
+import { applyCoupon, handleCheckout, handleGetApiKey } from "@/api/orders";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { MoonLoader, PulseLoader, SyncLoader } from "react-spinners";
 import Swal from "sweetalert2";
 
 const PaymentDetails = ({
@@ -17,11 +19,26 @@ const PaymentDetails = ({
   isSomeItemOutOfStock,
 }) => {
   const navigate = useNavigate();
+  const [coupon, setCoupon] = useState({
+    code: "",
+    isCouponApplied: false,
+  });
   const [searchParams] = useSearchParams();
   const { user } = useSelector((state) => state.user);
   const [isProcessing, setIsProcessing] = useState(false);
   const flex =
     "flex justify-between text-base sm:text-lg gap-6 min-w-max w-full";
+
+  const { mutate, isPending, data } = useMutation({
+    mutationFn: (coupon) => applyCoupon(coupon),
+    onError: (error) => {
+      toast.error(error);
+    },
+    onSuccess: (data) => {
+      setCoupon((prev) => ({ ...prev, isCouponApplied: true }));
+      toast.success("Coupon Applied Successfully, you saved ₹" + data.discount);
+    },
+  });
 
   const checkoutHandler = async () => {
     if (isProcessing) return toast.error("Processing your request");
@@ -48,11 +65,18 @@ const PaymentDetails = ({
         },
         orderItems: orderItems,
         isBuyNow: searchParams.get("buyNow") === "true",
+        coupon: {
+          isCouponApplied: coupon.isCouponApplied,
+          code: coupon.code,
+          discount: data?.discount || 0,
+        },
       });
 
       //proceed to payment
       const key = await handleGetApiKey();
-      const res = await handleCheckout(finalAmount);
+      const res = await handleCheckout(
+        finalAmount - (coupon.isCouponApplied ? data.discount : 0)
+      );
       const options = {
         key: key,
         amount: res.order.amount,
@@ -97,6 +121,15 @@ const PaymentDetails = ({
         <span>Discount</span>
         <span className="text-green-400 text-[17px]"> - ₹{discountAmount}</span>
       </div>
+      {coupon.isCouponApplied && (
+        <div className={flex}>
+          <span>Coupon</span>
+          <span className="text-green-400 text-[17px]">
+            {" "}
+            - ₹{data.discount}
+          </span>
+        </div>
+      )}
       <div className={flex}>
         <span>Delivery Charges</span>
         <span className="text-green-400 text-[17px]">Free</span>
@@ -104,22 +137,48 @@ const PaymentDetails = ({
       <hr />
       <div className={flex + " font-700"}>
         <span>Total Amount</span>
-        <span>₹{finalAmount}</span>
+        <span>
+          ₹{coupon.isCouponApplied ? finalAmount - data.discount : finalAmount}
+        </span>
       </div>
       <hr />
       <span className="text-sm text-grey-dark">
         You will save ₹{discountAmount} on this order
       </span>
       <div className="flex flex-col gap-2">
-        <div className="flex flex-col xs:flex-row">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (coupon.code.trim() === "") return;
+            mutate(coupon.code.trim());
+          }}
+          className="flex flex-col xs:flex-row"
+        >
           <input
             className="border rounded-t-md xs:rounded-l-md xs:rounded-tr-none py-2 flex-grow px-3 focus:outline-grey/2 text-gray-500 sm:text-lg"
             type="text"
             placeholder="Enter the Coupon code"
-            id="coupon"
+            value={coupon.code}
+            onChange={(e) =>
+              setCoupon({ ...coupon, code: e.target.value.toUpperCase() })
+            }
+            disabled={coupon.isCouponApplied || isPending}
           />
-          <button className="bg-grey/1 font-500 px-6 py-1">Apply</button>
-        </div>
+          <button
+            disabled={
+              coupon.isCouponApplied || isPending || coupon.code.trim() === ""
+            }
+            className="bg-grey/1 font-500 px-6 py-1"
+          >
+            {coupon.isCouponApplied ? (
+              "Applied"
+            ) : isPending ? (
+              <PulseLoader size={8} color="#121212" />
+            ) : (
+              "Apply"
+            )}
+          </button>
+        </form>
         <button
           onClick={checkoutHandler}
           className="bg-red-500 text-lg py-2 text-white rounded-[5px] font-500"

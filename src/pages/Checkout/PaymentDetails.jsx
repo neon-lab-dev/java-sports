@@ -36,6 +36,18 @@ const PaymentDetails = ({
           navigate("/cart");
         }
       });
+    if (!(user.primaryaddress && user.secondaryaddress && user.thirdaddress)) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please add a delivery address",
+        confirmButtonText: "Add Address",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/account?tab=addresses");
+        }
+      });
+    }
     setIsProcessing(true);
     try {
       //store the order details in local storage

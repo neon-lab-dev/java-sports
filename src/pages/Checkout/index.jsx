@@ -1,19 +1,21 @@
 import avatar from "@assets/images/avatar.jpg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import AddressBox from "./AddressBox";
 import PaymentDetails from "./PaymentDetails";
-import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { getLocalStorage } from "@/utils/localStorage";
 import OrderItem from "./OrderItem";
 import { useQueries } from "@tanstack/react-query";
 import { getAProduct } from "@/api/products";
+import noAddress from "@/assets/images/no-address.jpg";
 import CartPageSkeleton from "@/components/skeletons/CartPageSkeleton";
 import {
   getDiscountedAmount,
   getFinalAmount,
   getTotalAmount,
 } from "@/utils/cartUtils";
+import AppEmpty from "@/components/reusable/AppEmpty";
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
@@ -80,6 +82,18 @@ const Checkout = () => {
               )
             )}
           </div>
+          {!(
+            user.primaryaddress &&
+            user.secondaryaddress &&
+            user.thirdaddress
+          ) && (
+            <AppEmpty
+              btnText="Add Address"
+              text="You have not added any address"
+              to="/account?tab=addresses"
+              img={noAddress}
+            />
+          )}
         </div>
         {
           //render only when all the queries are loaded
@@ -130,9 +144,7 @@ const Checkout = () => {
                 )}
                 deliveryAddress={selectedAddress}
                 orderItems={orderItems}
-                isSomeItemOutOfStock={res.some(
-                  (r) => r.data.product.stock < 1
-                )}
+                isSomeItemOutOfStock={res.some((r) => r.data.product.stock < 1)}
               />
             </div>
           ) : (

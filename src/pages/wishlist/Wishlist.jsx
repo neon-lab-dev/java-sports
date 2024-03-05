@@ -2,19 +2,20 @@
 import AppWishlistCard from "@/components/reusable/AppWishlistCard";
 import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
 import { useSelector } from "react-redux";
+import AppEmpty from "@/components/reusable/AppEmpty";
+import forgotPassword from "@/assets/images/forgot-password.svg";
 
 const Wishlist = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
 
   if (!isAuthenticated) {
     return (
-      <section className="bg-white">
-        <div className="flex justify-center items-center h-[50vh] w-full">
-          <span className="text-2xl text-grey/6 text-center ">
-            Please login to see your wishlist
-          </span>
-        </div>
-      </section>
+      <AppEmpty
+        btnText="Login"
+        text="Please login to view your wishlist"
+        to="/login"
+        img={forgotPassword}
+      />
     );
   }
   return (

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import "@/index.css";
 import { Toaster } from "react-hot-toast";
 import RoutesContainer from "./routes";

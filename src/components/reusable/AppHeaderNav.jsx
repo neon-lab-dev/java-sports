@@ -23,13 +23,12 @@ const AppHeaderNav = () => {
     (state) => state.user
   );
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
-  // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
+
   const handleOnSearch = (q) => {
     navigate(`/search?q=${q}`);
   };
@@ -52,12 +51,13 @@ const AppHeaderNav = () => {
     toggleSidebar();
   }, [isSidebarOpen]);
 
+  // Logout mutation
   const { mutate } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       toast.success("Logged out successfully");
       queryClient.invalidateQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
       navigate("/");
     },
@@ -142,7 +142,7 @@ const AppHeaderNav = () => {
         </nav>
         <div className="block w-full py-3 lg:hidden">
           <AppSearchBar
-            placeholder={"Search for “ Bats ”"}
+            placeholder="Search by product name"
             onSearch={handleOnSearch}
           />
         </div>

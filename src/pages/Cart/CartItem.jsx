@@ -1,4 +1,3 @@
-import PRODUCTS from "@/assets/mockData/products";
 import TextSubtext from "@/components/reusable/AppTextSubtext";
 import { adjustCartQuantity, removeCartItem } from "@/utils/cartUtils";
 

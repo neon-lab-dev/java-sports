@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import MultiSelectFilterItem from "./MultiSelectFilterItem";
 import { useLocation, useParams } from "react-router-dom";
-import { paramToWord, wordToParam } from "@/utils/paramUtils";
 import CustomerReviewsButton from "./CustomerReviewsButton";
-import ShowNewArrivalsButton from "./ShowNewArrivalsButton";
 import PriceRange from "./PriceRange";
-import FILTERS from "@/assets/categoryFilters/filters";
 import TypeFilter from "./TypeFilter";
 
 const DEFAULT_FILTERS = {
   type: [],
   customerReviews: "all",
-  showNewArrivalsOnly: false,
   priceRange: "all",
   quantity: [],
   color: [],
@@ -35,10 +31,6 @@ const Filters = ({ types }) => {
     setFilters((prev) => ({ ...prev, type: [type] }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, location.pathname]);
-
-  useEffect(() => {
-    console.log("filters", filters);
-  }, [filters]);
 
   return (
     <div className="border-2 p-3 flex flex-col gap-2 rounded-md min-w-64 lg:min-w-fit 2xl:min-w-64">
@@ -90,15 +82,6 @@ const Filters = ({ types }) => {
         value={filters.customerReviews}
         setValue={(val) =>
           setFilters((prev) => ({ ...prev, customerReviews: val }))
-        }
-      />
-      <ShowNewArrivalsButton
-        value={filters.showNewArrivalsOnly}
-        setValue={() =>
-          setFilters((prev) => ({
-            ...prev,
-            showNewArrivalsOnly: !prev.showNewArrivalsOnly,
-          }))
         }
       />
       <button

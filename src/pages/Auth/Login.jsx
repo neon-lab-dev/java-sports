@@ -74,7 +74,7 @@ const Login = () => {
             placeholder="Enter Password"
             id="password"
             {...register("password", {
-              validate: (value) => PASSWORD_REGEX.test(value),
+              required: true,
             })}
           />
           <button
@@ -92,7 +92,7 @@ const Login = () => {
         {errors.password && (
           <AppFormErrorLine
             //short message saying password should contain 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
-            message="Your password is not strong enough"
+            message="Password is required"
           />
         )}
         <Link

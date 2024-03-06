@@ -41,15 +41,14 @@ const Otp = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      setTimer(OTP_TIMER);
     },
   });
 
   useEffect(() => {
     let interval = setInterval(() => {
+      if (timer === 1) return;
       setTimer((prev) => {
-        if (prev === 1) {
-          clearInterval(interval);
-        }
         return prev - 1;
       });
     }, 1 * 1000);

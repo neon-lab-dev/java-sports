@@ -19,6 +19,13 @@ const Signup = () => {
     password: "password",
     confirmPassword: "password",
   });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
   const { isPending, mutate } = useMutation({
     mutationFn: (data) => signup(data),
     onError: (error) => {
@@ -27,17 +34,10 @@ const Signup = () => {
     onSuccess: (data) => {
       toast.success(data.message);
       navigate("/otp-verification", {
-        state: { email: data.email },
-        replace: true,
+        state: { email: watch("email") },
       });
     },
   });
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
 
   return (
     <form

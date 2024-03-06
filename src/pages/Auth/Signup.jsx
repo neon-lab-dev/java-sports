@@ -34,7 +34,7 @@ const Signup = () => {
     onSuccess: (data) => {
       toast.success(data.message);
       navigate("/otp-verification", {
-        state: { email: watch("email") },
+        state: { user: watch() },
       });
     },
   });

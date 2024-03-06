@@ -56,11 +56,17 @@ const AppHeaderNav = () => {
   const { mutate } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      toast.success("Logged out successfully");
-      queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
-      navigate("/");
+      queryClient
+        .invalidateQueries({
+          queryKey: ["user"],
+        })
+        .then(() => {
+          toast.success("Logged out successfully");
+          navigate("/");
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
     },
     onError: (err) => {
       toast.error(err);

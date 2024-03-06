@@ -30,7 +30,7 @@ const PriceRange = ({ min, max, value, setValue }) => {
           type="range"
           min={min}
           max={max}
-          className="accent-primary/2"
+          className="accent-primary/2 range-field"
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Review from "./Review";
 import crossIcon from "@/assets/icons/cross.svg";
 import WriteAReview from "./WriteAReview";
@@ -6,6 +6,14 @@ import WriteAReview from "./WriteAReview";
 const ReviewComWrapper = ({ reviews }) => {
   const [isAllReviewsOpen, setIsAllReviewsOpen] = useState(false);
   const [isWritingAReview, setIsWritingAReview] = useState(false);
+
+  useEffect(() => {
+    if (isAllReviewsOpen || isWritingAReview) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isAllReviewsOpen, isWritingAReview]);
 
   return (
     <>

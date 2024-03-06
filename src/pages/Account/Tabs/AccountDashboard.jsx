@@ -51,7 +51,7 @@ const AccountDashboard = () => {
         <p className="text-center">An error occurred while fetching orders</p>
       )}
       {isLoading && <p className="text-center">Loading orders...</p>}
-      {!isLoading && orders.orders.length > 0 && (
+      {!isError && !isLoading && orders?.orders?.length > 0 && (
         <>
           <div className="border-y border-grey-light py-6 px-4">
             <HeadingWithLink

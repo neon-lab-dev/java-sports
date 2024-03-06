@@ -151,7 +151,7 @@ const ProductPage = ({ product }) => {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 pt-8">
       {/* //image gallery for large screens */}
       <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex max-h-[80vh]">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-5">
           {product.images.map((img, index) => {
             if (index > 3) return null;
             return (
@@ -302,19 +302,19 @@ const ProductPage = ({ product }) => {
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>
             {product.stock > 0 ? (
-              <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
+              <div className="flex p-1 items-center justify-center w-max border-grey/1 border-2 rounded-md">
                 <button
-                  className="px-2 w-full h-full"
+                  className="px-3 w-full h-full"
                   onClick={() => adjustCartQuantity(false)}
                 >
                   <img src={removeIcon} alt="remove" />
                 </button>
-                <span className="border-x-2 border-grey/1 px-4">
+                <span className="border-x-2 border-grey/1 px-4 min-w-[60px] text-center">
                   {selectedSpecs.quantity}
                 </span>
                 <button
                   onClick={() => adjustCartQuantity(true)}
-                  className="px-2 w-full h-full"
+                  className="px-3 w-full h-full"
                 >
                   <img src={addIcon} alt="add" />
                 </button>

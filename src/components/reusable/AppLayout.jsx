@@ -1,13 +1,19 @@
-import AppFooter from "./AppFooter"
-import AppHeader from "./AppHeader"
+import AppFooter from "./AppFooter";
+import AppHeader from "./AppHeader";
+import AppRestoreScroll from "./AppRestoreScroll";
 
-const AppLayout = ({children}) => {
+/**
+ * AppLayout component
+ * This component is a layout wrapper for the whole app
+ */
+const AppLayout = ({ children }) => {
   return (
     <>
-    <AppHeader/>
-    {children}
-    <AppFooter/>
+      <AppHeader />
+      {children}
+      <AppFooter />
+      <AppRestoreScroll />
     </>
-  )
-}
-export default AppLayout
+  );
+};
+export default AppLayout;

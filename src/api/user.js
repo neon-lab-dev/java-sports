@@ -80,10 +80,10 @@ export const signup = (data) => {
   });
 };
 
-export const sendOtp = (otp) => {
+export const sendOtp = (data) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(API.verify, otp, {
+      .post(API.verify, data, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

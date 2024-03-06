@@ -1,18 +1,20 @@
 // @ts-nocheck
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { setIsAuthenticating, setUser } from "@/redux/slices/userSlice";
+import { setIsAuthenticating } from "@/redux/slices/userSlice";
 import { login } from "@/api/user";
 
 const Login = () => {
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const redirect = searchParams.get("redirect");
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["user"],
@@ -23,7 +25,7 @@ const Login = () => {
     onSuccess: () => {
       dispatch(setIsAuthenticating(true));
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      navigate("/account");
+      navigate(redirect || "/account");
     },
   });
 
@@ -73,7 +75,10 @@ const Login = () => {
       </button>
       <span className="text-sm text-center ">
         Don&apos;t Have an account ?
-        <Link to="/signup" className="text-red-500 underline">
+        <Link
+          to={`/signup${redirect ? `?redirect=${redirect}` : ""}`}
+          className="text-red-500 underline"
+        >
           {" "}
           Create an Account
         </Link>

@@ -2,9 +2,11 @@ import { sendOtp } from "@/api/user";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 const Otp = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const { register, handleSubmit } = useForm();
   const { isPending, mutate } = useMutation({
     mutationFn: (otp) => sendOtp(otp),
@@ -13,7 +15,7 @@ const Otp = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      navigate("/login");
+      navigate(`/login${redirect ? `?redirect=${redirect}` : ""}`);
     },
   });
   return (

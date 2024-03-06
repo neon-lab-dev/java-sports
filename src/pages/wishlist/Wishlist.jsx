@@ -21,7 +21,7 @@ const Wishlist = () => {
     <>
       <div className="flex flex-col">
         <div className="">
-          <div className="bg-white pl-[9%] max-sm:pl-[5%] flex flex-col gap-4 pt-4">
+          <div className="bg-white pl-[10%] max-sm:pl-[5%] flex flex-col gap-4 pt-4">
             <div>
               <span className="font-700 font-Lato text-2xl">
                 Wishlist- {user.wishlist.length} items

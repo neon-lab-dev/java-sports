@@ -2,10 +2,12 @@ import { signup } from "@/api/user";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const { isPending, mutate } = useMutation({
     mutationFn: (data) => signup(data),
     onError: (error) => {
@@ -13,7 +15,7 @@ const Signup = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      navigate("/otp-verification");
+      navigate(`/otp-verification${redirect ? `?redirect=${redirect}` : ""}`);
     },
   });
   const { register, handleSubmit } = useForm();
@@ -104,7 +106,10 @@ const Signup = () => {
       </button>
       <span className="text-sm text-center ">
         Have an account?{" "}
-        <Link to="/login" className="text-red-500 underline">
+        <Link
+          to={`/login${redirect ? `?redirect=${redirect}` : ""}`}
+          className="text-red-500 underline"
+        >
           Log in
         </Link>
       </span>

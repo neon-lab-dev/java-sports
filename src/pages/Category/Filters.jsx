@@ -1,27 +1,35 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import MultiSelectFilterItem from "./MultiSelectFilterItem";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { paramToWord, wordToParam } from "@/utils/paramUtils";
 import CustomerReviewsButton from "./CustomerReviewsButton";
 import ShowNewArrivalsButton from "./ShowNewArrivalsButton";
 import PriceRange from "./PriceRange";
 import FILTERS from "@/assets/categoryFilters/filters";
 import TypeFilter from "./TypeFilter";
-
-const DEFAULT_FILTERS = {
-  type: [],
-  customerReviews: "all",
-  showNewArrivalsOnly: false,
-  priceRange: "all",
-  quantity: [],
-  color: [],
-  size: [],
-};
+import debounce from "@/utils/debounce";
 
 const Filters = ({ types }) => {
   const { type } = useParams();
   const customFilters = null;
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const debouncedSetSearchParams = useCallback(
+    debounce((val) => setSearchParams({ priceRange: val }), 1000),
+    [] // dependencies
+  ); //callback to ensure that setSearchParams is not called on every render
+  
+  const DEFAULT_FILTERS = {
+    type: [],
+    customerReviews: "all",
+    showNewArrivalsOnly: false,
+    priceRange: searchParams.get("priceRange") || "all",
+    quantity: [],
+    color: [],
+    size: [],
+  };
+
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
 
   useEffect(() => {
@@ -35,10 +43,6 @@ const Filters = ({ types }) => {
     setFilters((prev) => ({ ...prev, type: [type] }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, location.pathname]);
-
-  useEffect(() => {
-    console.log("filters", filters);
-  }, [filters]);
 
   return (
     <div className="border-2 p-3 flex flex-col gap-2 rounded-md min-w-64 lg:min-w-fit 2xl:min-w-64">
@@ -72,20 +76,17 @@ const Filters = ({ types }) => {
           />
         );
       })}
-      {customFilters?.filters.map((filter, i) => {
-        if (filter.type !== "range") return null;
-        return (
-          <PriceRange
-            key={i}
-            min={filter.min}
-            max={filter.max}
-            value={filters.priceRange}
-            setValue={(val) =>
-              setFilters((prev) => ({ ...prev, priceRange: val }))
-            }
-          />
-        );
-      })}
+
+      <PriceRange
+        min={0}
+        max={2500}
+        value={filters.priceRange}
+        setValue={(val) => {
+          setFilters((prev) => ({ ...prev, priceRange: val }));
+          debouncedSetSearchParams(val);
+        }}
+      />
+
       <CustomerReviewsButton
         value={filters.customerReviews}
         setValue={(val) =>

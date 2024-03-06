@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
-import AppProductSlider from "@/components/reusable/AppProductSlider";
-import ACCESSORIES from "@/assets/mock-data/accessories";
-import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import PriceDetails from "./PriceDetails";
+import emptyCartImg from "@/assets/icons/empty-carts.svg";
 import {
   getDiscountedAmount,
   getFinalAmount,
   getTotalAmount,
 } from "@/utils/cartUtils";
-import EmptyCart from "./EmptyCart";
-import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
 import { getLocalStorage } from "@/utils/localStorage";
 import { useQueries } from "@tanstack/react-query";
 import { getAProduct } from "@/api/products";
-import AppSkeleton from "@/components/skeletons/AppSkeleton";
 import CartPageSkeleton from "@/components/skeletons/CartPageSkeleton";
+import AppEmpty from "@/components/reusable/AppEmpty";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState(getLocalStorage("cartItems", []));
@@ -84,7 +80,12 @@ const CartPage = () => {
           </section>
         </div>
       ) : (
-        <EmptyCart />
+        <AppEmpty
+          btnText="Continue Shopping"
+          text="Your cart is empty"
+          to="/"
+          img={emptyCartImg}
+        />
       )}
       {/* <AppProductsYouMightLike /> */}
     </>

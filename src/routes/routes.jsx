@@ -87,17 +87,13 @@ const ROUTES = [
     component: lazy(() => import("@/pages/Category")),
   },
   {
-    path: "search",
+    path: "/search",
     component: lazy(() => import("@/pages/Search")),
   },
   {
     path: "/paymentsuccess",
     component: lazy(() => import("@/pages/Checkout/PaymentSuccess")),
     protectFromUnauthenticated: true,
-  },
-  {
-    path: "*",
-    component: lazy(() => import("@/pages/NotFound")),
   },
   {
     path: "/about-us",
@@ -118,6 +114,10 @@ const ROUTES = [
   {
     path: "/size-guide",
     component: lazy(() => import("@pages/Footer/SizeGuide")),
+  },
+  {
+    path: "*",
+    component: lazy(() => import("@/pages/NotFound")),
   },
 ];
 export default ROUTES;

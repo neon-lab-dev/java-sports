@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import MultiSelectFilterItem from "./MultiSelectFilterItem";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import { paramToWord, wordToParam } from "@/utils/paramUtils";
 import CustomerReviewsButton from "./CustomerReviewsButton";
-import ShowNewArrivalsButton from "./ShowNewArrivalsButton";
 import PriceRange from "./PriceRange";
-import FILTERS from "@/assets/categoryFilters/filters";
 import TypeFilter from "./TypeFilter";
 import debounce from "@/utils/debounce";
 
@@ -23,8 +20,7 @@ const Filters = ({ types }) => {
   const DEFAULT_FILTERS = {
     type: [],
     customerReviews: "all",
-    showNewArrivalsOnly: false,
-    priceRange: searchParams.get("priceRange") || "all",
+      priceRange: searchParams.get("priceRange") || "all",
     quantity: [],
     color: [],
     size: [],
@@ -91,15 +87,6 @@ const Filters = ({ types }) => {
         value={filters.customerReviews}
         setValue={(val) =>
           setFilters((prev) => ({ ...prev, customerReviews: val }))
-        }
-      />
-      <ShowNewArrivalsButton
-        value={filters.showNewArrivalsOnly}
-        setValue={() =>
-          setFilters((prev) => ({
-            ...prev,
-            showNewArrivalsOnly: !prev.showNewArrivalsOnly,
-          }))
         }
       />
       <button

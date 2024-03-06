@@ -4,7 +4,8 @@ import FilterHeader from "./FilterHeader";
 import NotFound from "../NotFound";
 import { useParams, useSearchParams } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
-import { useEffect, useState } from "react";
+import nothingImg from "@/assets/images/nothing.svg";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getFilteredProducts } from "@/api/products";
 import Error503 from "../Error503";
@@ -64,20 +65,23 @@ const CategoryLayout = () => {
           >
             <Filters types={types} />
           </div>
+          {data?.products?.length === 0 && (
+            <div className="flex flex-col items-center justify-center gap-4 w-full h-[400px] w-full">
+              <img src={nothingImg} className="h-36" />
+              <h2 className="font-Jakarta font-500 text-lg sm:text-xl">
+                No products found
+              </h2>
+            </div>
+          )}
           <div className="grid grid-cols-1 gap-3 lg:gap-8 sm:grid-cols-2 mx-auto xl:grid-cols-3 3xl:grid-cols-4 w-full sm:w-max h-fit">
-            {data?.products?.length === 0 ? (
-              <div className="w-full flex justify-center items-center">
-                <h1 className="text-2xl font-500">No products found</h1>
-              </div>
-            ) : (
+            {data?.products?.length > 0 &&
               sortProducts(data?.products, sortBy)?.map((item, idx) => (
                 <AppCard
                   key={`items-${idx}`}
                   product={item}
                   className="w-full max-w-[280px] mx-auto sm:min-w-[48%] md:min-w-[300px] xl:min-w-[275px] 2xl:min-w-[300px]"
                 />
-              ))
-            )}
+              ))}
             {isLoading && (
               <>
                 <CardSkeleton className="w-full max-w-[280px] mx-auto sm:min-w-[48%] md:min-w-[300px] xl:min-w-[275px] 2xl:min-w-[300px]" />

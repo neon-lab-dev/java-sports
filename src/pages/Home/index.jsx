@@ -1,16 +1,14 @@
 import Hero from "./Hero";
 import AppProductSlider from "@/components/reusable/AppProductSlider";
-
-// @ts-ignore
 import BannerImg from "@assets/images/personalized-kit.png";
 import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getAccessories, getHelmets, getTopRatedBats } from "@/api/products";
-import AppLoading from "@/components/reusable/AppLoading";
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
 
+  // get top rated bats
   const {
     data: topRatedBats,
     isLoading: isTopRatedBatsLoading,
@@ -19,6 +17,8 @@ const HomePage = () => {
     queryKey: ["topRatedBats"],
     queryFn: getTopRatedBats,
   });
+
+  // get featured products
   const {
     data: featuredProducts,
     isLoading: isFeaturedProductsLoading,
@@ -27,6 +27,8 @@ const HomePage = () => {
     queryKey: ["featuredProducts"],
     queryFn: getHelmets,
   });
+
+  // get accessories
   const {
     data: accessories,
     isLoading: isAccessoriesLoading,
@@ -56,7 +58,7 @@ const HomePage = () => {
 
       {!isFeaturedProductsError && (
         <section className={`${sectionWrapper}`}>
-          {/* Featured */}
+          {/* Featured  Products*/}
           <section className="wrapper">
             <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
               Featured

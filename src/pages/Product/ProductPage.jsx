@@ -151,7 +151,7 @@ const ProductPage = ({ product }) => {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 pt-8">
       {/* //image gallery for large screens */}
       <div className="border-2 border-[#E4E4E4] rounded-md p-4 gap-2 sm:gap-4 justify-center items-start w-full relative hidden sm:flex max-h-[80vh]">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-5">
           {product.images.map((img, index) => {
             if (index > 3) return null;
             return (

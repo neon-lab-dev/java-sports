@@ -11,13 +11,14 @@ import AppSearchBar from "./AppSearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { paramToWord } from "@/utils/paramUtils";
 import avatar from "@assets/images/avatar.jpg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "@/api/user";
 import toast from "react-hot-toast";
 import AppLogoutDropdown from "./AppLogoutDropdown";
+import { logoutUser } from "@/redux/slices/userSlice";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user, cartItemsCount } = useSelector(
@@ -29,7 +30,7 @@ const AppHeaderNav = () => {
   const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
-
+  const dispatch = useDispatch();
   const handleOnSearch = (q) => {
     navigate(`/search?q=${q}`);
   };
@@ -61,11 +62,9 @@ const AppHeaderNav = () => {
           queryKey: ["user"],
         })
         .then(() => {
+          dispatch(logoutUser());
           toast.success("Logged out successfully");
           navigate("/");
-        })
-        .catch((err) => {
-          toast.error(err);
         });
     },
     onError: (err) => {

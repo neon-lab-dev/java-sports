@@ -52,17 +52,17 @@ const AppLogoutDropdown = ({
               setActiveValue("");
             }}
           >
-            <div className="min-w-40 w-full p-1 bg-white rounded-sm card-shadow flex flex-col gap-1">
+            <div className="min-w-40 w-full p-1 bg-white card-shadow flex flex-col gap-1 rounded-lg">
               <Menubar.Item className="outline-none">
                 <Link
                   to="/account"
-                  className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary hover:text-white flex gap-3"
+                  className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary hover:text-white rounded-md flex gap-3"
                 >
-                  Account
+                  My Account
                 </Link>
                 <button
                   onClick={logoutMutation}
-                  className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary hover:text-white flex gap-3"
+                  className="w-full h-full px-3 py-2 text-base cursor-pointer transition-colors min-w-max border-grey-light hover:bg-primary rounded-md hover:text-white flex gap-3"
                 >
                   Logout
                 </button>

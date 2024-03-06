@@ -302,9 +302,9 @@ const ProductPage = ({ product }) => {
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>
             {product.stock > 0 ? (
-              <div className="flex p-1 items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
+              <div className="flex p-1 items-center justify-center w-max border-grey/1 border-2 rounded-md">
                 <button
-                  className="px-2 w-full h-full"
+                  className="px-3 w-full h-full"
                   onClick={() => adjustCartQuantity(false)}
                 >
                   <img src={removeIcon} alt="remove" />
@@ -314,7 +314,7 @@ const ProductPage = ({ product }) => {
                 </span>
                 <button
                   onClick={() => adjustCartQuantity(true)}
-                  className="px-2 w-full h-full"
+                  className="px-3 w-full h-full"
                 >
                   <img src={addIcon} alt="add" />
                 </button>

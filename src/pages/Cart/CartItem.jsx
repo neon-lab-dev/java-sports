@@ -1,4 +1,3 @@
-import PRODUCTS from "@/assets/mockData/products";
 import TextSubtext from "@/components/reusable/AppTextSubtext";
 import { adjustCartQuantity, removeCartItem } from "@/utils/cartUtils";
 
@@ -56,12 +55,14 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
             <span className="flex items-end gap-2">
               Quantity:
               {data.product.stock < 1 && (
-                <span className="text-primary text-sm font-400">(Out of stock)</span>
+                <span className="text-primary text-sm font-400">
+                  (Out of stock)
+                </span>
               )}
             </span>
-            <div className="flex items-center justify-center gap-2 w-max border-grey/1 border-2 rounded-md">
+            <div className="flex items-center justify-center w-max border-grey/1 border-2 rounded-md">
               <button
-                className="px-2 w-full h-full"
+                className="px-3 w-full h-full"
                 onClick={() => {
                   // @ts-ignore
                   adjustCartQuantity({
@@ -84,7 +85,7 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
                     stock: data.product.stock,
                   });
                 }}
-                className="px-2 w-full h-full"
+                className="px-3 w-full h-full"
               >
                 <img src={addIcon} alt="add" />
               </button>

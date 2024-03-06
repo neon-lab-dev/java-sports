@@ -108,3 +108,23 @@ export const createOrder = (orderData) => {
       });
   });
 };
+
+export const applyCoupon = (couponCode) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.applyDiscount}/?code=${couponCode}`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(
+          err.response.data.message || "Something went wrong, please try again"
+        );
+      });
+  });
+};

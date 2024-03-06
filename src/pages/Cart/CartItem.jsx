@@ -75,7 +75,7 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
               >
                 <img src={removeIcon} alt="remove" />
               </button>
-              <span className="border-x-2 border-grey/1 px-4">{quantity}</span>
+              <span className="border-x-2 border-grey/1 px-4 min-w-[60px] text-center">{quantity}</span>
               <button
                 onClick={() => {
                   adjustCartQuantity({

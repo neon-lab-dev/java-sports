@@ -309,7 +309,7 @@ const ProductPage = ({ product }) => {
                 >
                   <img src={removeIcon} alt="remove" />
                 </button>
-                <span className="border-x-2 border-grey/1 px-4">
+                <span className="border-x-2 border-grey/1 px-4 min-w-[60px] text-center">
                   {selectedSpecs.quantity}
                 </span>
                 <button

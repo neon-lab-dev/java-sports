@@ -54,7 +54,7 @@ const PaymentSuccessChild = () => {
     totalPrice: (orderDetails.orderItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
-    ) - orderDetails.coupon.isCouponApplied
+    ) - orderDetails?.coupon?.isCouponApplied
       ? orderDetails.coupon.discount
       : 0
     ) //with coupon discount

@@ -2,12 +2,13 @@ import { sendOtp } from "@/api/user";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const Otp = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const { state } = useLocation();
   const { isPending, mutate } = useMutation({
-    mutationFn: (otp) => sendOtp(otp),
+    mutationFn: (data) => sendOtp(data),
     onError: (error) => {
       toast.error(error);
     },
@@ -16,9 +17,16 @@ const Otp = () => {
       navigate("/login");
     },
   });
+  const onSubmit = (data) => {
+    mutate({
+      email: state?.email || "",
+      otp: data.otp,
+    });
+  };
+
   return (
     <form
-      onSubmit={handleSubmit((data) => mutate(data))}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6 p-14 bg-grey/1 max-sm:mx-5 max-sm:p-8"
     >
       <h1 className="text-4xl font-700">Otp verification</h1>

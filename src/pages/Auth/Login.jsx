@@ -11,7 +11,6 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "@/assets/constants/regex";
 import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
 import eyeClosed from "@/assets/icons/eye-closed.svg";
 import eyeOpen from "@/assets/icons/eye.svg";
-import { MoonLoader } from "react-spinners";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -104,10 +103,7 @@ const Login = () => {
         </Link>
       </div>
       <button className="p-3 text-white bg-black font-700 rounded-3xl font-Lato ">
-        {
-          isPending ?<MoonLoader color="#fff" size={20} /> : "Login"
-          
-        }
+        {isPending ? "Loading..." : "Login"}
       </button>
       <span className="text-sm text-center ">
         Don&apos;t Have an account ?

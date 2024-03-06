@@ -2,7 +2,7 @@ import AppCard from "@/components/reusable/AppCard";
 import Filters from "./Filters";
 import FilterHeader from "./FilterHeader";
 import NotFound from "../NotFound";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +19,8 @@ const SORTING_OPTIONS = [
 
 const CategoryLayout = () => {
   const [showFilters, setShowFilters] = useState(false);
+  const [searchParams] = useSearchParams();
+  const priceRange = searchParams.get("priceRange");
   const [sortBy, setSortBy] = useState(SORTING_OPTIONS[0]);
   const { category, type } = useParams();
   const types = ACCORDION_LINKS.filter(
@@ -26,7 +28,7 @@ const CategoryLayout = () => {
   )[0];
 
   const { isLoading, data, isError } = useQuery({
-    queryKey: ["allFilteredProducts", { type, category }],
+    queryKey: ["allFilteredProducts", { type, category, priceRange }],
     queryFn: () =>
       getFilteredProducts({
         category: types.queryAs,
@@ -34,6 +36,7 @@ const CategoryLayout = () => {
           types?.dropdowns?.filter((item) => item.label === decodeURI(type))[0]
             ?.queryAs || "all",
         mainCategoryLabel: types.type,
+        priceRange: priceRange === "all" ? 0 : priceRange || 0,
       }),
   });
 

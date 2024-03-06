@@ -77,6 +77,7 @@ export const getFilteredProducts = ({
   category,
   categoryType,
   mainCategoryLabel,
+  priceRange,
 }) => {
   const url = `${API.getAllProducts}?${
     categoryType && categoryType.toLowerCase() === "all"
@@ -88,7 +89,7 @@ export const getFilteredProducts = ({
     categoryType && categoryType.toLowerCase() === "all"
       ? category
       : categoryType
-  }`;
+  }&price[gte]=${priceRange}`;
   return new Promise((resolve, reject) => {
     axios
       .get(url, {

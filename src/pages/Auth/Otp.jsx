@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 const Otp = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const queryClient = useQueryClient();
   const [timer, setTimer] = useState(OTP_TIMER);
   const { register, handleSubmit } = useForm();
@@ -21,7 +23,7 @@ const Otp = () => {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
-      navigate("/account");
+      navigate(redirect || "/account");
     },
   });
 

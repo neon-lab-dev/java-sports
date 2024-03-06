@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +13,7 @@ import eyeClosed from "@/assets/icons/eye-closed.svg";
 import eyeOpen from "@/assets/icons/eye.svg";
 
 const Login = () => {
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const [passwordType, setPasswordType] = useState("password");
@@ -22,6 +23,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const redirect = searchParams.get("redirect");
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["user"],
@@ -32,7 +34,7 @@ const Login = () => {
     onSuccess: () => {
       dispatch(setIsAuthenticating(true));
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      navigate("/account");
+      navigate(redirect || "/account");
     },
   });
 
@@ -107,7 +109,10 @@ const Login = () => {
       </button>
       <span className="text-sm text-center ">
         Don&apos;t Have an account ?
-        <Link to="/signup" className="text-red-500 underline">
+        <Link
+          to={`/signup${redirect ? `?redirect=${redirect}` : ""}`}
+          className="text-red-500 underline"
+        >
           {" "}
           Create an Account
         </Link>

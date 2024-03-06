@@ -35,7 +35,7 @@ const AppHeaderNav = () => {
     navigate(`/search?q=${q}`);
   };
 
-  const navWrapper = `flex gap-1 items-center h-7 min-w-max`;
+  const navWrapper = `flex gap-1 items-center h-7 min-w-max gap-2`;
   const navLink = `font-Jakarta text-4 font-500 leading-4 hidden lg:block`;
   const navLinkImg = "w-5 h-5 lg:w-6 lg:h-6";
 

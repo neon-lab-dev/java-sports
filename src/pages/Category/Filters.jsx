@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import MultiSelectFilterItem from "./MultiSelectFilterItem";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import CustomerReviewsButton from "./CustomerReviewsButton";
 import PriceRange from "./PriceRange";
 import TypeFilter from "./TypeFilter";
-
-const DEFAULT_FILTERS = {
-  type: [],
-  customerReviews: "all",
-  priceRange: "all",
-  quantity: [],
-  color: [],
-  size: [],
-};
+import debounce from "@/utils/debounce";
 
 const Filters = ({ types }) => {
   const { type } = useParams();
   const customFilters = null;
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const debouncedSetSearchParams = useCallback(
+    debounce((val) => setSearchParams({ priceRange: val }), 1000),
+    [] // dependencies
+  ); //callback to ensure that setSearchParams is not called on every render
+  
+  const DEFAULT_FILTERS = {
+    type: [],
+    customerReviews: "all",
+      priceRange: searchParams.get("priceRange") || "all",
+    quantity: [],
+    color: [],
+    size: [],
+  };
+
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
 
   useEffect(() => {
@@ -64,20 +72,17 @@ const Filters = ({ types }) => {
           />
         );
       })}
-      {customFilters?.filters.map((filter, i) => {
-        if (filter.type !== "range") return null;
-        return (
-          <PriceRange
-            key={i}
-            min={filter.min}
-            max={filter.max}
-            value={filters.priceRange}
-            setValue={(val) =>
-              setFilters((prev) => ({ ...prev, priceRange: val }))
-            }
-          />
-        );
-      })}
+
+      <PriceRange
+        min={0}
+        max={2500}
+        value={filters.priceRange}
+        setValue={(val) => {
+          setFilters((prev) => ({ ...prev, priceRange: val }));
+          debouncedSetSearchParams(val);
+        }}
+      />
+
       <CustomerReviewsButton
         value={filters.customerReviews}
         setValue={(val) =>

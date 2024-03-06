@@ -8,13 +8,16 @@ import AppFormErrorLine from "@/components/reusable/AppFormErrorLine";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import eyeClosed from "@/assets/icons/eye-closed.svg";
 import eyeOpen from "@/assets/icons/eye.svg";
 import { useState } from "react";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
   const [passwordType, setPasswordType] = useState({
     password: "password",
     confirmPassword: "password",
@@ -190,7 +193,10 @@ const Signup = () => {
       </button>
       <span className="text-sm text-center ">
         Have an account?{" "}
-        <Link to="/login" className="text-red-500 underline">
+        <Link
+          to={`/login${redirect ? `?redirect=${redirect}` : ""}`}
+          className="text-red-500 underline"
+        >
           Log in
         </Link>
       </span>

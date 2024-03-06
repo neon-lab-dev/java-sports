@@ -1,5 +1,6 @@
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
+import AppRestoreScroll from "./AppRestoreScroll";
 
 /**
  * AppLayout component
@@ -11,6 +12,7 @@ const AppLayout = ({ children }) => {
       <AppHeader />
       {children}
       <AppFooter />
+      <AppRestoreScroll />
     </>
   );
 };

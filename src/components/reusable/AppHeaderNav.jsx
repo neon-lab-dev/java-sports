@@ -17,6 +17,7 @@ import avatar from "@assets/images/avatar.jpg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "@/api/user";
 import toast from "react-hot-toast";
+import AppLogoutDropdown from "./AppLogoutDropdown";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user, cartItemsCount } = useSelector(
@@ -127,17 +128,24 @@ const AppHeaderNav = () => {
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link
-              to={isAuthenticated ? "/account" : "/login"}
-              className={`${navWrapper} hidden lg:flex`}
-            >
-              <span>
-                <img src={profileIcon} alt="Cart" className={navLinkImg} />
-              </span>
-              <span className={navLink}>
-                {isAuthenticated ? user.full_name : "Login"}
-              </span>
-            </Link>
+            {!isAuthenticated ? (
+              <Link to="/login" className={`${navWrapper} hidden lg:flex`}>
+                <span>
+                  <img src={profileIcon} alt="Cart" className={navLinkImg} />
+                </span>
+                <span className={navLink}>Login</span>
+              </Link>
+            ) : (
+              <AppLogoutDropdown
+                name={user.full_name}
+                navWrapper={navWrapper}
+                navLinkImg={navLinkImg}
+                navLink={navLink}
+                profileIcon={profileIcon}
+                avatar={user?.avatar?.url || avatar}
+                logoutMutation={mutate}
+              />
+            )}
           </ul>
         </nav>
         <div className="block w-full py-3 lg:hidden">

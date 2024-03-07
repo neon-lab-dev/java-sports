@@ -31,33 +31,26 @@ const AppCard = ({ product, className = "" }) => {
 
   const handleAddToCart = () => {
     const items = getLocalStorage("cartItems", []);
-    let updatedItems = [];
-    const isAlreadyAdded = items.find((item) => item.id === product._id);
-    if (isAlreadyAdded) {
-      updatedItems = items.map((item) =>
-        item.id === product._id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    } else {
-      updatedItems = [
-        ...items,
-        {
-          id: product._id,
-          product: product._id,
-          quantity: 1,
-          color: product.color,
-          size: splitString(product.size)[0],
-          name: product.name,
-          image: product.images[0].url,
-          price: product.discountedprice,
-          basePrice: product.baseprice,
-        },
-      ];
-    }
+    //remove the item if it is already added
+    const newItems = items.filter((item) => item.id !== product._id);
+
+    const updatedItems = [
+      ...newItems,
+      {
+        id: product._id,
+        product: product._id,
+        quantity: 1,
+        color: product.color,
+        size: splitString(product.size)[0],
+        name: product.name,
+        image: product.images[0].url,
+        price: product.discountedprice,
+        basePrice: product.baseprice,
+      },
+    ];
     setLocalStorage("cartItems", updatedItems);
-    dispatch(updateCartItemsCount());
     toast.success(`Added ${product.name} to cart!`);
+    dispatch(updateCartItemsCount());
   };
 
   const { mutate, isPending } = useMutation({

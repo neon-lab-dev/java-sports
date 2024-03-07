@@ -30,16 +30,13 @@ export const adjustCartQuantity = ({
 //remove item from the cart
 export const removeCartItem = ({ productId, setCartItems }) => {
   const items = getLocalStorage("cartItems", []);
-  console.log(items);
   const newItems = items.filter((item) => item.id !== productId);
-  console.log(newItems);
   setLocalStorage("cartItems", newItems);
   setCartItems(newItems);
 };
 
 export const getTotalAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
-  console.log(products, cartItems);
   return products
     .reduce(
       (acc, product) =>

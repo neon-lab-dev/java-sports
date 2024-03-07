@@ -33,8 +33,10 @@ const Login = () => {
     },
     onSuccess: () => {
       dispatch(setIsAuthenticating(true));
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-      navigate(redirect || "/account");
+      queryClient.invalidateQueries({ queryKey: ["user"] }).then(() => {
+        dispatch(setIsAuthenticating(false));
+        navigate(redirect || "/account");
+      });
     },
   });
 

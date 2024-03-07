@@ -2,7 +2,6 @@ import { Text, Page, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 const InvoicePDF = ({ data, user }) => {
   //hostname for the server
-  console.log(data);
   const hostname = window.location.hostname;
   const styles = StyleSheet.create({
     page: {

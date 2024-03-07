@@ -1,10 +1,9 @@
 import avatar from "@assets/images/avatar.jpg";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AddressBox from "./AddressBox";
 import PaymentDetails from "./PaymentDetails";
-import { getLocalStorage } from "@/utils/localStorage";
 import OrderItem from "./OrderItem";
 import { useQueries } from "@tanstack/react-query";
 import { getAProduct } from "@/api/products";
@@ -18,24 +17,21 @@ import {
 import AppEmpty from "@/components/reusable/AppEmpty";
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  const [searchParams] = useSearchParams();
   const [selectedAddress, setSelectedAddress] = useState("primaryaddress");
-  const [orderItems] = useState(() => {
-    if (searchParams.get("buyNow") === "true") {
-      return [getLocalStorage("buyNowProduct", {})];
-    } else {
-      return getLocalStorage("cartItems", []);
-    }
-  });
+  const { state } = useLocation();
 
   const res = useQueries({
-    queries: orderItems.map((item) => ({
-      queryKey: ["product", item.id],
-      queryFn: () => getAProduct(item.id),
+    queries: state?.orderItems?.map((item) => ({
+      queryKey: ["product", item.product],
+      queryFn: () => getAProduct(item.product),
     })),
   });
 
+  if (!state) {
+    navigate("/cart");
+  }
   return (
     <div className="bg-white py-10">
       <section className="wrapper flex flex-col gap-4">
@@ -104,22 +100,26 @@ const Checkout = () => {
                   <span className="text-xl sm:text-3xl font-700 font-Lato">
                     Order Summery
                   </span>
-                  <Link
-                    to={
-                      searchParams.get("buyNow") === "true"
-                        ? `/product/${orderItems[0].id}`
-                        : "/cart"
-                    }
-                    className="text-blue font-500 text-lg"
-                  >
-                    Edit
-                  </Link>
+                  {state?.from && state?.from !== "reorder" && (
+                    <Link
+                      to={
+                        state?.from && state?.from === "product"
+                          ? `/product/${state?.orderItems[0]?.id}`
+                          : "/cart"
+                      }
+                      className="text-blue font-500 text-lg"
+                    >
+                      Edit
+                    </Link>
+                  )}
                 </div>
                 <div className="flex gap-5 flex-col">
-                  {orderItems.map((item, index) => (
+                  {state?.orderItems.map((item, index) => (
                     <OrderItem key={index} item={item} response={res[index]} />
                   ))}
-                  {orderItems.length === 0 && <span>No items in the cart</span>}
+                  {state?.orderItems.length === 0 && (
+                    <span>No items in the cart</span>
+                  )}
                 </div>
               </div>
               <PaymentDetails
@@ -127,23 +127,23 @@ const Checkout = () => {
                   res.map((r) => {
                     return r.data.product;
                   }),
-                  orderItems
+                  state?.orderItems
                 )}
                 discountAmount={getDiscountedAmount(
                   res.map((r) => {
                     return r.data.product;
                   }),
-                  orderItems
+                  state?.orderItems
                 )}
-                totalItems={orderItems.length}
+                totalItems={state?.orderItems?.length}
                 finalAmount={getFinalAmount(
                   res.map((r) => {
                     return r.data.product;
                   }),
-                  orderItems
+                  state?.orderItems
                 )}
                 deliveryAddress={selectedAddress}
-                orderItems={orderItems}
+                orderItems={state?.orderItems}
                 isSomeItemOutOfStock={res.some((r) => r.data.product.stock < 1)}
               />
             </div>

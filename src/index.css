@@ -65,7 +65,7 @@ body {
 	-webkit-appearance: none;
 	outline: 180px;
 	width: 180px;
-	height: 10px;
+	height: 14px;
 	background: #999999;
 	border-radius: 20px;
 	overflow: hidden;
@@ -73,8 +73,8 @@ body {
 
 .range-field::-webkit-slider-thumb{
 	-webkit-appearance: none;
-	width: 20px;	
-	height: 20px;
+	width: 24px;	
+	height: 24px;
 	border-radius: 50%;
 	background: white;
 	box-shadow: -410px 0 0 400px  #EE3F4C;

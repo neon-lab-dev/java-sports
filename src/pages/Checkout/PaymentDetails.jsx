@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { MoonLoader, PulseLoader, SyncLoader } from "react-spinners";
 import Swal from "sweetalert2";
 
@@ -24,6 +24,7 @@ const PaymentDetails = ({
     isCouponApplied: false,
   });
   const [searchParams] = useSearchParams();
+  const { state } = useLocation();
   const { user } = useSelector((state) => state.user);
   const [isProcessing, setIsProcessing] = useState(false);
   const flex =
@@ -76,7 +77,7 @@ const PaymentDetails = ({
           pinCode: user[deliveryAddress]?.pin_code,
         },
         orderItems: orderItems,
-        isBuyNow: searchParams.get("buyNow") === "true",
+        from: state?.from,
         coupon: {
           isCouponApplied: coupon.isCouponApplied,
           code: coupon.code,

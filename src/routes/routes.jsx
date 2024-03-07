@@ -75,7 +75,7 @@ const ROUTES = [
   },
   {
     path: "/checkout",
-    component: lazy(() => import("@/pages/Checkout")),
+    component: lazy(() => import("@/pages/Checkout/CheckoutPageWrapper")),
     protectFromUnauthenticated: true,
   },
   {

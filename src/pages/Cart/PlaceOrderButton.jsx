@@ -1,3 +1,4 @@
+import { getLocalStorage } from "@/utils/localStorage";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,7 +8,12 @@ const PlaceOrderButton = () => {
   const navigate = useNavigate();
   const handlePlaceOrder = () => {
     if (isAuthenticated) {
-      navigate("/checkout");
+      navigate("/checkout", {
+        state: {
+          orderItems: getLocalStorage("cartItems", []),
+          from: "cart",
+        },
+      });
     } else {
       Swal.fire({
         icon: "error",

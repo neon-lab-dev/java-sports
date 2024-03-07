@@ -1,8 +1,6 @@
-import { getAllMyOrders } from "@/api/orders";
 import TABS from "@/assets/constants/accountPageTabs";
 import AppProductsYouMightLike from "@/components/reusable/AppProductsYouMightLike";
 import { paramToWord } from "@/utils/paramUtils";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -10,15 +8,6 @@ import { useSearchParams } from "react-router-dom";
 const AccountPageWrapper = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useSelector((state) => state.user);
-
-  const { data: myOrders } = useQuery({
-    queryKey: ["myOrders"],
-    queryFn: getAllMyOrders,
-  });
-
-  useEffect(() => {
-    console.log("myOrders", myOrders);
-  }, [myOrders]);
 
   useEffect(() => {
     if (!TABS.includes(searchParams.get("tab"))) {

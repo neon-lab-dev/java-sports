@@ -74,7 +74,7 @@ const PaymentSuccessChild = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success(data.message);
-      if (!orderDetails.isBuyNow) {
+      if (orderDetails.from === "cart") {
         localStorage.removeItem("cartItems");
       }
       dispatch(updateCartItemsCount());

@@ -5,8 +5,6 @@ import { calculatePercentage } from "@/utils/calculatePercentage";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 import close from "@assets/icons/Wishlist-close.svg";
 import noImage from "@assets/images/no-image.jpg";
-
-import bat from "@assets/images/bats-img.svg";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -27,36 +25,25 @@ const AppWishlistCard = ({ productId }) => {
 
   const handleAddToCart = () => {
     const items = getLocalStorage("cartItems", []);
-    let updatedItems = [];
-    const isAlreadyAdded = items.find((item) => item.id === data.product._id);
-    if (isAlreadyAdded) {
-      updatedItems = items.map((item) =>
-        item.id === data.product._id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    } else {
-      updatedItems = [
-        ...items,
-        {
-          id: data.product._id,
-          product: data.product._id,
-          quantity: 1,
-          color: data.product.color,
-          size: splitString(data.product.size)[0],
-          name: data.product.name,
-          image: data.product.images[0].url,
-          price: data.product.discountedprice,
-          basePrice: data.product.baseprice,
-        },
-      ];
-    }
+    //remove the item if it is already added
+    const newItems = items.filter((item) => item.id !== data.product._id);
+
+    const updatedItems = [
+      ...newItems,
+      {
+        id: data.product._id,
+        product: data.product._id,
+        quantity: 1,
+        color: data.product.color,
+        size: splitString(data.product.size)[0],
+        name: data.product.name,
+        image: data.product.images[0].url,
+        price: data.product.discountedprice,
+        basePrice: data.product.baseprice,
+      },
+    ];
     setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${data.product.name} to cart!`);
-    //remove from wishlist
-    removeFromWishlist(data.product._id).then(() => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-    });
     dispatch(updateCartItemsCount());
   };
 

@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 import { splitString } from "@/utils/splitString";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist, removeFromWishlist } from "@/api/products";
-import { ClipLoader, MoonLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 
 const ProductPage = ({ product }) => {
@@ -50,30 +50,25 @@ const ProductPage = ({ product }) => {
     }
   };
 
-  const handleAddToCart = (quantity) => {
+  const handleAddToCart = () => {
     const items = getLocalStorage("cartItems", []);
-    let updatedItems = [];
-    const isAlreadyAdded = items.find((item) => item.id === product._id);
-    if (isAlreadyAdded) {
-      updatedItems = items.map((item) =>
-        item.id === product._id ? { ...item, quantity } : item
-      );
-    } else {
-      updatedItems = [
-        ...items,
-        {
-          id: product._id,
-          product: product._id,
-          quantity: selectedSpecs.quantity,
-          color: selectedSpecs.color,
-          size: selectedSpecs.size,
-          name: product.name,
-          image: product.images[0].url,
-          price: product.discountedprice,
-          basePrice: product.baseprice,
-        },
-      ];
-    }
+    //remove the item if it is already added
+    const newItems = items.filter((item) => item.id !== product._id);
+
+    const updatedItems = [
+      ...newItems,
+      {
+        id: product._id,
+        product: product._id,
+        quantity: selectedSpecs.quantity,
+        color: selectedSpecs.color,
+        size: selectedSpecs.size,
+        name: product.name,
+        image: product.images[0].url,
+        price: product.discountedprice,
+        basePrice: product.baseprice,
+      },
+    ];
     setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${product.name} to cart!`);
     dispatch(updateCartItemsCount());
@@ -362,16 +357,6 @@ const ProductPage = ({ product }) => {
           <span className="font-500 text-neutral-black text-xl">
             Shipping Details
           </span>
-          {/* <ul> //todo
-            {product.shippingDetails.map((detail, index) => (
-              <li
-                key={index}
-                className="text-neutral-black list-disc list-inside ml-4"
-              >
-                {detail}
-              </li>
-            ))}
-          </ul> */}
         </div>
         <button
           onClick={handleBuyNow}
@@ -382,7 +367,7 @@ const ProductPage = ({ product }) => {
         </button>
         <button
           disabled={product.stock < 1}
-          onClick={() => handleAddToCart(selectedSpecs.quantity)}
+          onClick={handleAddToCart}
           className="rounded-md border-2 border-grey-dark py-3 disabled:opacity-50"
         >
           Add to Cart

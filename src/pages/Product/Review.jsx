@@ -20,7 +20,7 @@ const Review = ({ review, showBorder }) => {
           className="w-9 h-9 sm:h-12 sm:w-12 rounded-full object-cover object-center"
         />
         <span className="text-xl sm:text-2xl font-500">
-          {review.name || "Unknown"}
+          {review.name || "Anonymous"}
         </span>
       </div>
       <div className="flex items-center text-sm gap-6">

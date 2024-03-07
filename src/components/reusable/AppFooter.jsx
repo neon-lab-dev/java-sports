@@ -1,4 +1,3 @@
-// @ts-nocheck
 import logo from '@assets/images/Vector.svg'
 import insta from '@assets/images/instagram.svg'
 import facebook from '@assets/images/devicon_facebook.svg'

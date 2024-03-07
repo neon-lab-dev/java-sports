@@ -1,4 +1,3 @@
-import PRODUCTS_FOR_PRODUCT_PAGE from "@/assets/mock-data/productPageData";
 import { useParams, useSearchParams } from "react-router-dom";
 import ProductPage from "./ProductPage";
 import { useEffect } from "react";

@@ -11,30 +11,31 @@ import AppSearchBar from "./AppSearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import ACCORDION_LINKS from "@/assets/constants/accordionLinks";
 import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { paramToWord } from "@/utils/paramUtils";
 import avatar from "@assets/images/avatar.jpg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "@/api/user";
 import toast from "react-hot-toast";
+import AppLogoutDropdown from "./AppLogoutDropdown";
+import { logoutUser } from "@/redux/slices/userSlice";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user, cartItemsCount } = useSelector(
     (state) => state.user
   );
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
-  // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState("India");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const dispatch = useDispatch();
   const handleOnSearch = (q) => {
     navigate(`/search?q=${q}`);
   };
 
-  const navWrapper = `flex gap-1 items-center h-7 min-w-max`;
+  const navWrapper = `flex gap-1 items-center h-7 min-w-max gap-2`;
   const navLink = `font-Jakarta text-4 font-500 leading-4 hidden lg:block`;
   const navLinkImg = "w-5 h-5 lg:w-6 lg:h-6";
 
@@ -52,14 +53,19 @@ const AppHeaderNav = () => {
     toggleSidebar();
   }, [isSidebarOpen]);
 
+  // Logout mutation
   const { mutate } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      toast.success("Logged out successfully");
-      queryClient.invalidateQueries({
-        queryKey: ["user"]
-      });
-      navigate("/");
+      queryClient
+        .invalidateQueries({
+          queryKey: ["user"],
+        })
+        .then(() => {
+          dispatch(logoutUser());
+          toast.success("Logged out successfully");
+          navigate("/");
+        });
     },
     onError: (err) => {
       toast.error(err);
@@ -127,22 +133,29 @@ const AppHeaderNav = () => {
                 <span className={navLink}>My Cart</span>
               </Link>
             </li>
-            <Link
-              to={isAuthenticated ? "/account" : "/login"}
-              className={`${navWrapper} hidden lg:flex`}
-            >
-              <span>
-                <img src={profileIcon} alt="Cart" className={navLinkImg} />
-              </span>
-              <span className={navLink}>
-                {isAuthenticated ? user.full_name : "Login"}
-              </span>
-            </Link>
+            {!isAuthenticated ? (
+              <Link to="/login" className={`${navWrapper} hidden lg:flex`}>
+                <span>
+                  <img src={profileIcon} alt="Cart" className={navLinkImg} />
+                </span>
+                <span className={navLink}>Login</span>
+              </Link>
+            ) : (
+              <AppLogoutDropdown
+                name={user.full_name}
+                navWrapper={navWrapper}
+                navLinkImg={navLinkImg}
+                navLink={navLink}
+                profileIcon={profileIcon}
+                avatar={user?.avatar?.url || avatar}
+                logoutMutation={mutate}
+              />
+            )}
           </ul>
         </nav>
         <div className="block w-full py-3 lg:hidden">
           <AppSearchBar
-            placeholder={"Search for “ Bats ”"}
+            placeholder="Search by product name"
             onSearch={handleOnSearch}
           />
         </div>

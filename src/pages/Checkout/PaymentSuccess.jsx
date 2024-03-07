@@ -50,10 +50,15 @@ const PaymentSuccessChild = () => {
     orderItems: orderDetails.orderItems,
     itemsPrice: orderDetails.orderItems
       .reduce((acc, item) => acc + item.price * item.quantity, 0)
-      .toString(), //the total price of all items without coupn discount
-    totalPrice: orderDetails.orderItems
-      .reduce((acc, item) => acc + item.price * item.quantity, 0)
-      .toString(), //with coupn discount
+      .toString(), //the total price of all items without coup0n discount
+    totalPrice: (orderDetails.orderItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    ) - orderDetails?.coupon?.isCouponApplied
+      ? orderDetails.coupon.discount
+      : 0
+    ) //with coupon discount
+      .toString(),
     discount: "0",
     razorpay_payment_id: searchParams.get("reference"),
   };

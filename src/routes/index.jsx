@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ROUTES from "./routes";
@@ -25,6 +24,7 @@ const RoutesContainer = () => {
             },
             index
           ) => {
+            // Wrap the component with the wrapper if it exists
             const ComponentWithWrapper = Wrapper ? (
               <Wrapper>
                 <Component />
@@ -33,8 +33,9 @@ const RoutesContainer = () => {
               <Component />
             );
 
+            // Wrap the component with the protected route if it needs to be protected
             const ComponentWithAuth =
-              (protectFromUnauthenticated || protectFromAuthenticated) ? (
+              protectFromUnauthenticated || protectFromAuthenticated ? (
                 <ProtectedRoute
                   isAuthenticated={
                     protectFromAuthenticated
@@ -53,6 +54,7 @@ const RoutesContainer = () => {
                 key={index}
                 path={path}
                 element={
+                  // Wrap the component with the layout
                   <AppLayout>
                     <Suspense fallback={<AppLoading />}>
                       {isAuthenticating ? <AppLoading /> : ComponentWithAuth}

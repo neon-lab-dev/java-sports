@@ -110,6 +110,13 @@ const PaymentDetails = ({
         theme: {
           color: "#121212",
         },
+        modal: {
+          ondismiss: function () {
+            localStorage.removeItem("orderDetails");
+            setIsProcessing(false);
+            toast.error("Payment Cancelled");
+          },
+        },
       };
       const razor = new window.Razorpay(options);
       razor.open();

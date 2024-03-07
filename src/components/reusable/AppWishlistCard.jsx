@@ -105,9 +105,12 @@ const AppWishlistCard = ({ productId }) => {
         />
       </Link>
       <div className="flex flex-col gap-1">
-        <span className="font-Lato font-700 text-[16px]">
+        <Link
+          to={`/product/${data.product._id}`}
+          className="font-Lato font-700 text-[16px] hover:underline hover:text-blue transition-all"
+        >
           {data.product.name.split(" ").slice(0, 4).join(" ")}
-        </span>
+        </Link>
         <div className="flex justify-between items-center">
           <ul className="flex  items-center gap-2">
             <li className="font-Lato font-700 text-lg">

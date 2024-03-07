@@ -61,7 +61,7 @@ const Signup = () => {
           })}
         />
         {errors.full_name && (
-          <AppFormErrorLine message="Full name is not valid" />
+          <AppFormErrorLine message="Name must be at least 3 characters long" />
         )}
       </div>
       <div className="flex flex-col gap-2">
@@ -76,13 +76,13 @@ const Signup = () => {
             validate: (value) => EMAIL_REGEX.test(value),
           })}
         />
-        {errors.email && <AppFormErrorLine message="Email is not valid" />}
+        {errors.email && <AppFormErrorLine message="Invalid Email" />}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="phone" className="text-sm font-700 font-Lato">
           Mobile No
         </label>
-        <input
+        <input //indian phone number
           className="p-2 border-none rounded-xl"
           type="text"
           placeholder="mobile number"
@@ -91,7 +91,7 @@ const Signup = () => {
           })}
         />
         {errors.phoneNo && (
-          <AppFormErrorLine message="Phone number is not valid" />
+          <AppFormErrorLine message="Invalid Phone Number, Only Indian Phone Number is allowed" />
         )}
       </div>
       <div className="flex flex-col gap-2">
@@ -107,9 +107,7 @@ const Signup = () => {
             required: true,
           })}
         />
-        {errors.dob && (
-          <AppFormErrorLine message="Please select your date of birth" />
-        )}
+        {errors.dob && <AppFormErrorLine message="Date of birth is required" />}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="" className="text-sm font-700 font-Lato ">
@@ -139,7 +137,9 @@ const Signup = () => {
             />
           </button>
         </div>
-        {errors.password && <AppFormErrorLine message="Password is too weak" />}
+        {errors.password && (
+          <AppFormErrorLine message="Password must contain 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character" className="w-[300px]" />
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <label

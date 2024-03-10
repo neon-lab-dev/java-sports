@@ -223,34 +223,49 @@ const ProductPage = ({ product }) => {
           }}
           className="flex w-full"
         >
-          {product.images.map((img, index) => (
-            <div
-              key={index}
-              className="w-full relative p-4 px-12 rounded-lg border-2 border-[#E4E4E4] "
-            >
-              <button className="absolute top-4 right-4 cursor-pointer">
-                <img src={heartIcon} alt="heart icon" />
-              </button>
-              <button
-                // @ts-ignore
-                onClick={() => sliderRef.slickNext()}
-                className="absolute top-1/2 right-2  transform -translate-y-1/2"
+          {product.images.map((img, index) => {
+            console.log(img.url);
+            return (
+              <div
+                key={index}
+                className="w-full relative p-4 px-12 rounded-lg border-2 border-[#E4E4E4] "
               >
-                <img src={buttonNextSlide} alt="next slide" />
-              </button>
-              <button
-                // @ts-ignore
-                onClick={() => sliderRef.slickPrev()}
-                className="absolute top-1/2 left-2 transform rotate-180 -translate-y-1/2"
-              >
-                <img src={buttonNextSlide} alt="next slide" />
-              </button>
-              <img
-                src={img.url}
-                className="w-full min-h-64 h-64 object-center object-contain"
-              />
-            </div>
-          ))}
+                <button
+                  onClick={handleWishlist}
+                  disabled={isPending}
+                  className="absolute top-4 right-4 cursor-pointer"
+                >
+                  {isPending ? (
+                    <ClipLoader size={26} color="#00B553" />
+                  ) : (
+                    <img
+                      src={!isWishlisted ? heartIcon : crossIcon}
+                      alt="Wishlist"
+                      className="w-7 h-7 sm:w-8 sm:h-8 hover:text-primary`"
+                    />
+                  )}
+                </button>
+                <button
+                  // @ts-ignore
+                  onClick={() => sliderRef.slickNext()}
+                  className="absolute top-1/2 right-2  transform -translate-y-1/2"
+                >
+                  <img src={buttonNextSlide} alt="next slide" />
+                </button>
+                <button
+                  // @ts-ignore
+                  onClick={() => sliderRef.slickPrev()}
+                  className="absolute top-1/2 left-2 transform rotate-180 -translate-y-1/2"
+                >
+                  <img src={buttonNextSlide} alt="next slide" />
+                </button>
+                <img
+                  src={img.url}
+                  className="w-full min-h-64 h-64 object-center object-contain"
+                />
+              </div>
+            );
+          })}
         </Slider>
       </div>
       <div className="flex flex-col gap-4 relative">

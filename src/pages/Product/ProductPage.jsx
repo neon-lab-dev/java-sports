@@ -224,7 +224,6 @@ const ProductPage = ({ product }) => {
           className="flex w-full"
         >
           {product.images.map((img, index) => {
-            console.log(img.url);
             return (
               <div
                 key={index}

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Text from "../Text";
 import { cancelOrder } from "@/api/orders";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const RecentOrderItem = ({ order, isLastItem }) => {
   const queryClient = useQueryClient();
@@ -17,6 +18,22 @@ const RecentOrderItem = ({ order, isLastItem }) => {
       });
     },
   });
+
+  const handleCancelOrder = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutate();
+      }
+    });
+  };
 
   return (
     <div
@@ -58,9 +75,7 @@ const RecentOrderItem = ({ order, isLastItem }) => {
         </div>
         <div className="flex flex-col sm:flex-col xl:flex-row xs:flex-row gap-2 xl:justify-end w-full">
           <button
-            onClick={() => {
-              mutate();
-            }}
+            onClick={handleCancelOrder}
             className="rounded-lg px-6 py-1.5 w-max bg-primary bg-white border-2 border-grey-light self-end "
           >
             {isPending ? "Cancelling..." : "Cancel Order"}

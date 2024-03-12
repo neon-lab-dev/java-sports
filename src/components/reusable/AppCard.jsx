@@ -13,13 +13,6 @@ import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
 import noImage from "@assets/images/no-image.jpg";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
-/**
- * @props
- * Title
- * Image
- * Price
- * Discounted price
- */
 
 const AppCard = ({ product, className = "" }) => {
   const dispatch = useDispatch();
@@ -72,6 +65,8 @@ const AppCard = ({ product, className = "" }) => {
   const handleWishlist = () => {
     mutate(product._id);
   };
+
+  const isOutOfStock = product.stock === 0;
 
   return (
     <div
@@ -128,14 +123,17 @@ const AppCard = ({ product, className = "" }) => {
             off
           </span>
         </span>
-        <button onClick={handleAddToCart}>
-          <img
-            src={wishlistIcon}
-            alt="Add to Cart"
-            className="w-9 sm:w-10 h-9 sm:h-10"
-          />
-        </button>
+        {!isOutOfStock && (
+          <button onClick={handleAddToCart}>
+            <img
+              src={wishlistIcon}
+              alt="Add to Cart"
+              className="w-9 sm:w-10 h-9 sm:h-10"
+            />
+          </button>
+        )}
       </div>
+      {isOutOfStock && <div className="text-red-500 font-900 font-Lato justify-center flex ">Out of stock</div>}
     </div>
   );
 };

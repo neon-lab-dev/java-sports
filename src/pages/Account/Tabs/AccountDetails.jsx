@@ -8,6 +8,7 @@ import avatar from "@/assets/images/avatar.jpg";
 import { getUser, updateUserDetails } from "@/api/user";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 const AccountDetails = () => {
   const { user } = useSelector((state) => state.user);
   const [searchParam, setSearchParam] = useSearchParams();
@@ -163,6 +164,20 @@ const AccountDetails = () => {
               onChange={(e) => {
                 const file = e.target.files[0];
                 if (file) {
+                  //check the size of the file
+                  const maxSizeInKB =
+                    import.meta.env.VITE_MAX_IMAGE_UPLOAD_SIZE || 40;
+
+                  //file.size is in bytes
+                  if (file.size > maxSizeInKB * 1024) {
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: `Image size should be less than ${maxSizeInKB} KB`,
+                    });
+                    return;
+                  }
+
                   const reader = new FileReader();
                   reader.onloadend = () => {
                     setSelectedAvatar(file);

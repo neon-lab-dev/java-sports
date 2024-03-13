@@ -4,6 +4,7 @@ import BannerImg from "@assets/images/personalized-kit.png";
 import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getAccessories, getHelmets, getTopRatedBats } from "@/api/products";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
@@ -37,6 +38,18 @@ const HomePage = () => {
     queryKey: ["accessories"],
     queryFn: getAccessories,
   });
+
+  //get the insta posts
+  useEffect(() => {
+    var userFeed = new Instafeed({
+      get: "user",
+      target: "instafeed-container",
+      resolution: "low_resolution",
+      accessToken:
+        "IGQWRNU0luV1JmamVXM2MxNkNaY1A3WDl4czJFTTdLV21hYUNQRTlmWU41aVZAYQVgzTXNYU0tCN0RZAZAzlsSUpmM0ZA1bmZAVQUdvNnNyVlZA3dFVoNk5aUlNOSnNOSDBuNzRjaC0wS2FNSGNjY3ZAWTWhWR2RHMXhORncZD",
+    });
+    userFeed.run();
+  }, []);
 
   return (
     <>
@@ -119,16 +132,10 @@ const HomePage = () => {
           <h2 className="font-Jakarta text-xl sm:text-2xl font-500">
             @javasports
           </h2>
-          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 xs:grid-cols-3 2xl:grid-cols-6 max-w-[280px] xs:max-w-[500px] 2xl:max-w-[2400px]">
-            {POSTS.map((post, index) => (
-              <img
-                key={index}
-                src={post.img}
-                alt="Post"
-                className="aspect-square object-cover object-center"
-              />
-            ))}
-          </div>
+          <div
+            id="instafeed-container"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 md:grid-cols-3 2xl:grid-cols-3 max-w-[280px] xs:max-w-[500px] 2xl:max-w-[2400px]"
+          ></div>
         </section>
       </section>
     </>

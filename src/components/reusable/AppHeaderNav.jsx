@@ -14,11 +14,13 @@ import ACCOUNT_PAGE_TABS from "@/assets/constants/accountPageTabs";
 import { useDispatch, useSelector } from "react-redux";
 import { paramToWord } from "@/utils/paramUtils";
 import avatar from "@assets/images/avatar.jpg";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { logout } from "@/api/user";
 import toast from "react-hot-toast";
 import AppLogoutDropdown from "./AppLogoutDropdown";
 import { logoutUser } from "@/redux/slices/userSlice";
+import { getUserLocation } from "@/api/location";
+import AppSkeleton from "../skeletons/AppSkeleton";
 
 const AppHeaderNav = () => {
   const { isAuthenticated, user, cartItemsCount } = useSelector(
@@ -72,6 +74,16 @@ const AppHeaderNav = () => {
     },
   });
 
+  const { data: userLocation, isLoading } = useQuery({
+    queryKey: ["userLocation"],
+    queryFn: getUserLocation,
+    retry: 0,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+  });
+
   return (
     <div className="bg-white">
       <div className="flex flex-col items-center pt-4 lg:py-5 wrapper">
@@ -99,7 +111,13 @@ const AppHeaderNav = () => {
               <span>
                 <img src={locationIcon} alt="Location" className={navLinkImg} />
               </span>
-              <span className={navLink}>{location}</span>
+              <span className={navLink}>
+                {isLoading ? (
+                  <AppSkeleton className="w-20 h-7" />
+                ) : (
+                  userLocation || "India"
+                )}
+              </span>
             </li>
             <li>
               <Link to="/wishlist" className={navWrapper}>

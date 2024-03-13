@@ -42,6 +42,9 @@ const API = {
 
   //others
   getPaymentKey: BACKEND_BASE_URL + "/getkey",
+
+  //location
+  mapBox: "https://api.mapbox.com/search/geocode/v6/reverse",
 };
 
 export default API;

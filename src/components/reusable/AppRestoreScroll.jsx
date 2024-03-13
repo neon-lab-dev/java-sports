@@ -6,6 +6,6 @@ const AppRestoreScroll = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  return <div>AppRestoreScroll</div>;
+  return null;
 };
 export default AppRestoreScroll;

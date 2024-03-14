@@ -1,3 +1,3 @@
 export const HelmetFilters = {
-  size: ["XS", "small", "medium", "large", "XL", "XXL"],
+  size: ["XS", "Small", "Medium", "Large", "XL", "XXL"],
 };

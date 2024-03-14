@@ -22,6 +22,7 @@ const CategoryLayout = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [searchParams] = useSearchParams();
   const priceRange = searchParams.get("priceRange");
+  const size = searchParams.get("size");
   const [sortBy, setSortBy] = useState(SORTING_OPTIONS[0]);
   const { category, type } = useParams();
   const types = ACCORDION_LINKS.filter(
@@ -29,7 +30,7 @@ const CategoryLayout = () => {
   )[0];
 
   const { isLoading, data, isError } = useQuery({
-    queryKey: ["allFilteredProducts", { type, category, priceRange }],
+    queryKey: ["allFilteredProducts", { type, category, priceRange, size }],
     queryFn: () =>
       getFilteredProducts({
         category: types.queryAs,
@@ -38,6 +39,7 @@ const CategoryLayout = () => {
             ?.queryAs || "all",
         mainCategoryLabel: types.type,
         priceRange: priceRange === "all" ? 0 : priceRange || 0,
+        size: size === "all" ? null : size,
       }),
   });
 

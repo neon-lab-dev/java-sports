@@ -4,9 +4,9 @@ export const OnFieldFilters = {
     "28",
     "30",
     "32",
-    "small",
-    "medium",
-    "large",
+    "Small",
+    "Medium",
+    "Large",
     "XL",
     "XXL",
     "XXXL",
@@ -15,15 +15,15 @@ export const OnFieldFilters = {
 };
 
 export const BaseLayerFilters = {
-  size: ["XS", "small", "medium", "large", "XL", "XXL", "XXXL", "XXXXL"],
+  size: ["XS", "Small", "Medium", "Large", "XL", "XXL", "XXXL", "XXXXL"],
 };
 
 export const AthleticSupportFilters = {
-  size: ["XS", "small", "medium", "large", "XL", "XXL", "XXXL", "XXXXL"],
+  size: ["XS", "Small", "Medium", "Large", "XL", "XXL", "XXXL", "XXXXL"],
 };
 
 export const CapsHatsFilters = {
-  size: ["small", "medium", "large", "XL", "XXL", "XXXL", "XXXXL"],
+  size: ["Small", "Medium", "Large", "XL", "XXL", "XXXL", "XXXXL"],
 };
 
 export const WristbandsFilters = {

@@ -15,6 +15,10 @@ const SingleSelectFilterItem = ({ options, type: filterKey }) => {
             <input
               checked={label === decodeURI(searchParams.get(filterKey))}
               onChange={() => {
+                if (label === decodeURI(searchParams.get(filterKey))) {
+                  setSearchParams({ [filterKey]: "" });
+                  return;
+                }
                 setSearchParams({ [filterKey]: label });
               }}
               className="accent-black"

@@ -6,6 +6,7 @@ import PriceRange from "./PriceRange";
 import TypeFilter from "./TypeFilter";
 import debounce from "@/utils/debounce";
 import { getCategoryFilters } from "@/utils/getCategoryFilters";
+import SingleSelectFilterItem from "./SingleSelectFilterItem";
 
 const Filters = ({ types }) => {
   const { type, category } = useParams();
@@ -52,6 +53,16 @@ const Filters = ({ types }) => {
           })}
         />
       )}
+      {customFilters &&
+        Object.keys(customFilters).map((key) => {
+          return (
+            <SingleSelectFilterItem
+              options={customFilters[key]}
+              type={key}
+              key={key}
+            />
+          );
+        })}
 
       <PriceRange
         min={0}

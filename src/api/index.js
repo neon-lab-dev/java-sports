@@ -42,6 +42,9 @@ const API = {
 
   //others
   getPaymentKey: BACKEND_BASE_URL + "/getkey",
+
+  //insta
+  instagramPosts: `https://graph.instagram.com/me/media?fields=id,thumbnail_url,media_url,timestamp,permalink,username&access_token=${import.meta.env.VITE_INSTAGRAM_ACCESS_TOKEN}&limit=6`,
 };
 
 export default API;

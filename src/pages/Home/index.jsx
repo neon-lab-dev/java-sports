@@ -4,6 +4,10 @@ import BannerImg from "@assets/images/personalized-kit.png";
 import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getAccessories, getHelmets, getTopRatedBats } from "@/api/products";
+import { useEffect } from "react";
+import { getInstagramPosts } from "@/api/instagram";
+import { Link } from "react-router-dom";
+import AppSkeleton from "@/components/skeletons/AppSkeleton";
 
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
@@ -36,6 +40,12 @@ const HomePage = () => {
   } = useQuery({
     queryKey: ["accessories"],
     queryFn: getAccessories,
+  });
+
+  //get the insta posts
+  const { data: instaPosts, isLoading: isInstaPostsLoading } = useQuery({
+    queryKey: ["instaPosts"],
+    queryFn: getInstagramPosts,
   });
 
   return (
@@ -116,18 +126,44 @@ const HomePage = () => {
           <span className="text-base sm:text-xl my-2 sm:my-4 font-500">
             Follow us on social media for more discounts & promotions
           </span>
-          <h2 className="font-Jakarta text-xl sm:text-2xl font-500">
+          <Link
+            to="https://www.instagram.com/javasports_official/"
+            target="_blank"
+            className="font-Jakarta text-xl sm:text-2xl font-500 hover:underline transition-all"
+          >
             @javasports
-          </h2>
-          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 xs:grid-cols-3 2xl:grid-cols-6 max-w-[280px] xs:max-w-[500px] 2xl:max-w-[2400px]">
-            {POSTS.map((post, index) => (
-              <img
-                key={index}
-                src={post.img}
-                alt="Post"
-                className="aspect-square object-cover object-center"
-              />
-            ))}
+          </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 md:grid-cols-3 w-full max-w-[250px] sm:max-w-[520px] md:max-w-[800px] 2xl:max-w-[1200px]">
+            {isInstaPostsLoading ? (
+              <>
+                {Array(6)
+                  .fill()
+                  .map((_, index) => (
+                    <AppSkeleton
+                      key={index}
+                      className="w-full h-[250px] lg:h-[300px] xl:h-[350px] overflow-hidden group hover:scale-[1.01] transition-all rounded-md"
+                    />
+                  ))}
+              </>
+            ) : (
+              //render the posts
+              instaPosts?.map((post, index) => {
+                return (
+                  <Link
+                    key={index}
+                    to={post.permalink}
+                    target="_blank"
+                    className="w-full h-[250px] lg:h-[300px] xl:h-[350px] overflow-hidden group hover:scale-105 transition-all rounded-md"
+                  >
+                    <img
+                      src={post.thumbnail_url || post.media_url}
+                      alt="Instagram Post"
+                      className="w-full h-full object-cover object-center rounded-md"
+                    />
+                  </Link>
+                );
+              })
+            )}
           </div>
         </section>
       </section>

@@ -1,84 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-	::-webkit-scrollbar {
-		height: 8px;
-	}
+  ::-webkit-scrollbar {
+    height: 8px;
+  }
 
-	::-webkit-scrollbar-thumb {
-		background-color: #cccccc;
-		border-radius: 6px;
-	}
+  ::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 6px;
+  }
 
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6,
-	p {
-		font-family: 'Lato', sans-serif;
-		color: var(--dark-clr);
-	}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    font-family: "Lato", sans-serif;
+    color: var(--dark-clr);
+  }
 
-	.wrapper {
-		width: 80%;
-		margin: auto;
-	}
+  .wrapper {
+    width: 80%;
+    margin: auto;
+  }
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	background-color: hsla(220, 12%, 95%, 1);
+  margin: 0;
+  padding: 0;
+  background-color: hsla(220, 12%, 95%, 1);
 }
-.sign-up{
-	writing-mode: vertical-lr;
+.sign-up {
+  writing-mode: vertical-lr;
 
-	@media (max-width: 640px){
-		writing-mode: horizontal-tb;
-	}
+  @media (max-width: 640px) {
+    writing-mode: horizontal-tb;
+  }
 }
 
 .hero-slider {
-	background-image: url('@/assets/images/hero-bg.png');
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
+  background-image: url("@/assets/images/hero-bg.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.card-shadow { 
-	box-shadow: 0px 1px 7px 0px hsla(0, 0%, 0%, 0.12);
+.card-shadow {
+  box-shadow: 0px 1px 7px 0px hsla(0, 0%, 0%, 0.12);
 }
 
 .lg-light {
-	background: linear-gradient(90.07deg, #2987B9 16.56%, #FFFFFF 99.95%);
+  background: linear-gradient(90.07deg, #2987b9 16.56%, #ffffff 99.95%);
 }
 
-
-
-.range-field{
-	-webkit-appearance: none;
-	outline: 180px;
-	width: 180px;
-	height: 14px;
-	background: #999999;
-	border-radius: 20px;
-	overflow: hidden;
+.range-field {
+  -webkit-appearance: none;
+  outline: 180px;
+  width: 180px;
+  height: 14px;
+  background: #999999;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-.range-field::-webkit-slider-thumb{
-	-webkit-appearance: none;
-	width: 24px;	
-	height: 24px;
-	border-radius: 50%;
-	background: white;
-	box-shadow: -410px 0 0 400px  #EE3F4C;
-	;
-	cursor: pointer;
+.range-field::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: -410px 0 0 400px #ee3f4c;
+  cursor: pointer;
 }
 
+#instafeed-container a img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+}

@@ -59,14 +59,14 @@ const CategoryLayout = () => {
           </div>
           {/* // filter for mobile view */}
           <div
-            className={`lg:hidden absolute bg-white transition-transform ${
+            className={`lg:hidden z-40 absolute bg-white transition-transform ${
               !showFilters ? "-translate-x-[100vw]" : "translate-x-0"
             }`}
           >
             <Filters types={types} />
           </div>
           {data?.products?.length === 0 && (
-            <div className="flex flex-col items-center justify-center gap-4 w-full h-[400px] w-full">
+            <div className="flex flex-col items-center justify-center gap-4 h-[400px] w-full">
               <img src={nothingImg} className="h-36" />
               <h2 className="font-Jakarta font-500 text-lg sm:text-xl">
                 No products found

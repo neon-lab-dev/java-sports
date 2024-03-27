@@ -1,7 +1,6 @@
 import Hero from "./Hero";
 import AppProductSlider from "@/components/reusable/AppProductSlider";
 import BannerImg from "@assets/images/personalized-kit.png";
-import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getAccessories, getHelmets, getTopRatedBats } from "@/api/products";
 import { useEffect } from "react";

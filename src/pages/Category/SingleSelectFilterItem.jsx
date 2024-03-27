@@ -1,9 +1,7 @@
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-const SingleSelectFilterItem = ({ options, type: filterKey }) => {
-  const { category, type } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
+const SingleSelectFilterItem = ({ options, type: filterKey, onChange }) => {
+  const [searchParams] = useSearchParams();
   return (
     <div className="flex flex-col gap-1 font-Lato">
       <span className="text-lg font-700">
@@ -14,12 +12,8 @@ const SingleSelectFilterItem = ({ options, type: filterKey }) => {
           <div className="flex gap-3 font-500" key={i}>
             <input
               checked={label === decodeURI(searchParams.get(filterKey))}
-              onChange={() => {
-                if (label === decodeURI(searchParams.get(filterKey))) {
-                  setSearchParams({ [filterKey]: "" });
-                  return;
-                }
-                setSearchParams({ [filterKey]: label });
+              onChange={(e) => {
+                onChange(e.target.checked ? label : "");
               }}
               className="accent-black"
               type="checkbox"

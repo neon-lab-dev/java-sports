@@ -70,9 +70,9 @@ const AppCard = ({ product, className = "" }) => {
 
   return (
     <div
-      className={`sm:min-w-[300px] snap-center xs:snap-start min-w-[230px] card-shadow rounded-xl p-3 sm:p-4 flex flex-col gap-2 "h-[330px] sm:h-[400px] ${className}`}
+      className={`sm:min-w-[300px] w-full xs:w-auto snap-center xs:snap-start min-w-[230px] card-shadow rounded-xl p-3 sm:p-4 flex flex-col gap-2 "h-[330px] sm:h-[400px] ${className}`}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center w-full">
         <span className="font-Lato font-700 text-[11px] text-grey-light">
           Java Sports
         </span>
@@ -94,13 +94,13 @@ const AppCard = ({ product, className = "" }) => {
       </div>
       <Link
         to={`/product/${product._id}`}
-        className="max-w-full max-h-[200px] sm:max-h-[240px] sm:h-[240px]  bg-[#F2F2F2] rounded-md group overflow-hidden"
+        className="max-w-full max-h-[200px] h-[220px] sm:max-h-[240px] relative sm:h-[240px]  bg-[#F2F2F2] rounded-md group overflow-hidden w-full"
       >
         <img
           src={product?.images[0]?.url || noImage}
           alt={product.name}
           onError={(e) => (e.currentTarget.src = noImage)} // set this image if the provided url does not work
-          className="w-full h-full object-contain object-center group-hover:scale-105 transition-all"
+          className="w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-contain object-center group-hover:scale-105 transition-all"
         />
       </Link>
       <Link

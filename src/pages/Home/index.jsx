@@ -1,7 +1,6 @@
 import Hero from "./Hero";
 import AppProductSlider from "@/components/reusable/AppProductSlider";
 import BannerImg from "@assets/images/personalized-kit.png";
-import POSTS from "@/assets/mock-data/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getAccessories, getHelmets, getTopRatedBats } from "@/api/products";
 import { useEffect } from "react";
@@ -133,7 +132,7 @@ const HomePage = () => {
           >
             @javasports
           </Link>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 md:grid-cols-3 w-full max-w-[250px] sm:max-w-[520px] md:max-w-[800px] 2xl:max-w-[1200px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 lg:gap-6 mt-6 md:grid-cols-3 w-full max-w-[250px] sm:max-w-[520px] md:max-w-[800px] lg:max-w-[900px] 2xl:max-w-[1200px]">
             {isInstaPostsLoading ? (
               <>
                 {Array(6)

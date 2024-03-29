@@ -1,3 +1,19 @@
+import { BagFilters } from "../categoryFilters/bagFilters";
+import { BallFilters } from "../categoryFilters/ballFilters";
+import { BatFilters } from "../categoryFilters/batFilters";
+import { BattingGearFilters } from "../categoryFilters/battingGearFilters";
+import {
+  AthleticSupportFilters,
+  BaseLayerFilters,
+  CapsHatsFilters,
+  OnFieldFilters,
+  WristbandsFilters,
+} from "../categoryFilters/clothingFilters";
+import { HelmetFilters } from "../categoryFilters/helmetFilters";
+import { ProtectionFilters } from "../categoryFilters/protectionFilters";
+import { ShoesFilters } from "../categoryFilters/shoesFilters";
+import { WicketKeepingFilters } from "../categoryFilters/wicketKeepingFilter";
+
 const ACCORDION_LINKS = [
   {
     label: "Clothing",
@@ -10,14 +26,17 @@ const ACCORDION_LINKS = [
       {
         label: "On-Field",
         queryAs: "On-Field",
+        filters: OnFieldFilters,
       },
       {
         label: "Base Layer",
         queryAs: "Base Layer",
+        filters: BaseLayerFilters,
       },
       {
         label: "Athletic Supporter",
         queryAs: " Athletic Supporter",
+        filters: AthleticSupportFilters,
       },
       {
         label: "Socks",
@@ -26,18 +45,20 @@ const ACCORDION_LINKS = [
       {
         label: "Caps & Hats",
         queryAs: "Caps%20%26%20Hats", // Caps & Hats => url encoded
+        filters: CapsHatsFilters,
       },
       {
         label: "Wrist Band",
         queryAs: "WristBand",
+        filters: WristbandsFilters,
       },
     ],
-    filters: null,
   },
   {
     label: "Batting Gear",
     type: "sub_category",
     queryAs: "Batting Gear",
+    filters: BattingGearFilters,
     dropdowns: [
       {
         label: "All",
@@ -55,12 +76,12 @@ const ACCORDION_LINKS = [
         queryAs: "Inner Gloves",
       },
     ],
-    filters: null,
   },
   {
     label: "Bat",
     type: "sub_category",
     queryAs: "Bat",
+    filters: BatFilters,
     dropdowns: [
       {
         label: "All",
@@ -82,12 +103,12 @@ const ACCORDION_LINKS = [
         queryAs: "Player Edition",
       },
     ],
-    filters: null,
   },
   {
     label: "Wicket Keeping",
     type: "sub_category",
     queryAs: "WicketKeeping",
+    filters: WicketKeepingFilters,
     dropdowns: [
       {
         label: "All",
@@ -105,12 +126,12 @@ const ACCORDION_LINKS = [
         queryAs: "WInner Gloves",
       },
     ],
-    filters: null,
   },
   {
     label: "Shoes",
     type: "category",
     queryAs: "Shoes",
+    filters: ShoesFilters,
     dropdowns: [
       {
         label: "All",
@@ -133,6 +154,7 @@ const ACCORDION_LINKS = [
     label: "Helmets",
     type: "category",
     queryAs: "Helmets",
+    filters: HelmetFilters,
     dropdowns: [
       {
         label: "All",
@@ -155,6 +177,7 @@ const ACCORDION_LINKS = [
     label: "Bags",
     type: "sub_category",
     queryAs: "Bags",
+    filters: BagFilters,
     dropdowns: [
       {
         label: "All",
@@ -185,6 +208,7 @@ const ACCORDION_LINKS = [
     label: "Protection",
     type: "sub_category",
     queryAs: "Protection",
+    filters: ProtectionFilters,
     dropdowns: [
       {
         label: "All",
@@ -239,10 +263,10 @@ const ACCORDION_LINKS = [
   },
   {
     label: "Ball",
+    filters: BallFilters,
     type: "sub_category2",
     queryAs: "Ball",
     dropdowns: null,
-    filters: null,
   },
 ];
 

@@ -22,6 +22,7 @@ const CategoryLayout = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [searchParams] = useSearchParams();
   const priceRange = searchParams.get("priceRange");
+  const size = searchParams.get("size");
   const [sortBy, setSortBy] = useState(SORTING_OPTIONS[0]);
   const { category, type } = useParams();
   const types = ACCORDION_LINKS.filter(
@@ -29,7 +30,7 @@ const CategoryLayout = () => {
   )[0];
 
   const { isLoading, data, isError } = useQuery({
-    queryKey: ["allFilteredProducts", { type, category, priceRange }],
+    queryKey: ["allFilteredProducts", { type, category, priceRange, size }],
     queryFn: () =>
       getFilteredProducts({
         category: types.queryAs,
@@ -38,6 +39,7 @@ const CategoryLayout = () => {
             ?.queryAs || "all",
         mainCategoryLabel: types.type,
         priceRange: priceRange === "all" ? 0 : priceRange || 0,
+        size: size === "all" ? null : size,
       }),
   });
 
@@ -59,14 +61,14 @@ const CategoryLayout = () => {
           </div>
           {/* // filter for mobile view */}
           <div
-            className={`lg:hidden absolute bg-white transition-transform ${
+            className={`lg:hidden z-40 absolute bg-white transition-transform ${
               !showFilters ? "-translate-x-[100vw]" : "translate-x-0"
             }`}
           >
             <Filters types={types} />
           </div>
           {data?.products?.length === 0 && (
-            <div className="flex flex-col items-center justify-center gap-4 w-full h-[400px] w-full">
+            <div className="flex flex-col items-center justify-center gap-4 h-[400px] w-full">
               <img src={nothingImg} className="h-36" />
               <h2 className="font-Jakarta font-500 text-lg sm:text-xl">
                 No products found

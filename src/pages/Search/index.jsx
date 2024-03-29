@@ -20,7 +20,7 @@ const SearchPage = () => {
     return <Error text="No results found" />;
   return (
     <div className="bg-white py-12">
-      <section className="wrapper">
+      <section className="w-[90%] m-auto xs:w-[98%] lg:w-[90%] max-w-7xl">
         <>
           {isLoading ? (
             <div className="flex flex-col gap-5 sm:gap-12 items-center justify-center">

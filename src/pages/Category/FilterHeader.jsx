@@ -25,7 +25,7 @@ const FilterHeader = ({ setShowFilters, options, sortBy, setSortBy }) => {
           id="sort-by"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="bg-gray-50 border border-gray-300 p-1 text-base cursor-pointer"
+          className="bg-gray-50 border border-gray-300 p-1 text-base cursor-pointer outline-none rounded-md"
         >
           {options.map((option, i) => (
             <option

@@ -29,13 +29,6 @@ const ProductMainPage = () => {
   const { productId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    const tabs = TABS.map((tab) => tab.key);
-    if (!tabs.includes(searchParams.get("activeTab"))) {
-      setSearchParams({ activeTab: "key-features" });
-    }
-  }, [searchParams, setSearchParams]);
-
   const changeTab = (tab) => {
     setSearchParams({ activeTab: tab });
   };
@@ -70,9 +63,11 @@ const ProductMainPage = () => {
             onClick={() => changeTab(key)}
             key={index}
             className={`text-center text-sm sm:text-lg capitalize font-[600] ${
-              searchParams.get("activeTab") === key
+              !searchParams.get("activeTab") && index === 0
                 ? "text-black"
-                : "text-grey-dark"
+                : searchParams.get("activeTab") === key
+                  ? "text-black"
+                  : "text-grey-dark"
             }`}
           >
             {key.split("-").join(" ")}

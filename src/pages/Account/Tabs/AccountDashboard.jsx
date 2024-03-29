@@ -23,10 +23,7 @@ const AccountDashboard = () => {
       <div className="wrapper sm:w-auto sm:m-0">
         <HeadingWithLink
           heading="Account Dashboard"
-          button={{
-            label: "Edit",
-            link: "/account?tab=account-details&isEditing=true",
-          }}
+          
         />
         <div className="flex flex-col py-5 pb-4 lg:pb-8">
           <div className="flex items-center justify-start gap-4 mb-3">

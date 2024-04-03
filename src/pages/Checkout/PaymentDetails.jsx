@@ -97,7 +97,7 @@ const PaymentDetails = ({
       //proceed to payment
       const key = await handleGetApiKey();
       const res = await handleCheckout(
-        finalAmount - (coupon.isCouponApplied ? data.discount : 0)
+        Math.max(1, finalAmount - (coupon.isCouponApplied ? data.discount : 0))
       );
       const options = {
         key: key,
@@ -171,7 +171,10 @@ const PaymentDetails = ({
       <div className={flex + " font-700"}>
         <span>Total Amount</span>
         <span>
-          ₹{coupon.isCouponApplied ? finalAmount - data.discount : finalAmount}
+          ₹
+          {coupon.isCouponApplied
+            ? Math.max(1, finalAmount - data.discount)
+            : finalAmount}
         </span>
       </div>
       <hr />

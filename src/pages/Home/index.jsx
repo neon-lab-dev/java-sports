@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { getInstagramPosts } from "@/api/instagram";
 import { Link } from "react-router-dom";
 import AppSkeleton from "@/components/skeletons/AppSkeleton";
-
+import ReactGa from "react-ga";
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
 
@@ -149,6 +149,12 @@ const HomePage = () => {
               instaPosts?.map((post, index) => {
                 return (
                   <Link
+                    onClick={() => {
+                      ReactGa.event({
+                        category: "Instagram Post",
+                        action: `Clicked on Instagram Post with id ${post.id}`,
+                      });
+                    }}
                     key={index}
                     to={post.permalink}
                     target="_blank"

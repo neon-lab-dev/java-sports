@@ -9,6 +9,7 @@ import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
 import { useNavigate } from "react-router-dom";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import toast from "react-hot-toast";
+import ReactGA from "react-ga";
 
 const OrderItem = ({ order, isLastItem }) => {
   const { user } = useSelector((state) => state.user);
@@ -48,6 +49,11 @@ const OrderItem = ({ order, isLastItem }) => {
           );
         });
         //add the new items to the cart
+
+        ReactGA.event({
+          category: "Cart Items",
+          action: `Added ${order.orderItems.length} items to cart from order with id ${order._id}`,
+        });
 
         const items = [
           ...newItems,
@@ -101,6 +107,10 @@ const OrderItem = ({ order, isLastItem }) => {
             from: "reorder",
           },
         });
+        ReactGA.event({
+          category: "Cart Items",
+          action: `Reordered ${order.orderItems.length} items from order with id ${order._id}`,
+        });
       }
     });
   };
@@ -144,7 +154,15 @@ const OrderItem = ({ order, isLastItem }) => {
             })}
         </div>
         <div className="flex flex-col sm:flex-col xl:flex-row xs:flex-row gap-2 xl:justify-end w-full">
-          <button className="rounded-lg px-4 py-2 w-max bg-blue text-white">
+          <button
+            onClick={() => {
+              ReactGA.event({
+                category: "Invoice",
+                action: `Downloaded invoice for order with id ${order._id}`,
+              });
+            }}
+            className="rounded-lg px-4 py-2 w-max bg-blue text-white"
+          >
             <PDFDownloadLink
               document={<InvoicePDF data={order} user={user} />}
               fileName={`invoice-${order._id}.pdf`}

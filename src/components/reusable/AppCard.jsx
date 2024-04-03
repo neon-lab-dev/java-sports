@@ -13,6 +13,7 @@ import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
 import noImage from "@assets/images/no-image.jpg";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
+import ReactGA from "react-ga";
 
 const AppCard = ({ product, className = "" }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ const AppCard = ({ product, className = "" }) => {
   const queryClient = useQueryClient();
 
   const handleAddToCart = () => {
+    ReactGA.event({
+      category: "Cart Items",
+      action: `Added ${product.name} to cart with id ${product._id}`,
+    });
     const items = getLocalStorage("cartItems", []);
     //remove the item if it is already added
     const newItems = items.filter((item) => item.id !== product._id);
@@ -63,6 +68,17 @@ const AppCard = ({ product, className = "" }) => {
   });
 
   const handleWishlist = () => {
+    if (isWishlisted) {
+      ReactGA.event({
+        category: "Wishlist",
+        action: `Removed ${product.name} from wishlist with id ${product._id}`,
+      });
+    } else {
+      ReactGA.event({
+        category: "Wishlist",
+        action: `Added ${product.name} to wishlist with id ${product._id}`,
+      });
+    }
     mutate(product._id);
   };
 
@@ -133,7 +149,11 @@ const AppCard = ({ product, className = "" }) => {
           </button>
         )}
       </div>
-      {isOutOfStock && <div className="text-red-500 font-900 font-Lato justify-center flex ">Out of stock</div>}
+      {isOutOfStock && (
+        <div className="text-red-500 font-900 font-Lato justify-center flex ">
+          Out of stock
+        </div>
+      )}
     </div>
   );
 };

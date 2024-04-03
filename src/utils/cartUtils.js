@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { getLocalStorage, setLocalStorage } from "./localStorage";
-
+import ReactGA from "react-ga";
 //adjust quantity of the product by 1
 export const adjustCartQuantity = ({
   productId,
@@ -29,6 +29,10 @@ export const adjustCartQuantity = ({
 
 //remove item from the cart
 export const removeCartItem = ({ productId, setCartItems }) => {
+  ReactGA.event({
+    category: "Cart",
+    action: `Removed product with id ${productId} from cart`,
+  });
   const items = getLocalStorage("cartItems", []);
   const newItems = items.filter((item) => item.id !== productId);
   setLocalStorage("cartItems", newItems);
@@ -52,9 +56,7 @@ export const getDiscountedAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
   return products
     .reduce((acc, product) => {
-      const cartItem = cartItems?.find(
-        (item) => item.id === product._id
-      );
+      const cartItem = cartItems?.find((item) => item.id === product._id);
       const price = Number(product.baseprice) - Number(product.discountedprice);
       return acc + price * cartItem?.quantity;
     }, 0)

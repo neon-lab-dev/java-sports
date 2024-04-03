@@ -22,6 +22,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist, removeFromWishlist } from "@/api/products";
 import { ClipLoader } from "react-spinners";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
+import ReactGA from "react-ga";
 
 const ProductPage = ({ product }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,11 @@ const ProductPage = ({ product }) => {
   };
 
   const handleAddToCart = () => {
+    ReactGA.event({
+      category: "Cart Items",
+      action: `Added ${product.name} to cart with id ${product._id}`,
+    });
+
     const items = getLocalStorage("cartItems", []);
     //remove the item if it is already added
     const newItems = items.filter((item) => item.id !== product._id);
@@ -89,6 +95,11 @@ const ProductPage = ({ product }) => {
   const { isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const handleBuyNow = () => {
+    ReactGA.event({
+      category: "Buy Now",
+      action: `Clicked on Buy Now for product with id ${product._id}`,
+    });
+
     if (isAuthenticated) {
       navigate("/checkout", {
         state: {
@@ -144,6 +155,17 @@ const ProductPage = ({ product }) => {
   });
 
   const handleWishlist = () => {
+    if (isWishlisted) {
+      ReactGA.event({
+        category: "Wishlist",
+        action: `Removed ${product.name} from wishlist with id ${product._id}`,
+      });
+    } else {
+      ReactGA.event({
+        category: "Wishlist",
+        action: `Added ${product.name} to wishlist with id ${product._id}`,
+      });
+    }
     mutate(product._id);
   };
 

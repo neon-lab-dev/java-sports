@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { MoonLoader, PulseLoader, SyncLoader } from "react-spinners";
 import Swal from "sweetalert2";
-
+import ReactGA from "react-ga";
 const PaymentDetails = ({
   totalAmount,
   totalItems,
@@ -38,6 +38,10 @@ const PaymentDetails = ({
     onSuccess: (data) => {
       setCoupon((prev) => ({ ...prev, isCouponApplied: true }));
       toast.success("Coupon Applied Successfully, you saved ₹" + data.discount);
+      ReactGA.event({
+        category: "Coupon",
+        action: `Applied coupon ${coupon}`,
+      });
     },
   });
 
@@ -85,6 +89,11 @@ const PaymentDetails = ({
         },
       });
 
+      ReactGA.event({
+        category: "Checkout",
+        action: "Clicked on Proceed to Pay",
+      });
+
       //proceed to payment
       const key = await handleGetApiKey();
       const res = await handleCheckout(
@@ -115,6 +124,10 @@ const PaymentDetails = ({
             localStorage.removeItem("orderDetails");
             setIsProcessing(false);
             toast.error("Payment Cancelled");
+            ReactGA.event({
+              category: "Checkout",
+              action: "Payment Cancelled",
+            });
           },
         },
       };

@@ -2,11 +2,16 @@ import { getLocalStorage } from "@/utils/localStorage";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import ReactGA from "react-ga";
 
 const PlaceOrderButton = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const handlePlaceOrder = () => {
+    ReactGA.event({
+      category: "Cart",
+      action: "Clicked on Place Order",
+    });
     if (isAuthenticated) {
       navigate("/checkout", {
         state: {

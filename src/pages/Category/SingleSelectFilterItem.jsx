@@ -11,7 +11,7 @@ const SingleSelectFilterItem = ({ options, type: filterKey, onChange }) => {
         {options.map((label, i) => (
           <div className="flex gap-3 font-500" key={i}>
             <input
-              checked={label === decodeURI(searchParams.get(filterKey))}
+              checked={label === decodeURI(searchParams.get("size"))}
               onChange={(e) => {
                 onChange(e.target.checked ? label : "");
               }}

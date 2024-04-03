@@ -80,7 +80,7 @@ const AccountDashboard = () => {
               </thead>
               <tbody className="text-grey/6 text-sm xs:text-base sm:text-lg lg:text-xl">
                 {getRecentOrders(orders.orders).map(
-                  ({ createdAt, _id, orderStatus, totalPrice }) => (
+                  ({ createdAt, _id, orderStatus, itemsPrice }) => (
                     <tr key={_id} className="bg-grey/2">
                       <td className={tableRowClasses}>
                         #{_id.slice(_id.length - 5, _id.length)}...
@@ -88,7 +88,7 @@ const AccountDashboard = () => {
                       <td className={tableRowClasses}>
                         {new Date(createdAt).toLocaleDateString()}
                       </td>
-                      <td className={tableRowClasses}>₹{totalPrice}</td>
+                      <td className={tableRowClasses}>₹{itemsPrice}</td>
                       <td className={tableRowClasses}>{orderStatus}</td>
                       <td
                         className={

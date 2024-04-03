@@ -21,7 +21,6 @@ const Filters = ({ types }) => {
   const [customFilters, setCustomFilters] = useState(null);
 
   const DEFAULT_FILTERS = {
-    type: undefined,
     customerReviews: searchParams.get("customerReviews") || "all",
     priceRange: searchParams.get("priceRange") || "all",
     size: searchParams.get("size") || undefined,
@@ -77,7 +76,7 @@ const Filters = ({ types }) => {
               options={customFilters[key]}
               type={key}
               onChange={(val) => {
-                setFilters((prev) => ({ ...prev, [key]: val }));
+                setFilters((prev) => ({ ...prev, "size": val }));
               }}
             />
           );
@@ -103,7 +102,6 @@ const Filters = ({ types }) => {
         onClick={() => {
           navigate(location.pathname);
           setFilters({
-            type: undefined,
             customerReviews: "all",
             priceRange: "all",
             size: undefined,

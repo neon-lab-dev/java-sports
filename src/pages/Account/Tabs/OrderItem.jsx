@@ -67,7 +67,7 @@ const OrderItem = ({ order, isLastItem }) => {
               name: item.name,
               price: getPriceAfterDiscount(
                 res[i].data?.product?.baseprice,
-                res[i].data?.product?.discount
+                res[i].data?.product?.discountedpercent
               ),
               product: item.product,
               quantity: item.quantity,
@@ -104,7 +104,7 @@ const OrderItem = ({ order, isLastItem }) => {
                 name: item.name,
                 price: getPriceAfterDiscount(
                   res[i].data?.product?.baseprice,
-                  res[i].data?.product?.discount
+                  res[i].data?.product?.discountedpercent
                 ),
                 product: item.product,
                 quantity: item.quantity,

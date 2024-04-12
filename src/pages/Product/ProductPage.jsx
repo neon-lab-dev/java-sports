@@ -72,7 +72,7 @@ const ProductPage = ({ product }) => {
         size: selectedSpecs.size,
         name: product.name,
         image: product.images[0].url,
-        price: getPriceAfterDiscount(product.baseprice, product.discount),
+        price: getPriceAfterDiscount(product.baseprice, product.discountedpercent),
         basePrice: product.baseprice,
       },
     ];
@@ -113,7 +113,7 @@ const ProductPage = ({ product }) => {
               size: selectedSpecs.size,
               name: product.name,
               image: product.images[0].url,
-              price: getPriceAfterDiscount(product.baseprice, product.discount),
+              price: getPriceAfterDiscount(product.baseprice, product.discountedpercent),
               basePrice: product.baseprice,
             },
           ],
@@ -304,13 +304,13 @@ const ProductPage = ({ product }) => {
           </span>
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-2xl lg:text-3xl font-500">
-              ₹{getPriceAfterDiscount(product.baseprice, product.discount)}
+              ₹{getPriceAfterDiscount(product.baseprice, product.discountedpercent)}
             </span>
             <span className="text-[#999999] line-through">
               ₹{product.baseprice}
             </span>
             <span className="text-[#00B553] font-500">
-              {product.discount ?? 0}% off
+              {product.discountedpercent ?? 0}% off
             </span>
           </div>
         </div>

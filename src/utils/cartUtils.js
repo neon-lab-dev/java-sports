@@ -63,7 +63,7 @@ export const getDiscountedAmount = (products, cartItems) => {
         const cartItem = cartItems?.find((item) => item.id === product._id);
         const price =
           Number(product.baseprice) -
-          getPriceAfterDiscount(product.baseprice, product.discount);
+          getPriceAfterDiscount(product.baseprice, product.discountedpercent);
         return acc + price * cartItem?.quantity;
       }, 0)
       .toFixed(2)

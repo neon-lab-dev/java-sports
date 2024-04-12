@@ -41,7 +41,7 @@ const AppWishlistCard = ({ productId }) => {
         image: data.product.images[0].url,
         price: getPriceAfterDiscount(
           data?.product.baseprice,
-          data?.product.discount
+          data?.product.discountedpercent
         ),
         basePrice: data.product.baseprice,
       },
@@ -109,7 +109,7 @@ const AppWishlistCard = ({ productId }) => {
                 ₹
                 {getPriceAfterDiscount(
                   data?.product.baseprice,
-                  data?.product.discount
+                  data?.product.discountedpercent
                 )}
               </span>
             </li>
@@ -117,7 +117,7 @@ const AppWishlistCard = ({ productId }) => {
               <span>₹{data.product.baseprice}</span>
             </li>
             <li className="font-Lato font-700 text-[13px] text-green-400">
-              <span>{data.product.discount || 0}% off</span>
+              <span>{data.product.discountedpercent || 0}% off</span>
             </li>
           </ul>
         </div>

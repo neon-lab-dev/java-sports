@@ -43,7 +43,7 @@ const AppCard = ({ product, className = "" }) => {
         size: splitString(product.size)[0],
         name: product.name,
         image: product.images[0].url,
-        price: getPriceAfterDiscount(product.baseprice, product.discount),
+        price: getPriceAfterDiscount(product.baseprice, product.discountedpercent),
         basePrice: product.baseprice,
       },
     ];
@@ -132,13 +132,13 @@ const AppCard = ({ product, className = "" }) => {
       <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
           <span className="font-Lato font-700">
-            ₹{getPriceAfterDiscount(product.baseprice, product.discount)}
+            ₹{getPriceAfterDiscount(product.baseprice, product.discountedpercent)}
           </span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
             ₹{product.baseprice}
           </span>
           <span className="text-[#00B553] font-500">
-            {product.discount || 0}% off
+            {product.discountedpercent || 0}% off
           </span>
         </span>
         {!isOutOfStock && (

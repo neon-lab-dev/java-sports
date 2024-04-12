@@ -103,12 +103,12 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
               {(
                 getPriceAfterDiscount(
                   data.product.baseprice,
-                  data.product.discount
+                  data.product.discountedpercent
                 ) * quantity
               ).toFixed(2)}
             </span>
             <span className="text-xs xs:text-base sm:text-lg font-600 text-green-500">
-              {data.product.discount || 0}% off
+              {data.product.discountedpercent || 0}% off
             </span>
           </div>
         </div>

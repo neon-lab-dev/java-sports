@@ -27,14 +27,14 @@ const OrderItem = ({ item, response }) => {
               ₹
               {getPriceAfterDiscount(
                 data.product.baseprice,
-                data.product.discount
+                data.product.discountedpercent
               )}
             </span>
             <span className="text-[#999999] line-through">
               ₹{data.product.baseprice}
             </span>
             <span className="text-[#00B553] font-500">
-              {data.product.discount ?? 0}% off
+              {data.product.discountedpercent ?? 0}% off
             </span>
           </div>
         </div>

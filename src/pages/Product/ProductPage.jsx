@@ -23,6 +23,7 @@ import { addToWishlist, removeFromWishlist } from "@/api/products";
 import { ClipLoader } from "react-spinners";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import ReactGA from "react-ga";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const ProductPage = ({ product }) => {
   const dispatch = useDispatch();
@@ -71,7 +72,7 @@ const ProductPage = ({ product }) => {
         size: selectedSpecs.size,
         name: product.name,
         image: product.images[0].url,
-        price: product.discountedprice,
+        price: getPriceAfterDiscount(product.baseprice, product.discount),
         basePrice: product.baseprice,
       },
     ];
@@ -112,7 +113,7 @@ const ProductPage = ({ product }) => {
               size: selectedSpecs.size,
               name: product.name,
               image: product.images[0].url,
-              price: product.discountedprice,
+              price: getPriceAfterDiscount(product.baseprice, product.discount),
               basePrice: product.baseprice,
             },
           ],
@@ -303,14 +304,13 @@ const ProductPage = ({ product }) => {
           </span>
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-2xl lg:text-3xl font-500">
-              ₹{product.baseprice}
+              ₹{getPriceAfterDiscount(product.baseprice, product.discount)}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{product.discountedprice}
+              ₹{product.baseprice}
             </span>
             <span className="text-[#00B553] font-500">
-              {calculatePercentage(product.baseprice, product.discountedprice)}%
-              off
+              {product.discount ?? 0}% off
             </span>
           </div>
         </div>

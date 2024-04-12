@@ -23,7 +23,6 @@ const PaymentDetails = ({
     code: "",
     isCouponApplied: false,
   });
-  const [searchParams] = useSearchParams();
   const { state } = useLocation();
   const { user } = useSelector((state) => state.user);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -188,7 +187,7 @@ const PaymentDetails = ({
           onSubmit={(e) => {
             e.preventDefault();
             if (coupon.code.trim() === "") return;
-            mutate(coupon.code.trim());
+            mutate(coupon?.code?.trim());
           }}
           className="flex flex-col xs:flex-row"
         >
@@ -197,9 +196,7 @@ const PaymentDetails = ({
             type="text"
             placeholder="Enter the Coupon code"
             value={coupon.code}
-            onChange={(e) =>
-              setCoupon({ ...coupon, code: e.target.value.toUpperCase() })
-            }
+            onChange={(e) => setCoupon({ ...coupon, code: e.target.value })}
             disabled={coupon.isCouponApplied || isPending}
           />
           <button

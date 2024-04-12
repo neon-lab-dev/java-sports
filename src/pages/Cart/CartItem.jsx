@@ -10,6 +10,7 @@ import { calculatePercentage } from "@/utils/calculatePercentage";
 import { Link } from "react-router-dom";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const CartItem = ({ item, setCartItems, cartItems }) => {
   const dispatch = useDispatch();
@@ -75,7 +76,9 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
               >
                 <img src={removeIcon} alt="remove" />
               </button>
-              <span className="border-x-2 border-grey/1 px-4 min-w-[60px] text-center">{quantity}</span>
+              <span className="border-x-2 border-grey/1 px-4 min-w-[60px] text-center">
+                {quantity}
+              </span>
               <button
                 onClick={() => {
                   adjustCartQuantity({
@@ -96,14 +99,16 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
               ₹{(data.product.baseprice * quantity).toFixed(2)}
             </span>
             <span className="text-base xs:text-lg font-600 text-black">
-              ₹{(data.product.discountedprice * quantity).toFixed(2)}
+              ₹
+              {(
+                getPriceAfterDiscount(
+                  data.product.baseprice,
+                  data.product.discount
+                ) * quantity
+              ).toFixed(2)}
             </span>
             <span className="text-xs xs:text-base sm:text-lg font-600 text-green-500">
-              {calculatePercentage(
-                data.product.baseprice,
-                data.product.discountedprice
-              )}
-              % off
+              {data.product.discount || 0}% off
             </span>
           </div>
         </div>

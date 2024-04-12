@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { getLocalStorage, setLocalStorage } from "./localStorage";
 import ReactGA from "react-ga";
+import { getPriceAfterDiscount } from "./getPriceAfterDiscount";
 //adjust quantity of the product by 1
 export const adjustCartQuantity = ({
   productId,
@@ -41,31 +42,39 @@ export const removeCartItem = ({ productId, setCartItems }) => {
 
 export const getTotalAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
-  return products
-    .reduce(
-      (acc, product) =>
-        acc +
-        Number(product.baseprice) *
-          cartItems?.find((item) => item.id === product._id)?.quantity,
-      0
-    )
-    .toFixed(2);
+  return Number(
+    products
+      .reduce(
+        (acc, product) =>
+          acc +
+          Number(product.baseprice) *
+            cartItems?.find((item) => item.id === product._id)?.quantity,
+        0
+      )
+      .toFixed(2)
+  );
 };
 
 export const getDiscountedAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
-  return products
-    .reduce((acc, product) => {
-      const cartItem = cartItems?.find((item) => item.id === product._id);
-      const price = Number(product.baseprice) - Number(product.discountedprice);
-      return acc + price * cartItem?.quantity;
-    }, 0)
-    .toFixed(2);
+  return Number(
+    products
+      .reduce((acc, product) => {
+        const cartItem = cartItems?.find((item) => item.id === product._id);
+        const price =
+          Number(product.baseprice) -
+          getPriceAfterDiscount(product.baseprice, product.discount);
+        return acc + price * cartItem?.quantity;
+      }, 0)
+      .toFixed(2)
+  );
 };
 
 export const getFinalAmount = (products, cartItems) => {
-  return (
-    getTotalAmount(products, cartItems) -
-    getDiscountedAmount(products, cartItems)
-  ).toFixed(2);
+  return Number(
+    (
+      getTotalAmount(products, cartItems) -
+      getDiscountedAmount(products, cartItems)
+    ).toFixed(2)
+  );
 };

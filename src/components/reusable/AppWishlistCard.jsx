@@ -13,6 +13,7 @@ import { splitString } from "@/utils/splitString";
 import CardSkeleton from "../skeletons/CardSkeleton";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 const AppWishlistCard = ({ productId }) => {
   const dispatch = useDispatch();
   const cardWrapper = `  w-[300px]  max-xl:w-[280px] rounded-2xl bg-white p-6 border `;
@@ -38,7 +39,10 @@ const AppWishlistCard = ({ productId }) => {
         size: splitString(data.product.size)[0],
         name: data.product.name,
         image: data.product.images[0].url,
-        price: data.product.discountedprice,
+        price: getPriceAfterDiscount(
+          data?.product.baseprice,
+          data?.product.discount
+        ),
         basePrice: data.product.baseprice,
       },
     ];
@@ -101,19 +105,19 @@ const AppWishlistCard = ({ productId }) => {
         <div className="flex justify-between items-center">
           <ul className="flex  items-center gap-2">
             <li className="font-Lato font-700 text-lg">
-              <span>₹{data.product.discountedprice}</span>
+              <span>
+                ₹
+                {getPriceAfterDiscount(
+                  data?.product.baseprice,
+                  data?.product.discount
+                )}
+              </span>
             </li>
             <li className="font-Lato font-500 text-sm line-through">
               <span>₹{data.product.baseprice}</span>
             </li>
             <li className="font-Lato font-700 text-[13px] text-green-400">
-              <span>
-                {calculatePercentage(
-                  data.product.baseprice,
-                  data.product.discountedprice
-                )}
-                % off
-              </span>
+              <span>{data.product.discount || 0}% off</span>
             </li>
           </ul>
         </div>

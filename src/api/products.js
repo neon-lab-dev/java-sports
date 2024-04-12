@@ -90,7 +90,7 @@ export const getFilteredProducts = ({
     categoryType && categoryType.toLowerCase() === "all"
       ? category
       : categoryType
-  }&discountedprice[gte]=${priceRange}${size ? `&size=${size?.toLowerCase()}` : ""}`;
+  }&baseprice[gte]=${priceRange}${size ? `&size=${size?.toLowerCase()}` : ""}`;
   return new Promise((resolve, reject) => {
     axios
       .get(url, {

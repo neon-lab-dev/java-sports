@@ -1,4 +1,5 @@
 import { calculatePercentage } from "@/utils/calculatePercentage";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const OrderItem = ({ item, response }) => {
   const { data, isLoading, isError } = response;
@@ -23,17 +24,17 @@ const OrderItem = ({ item, response }) => {
           </span>
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-xl font-500">
-              ₹{data.product.discountedprice}
+              ₹
+              {getPriceAfterDiscount(
+                data.product.baseprice,
+                data.product.discount
+              )}
             </span>
             <span className="text-[#999999] line-through">
               ₹{data.product.baseprice}
             </span>
             <span className="text-[#00B553] font-500">
-              {calculatePercentage(
-                data.product.baseprice,
-                data.product.discountedprice
-              )}
-              % off
+              {data.product.discount ?? 0}% off
             </span>
           </div>
         </div>

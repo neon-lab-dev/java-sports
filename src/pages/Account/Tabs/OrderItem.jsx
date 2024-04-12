@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import toast from "react-hot-toast";
 import ReactGA from "react-ga";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const OrderItem = ({ order, isLastItem }) => {
   const { user } = useSelector((state) => state.user);
@@ -64,7 +65,10 @@ const OrderItem = ({ order, isLastItem }) => {
               id: item.product,
               image: item.image,
               name: item.name,
-              price: res[i].data?.product?.discountedprice,
+              price: getPriceAfterDiscount(
+                res[i].data?.product?.baseprice,
+                res[i].data?.product?.discount
+              ),
               product: item.product,
               quantity: item.quantity,
               size: item.size,
@@ -98,7 +102,10 @@ const OrderItem = ({ order, isLastItem }) => {
                 id: item.product,
                 image: item.image,
                 name: item.name,
-                price: res[i].data?.product?.discountedprice,
+                price: getPriceAfterDiscount(
+                  res[i].data?.product?.baseprice,
+                  res[i].data?.product?.discount
+                ),
                 product: item.product,
                 quantity: item.quantity,
                 size: item.size,

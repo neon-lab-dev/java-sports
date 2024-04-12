@@ -14,6 +14,7 @@ import { splitString } from "@/utils/splitString";
 import noImage from "@assets/images/no-image.jpg";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import ReactGA from "react-ga";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const AppCard = ({ product, className = "" }) => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const AppCard = ({ product, className = "" }) => {
         size: splitString(product.size)[0],
         name: product.name,
         image: product.images[0].url,
-        price: product.discountedprice,
+        price: getPriceAfterDiscount(product.baseprice, product.discount),
         basePrice: product.baseprice,
       },
     ];
@@ -130,13 +131,14 @@ const AppCard = ({ product, className = "" }) => {
       </Link>
       <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
-          <span className="font-Lato font-700">₹{product.discountedprice}</span>
+          <span className="font-Lato font-700">
+            ₹{getPriceAfterDiscount(product.baseprice, product.discount)}
+          </span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
             ₹{product.baseprice}
           </span>
           <span className="text-[#00B553] font-500">
-            {calculatePercentage(product.baseprice, product.discountedprice)}%
-            off
+            {product.discount || 0}% off
           </span>
         </span>
         {!isOutOfStock && (

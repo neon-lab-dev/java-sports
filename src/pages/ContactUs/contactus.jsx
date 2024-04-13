@@ -27,7 +27,7 @@ const contactUs = () => {
                         </div>
                         <div className='flex'>
                             <img src={email} alt="email" />
-                            <span className='text-white'>webmedlifeeasy@gmail.com</span>
+                            <span className='text-white'>service.javasports@gmail.com</span>
                         </div>
                         <div className='flex'>
                             <img src={loaction} alt="location" />

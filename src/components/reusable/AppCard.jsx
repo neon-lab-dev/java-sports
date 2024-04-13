@@ -13,6 +13,8 @@ import { ClipLoader } from "react-spinners";
 import { splitString } from "@/utils/splitString";
 import noImage from "@assets/images/no-image.jpg";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
+import ReactGA from "react-ga";
+import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const AppCard = ({ product, className = "" }) => {
   const dispatch = useDispatch();
@@ -23,6 +25,10 @@ const AppCard = ({ product, className = "" }) => {
   const queryClient = useQueryClient();
 
   const handleAddToCart = () => {
+    ReactGA.event({
+      category: "Cart Items",
+      action: `Added ${product.name} to cart with id ${product._id}`,
+    });
     const items = getLocalStorage("cartItems", []);
     //remove the item if it is already added
     const newItems = items.filter((item) => item.id !== product._id);
@@ -35,9 +41,13 @@ const AppCard = ({ product, className = "" }) => {
         quantity: 1,
         color: product.color,
         size: splitString(product.size)[0],
+        side: product.sub_category2 === "Gloves" ? "Left" : undefined,
         name: product.name,
         image: product.images[0].url,
-        price: product.discountedprice,
+        price: getPriceAfterDiscount(
+          product.baseprice,
+          product.discountedpercent
+        ),
         basePrice: product.baseprice,
       },
     ];
@@ -63,6 +73,17 @@ const AppCard = ({ product, className = "" }) => {
   });
 
   const handleWishlist = () => {
+    if (isWishlisted) {
+      ReactGA.event({
+        category: "Wishlist",
+        action: `Removed ${product.name} from wishlist with id ${product._id}`,
+      });
+    } else {
+      ReactGA.event({
+        category: "Wishlist",
+        action: `Added ${product.name} to wishlist with id ${product._id}`,
+      });
+    }
     mutate(product._id);
   };
 
@@ -114,13 +135,18 @@ const AppCard = ({ product, className = "" }) => {
       </Link>
       <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
-          <span className="font-Lato font-700">₹{product.discountedprice}</span>
+          <span className="font-Lato font-700">
+            ₹
+            {getPriceAfterDiscount(
+              product.baseprice,
+              product.discountedpercent
+            )}
+          </span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
             ₹{product.baseprice}
           </span>
           <span className="text-[#00B553] font-500">
-            {calculatePercentage(product.baseprice, product.discountedprice)}%
-            off
+            {product.discountedpercent || 0}% off
           </span>
         </span>
         {!isOutOfStock && (
@@ -133,7 +159,11 @@ const AppCard = ({ product, className = "" }) => {
           </button>
         )}
       </div>
-      {isOutOfStock && <div className="text-red-500 font-900 font-Lato justify-center flex ">Out of stock</div>}
+      {isOutOfStock && (
+        <div className="text-red-500 font-900 font-Lato justify-center flex ">
+          Out of stock
+        </div>
+      )}
     </div>
   );
 };

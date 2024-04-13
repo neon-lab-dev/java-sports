@@ -8,7 +8,7 @@ import TabPage from "./tabs";
 import { useQuery } from "@tanstack/react-query";
 import AppLoading from "@/components/reusable/AppLoading";
 import { getAProduct } from "@/api/products";
-
+import NotFound from "@/pages/NotFound";
 // eslint-disable-next-line react-refresh/only-export-components
 export const TABS = [
   {
@@ -44,7 +44,7 @@ const ProductMainPage = () => {
   });
 
   if (isLoading) return <AppLoading />;
-  if (isError) return <h1>Product not found</h1>;
+  if (isError) return <NotFound />;
 
   return (
     <div className="flex flex-col gap-2 pb-8">

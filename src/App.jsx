@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setIsAuthenticating, setUser } from "./redux/slices/userSlice";
 
+import ReactGA from "react-ga";
+ReactGA.initialize(import.meta.env.VITE_GOOGLE_MEASUREMENT_ID);
+
 function App() {
   const dispatch = useDispatch();
   const { data, isLoading, isError } = useQuery({

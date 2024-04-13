@@ -27,6 +27,7 @@ const AppBreadCrumb = () => {
       <Link to="/">Home</Link>
       {pathnames.map((value, index) => {
         const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+        const label = decodeURI(value);
 
         return (
           <span key={to} className="flex items-center">
@@ -35,7 +36,10 @@ const AppBreadCrumb = () => {
               className={index === pathnames.length - 1 ? "text-primary" : ""}
               to={to}
             >
-              {decodeURI(value)}
+              <span className="sm:hidden ">
+                {label.length > 8 ? label.slice(0, 6) + "..." : label}
+              </span>
+              <span className="hidden sm:inline-block">{label}</span>
             </Link>
           </span>
         );

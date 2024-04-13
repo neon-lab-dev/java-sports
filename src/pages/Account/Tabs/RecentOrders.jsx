@@ -27,8 +27,9 @@ const RecentOrders = () => {
       {isError && (
         <p className="text-center">An error occurred while fetching orders</p>
       )}
-      {isLoading && <p className="text-center">Loading orders...</p>}
-      {!isLoading && data?.orders.length > 0 ? (
+      {isLoading ? (
+        <p className="text-center">Loading orders...</p>
+      ) : recentOrders.length > 0 ? (
         recentOrders?.map((order, i) => (
           <RecentOrderItem
             key={i}

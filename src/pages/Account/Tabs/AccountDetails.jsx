@@ -10,8 +10,8 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 const AccountDetails = () => {
+  const [isEditing, setIsEditing] = useState(false);
   const { user } = useSelector((state) => state.user);
-  const [searchParam, setSearchParam] = useSearchParams();
   const {
     register,
     handleSubmit,
@@ -24,7 +24,7 @@ const AccountDetails = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const toggleIsEditing = (isEditing) => {
-    setSearchParam({ tab: "account-details", isEditing: isEditing });
+    setIsEditing(isEditing);
     setValue("full_name", user.full_name);
     setValue("email", user.email);
     setValue("phoneNo", user.phoneNo);
@@ -37,7 +37,7 @@ const AccountDetails = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      setSearchParam({ tab: "account-details", isEditing: "false" });
+      setIsEditing(false);
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
@@ -59,10 +59,22 @@ const AccountDetails = () => {
   };
 
   const onReset = () => {
-    setSearchParam({ tab: "account-details", isEditing: "false" });
+    setIsEditing(false);
     reset();
     setSelectedAvatar(null);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      document
+        .getElementById("account-details-form")
+        ?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isEditing]);
 
   return (
     <div className="flex flex-col gap-6 wrapper lg:w-auto lg:m-0 max-w-4xl">
@@ -71,7 +83,7 @@ const AccountDetails = () => {
           <span className="font-Lato font-600">Account Details</span>
           <button
             onClick={() => toggleIsEditing("true")}
-            disabled={searchParam.get("isEditing") === "true"}
+            disabled={isEditing}
             className="font-Lato font-600 text-blue disabled:opacity-60"
           >
             Edit
@@ -99,8 +111,9 @@ const AccountDetails = () => {
           </span>
         </div>
       </div>
-      {searchParam.get("isEditing") === "true" && (
+      {isEditing && (
         <form
+          id="account-details-form"
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
@@ -175,6 +188,7 @@ const AccountDetails = () => {
                       title: "Oops...",
                       text: `Image size should be less than ${maxSizeInKB} KB`,
                     });
+                    e.target.value = null;
                     return;
                   }
 

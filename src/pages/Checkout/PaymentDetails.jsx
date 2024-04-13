@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { MoonLoader, PulseLoader, SyncLoader } from "react-spinners";
 import Swal from "sweetalert2";
-
+import ReactGA from "react-ga";
 const PaymentDetails = ({
   totalAmount,
   totalItems,
@@ -23,7 +23,6 @@ const PaymentDetails = ({
     code: "",
     isCouponApplied: false,
   });
-  const [searchParams] = useSearchParams();
   const { state } = useLocation();
   const { user } = useSelector((state) => state.user);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -38,6 +37,10 @@ const PaymentDetails = ({
     onSuccess: (data) => {
       setCoupon((prev) => ({ ...prev, isCouponApplied: true }));
       toast.success("Coupon Applied Successfully, you saved ₹" + data.discount);
+      ReactGA.event({
+        category: "Coupon",
+        action: `Applied coupon ${coupon}`,
+      });
     },
   });
 
@@ -85,10 +88,15 @@ const PaymentDetails = ({
         },
       });
 
+      ReactGA.event({
+        category: "Checkout",
+        action: "Clicked on Proceed to Pay",
+      });
+
       //proceed to payment
       const key = await handleGetApiKey();
       const res = await handleCheckout(
-        finalAmount - (coupon.isCouponApplied ? data.discount : 0)
+        Math.max(1, finalAmount - (coupon.isCouponApplied ? data.discount : 0))
       );
       const options = {
         key: key,
@@ -115,6 +123,10 @@ const PaymentDetails = ({
             localStorage.removeItem("orderDetails");
             setIsProcessing(false);
             toast.error("Payment Cancelled");
+            ReactGA.event({
+              category: "Checkout",
+              action: "Payment Cancelled",
+            });
           },
         },
       };
@@ -158,7 +170,10 @@ const PaymentDetails = ({
       <div className={flex + " font-700"}>
         <span>Total Amount</span>
         <span>
-          ₹{coupon.isCouponApplied ? finalAmount - data.discount : finalAmount}
+          ₹
+          {coupon.isCouponApplied
+            ? Math.max(1, finalAmount - data.discount)
+            : finalAmount}
         </span>
       </div>
       <hr />
@@ -172,7 +187,7 @@ const PaymentDetails = ({
           onSubmit={(e) => {
             e.preventDefault();
             if (coupon.code.trim() === "") return;
-            mutate(coupon.code.trim());
+            mutate(coupon?.code?.trim());
           }}
           className="flex flex-col xs:flex-row"
         >
@@ -181,9 +196,7 @@ const PaymentDetails = ({
             type="text"
             placeholder="Enter the Coupon code"
             value={coupon.code}
-            onChange={(e) =>
-              setCoupon({ ...coupon, code: e.target.value.toUpperCase() })
-            }
+            onChange={(e) => setCoupon({ ...coupon, code: e.target.value })}
             disabled={coupon.isCouponApplied || isPending}
           />
           <button

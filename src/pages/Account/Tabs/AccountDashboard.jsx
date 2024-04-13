@@ -23,10 +23,7 @@ const AccountDashboard = () => {
       <div className="wrapper sm:w-auto sm:m-0">
         <HeadingWithLink
           heading="Account Dashboard"
-          button={{
-            label: "Edit",
-            link: "/account?tab=account-details&isEditing=true",
-          }}
+          
         />
         <div className="flex flex-col py-5 pb-4 lg:pb-8">
           <div className="flex items-center justify-start gap-4 mb-3">
@@ -83,7 +80,7 @@ const AccountDashboard = () => {
               </thead>
               <tbody className="text-grey/6 text-sm xs:text-base sm:text-lg lg:text-xl">
                 {getRecentOrders(orders.orders).map(
-                  ({ createdAt, _id, orderStatus, totalPrice }) => (
+                  ({ createdAt, _id, orderStatus, itemsPrice }) => (
                     <tr key={_id} className="bg-grey/2">
                       <td className={tableRowClasses}>
                         #{_id.slice(_id.length - 5, _id.length)}...
@@ -91,7 +88,7 @@ const AccountDashboard = () => {
                       <td className={tableRowClasses}>
                         {new Date(createdAt).toLocaleDateString()}
                       </td>
-                      <td className={tableRowClasses}>₹{totalPrice}</td>
+                      <td className={tableRowClasses}>₹{itemsPrice}</td>
                       <td className={tableRowClasses}>{orderStatus}</td>
                       <td
                         className={

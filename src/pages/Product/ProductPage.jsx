@@ -36,6 +36,7 @@ const ProductPage = ({ product }) => {
     size: splitString(product.size)[0],
     quantity: 1,
     color: splitString(product.Availablecolor)[0],
+    side: product?.sub_category2 === "Gloves" ? "Left" : undefined,
   });
 
   const adjustCartQuantity = (isToIncrease) => {
@@ -72,7 +73,11 @@ const ProductPage = ({ product }) => {
         size: selectedSpecs.size,
         name: product.name,
         image: product.images[0].url,
-        price: getPriceAfterDiscount(product.baseprice, product.discountedpercent),
+        side: selectedSpecs.side,
+        price: getPriceAfterDiscount(
+          product.baseprice,
+          product.discountedpercent
+        ),
         basePrice: product.baseprice,
       },
     ];
@@ -112,8 +117,12 @@ const ProductPage = ({ product }) => {
               color: selectedSpecs.color,
               size: selectedSpecs.size,
               name: product.name,
+              side: selectedSpecs.side,
               image: product.images[0].url,
-              price: getPriceAfterDiscount(product.baseprice, product.discountedpercent),
+              price: getPriceAfterDiscount(
+                product.baseprice,
+                product.discountedpercent
+              ),
               basePrice: product.baseprice,
             },
           ],
@@ -304,7 +313,11 @@ const ProductPage = ({ product }) => {
           </span>
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-2xl lg:text-3xl font-500">
-              ₹{getPriceAfterDiscount(product.baseprice, product.discountedpercent)}
+              ₹
+              {getPriceAfterDiscount(
+                product.baseprice,
+                product.discountedpercent
+              )}
             </span>
             <span className="text-[#999999] line-through">
               ₹{product.baseprice}
@@ -334,6 +347,31 @@ const ProductPage = ({ product }) => {
           </div>
         </div>
         <hr />
+        {product?.sub_category2 === "Gloves" && (
+          <>
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <span className="font-500 text-neutral-black text-xl">Side</span>
+              <div className="flex gap-3 flex-wrap">
+                {["Left", "Right"].map((side, index) => (
+                  <button
+                    key={index}
+                    onClick={() =>
+                      setSelectedSpecs((prev) => ({ ...prev, side }))
+                    }
+                    className={`px-4 sm:px-5 py-1.5 sm:py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
+                      selectedSpecs.side === side
+                        ? "border-primary text-primary"
+                        : "border-[#E4E4E4] text-neutral-black"
+                    }`}
+                  >
+                    {side}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <hr />
+          </>
+        )}
         <div className="flex gap-2 sm:gap-6 flex-col lg:flex-row">
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>

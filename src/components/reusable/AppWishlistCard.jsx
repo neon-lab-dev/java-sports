@@ -39,6 +39,7 @@ const AppWishlistCard = ({ productId }) => {
         size: splitString(data.product.size)[0],
         name: data.product.name,
         image: data.product.images[0].url,
+        side: data.product.sub_category2 === "Gloves" ? "Left" : undefined,
         price: getPriceAfterDiscount(
           data?.product.baseprice,
           data?.product.discountedpercent

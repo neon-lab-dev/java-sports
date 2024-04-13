@@ -41,9 +41,13 @@ const AppCard = ({ product, className = "" }) => {
         quantity: 1,
         color: product.color,
         size: splitString(product.size)[0],
+        side: product.sub_category2 === "Gloves" ? "Left" : undefined,
         name: product.name,
         image: product.images[0].url,
-        price: getPriceAfterDiscount(product.baseprice, product.discountedpercent),
+        price: getPriceAfterDiscount(
+          product.baseprice,
+          product.discountedpercent
+        ),
         basePrice: product.baseprice,
       },
     ];
@@ -132,7 +136,11 @@ const AppCard = ({ product, className = "" }) => {
       <div className={`flex justify-between items-center`}>
         <span className="flex gap-2 items-center">
           <span className="font-Lato font-700">
-            ₹{getPriceAfterDiscount(product.baseprice, product.discountedpercent)}
+            ₹
+            {getPriceAfterDiscount(
+              product.baseprice,
+              product.discountedpercent
+            )}
           </span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
             ₹{product.baseprice}

@@ -42,6 +42,7 @@ const AppCard = ({ product, className = "" }) => {
         color: product.color,
         size: splitString(product.size)[0],
         side: product.sub_category2 === "Gloves" ? "Left" : undefined,
+        productCode: product.productCode,
         name: product.name,
         image: product.images[0].url,
         price: getPriceAfterDiscount(

@@ -39,6 +39,49 @@ const AppLayout = ({ children }) => {
     setStartTime(Date.now());
   }, [location.pathname]);
 
+  //disable inspect mode in production
+  useEffect(() => {
+    if (import.meta.env.PROD) {
+      const disableInspectMode = (e) => {
+        e.preventDefault();
+        return false;
+      };
+
+      // disable right click
+      window.addEventListener("contextmenu", disableInspectMode);
+
+      // disable shortcut keys for inspect and view source ie F12, Ctrl+Shift+I, Ctrl+U
+      // for windows
+      window.addEventListener("keydown", (e) => {
+        if (
+          e.key === "F12" ||
+          ((e.key === "i" || e.key === "I") && e.ctrlKey) ||
+          ((e.key === "u" || e.key === "U") && e.ctrlKey)
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // for mac
+      window.addEventListener("keydown", (e) => {
+        if (
+          e.key === "F12" ||
+          ((e.key === "i" || e.key === "I") && e.metaKey) ||
+          ((e.key === "u" || e.key === "U") && e.metaKey)
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      return () => {
+        window.removeEventListener("contextmenu", disableInspectMode);
+        window.removeEventListener("keydown", disableInspectMode);
+      };
+    }
+  }, []);
+
   return (
     <>
       <AppHeader />

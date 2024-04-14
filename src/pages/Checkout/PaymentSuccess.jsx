@@ -55,9 +55,10 @@ const PaymentSuccessChild = () => {
       (orderDetails?.coupon?.isCouponApplied ? orderDetails.coupon.discount : 0)
     ).toString(),
     //with coupon discount
-    discount: orderDetails?.coupon?.isCouponApplied
+    discount: (orderDetails?.coupon?.isCouponApplied
       ? orderDetails.coupon.discount
-      : 0,
+      : 0
+    ).toString(),
     razorpay_payment_id: searchParams.get("reference"),
   };
 

@@ -74,6 +74,7 @@ const ProductPage = ({ product }) => {
         name: product.name,
         image: product.images[0].url,
         side: selectedSpecs.side,
+        productCode: product.productCode,
         price: getPriceAfterDiscount(
           product.baseprice,
           product.discountedpercent
@@ -118,6 +119,7 @@ const ProductPage = ({ product }) => {
               size: selectedSpecs.size,
               name: product.name,
               side: selectedSpecs.side,
+              productCode: product.productCode,
               image: product.images[0].url,
               price: getPriceAfterDiscount(
                 product.baseprice,

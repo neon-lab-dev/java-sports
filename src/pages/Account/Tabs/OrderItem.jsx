@@ -65,6 +65,8 @@ const OrderItem = ({ order, isLastItem }) => {
               id: item.product,
               image: item.image,
               name: item.name,
+              side: item.sub_category2 === "Gloves" ? item.side : undefined,
+              productCode: item.productCode,
               price: getPriceAfterDiscount(
                 res[i].data?.product?.baseprice,
                 res[i].data?.product?.discountedpercent
@@ -102,6 +104,8 @@ const OrderItem = ({ order, isLastItem }) => {
                 id: item.product,
                 image: item.image,
                 name: item.name,
+                side: item.sub_category2 === "Gloves" ? item.side : undefined,
+                productCode: item.productCode,
                 price: getPriceAfterDiscount(
                   res[i].data?.product?.baseprice,
                   res[i].data?.product?.discountedpercent

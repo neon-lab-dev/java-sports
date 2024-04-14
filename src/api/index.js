@@ -48,6 +48,9 @@ const API = {
 
   //location
   mapBox: "https://api.mapbox.com/search/geocode/v6/reverse",
+
+  //contact
+  contact: BACKEND_BASE_URL + "/contactus",
 };
 
 export default API;

@@ -1,1 +1,1 @@
-export const OTP_TIMER = 90; // in seconds
+export const OTP_TIMER = 60 * 5; // in seconds

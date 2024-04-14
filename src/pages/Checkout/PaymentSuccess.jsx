@@ -7,6 +7,7 @@ import { getLocalStorage } from "@/utils/localStorage";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
+import { calculatePrice } from "@/utils/calculatePrice";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -48,18 +49,15 @@ const PaymentSuccessChild = () => {
     }, //get the delivery address from local storage or user's primary address
 
     orderItems: orderDetails.orderItems,
-    itemsPrice: orderDetails.orderItems
-      .reduce((acc, item) => acc + item.price * item.quantity, 0)
-      .toString(), //the total price of all items without coup0n discount
-    totalPrice: (orderDetails.orderItems.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    ) - orderDetails?.coupon?.isCouponApplied
+    itemsPrice: calculatePrice(orderDetails)?.toString(), //the total price of all items without coup0n discount
+    totalPrice: (
+      calculatePrice(orderDetails) -
+      (orderDetails?.coupon?.isCouponApplied ? orderDetails.coupon.discount : 0)
+    ).toString(),
+    //with coupon discount
+    discount: orderDetails?.coupon?.isCouponApplied
       ? orderDetails.coupon.discount
-      : 0
-    ) //with coupon discount
-      .toString(),
-    discount: "0",
+      : 0,
     razorpay_payment_id: searchParams.get("reference"),
   };
 

@@ -44,13 +44,18 @@ export const getTotalAmount = (products, cartItems) => {
   if (!products || !cartItems) return 0;
   return Number(
     products
-      .reduce(
-        (acc, product) =>
+      .reduce((acc, product) => {
+        const cartItem = cartItems?.find((item) => item.id === product._id);
+        if (!cartItem) return acc;
+        const size = product.sizes.find((size) => size.size === cartItem.size);
+        if (!size) return acc;
+
+        return (
           acc +
-          Number(product.baseprice) *
-            cartItems?.find((item) => item.id === product._id)?.quantity,
-        0
-      )
+          Number(size.basePrice) *
+            cartItems?.find((item) => item.id === product._id)?.quantity
+        );
+      }, 0)
       .toFixed(2)
   );
 };
@@ -61,9 +66,13 @@ export const getDiscountedAmount = (products, cartItems) => {
     products
       .reduce((acc, product) => {
         const cartItem = cartItems?.find((item) => item.id === product._id);
+        if (!cartItem) return acc;
+        const size = product.sizes.find((size) => size.size === cartItem.size);
+        if (!size) return acc;
+
         const price =
-          Number(product.baseprice) -
-          getPriceAfterDiscount(product.baseprice, product.discountedpercent);
+          Number(size.basePrice) -
+          getPriceAfterDiscount(size.basePrice, size.discountedPercent);
         return acc + price * cartItem?.quantity;
       }, 0)
       .toFixed(2)

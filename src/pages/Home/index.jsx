@@ -107,7 +107,7 @@ const HomePage = () => {
           {/* Accessories Collection */}
           <section className="wrapper">
             <h2 className="font-Jakarta pt-[44px] text-[32px] font-500">
-              Accessories Collection
+              Batting Gears
             </h2>
             <AppProductSlider
               items={accessories?.products}

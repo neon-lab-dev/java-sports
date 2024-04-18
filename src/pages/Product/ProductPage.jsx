@@ -33,7 +33,7 @@ const ProductPage = ({ product }) => {
   const imgRef = useRef(null);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSpecs, setSelectedSpecs] = useState({
-    size: splitString(product.size)[0],
+    size: product.sizes[0],
     quantity: 1,
     color: splitString(product.Availablecolor)[0],
     side: product?.sub_category2 === "Gloves" ? "Left" : undefined,
@@ -41,10 +41,12 @@ const ProductPage = ({ product }) => {
 
   const adjustCartQuantity = (isToIncrease) => {
     if (isToIncrease) {
-      if (selectedSpecs.quantity < product.stock) {
+      if (selectedSpecs.quantity < selectedSpecs.size.stock) {
         setSelectedSpecs((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
       } else {
-        toast.error(`Only ${product.stock} items are available in stock`);
+        toast.error(
+          `Only ${selectedSpecs.size.stock} items are available in stock for this size!`
+        );
       }
     } else {
       if (selectedSpecs.quantity > 1) {
@@ -70,16 +72,15 @@ const ProductPage = ({ product }) => {
         product: product._id,
         quantity: selectedSpecs.quantity,
         color: selectedSpecs.color,
-        size: selectedSpecs.size,
+        size: selectedSpecs.size.size,
         name: product.name,
         image: product.images[0].url,
         side: selectedSpecs.side,
-        productCode: product.productCode,
         price: getPriceAfterDiscount(
-          product.baseprice,
-          product.discountedpercent
+          selectedSpecs.size.basePrice,
+          selectedSpecs.size.discountedPercent
         ),
-        basePrice: product.baseprice,
+        basePrice: selectedSpecs.size.basePrice,
       },
     ];
     setLocalStorage("cartItems", updatedItems);
@@ -116,16 +117,15 @@ const ProductPage = ({ product }) => {
               product: product._id,
               quantity: selectedSpecs.quantity,
               color: selectedSpecs.color,
-              size: selectedSpecs.size,
+              size: selectedSpecs.size.size,
               name: product.name,
               side: selectedSpecs.side,
-              productCode: product.productCode,
               image: product.images[0].url,
               price: getPriceAfterDiscount(
-                product.baseprice,
-                product.discountedpercent
+                selectedSpecs.size.basePrice,
+                selectedSpecs.size.discountedPercent
               ),
-              basePrice: product.baseprice,
+              basePrice: selectedSpecs.size.basePrice,
             },
           ],
           from: "product",
@@ -316,16 +316,18 @@ const ProductPage = ({ product }) => {
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-2xl lg:text-3xl font-500">
               ₹
-              {getPriceAfterDiscount(
-                product.baseprice,
-                product.discountedpercent
-              )}
+              {Number(
+                getPriceAfterDiscount(
+                  selectedSpecs.size.basePrice,
+                  selectedSpecs.size.discountedPercent
+                )
+              ) * selectedSpecs.quantity}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{product.baseprice}
+              ₹{Number(selectedSpecs.size.basePrice) * selectedSpecs.quantity}
             </span>
             <span className="text-[#00B553] font-500">
-              {product.discountedpercent ?? 0}% off
+              {selectedSpecs.size.discountedPercent ?? 0}% off
             </span>
           </div>
         </div>
@@ -333,17 +335,17 @@ const ProductPage = ({ product }) => {
         <div className="flex flex-col gap-1 sm:gap-2">
           <span className="font-500 text-neutral-black text-xl">Size</span>
           <div className="flex gap-3 flex-wrap">
-            {splitString(product.size).map((size, index) => (
+            {product.sizes.map((size, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedSpecs((prev) => ({ ...prev, size }))}
                 className={`px-4 sm:px-5 py-1.5 sm:py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
-                  selectedSpecs.size === size
+                  selectedSpecs.size.size === size.size
                     ? "border-primary text-primary"
                     : "border-[#E4E4E4] text-neutral-black"
                 }`}
               >
-                {size}
+                {size.size}
               </button>
             ))}
           </div>
@@ -377,7 +379,7 @@ const ProductPage = ({ product }) => {
         <div className="flex gap-2 sm:gap-6 flex-col lg:flex-row">
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>
-            {product.stock > 0 ? (
+            {selectedSpecs.size.stock > 0 ? (
               <div className="flex p-1 items-center justify-center w-max border-grey/1 border-2 rounded-md">
                 <button
                   className="px-3 w-full h-full"
@@ -436,13 +438,13 @@ const ProductPage = ({ product }) => {
         </div>
         <button
           onClick={handleBuyNow}
-          disabled={product.stock < 1}
+          disabled={selectedSpecs.size.stock < 1}
           className="bg-primary text-white py-3 rounded-md mt-2 disabled:opacity-50"
         >
           Buy Now
         </button>
         <button
-          disabled={product.stock < 1}
+          disabled={selectedSpecs.size.stock < 1}
           onClick={handleAddToCart}
           className="rounded-md border-2 border-grey-dark py-3 disabled:opacity-50"
         >

@@ -316,13 +316,15 @@ const ProductPage = ({ product }) => {
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-2xl lg:text-3xl font-500">
               ₹
-              {getPriceAfterDiscount(
-                selectedSpecs.size.basePrice,
-                selectedSpecs.size.discountedPercent
-              )}
+              {Number(
+                getPriceAfterDiscount(
+                  selectedSpecs.size.basePrice,
+                  selectedSpecs.size.discountedPercent
+                )
+              ) * selectedSpecs.quantity}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{selectedSpecs.size.basePrice}
+              ₹{Number(selectedSpecs.size.basePrice) * selectedSpecs.quantity}
             </span>
             <span className="text-[#00B553] font-500">
               {selectedSpecs.size.discountedPercent ?? 0}% off

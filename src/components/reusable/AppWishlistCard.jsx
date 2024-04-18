@@ -36,16 +36,15 @@ const AppWishlistCard = ({ productId }) => {
         product: data.product._id,
         quantity: 1,
         color: data.product.color,
-        size: splitString(data.product.size)[0],
+        size: data.product.sizes[0].size,
         name: data.product.name,
         image: data.product.images[0].url,
         side: data.product.sub_category2 === "Gloves" ? "Left" : undefined,
-        productCode: data.product.productCode,
         price: getPriceAfterDiscount(
-          data?.product.baseprice,
-          data?.product.discountedpercent
+          data?.product.sizes[0].basePrice,
+          data?.product.sizes[0].discountedPercent
         ),
-        basePrice: data.product.baseprice,
+        basePrice: data.product.sizes[0].basePrice,
       },
     ];
     setLocalStorage("cartItems", updatedItems);
@@ -110,16 +109,16 @@ const AppWishlistCard = ({ productId }) => {
               <span>
                 ₹
                 {getPriceAfterDiscount(
-                  data?.product.baseprice,
-                  data?.product.discountedpercent
+                  data?.product.sizes[0].basePrice,
+                  data?.product.sizes[0].discountedPercent
                 )}
               </span>
             </li>
             <li className="font-Lato font-500 text-sm line-through">
-              <span>₹{data.product.baseprice}</span>
+              <span>₹{data.product.sizes[0].basePrice}</span>
             </li>
             <li className="font-Lato font-700 text-[13px] text-green-400">
-              <span>{data.product.discountedpercent || 0}% off</span>
+              <span>{data.product.sizes[0].discountedPercent || 0}% off</span>
             </li>
           </ul>
         </div>

@@ -60,7 +60,6 @@ const Address = () => {
 
   useEffect(() => {
     if (isEditing) {
-      console.log("scrolling");
       document
         .getElementById("address-form")
         ?.scrollIntoView({ behavior: "smooth" });

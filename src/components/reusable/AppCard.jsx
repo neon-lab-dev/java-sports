@@ -1,7 +1,6 @@
 // @ts-nocheck
 import heartIcon from "@/assets/icons/heart.svg";
 import crossIcon from "@/assets/icons/cross.svg";
-import { calculatePercentage } from "@/utils/calculatePercentage";
 import wishlistIcon from "@assets/icons/wishlist-filled.svg";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -10,7 +9,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist, removeFromWishlist } from "@/api/products";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
-import { splitString } from "@/utils/splitString";
 import noImage from "@assets/images/no-image.jpg";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import ReactGA from "react-ga";
@@ -40,16 +38,15 @@ const AppCard = ({ product, className = "" }) => {
         product: product._id,
         quantity: 1,
         color: product.color,
-        size: splitString(product.size)[0],
+        size: product.sizes[0].size,
         side: product.sub_category2 === "Gloves" ? "Left" : undefined,
-        productCode: product.productCode,
         name: product.name,
         image: product.images[0].url,
         price: getPriceAfterDiscount(
-          product.baseprice,
-          product.discountedpercent
+          product.sizes[0].basePrice,
+          product.sizes[0].discountedPercent
         ),
-        basePrice: product.baseprice,
+        basePrice: product.sizes[0].basePrice,
       },
     ];
     setLocalStorage("cartItems", updatedItems);
@@ -88,7 +85,7 @@ const AppCard = ({ product, className = "" }) => {
     mutate(product._id);
   };
 
-  const isOutOfStock = product.stock === 0;
+  const isOutOfStock = product.sizes?.every((size) => size.stock === 0);
 
   return (
     <div
@@ -139,15 +136,15 @@ const AppCard = ({ product, className = "" }) => {
           <span className="font-Lato font-700">
             ₹
             {getPriceAfterDiscount(
-              product.baseprice,
-              product.discountedpercent
+              product.sizes[0]?.basePrice,
+              product.sizes[0]?.discountedPercent
             )}
           </span>
           <span className="font-Lato font-500 text-[0.65rem] sm:text-xs line-through">
-            ₹{product.baseprice}
+            ₹{product.sizes[0]?.basePrice || 0}
           </span>
           <span className="text-[#00B553] font-500">
-            {product.discountedpercent || 0}% off
+            {product.sizes[0]?.discountedPercent || 0}% off
           </span>
         </span>
         {!isOutOfStock && (

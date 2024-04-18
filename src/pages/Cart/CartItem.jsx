@@ -6,7 +6,6 @@ import addIcon from "@/assets/icons/add-icon.svg";
 // @ts-ignore
 import removeIcon from "@/assets/icons/remove.svg";
 import { todayPlusDays } from "@/utils/dateUtils";
-import { calculatePercentage } from "@/utils/calculatePercentage";
 import { Link } from "react-router-dom";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
@@ -17,11 +16,31 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
   const { isError, isLoading, data } = item;
 
   if (isLoading) return null;
-  if (isError) return null;
+  if (isError) {
+    localStorage.removeItem("cartItems");
+    dispatch(updateCartItemsCount());
+    return null;
+  }
 
-  const quantity =
-    cartItems.find((cartItem) => cartItem.id === item.data.product._id)
-      .quantity || 1;
+  const cartItem = cartItems.find(
+    (cartItem) => cartItem.id === item.data.product._id
+  );
+
+  if (!cartItem) {
+    removeCartItem({ productId: data.product._id, setCartItems });
+    dispatch(updateCartItemsCount());
+    return null;
+  }
+
+  const quantity = cartItem.quantity || 1;
+
+  const size = data.product.sizes.find((size) => size.size === cartItem.size);
+
+  if (!size) {
+    dispatch(updateCartItemsCount());
+    removeCartItem({ productId: data.product._id, setCartItems });
+    return null;
+  }
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 shadow p-3 rounded-md">
@@ -55,10 +74,14 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span className="flex items-end gap-2">
               Quantity:
-              {data.product.stock < 1 && (
+              {size.stock < 1 ? (
                 <span className="text-primary text-sm font-400">
                   (Out of stock)
                 </span>
+              ) : (
+                <>
+                  {"  "} {cartItem.quantity}
+                </>
               )}
             </span>
             <div className="flex items-center justify-center w-max border-grey/1 border-2 rounded-md">
@@ -70,7 +93,7 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
                     productId: data.product._id,
                     isToIncrease: false,
                     setCartItems,
-                    stock: data.product.stock,
+                    stock: size.stock,
                   });
                 }}
               >
@@ -85,7 +108,7 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
                     productId: data.product._id,
                     isToIncrease: true,
                     setCartItems,
-                    stock: data.product.stock,
+                    stock: size.stock,
                   });
                 }}
                 className="px-3 w-full h-full"
@@ -96,19 +119,17 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
           </div>
           <div className="flex gap-3 my-1 items-center">
             <span className="text-xs sm:text-sm line-through font-400  text-grey-dark">
-              ₹{(data.product.baseprice * quantity).toFixed(2)}
+              ₹{(size.basePrice * quantity).toFixed(2)}
             </span>
             <span className="text-base xs:text-lg font-600 text-black">
               ₹
               {(
-                getPriceAfterDiscount(
-                  data.product.baseprice,
-                  data.product.discountedpercent
-                ) * quantity
+                getPriceAfterDiscount(size.basePrice, size.discountedPercent) *
+                quantity
               ).toFixed(2)}
             </span>
             <span className="text-xs xs:text-base sm:text-lg font-600 text-green-500">
-              {data.product.discountedpercent || 0}% off
+              {size.discountedPercent || 0}% off
             </span>
           </div>
         </div>

@@ -144,7 +144,16 @@ const Checkout = () => {
                 )}
                 deliveryAddress={selectedAddress}
                 orderItems={state?.orderItems}
-                isSomeItemOutOfStock={res.some((r) => r.data.product.stock < 1)}
+                isSomeItemOutOfStock={res.some((r) => {
+                  const itemFromCart = state?.orderItems.find(
+                    (item) => item.product === r.data.product._id
+                  );
+                  const size = r.data.product.sizes.find(
+                    (s) => s.size === itemFromCart?.size
+                  );
+                  if (itemFromCart?.quantity > size.stock) return true;
+                  return false;
+                })}
               />
             </div>
           ) : (

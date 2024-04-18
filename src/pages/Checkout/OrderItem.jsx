@@ -1,4 +1,3 @@
-import { calculatePercentage } from "@/utils/calculatePercentage";
 import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
 
 const OrderItem = ({ item, response }) => {
@@ -6,6 +5,8 @@ const OrderItem = ({ item, response }) => {
 
   if (isLoading) return null;
   if (isError) return null;
+
+  const size = data.product.sizes.find((s) => s.size === item.size);
 
   return (
     <div className="flex flex-col sm:flex-row gap-6 border p-3 rounded-md w-full">
@@ -26,15 +27,15 @@ const OrderItem = ({ item, response }) => {
             <span className="text-neutral-black text-xl font-500">
               ₹
               {getPriceAfterDiscount(
-                data.product.baseprice,
-                data.product.discountedpercent
+                size.basePrice,
+                data.product.discountedPercent
               )}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{data.product.baseprice}
+              ₹{size.basePrice}
             </span>
             <span className="text-[#00B553] font-500">
-              {data.product.discountedpercent ?? 0}% off
+              {size.discountedPercent ?? 0}% off
             </span>
           </div>
         </div>
@@ -57,7 +58,7 @@ const OrderItem = ({ item, response }) => {
                 </span>
                 <div className="flex gap-3 flex-wrap">
                   <span className="px-4 py-1 border-2 border-[#E4E4E4] rounded-md font-500 text-black">
-                    {item.size}
+                    {size.size}
                   </span>
                 </div>
               </div>

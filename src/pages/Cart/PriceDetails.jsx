@@ -16,11 +16,11 @@ const PriceDetails = ({
       <hr />
       <div className={flex}>
         <span>Price ({totalItems} items)</span>
-        <span>₹{totalAmount}</span>
+        <span>₹{totalAmount.toFixed(2)}</span>
       </div>
       <div className={flex}>
         <span>Discount</span>
-        <span className="text-green-400 text-[17px]"> - ₹{discountAmount}</span>
+        <span className="text-green-400 text-[17px]"> - ₹{discountAmount.toFixed(2)}</span>
       </div>
       <div className={flex}>
         <span>Delivery Charges</span>
@@ -29,11 +29,11 @@ const PriceDetails = ({
       <hr />
       <div className={flex + " font-700"}>
         <span>Total Amount</span>
-        <span>₹{finalAmount}</span>
+        <span>₹{finalAmount.toFixed(2)}</span>
       </div>
       <hr />
       <span className="text-sm text-grey-dark">
-        You will save ₹{discountAmount} on this order
+        You will save ₹{discountAmount.toFixed(2)} on this order
       </span>
       <div className="">
         <PlaceOrderButton />

@@ -26,13 +26,15 @@ const OrderItem = ({ item, response }) => {
           <div className="flex gap-3 items-center">
             <span className="text-neutral-black text-xl font-500">
               ₹
-              {getPriceAfterDiscount(
-                size.basePrice,
-                data.product.discountedPercent
-              )}
+              {(
+                getPriceAfterDiscount(
+                  size.basePrice,
+                  data.product.discountedPercent
+                ) * item.quantity
+              ).toFixed(2)}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{size.basePrice}
+              ₹{(Number(size.basePrice) * item.quantity).toFixed(2)}
             </span>
             <span className="text-[#00B553] font-500">
               {size.discountedPercent ?? 0}% off

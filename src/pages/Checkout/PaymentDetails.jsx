@@ -96,7 +96,10 @@ const PaymentDetails = ({
       //proceed to payment
       const key = await handleGetApiKey();
       const res = await handleCheckout(
-        Math.max(1, finalAmount - (coupon.isCouponApplied ? data.discount : 0))
+        Math.max(
+          1,
+          finalAmount - (coupon.isCouponApplied ? data.discount : 0)
+        ).toFixed(2)
       );
       const options = {
         key: key,
@@ -147,7 +150,7 @@ const PaymentDetails = ({
       <hr />
       <div className={flex}>
         <span>Price ({totalItems} items)</span>
-        <span>₹{totalAmount}</span>
+        <span>₹{totalAmount.toFixed(2)}</span>
       </div>
       <div className={flex}>
         <span>Discount</span>
@@ -171,16 +174,19 @@ const PaymentDetails = ({
         <span>Total Amount</span>
         <span>
           ₹
-          {coupon.isCouponApplied
+          {(coupon.isCouponApplied
             ? Math.max(1, finalAmount - data.discount)
-            : finalAmount}
+            : finalAmount
+          ).toFixed(2)}
         </span>
       </div>
       <hr />
       <span className="text-sm text-grey-dark">
         You will save ₹{" "}
-        {discountAmount + (coupon.isCouponApplied ? data.discount : 0)} on this
-        order
+        {(
+          discountAmount + (coupon.isCouponApplied ? data.discount : 0)
+        ).toFixed(2)}{" "}
+        on this order
       </span>
       <div className="flex flex-col gap-2">
         <form

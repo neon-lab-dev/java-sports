@@ -86,7 +86,8 @@ const Checkout = () => {
             <AppEmpty
               btnText="Add Address"
               text="You have not added any address"
-              to="/account?tab=addresses"
+              to="/account?tab=addresses&redirect=/checkout"
+              state={state}
               img={noAddress}
             />
           )}

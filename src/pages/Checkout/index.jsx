@@ -15,6 +15,7 @@ import {
   getTotalAmount,
 } from "@/utils/cartUtils";
 import AppEmpty from "@/components/reusable/AppEmpty";
+import getSizeDetailsSIzeAndSide from "@/utils/getSizeDetailsSIzeAndSide";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -149,8 +150,10 @@ const Checkout = () => {
                   const itemFromCart = state?.orderItems.find(
                     (item) => item.product === r.data.product._id
                   );
-                  const size = r.data.product.sizes.find(
-                    (s) => s.size === itemFromCart?.size
+                  const size = getSizeDetailsSIzeAndSide(
+                    r.data.product.sizes,
+                    itemFromCart?.size,
+                    itemFromCart?.side
                   );
                   if (itemFromCart?.quantity > size.stock) return true;
                   return false;

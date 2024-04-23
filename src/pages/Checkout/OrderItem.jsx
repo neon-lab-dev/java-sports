@@ -1,4 +1,5 @@
 import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
+import getSizeDetailsSIzeAndSide from "@/utils/getSizeDetailsSIzeAndSide";
 
 const OrderItem = ({ item, response }) => {
   const { data, isLoading, isError } = response;
@@ -6,7 +7,11 @@ const OrderItem = ({ item, response }) => {
   if (isLoading) return null;
   if (isError) return null;
 
-  const size = data.product.sizes.find((s) => s.size === item.size);
+  const size = getSizeDetailsSIzeAndSide(
+    data.product.sizes,
+    item.size,
+    item.side
+  );
 
   return (
     <div className="flex flex-col sm:flex-row gap-6 border p-3 rounded-md w-full">
@@ -27,10 +32,8 @@ const OrderItem = ({ item, response }) => {
             <span className="text-neutral-black text-xl font-500">
               ₹
               {(
-                getPriceAfterDiscount(
-                  size.basePrice,
-                  data.product.discountedPercent
-                ) * item.quantity
+                getPriceAfterDiscount(size.basePrice, size.discountedPercent) *
+                item.quantity
               ).toFixed(2)}
             </span>
             <span className="text-[#999999] line-through">
@@ -61,6 +64,21 @@ const OrderItem = ({ item, response }) => {
                 <div className="flex gap-3 flex-wrap">
                   <span className="px-4 py-1 border-2 border-[#E4E4E4] rounded-md font-500 text-black">
                     {size.size}
+                  </span>
+                </div>
+              </div>
+            </>
+          )}
+          {item.side && (
+            <>
+              <hr className="h-[80%] w-[1.5px] bg-grey-light opacity-50 self-end hidden md:block" />
+              <div className="flex flex-col gap-1 sm:gap-2">
+                <span className="font-500 text-neutral-black text-lg">
+                  Side
+                </span>
+                <div className="flex gap-3 flex-wrap">
+                  <span className="px-4 py-1 border-2 border-[#E4E4E4] rounded-md font-500 text-black">
+                    {size.side}
                   </span>
                 </div>
               </div>

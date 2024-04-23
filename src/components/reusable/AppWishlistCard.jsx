@@ -39,7 +39,17 @@ const AppWishlistCard = ({ productId }) => {
         size: data.product.sizes[0].size,
         name: data.product.name,
         image: data.product.images[0].url,
-        side: data.product.sub_category2 === "Gloves" ? "Left" : undefined,
+        side: [
+          "Gloves",
+          "Leg Guard",
+          "Thigh Pad",
+          "Inner ThighPad",
+          "Arm Guard",
+        ].includes(data?.product?.sub_category2)
+          ? data?.product.sizes
+              .filter((size) => size.size === data?.product.sizes[0].size)
+              .map((size) => size.side)[0]
+          : undefined,
         price: getPriceAfterDiscount(
           data?.product.sizes[0].basePrice,
           data?.product.sizes[0].discountedPercent
@@ -50,6 +60,7 @@ const AppWishlistCard = ({ productId }) => {
     setLocalStorage("cartItems", updatedItems);
     toast.success(`Added ${data.product.name} to cart!`);
     dispatch(updateCartItemsCount());
+    mutate(data.product._id);
   };
 
   const { mutate, isPending } = useMutation({

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
+import getSizeDetailsSIzeAndSide from "@/utils/getSizeDetailsSIzeAndSide";
 
 const CartItem = ({ item, setCartItems, cartItems }) => {
   const dispatch = useDispatch();
@@ -34,7 +35,11 @@ const CartItem = ({ item, setCartItems, cartItems }) => {
 
   const quantity = cartItem.quantity || 1;
 
-  const size = data.product.sizes.find((size) => size.size === cartItem.size);
+  const size = getSizeDetailsSIzeAndSide(
+    data.product.sizes,
+    cartItem.size,
+    cartItem.side
+  );
 
   if (!size) {
     dispatch(updateCartItemsCount());

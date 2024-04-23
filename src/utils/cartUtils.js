@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { getLocalStorage, setLocalStorage } from "./localStorage";
 import ReactGA from "react-ga";
 import { getPriceAfterDiscount } from "./getPriceAfterDiscount";
+import getSizeDetailsSIzeAndSide from "./getSizeDetailsSIzeAndSide";
 //adjust quantity of the product by 1
 export const adjustCartQuantity = ({
   productId,
@@ -47,7 +48,11 @@ export const getTotalAmount = (products, cartItems) => {
       .reduce((acc, product) => {
         const cartItem = cartItems?.find((item) => item.id === product._id);
         if (!cartItem) return acc;
-        const size = product.sizes.find((size) => size.size === cartItem.size);
+        const size = getSizeDetailsSIzeAndSide(
+          product.sizes,
+          cartItem.size,
+          cartItem.side
+        );
         if (!size) return acc;
 
         return (
@@ -67,7 +72,11 @@ export const getDiscountedAmount = (products, cartItems) => {
       .reduce((acc, product) => {
         const cartItem = cartItems?.find((item) => item.id === product._id);
         if (!cartItem) return acc;
-        const size = product.sizes.find((size) => size.size === cartItem.size);
+        const size = getSizeDetailsSIzeAndSide(
+          product.sizes,
+          cartItem.size,
+          cartItem.side
+        );
         if (!size) return acc;
 
         const price =

@@ -1,7 +1,7 @@
 import heartIcon from "@/assets/icons/heart.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import buttonNextSlide from "@/assets/images/Button - Next slide.svg";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import crossIcon from "@/assets/icons/cross.svg";
@@ -546,7 +546,14 @@ const ProductPage = ({ product }) => {
           <span className="font-500 text-neutral-black text-xl">
             About the Product
           </span>
-          <p className="text-neutral-black">{product.description}</p>
+          <p className="text-neutral-black">
+            {product.description.split("\n").map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </p>
         </div>
         <hr />
         <div className="flex flex-col gap-2">

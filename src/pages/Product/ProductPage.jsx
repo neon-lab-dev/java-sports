@@ -1,7 +1,7 @@
 import heartIcon from "@/assets/icons/heart.svg";
 import { calculatePercentage } from "@/utils/calculatePercentage";
 import buttonNextSlide from "@/assets/images/Button - Next slide.svg";
-import { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import crossIcon from "@/assets/icons/cross.svg";
@@ -24,6 +24,7 @@ import { ClipLoader } from "react-spinners";
 import { updateCartItemsCount } from "@/redux/slices/userSlice";
 import ReactGA from "react-ga";
 import { getPriceAfterDiscount } from "@/utils/getPriceAfterDiscount";
+import getSizeDetailsSIzeAndSide from "@/utils/getSizeDetailsSIzeAndSide";
 
 const ProductPage = ({ product }) => {
   const dispatch = useDispatch();
@@ -33,19 +34,42 @@ const ProductPage = ({ product }) => {
   const imgRef = useRef(null);
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSpecs, setSelectedSpecs] = useState({
-    size: product.sizes[0],
+    size: product.sizes[0].size,
     quantity: 1,
     color: splitString(product.Availablecolor)[0],
-    side: product?.sub_category2 === "Gloves" ? "Left" : undefined,
+    side: [
+      "Gloves",
+      "Leg Guard",
+      "Thigh Pad",
+      "Inner ThighPad",
+      "Arm Guard",
+    ].includes(product?.sub_category2)
+      ? product.sizes
+          .filter((size) => size.size === product.sizes[0].size)
+          .map((size) => size.side)[0]
+      : undefined,
   });
 
   const adjustCartQuantity = (isToIncrease) => {
     if (isToIncrease) {
-      if (selectedSpecs.quantity < selectedSpecs.size.stock) {
+      if (
+        selectedSpecs.quantity <
+        getSizeDetailsSIzeAndSide(
+          product.sizes,
+          selectedSpecs.size,
+          selectedSpecs.side
+        ).stock
+      ) {
         setSelectedSpecs((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
       } else {
         toast.error(
-          `Only ${selectedSpecs.size.stock} items are available in stock for this size!`
+          `Only ${
+            getSizeDetailsSIzeAndSide(
+              product.sizes,
+              selectedSpecs.size,
+              selectedSpecs.side
+            ).stock
+          } items are available in stock for this size!`
         );
       }
     } else {
@@ -72,15 +96,27 @@ const ProductPage = ({ product }) => {
         product: product._id,
         quantity: selectedSpecs.quantity,
         color: selectedSpecs.color,
-        size: selectedSpecs.size.size,
+        size: selectedSpecs.size,
         name: product.name,
         image: product.images[0].url,
         side: selectedSpecs.side,
         price: getPriceAfterDiscount(
-          selectedSpecs.size.basePrice,
-          selectedSpecs.size.discountedPercent
+          getSizeDetailsSIzeAndSide(
+            product.sizes,
+            selectedSpecs.size,
+            selectedSpecs.side
+          ).basePrice,
+          getSizeDetailsSIzeAndSide(
+            product.sizes,
+            selectedSpecs.size,
+            selectedSpecs.side
+          ).discountedPercent
         ),
-        basePrice: selectedSpecs.size.basePrice,
+        basePrice: getSizeDetailsSIzeAndSide(
+          product.sizes,
+          selectedSpecs.size,
+          selectedSpecs.side
+        ).basePrice,
       },
     ];
     setLocalStorage("cartItems", updatedItems);
@@ -117,15 +153,27 @@ const ProductPage = ({ product }) => {
               product: product._id,
               quantity: selectedSpecs.quantity,
               color: selectedSpecs.color,
-              size: selectedSpecs.size.size,
+              size: selectedSpecs.size,
               name: product.name,
               side: selectedSpecs.side,
               image: product.images[0].url,
               price: getPriceAfterDiscount(
-                selectedSpecs.size.basePrice,
-                selectedSpecs.size.discountedPercent
+                getSizeDetailsSIzeAndSide(
+                  product.sizes,
+                  selectedSpecs.size,
+                  selectedSpecs.side
+                ).basePrice,
+                getSizeDetailsSIzeAndSide(
+                  product.sizes,
+                  selectedSpecs.size,
+                  selectedSpecs.side
+                ).discountedPercent
               ),
-              basePrice: selectedSpecs.size.basePrice,
+              basePrice: getSizeDetailsSIzeAndSide(
+                product.sizes,
+                selectedSpecs.size,
+                selectedSpecs.side
+              ).basePrice,
             },
           ],
           from: "product",
@@ -180,6 +228,31 @@ const ProductPage = ({ product }) => {
     }
     mutate(product._id);
   };
+
+  useEffect(() => {
+    setSelectedSpecs((prev) => ({
+      ...prev,
+      quantity: 1,
+      side: [
+        "Gloves",
+        "Leg Guard",
+        "Thigh Pad",
+        "Inner ThighPad",
+        "Arm Guard",
+      ].includes(product?.sub_category2)
+        ? product.sizes
+            .filter((size) => size.size === product.sizes[0].size)
+            .map((size) => size.side)[0]
+        : undefined,
+    }));
+  }, [selectedSpecs.size]);
+
+  useEffect(() => {
+    setSelectedSpecs((prev) => ({
+      ...prev,
+      quantity: 1,
+    }));
+  }, [selectedSpecs.side]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 pt-8">
@@ -318,16 +391,36 @@ const ProductPage = ({ product }) => {
               ₹
               {Number(
                 getPriceAfterDiscount(
-                  selectedSpecs.size.basePrice,
-                  selectedSpecs.size.discountedPercent
+                  getSizeDetailsSIzeAndSide(
+                    product.sizes,
+                    selectedSpecs.size,
+                    selectedSpecs.side
+                  ).basePrice,
+                  getSizeDetailsSIzeAndSide(
+                    product.sizes,
+                    selectedSpecs.size,
+                    selectedSpecs.side
+                  ).discountedPercent
                 )
               ) * selectedSpecs.quantity}
             </span>
             <span className="text-[#999999] line-through">
-              ₹{Number(selectedSpecs.size.basePrice) * selectedSpecs.quantity}
+              ₹
+              {Number(
+                getSizeDetailsSIzeAndSide(
+                  product.sizes,
+                  selectedSpecs.size,
+                  selectedSpecs.side
+                ).basePrice
+              ) * selectedSpecs.quantity}
             </span>
             <span className="text-[#00B553] font-500">
-              {selectedSpecs.size.discountedPercent ?? 0}% off
+              {getSizeDetailsSIzeAndSide(
+                product.sizes,
+                selectedSpecs.size,
+                selectedSpecs.side
+              ).discountedPercent ?? 0}
+              % off
             </span>
           </div>
         </div>
@@ -335,42 +428,63 @@ const ProductPage = ({ product }) => {
         <div className="flex flex-col gap-1 sm:gap-2">
           <span className="font-500 text-neutral-black text-xl">Size</span>
           <div className="flex gap-3 flex-wrap">
-            {product.sizes.map((size, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedSpecs((prev) => ({ ...prev, size }))}
-                className={`px-4 sm:px-5 py-1.5 sm:py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
-                  selectedSpecs.size.size === size.size
-                    ? "border-primary text-primary"
-                    : "border-[#E4E4E4] text-neutral-black"
-                }`}
-              >
-                {size.size}
-              </button>
-            ))}
-          </div>
-        </div>
-        <hr />
-        {product?.sub_category2 === "Gloves" && (
-          <>
-            <div className="flex flex-col gap-1 sm:gap-2">
-              <span className="font-500 text-neutral-black text-xl">Side</span>
-              <div className="flex gap-3 flex-wrap">
-                {["Left", "Right"].map((side, index) => (
+            {
+              // remove the duplicate sizes
+              product.sizes
+                .filter(
+                  (v, i, a) => a.findIndex((t) => t.size === v.size) === i
+                )
+                .map((size, index) => (
                   <button
                     key={index}
                     onClick={() =>
-                      setSelectedSpecs((prev) => ({ ...prev, side }))
+                      setSelectedSpecs((prev) => ({ ...prev, size: size.size }))
                     }
                     className={`px-4 sm:px-5 py-1.5 sm:py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
-                      selectedSpecs.side === side
+                      selectedSpecs.size === size.size
                         ? "border-primary text-primary"
                         : "border-[#E4E4E4] text-neutral-black"
                     }`}
                   >
-                    {side}
+                    {size.size}
                   </button>
-                ))}
+                ))
+            }
+          </div>
+        </div>
+        <hr />
+        {[
+          "Gloves",
+          "Leg Guard",
+          "Thigh Pad",
+          "Inner ThighPad",
+          "Arm Guard",
+        ].includes(product?.sub_category2) && (
+          <>
+            <div className="flex flex-col gap-1 sm:gap-2">
+              <span className="font-500 text-neutral-black text-xl">Side</span>
+              <div className="flex gap-3 flex-wrap">
+                {
+                  // find the sizes that are available for the selected size
+                  product.sizes
+                    .filter((size) => size.size === selectedSpecs.size)
+                    ?.map((size) => size.side)
+                    ?.map((side, index) => (
+                      <button
+                        key={index}
+                        onClick={() =>
+                          setSelectedSpecs((prev) => ({ ...prev, side }))
+                        }
+                        className={`px-4 sm:px-5 py-1.5 sm:py-2 border-2 border-[#E4E4E4] rounded-md font-500 ${
+                          selectedSpecs.side === side
+                            ? "border-primary text-primary"
+                            : "border-[#E4E4E4] text-neutral-black"
+                        }`}
+                      >
+                        {side}
+                      </button>
+                    ))
+                }
               </div>
             </div>
             <hr />
@@ -379,7 +493,11 @@ const ProductPage = ({ product }) => {
         <div className="flex gap-2 sm:gap-6 flex-col lg:flex-row">
           <div className="font-[600] text-lg sm:text-xl flex flex-col gap-2">
             <span>Quantity</span>
-            {selectedSpecs.size.stock > 0 ? (
+            {getSizeDetailsSIzeAndSide(
+              product.sizes,
+              selectedSpecs.size,
+              selectedSpecs.side
+            ).stock > 0 ? (
               <div className="flex p-1 items-center justify-center w-max border-grey/1 border-2 rounded-md">
                 <button
                   className="px-3 w-full h-full"
@@ -428,7 +546,14 @@ const ProductPage = ({ product }) => {
           <span className="font-500 text-neutral-black text-xl">
             About the Product
           </span>
-          <p className="text-neutral-black">{product.description}</p>
+          <p className="text-neutral-black">
+            {product.description.split("\n").map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </p>
         </div>
         <hr />
         <div className="flex flex-col gap-2">
@@ -438,13 +563,25 @@ const ProductPage = ({ product }) => {
         </div>
         <button
           onClick={handleBuyNow}
-          disabled={selectedSpecs.size.stock < 1}
+          disabled={
+            getSizeDetailsSIzeAndSide(
+              product.sizes,
+              selectedSpecs.size,
+              selectedSpecs.side
+            ).stock < 1
+          }
           className="bg-primary text-white py-3 rounded-md mt-2 disabled:opacity-50"
         >
           Buy Now
         </button>
         <button
-          disabled={selectedSpecs.size.stock < 1}
+          disabled={
+            getSizeDetailsSIzeAndSide(
+              product.sizes,
+              selectedSpecs.size,
+              selectedSpecs.side
+            ).stock < 1
+          }
           onClick={handleAddToCart}
           className="rounded-md border-2 border-grey-dark py-3 disabled:opacity-50"
         >

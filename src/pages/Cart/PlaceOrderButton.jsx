@@ -27,7 +27,7 @@ const PlaceOrderButton = () => {
         confirmButtonText: "Login",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/login?redirect=/checkout");
+          navigate("/login?redirect=/cart");
         }
       });
     }

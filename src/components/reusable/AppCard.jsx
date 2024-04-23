@@ -39,7 +39,17 @@ const AppCard = ({ product, className = "" }) => {
         quantity: 1,
         color: product.color,
         size: product.sizes[0].size,
-        side: product.sub_category2 === "Gloves" ? "Left" : undefined,
+        side: [
+          "Gloves",
+          "Leg Guard",
+          "Thigh Pad",
+          "Inner ThighPad",
+          "Arm Guard",
+        ].includes(product?.sub_category2)
+          ? product.sizes
+              .filter((size) => size.size === product.sizes[0].size)
+              .map((size) => size.side)[0]
+          : undefined,
         name: product.name,
         image: product.images[0].url,
         price: getPriceAfterDiscount(

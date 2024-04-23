@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import checkboxUnchecked from "@/assets/icons/checkbox-unchecked.svg";
 import checkboxChecked from "@/assets/icons/checkbox-checked.svg";
 import toast from "react-hot-toast";
@@ -20,6 +20,9 @@ const Address = () => {
     formState: { errors },
   } = useForm();
   const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { state } = useLocation();
   const { user } = useSelector((state) => state.user);
   const { mutate, isPending } = useMutation({
     mutationFn: (data) => updateUserAddress(data),
@@ -34,6 +37,12 @@ const Address = () => {
         queryKey: ["user"],
       });
       reset();
+      const redirect = searchParams.get("redirect");
+      if (redirect) {
+        navigate(redirect, {
+          state,
+        });
+      }
     },
   });
   const [editKey, setEditKey] = useState(null);

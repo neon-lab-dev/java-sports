@@ -15,45 +15,45 @@ import { ShoesFilters } from "../categoryFilters/shoesFilters";
 import { WicketKeepingFilters } from "../categoryFilters/wicketKeepingFilter";
 
 const ACCORDION_LINKS = [
-  {
-    label: "Clothing",
-    type: "sub_category",
-    queryAs: "Clothing",
-    dropdowns: [
-      {
-        label: "All",
-      },
-      {
-        label: "On-Field",
-        queryAs: "On-Field",
-        filters: OnFieldFilters,
-      },
-      {
-        label: "Base Layer",
-        queryAs: "Base Layer",
-        filters: BaseLayerFilters,
-      },
-      {
-        label: "Athletic Supporter",
-        queryAs: " Athletic Supporter",
-        filters: AthleticSupportFilters,
-      },
-      {
-        label: "Socks",
-        queryAs: "Socks",
-      },
-      {
-        label: "Caps & Hats",
-        queryAs: "Caps%20%26%20Hats", // Caps & Hats => url encoded
-        filters: CapsHatsFilters,
-      },
-      {
-        label: "Wrist Band",
-        queryAs: "WristBand",
-        filters: WristbandsFilters,
-      },
-    ],
-  },
+  // {
+  //   label: "Clothing",
+  //   type: "sub_category",
+  //   queryAs: "Clothing",
+  //   dropdowns: [
+  //     {
+  //       label: "All",
+  //     },
+  //     {
+  //       label: "On-Field",
+  //       queryAs: "On-Field",
+  //       filters: OnFieldFilters,
+  //     },
+  //     {
+  //       label: "Base Layer",
+  //       queryAs: "Base Layer",
+  //       filters: BaseLayerFilters,
+  //     },
+  //     {
+  //       label: "Athletic Supporter",
+  //       queryAs: " Athletic Supporter",
+  //       filters: AthleticSupportFilters,
+  //     },
+  //     {
+  //       label: "Socks",
+  //       queryAs: "Socks",
+  //     },
+  //     {
+  //       label: "Caps & Hats",
+  //       queryAs: "Caps%20%26%20Hats", // Caps & Hats => url encoded
+  //       filters: CapsHatsFilters,
+  //     },
+  //     {
+  //       label: "Wrist Band",
+  //       queryAs: "WristBand",
+  //       filters: WristbandsFilters,
+  //     },
+  //   ],
+  // },
   {
     label: "Batting Gear",
     type: "sub_category",

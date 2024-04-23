@@ -115,9 +115,5 @@ const ROUTES = [
     path: "/size-guide",
     component: lazy(() => import("@pages/Footer/SizeGuide")),
   },
-  {
-    path: "*",
-    component: lazy(() => import("@/pages/NotFound")),
-  },
 ];
 export default ROUTES;

@@ -97,7 +97,7 @@ const ROUTES = [
   },
   {
     path: "/about-us",
-    component: lazy(() => import("@/pages/Footer/AboutUS")),
+    component: lazy(() => import("@/pages/AboutUs")),
   },
   {
     path: "/terms-and-conditions",

@@ -292,8 +292,9 @@ const AboutUsPage = () => {
                   <div className="flex gap-3">
                     <img src={location} alt="" className="w-8 h-8" />
                     <span>
-                      H.NO, 2M/94, Bahadurpur Housing Colony, Kankarbagh,
-                      Chitragupta Nagar, Patna, Bihar 800026
+                      Java Sports Pvt Ltd Ground & First Floor, Chak Bairiya,
+                      Karanpur, Illahibagh, Near Illahibagh Petrol Pump, Patna
+                      Gaya Road Patna - 800007 Bihar
                     </span>
                   </div>
                 </div>

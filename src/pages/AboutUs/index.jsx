@@ -225,7 +225,7 @@ const AboutUsPage = () => {
                   <img
                     src={nishant}
                     alt=""
-                    className="absolute w-full h-full inset-6 object-cover object-center border border-black rounded-sm"
+                    className="absolute w-full h-full inset-6 object-cover object-top border border-black rounded-sm"
                   />
                 </div>
                 <h3 className="text-[18px] sm:text-[24px] lg:text-[28px] font-700 font-Lato">
@@ -245,7 +245,7 @@ const AboutUsPage = () => {
                   <img
                     src={prakash}
                     alt=""
-                    className="absolute w-full h-full top-6 -left-6 object-cover object-center border border-black rounded-sm"
+                    className="absolute w-full h-full top-6 -left-6 object-cover object-top border border-black rounded-sm"
                   />
                 </div>
                 <h3 className="text-[18px] font-700 font-Lato sm:text-[24px] lg:text-[28px]">

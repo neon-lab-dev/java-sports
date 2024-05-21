@@ -14,7 +14,8 @@ import travelBag1 from "@/assets/images/travel-bag 1.png";
 import leather1 from "@/assets/images/leather 1.png";
 import tennisBall1 from "@/assets/images/tennis-ball 1.png";
 import Frame1021 from "@/assets/images/Frame 1021.png";
-import profileImg from "@/assets/images/profile.png";
+import nishant from "@/assets/images/nishant.jpg";
+import prakash from "@/assets/images/prakash.jpg";
 import Rectangle126 from "@/assets/images/Rectangle 126.png";
 import { Link } from "react-router-dom";
 import call from "@/assets/icons/Call.svg";
@@ -222,7 +223,7 @@ const AboutUsPage = () => {
               <div className="flex flex-col gap-4 xl:max-w-[400px]">
                 <div className="w-full max-w-[400px] aspect-square m-auto mt-0 relative bg-[#FF5F75] mb-6">
                   <img
-                    src={profileImg}
+                    src={nishant}
                     alt=""
                     className="absolute w-full h-full inset-6 object-cover object-center border border-black rounded-sm"
                   />
@@ -242,7 +243,7 @@ const AboutUsPage = () => {
               <div className="flex flex-col gap-4 xl:max-w-[400px]">
                 <div className="w-full max-w-[400px] mt-0 m-auto aspect-square relative bg-[#FF5F75] mb-6">
                   <img
-                    src={profileImg}
+                    src={prakash}
                     alt=""
                     className="absolute w-full h-full top-6 -left-6 object-cover object-center border border-black rounded-sm"
                   />
@@ -292,8 +293,9 @@ const AboutUsPage = () => {
                   <div className="flex gap-3">
                     <img src={location} alt="" className="w-8 h-8" />
                     <span>
-                      H.NO, 2M/94, Bahadurpur Housing Colony, Kankarbagh,
-                      Chitragupta Nagar, Patna, Bihar 800026
+                      Java Sports Pvt Ltd Ground & First Floor, Chak Bairiya,
+                      Karanpur, Illahibagh, Near Illahibagh Petrol Pump, Patna
+                      Gaya Road Patna - 800007 Bihar
                     </span>
                   </div>
                 </div>

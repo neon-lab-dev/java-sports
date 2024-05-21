@@ -14,7 +14,7 @@ import travelBag1 from "@/assets/images/travel-bag 1.png";
 import leather1 from "@/assets/images/leather 1.png";
 import tennisBall1 from "@/assets/images/tennis-ball 1.png";
 import Frame1021 from "@/assets/images/Frame 1021.png";
-import nishant from "@/assets/images/nishant.jpg";
+import nishant from "@/assets/images/nishant.png";
 import prakash from "@/assets/images/prakash.jpg";
 import Rectangle126 from "@/assets/images/Rectangle 126.png";
 import { Link } from "react-router-dom";

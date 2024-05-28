@@ -8,6 +8,7 @@ import { getInstagramPosts } from "@/api/instagram";
 import { Link } from "react-router-dom";
 import AppSkeleton from "@/components/skeletons/AppSkeleton";
 import ReactGa from "react-ga";
+import AppCarousel from "@/components/reusable/AppCarousel";
 const HomePage = () => {
   const sectionWrapper = `bg-neutral-white my-[18px] pb-[18px]`;
 
@@ -81,26 +82,9 @@ const HomePage = () => {
       )}
 
       {/* Banner */}
-      <section className="h-[200px] xs:h-[250px] lg:h-[300px] xl:h-[400px] bg-neutral-white lg-light relative overflow-hidden">
-        <div className="wrapper flex justify-between items-center h-full max-h-full">
-          <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-8 z-10">
-            <span className="font-Lato text-xs sm:text-lg lg:text-2xl 2xl:text-3xl font-700 text-white uppercase">
-              Cricket Full Kit
-            </span>
-            <h1 className="text-white text-base uppercase text-Lato font-700 sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-6xl min-w-max">
-              Something new
-              <br /> is coming
-            </h1>
-          </div>
-          <picture className="h-full z-10 min-w-fit flex items-center justify-center">
-            <img
-              src={BannerImg}
-              alt="Banner Image"
-              className="w-[140px] h-[140px] sm:w-56 md:w-fit md:p-6 xs:h-full object-contain object-center"
-            />
-          </picture>
-        </div>
-      </section>
+      <div className="h-[200px] sm:h-[250px] lg:h-[400px] lg-light border">
+        <AppCarousel showSlidersInReverse />
+      </div>
 
       {!isAccessoriesError && (
         <section className={`${sectionWrapper}`} id="top-rated-bats">

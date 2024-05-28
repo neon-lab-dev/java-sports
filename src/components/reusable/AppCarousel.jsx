@@ -3,30 +3,47 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// @ts-ignore
-import HeroImg1 from "@/assets/images/hero-bats.png";
-// @ts-ignore
-import HeroImg2 from "@/assets/images/batsman.png";
+// hero img
+import HeroImg1 from "@/assets/banners/1st/banner.png";
+import HeroImg2 from "@/assets/banners/2nd/banner.png";
+import HeroImg3 from "@/assets/banners/3rd/banner.png";
+
+// hero bg
+import HeroBg1 from "@/assets/banners/1st/bg.png";
+import HeroBg2 from "@/assets/banners/2nd/bg.png";
+import HeroBg3 from "@/assets/banners/3rd/bg.png";
+import HeroBg4 from "@/assets/banners/4th/bg.png";
+
 import AppCTAButton from "./AppCTAButton";
 
 const SLIDERS = [
   {
     img: HeroImg1,
     label: "JAVa sports",
-    content: "All New Junior <br/> Cricket Bat Range!",
-    ctaLabel: "explore now",
-    ctaHref: "#top-rated-bats",
+    content: "25% off on<br/>English Willow Bats!",
+    bg: HeroBg1,
   },
   {
     img: HeroImg2,
     label: "JAVa sports",
-    content: "All New Junior <br/> Cricket Bat Range!",
-    ctaLabel: "explore now",
-    ctaHref: "#top-rated-bats",
+    content: "25% off on<br/>Wicket Keeping Gloves!",
+    bg: HeroBg2,
+  },
+  {
+    img: HeroImg3,
+    label: "JAVa sports",
+    content: "25% off on<br/>Cricket Batting Gloves!",
+    bg: HeroBg3,
+  },
+  {
+    img: "",
+    label: "JAVa sports",
+    content: "Unleash your potential<br/>@ unbeatable prices!",
+    bg: HeroBg4,
   },
 ];
 
-const AppCarousel = () => {
+const AppCarousel = ({ showSlidersInReverse = false }) => {
   var settings = {
     infinite: true,
     speed: 500,
@@ -44,19 +61,20 @@ const AppCarousel = () => {
     });
   };
 
+  const sliders = showSlidersInReverse ? SLIDERS.reverse() : SLIDERS;
+
   return (
     <Slider {...settings}>
-      {SLIDERS.map(({ content, ctaLabel, ctaHref, img, label }, index) => (
+      {SLIDERS.map(({ content, img, bg, label }, index) => (
         <div
           key={index}
-          className="hero-slider h-[200px] sm:h-[250px] lg:h-[400px] relative overflow-hidden"
+          className={`hero-slider h-[200px] sm:h-[250px] lg:h-[400px] relative overflow-hidden `}
         >
           {/* //gradient overlay */}
           <div
             className="absolute inset-0 z-0 w-full h-full"
             style={{
-              background:
-                "linear-gradient(180deg, #000000 0%, rgba(34, 34, 34, 0.2) 100%)",
+              background: `url(${bg}) no-repeat right center/cover`,
             }}
           />
           {/* //content */}
@@ -66,17 +84,19 @@ const AppCarousel = () => {
                 {label}
               </span>
               <h1
-                className="text-white text-base uppercase text-Lato font-700 sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-6xl min-w-max"
+                className="text-white text-sm uppercase text-Lato font-700 sm:text-xl md:text-3xl xl:text-4xl 2xl:text-5xl min-w-max"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
-              <AppCTAButton action={handleScroll} text={ctaLabel} />
+              <AppCTAButton action={handleScroll} text="Get It Now" />
             </div>
             <picture className="h-full z-10 min-w-fit ">
-              <img
-                src={img}
-                alt="Banner Image"
-                className="w-[140px] sm:w-56 md:w-fit md:p-6 h-full object-contain object-center"
-              />
+              {img && (
+                <img
+                  src={img}
+                  alt="Banner Image"
+                  className="w-[140px] sm:w-56 md:w-fit md:p-6 h-full object-contain object-center"
+                />
+              )}
             </picture>
           </div>
         </div>

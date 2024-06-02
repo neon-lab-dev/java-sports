@@ -55,29 +55,6 @@ const ACCORDION_LINKS = [
   //   ],
   // },
   {
-    label: "Batting Gear",
-    type: "sub_category",
-    queryAs: "Batting Gear",
-    filters: BattingGearFilters,
-    dropdowns: [
-      {
-        label: "All",
-      },
-      {
-        label: "Gloves",
-        queryAs: "Gloves",
-      },
-      {
-        label: "Leg Guard",
-        queryAs: "Leg Guard",
-      },
-      {
-        label: "Inner Gloves",
-        queryAs: "Inner Gloves",
-      },
-    ],
-  },
-  {
     label: "Bat",
     type: "sub_category",
     queryAs: "Bat",
@@ -105,104 +82,34 @@ const ACCORDION_LINKS = [
     ],
   },
   {
-    label: "Wicket Keeping",
+    label: "Batting Gear",
     type: "sub_category",
-    queryAs: "WicketKeeping",
-    filters: WicketKeepingFilters,
+    queryAs: "Batting Gear",
+    filters: BattingGearFilters,
     dropdowns: [
       {
         label: "All",
       },
       {
         label: "Gloves",
-        queryAs: "WGloves",
+        queryAs: "Gloves",
       },
       {
         label: "Leg Guard",
-        queryAs: "WLeg Guard",
+        queryAs: "Leg Guard",
       },
       {
         label: "Inner Gloves",
-        queryAs: "WInner Gloves",
+        queryAs: "Inner Gloves",
       },
     ],
   },
   {
-    label: "Shoes",
-    type: "category",
-    queryAs: "Shoes",
-    filters: ShoesFilters,
-    dropdowns: [
-      {
-        label: "All",
-      },
-      {
-        label: "Bowling",
-        queryAs: "Bowling",
-      },
-      {
-        label: "Spikes",
-        queryAs: "Spikes",
-      },
-      {
-        label: "Rubber Studs",
-        queryAs: "Rubber Studs",
-      },
-    ],
-  },
-  {
-    label: "Helmets",
-    type: "category",
-    queryAs: "Helmets",
-    filters: HelmetFilters,
-    dropdowns: [
-      {
-        label: "All",
-      },
-      {
-        label: "Steel",
-        queryAs: "Steel",
-      },
-      {
-        label: "Titanium",
-        queryAs: "Titanium",
-      },
-      {
-        label: "Limited Edition",
-        queryAs: "Limited Edition",
-      },
-    ],
-  },
-  {
-    label: "Bags",
-    type: "sub_category",
-    queryAs: "Bags",
-    filters: BagFilters,
-    dropdowns: [
-      {
-        label: "All",
-      },
-      {
-        label: "Kitbags",
-        queryAs: "Kitbags",
-      },
-      {
-        label: "Wheelie",
-        queryAs: "Wheelie",
-      },
-      {
-        label: "Duffle",
-        queryAs: "Duffle",
-      },
-      {
-        label: "Backpack",
-        queryAs: "Backpack",
-      },
-      {
-        label: "Bat Cover",
-        queryAs: "Bat Cover",
-      },
-    ],
+    label: "Ball",
+    filters: BallFilters,
+    type: "sub_category2",
+    queryAs: "Ball",
+    dropdowns: null,
   },
   {
     label: "Protection",
@@ -236,6 +143,52 @@ const ACCORDION_LINKS = [
     ],
   },
   {
+    label: "Helmets",
+    type: "category",
+    queryAs: "Helmets",
+    filters: HelmetFilters,
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Steel",
+        queryAs: "Steel",
+      },
+      {
+        label: "Titanium",
+        queryAs: "Titanium",
+      },
+      {
+        label: "Limited Edition",
+        queryAs: "Limited Edition",
+      },
+    ],
+  },
+  {
+    label: "Wicket Keeping",
+    type: "sub_category",
+    queryAs: "WicketKeeping",
+    filters: WicketKeepingFilters,
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Gloves",
+        queryAs: "WGloves",
+      },
+      {
+        label: "Leg Guard",
+        queryAs: "WLeg Guard",
+      },
+      {
+        label: "Inner Gloves",
+        queryAs: "WInner Gloves",
+      },
+    ],
+  },
+  {
     label: "Accessories",
     type: "sub_category",
     queryAs: "Accessories",
@@ -262,11 +215,59 @@ const ACCORDION_LINKS = [
     ],
   },
   {
-    label: "Ball",
-    filters: BallFilters,
-    type: "sub_category2",
-    queryAs: "Ball",
-    dropdowns: null,
+    label: "Shoes",
+    type: "category",
+    queryAs: "Shoes",
+    filters: ShoesFilters,
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Bowling",
+        queryAs: "Bowling",
+      },
+      {
+        label: "Spikes",
+        queryAs: "Spikes",
+      },
+      {
+        label: "Rubber Studs",
+        queryAs: "Rubber Studs",
+      },
+    ],
+  },
+
+  {
+    label: "Bags",
+    type: "sub_category",
+    queryAs: "Bags",
+    filters: BagFilters,
+    dropdowns: [
+      {
+        label: "All",
+      },
+      {
+        label: "Kitbags",
+        queryAs: "Kitbags",
+      },
+      {
+        label: "Wheelie",
+        queryAs: "Wheelie",
+      },
+      {
+        label: "Duffle",
+        queryAs: "Duffle",
+      },
+      {
+        label: "Backpack",
+        queryAs: "Backpack",
+      },
+      {
+        label: "Bat Cover",
+        queryAs: "Bat Cover",
+      },
+    ],
   },
 ];
 

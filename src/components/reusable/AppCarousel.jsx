@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import CricketBatBanner from "../banners/CricketBatBanner";
 import { Fragment } from "react";
 import GloversBanner from "../banners/GlovesBanner";
+import BattingGloversBanner from "../banners/BattingGloverBanner";
+import EnglishWillBatBanner from "../banners/EnglishWilllowBatBanner";
 
 const AppCarousel = ({ showSlidersInReverse = false }) => {
   var settings = {
@@ -13,10 +15,19 @@ const AppCarousel = ({ showSlidersInReverse = false }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    // autoplay: true,
+    autoplay: true,
   };
 
-  const SLIDERS = [<CricketBatBanner />, <GloversBanner />];
+  const SLIDERS = [
+    <EnglishWillBatBanner />,
+    <GloversBanner />,
+    <BattingGloversBanner />,
+    <CricketBatBanner />,
+  ];
+
+  if (showSlidersInReverse) {
+    SLIDERS.reverse();
+  }
 
   return (
     <Slider {...settings}>

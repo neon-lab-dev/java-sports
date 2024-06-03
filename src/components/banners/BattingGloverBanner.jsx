@@ -1,12 +1,12 @@
-import banner1 from "@/assets/banners/banner2.png";
+import banner1 from "@/assets/banners/banner3.png";
 import AppCTAButton from "../reusable/AppCTAButton";
 
-const GloversBanner = () => {
+const BattingGloversBanner = () => {
   return (
     <>
       <div className="w-screen h-fit relative">
         <img src={banner1} alt="banner1" className="w-full h-fit" />
-        <div className="absolute bottom-[31%] left-[28.38%]">
+        <div className="absolute bottom-[49%] right-[5.36%]">
           <AppCTAButton />
         </div>
       </div>
@@ -14,4 +14,4 @@ const GloversBanner = () => {
   );
 };
 
-export default GloversBanner;
+export default BattingGloversBanner;

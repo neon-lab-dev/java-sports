@@ -1,0 +1,1 @@
+import{j as a}from"./index-Ufe3u8P4.js";const E=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,o=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,e=/^[7-9][0-9]{9}$/,n=({message:s,className:t=""})=>a.jsx("span",{className:`text-primary text-xs md:text-sm ${t}`,children:s});export{n as A,o as E,e as P,E as a};

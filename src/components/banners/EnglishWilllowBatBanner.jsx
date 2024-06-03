@@ -6,7 +6,7 @@ const EnglishWillBatBanner = () => {
     <>
       <div className="w-full h-fit relative">
         <img src={banner1} alt="banner1" className="w-full h-fit" />
-        <div className="absolute bottom-[31.85%] left-[5.48%]">
+        <div className="absolute bottom-[31%] left-[3.48%]">
           <AppCTAButton />
         </div>
       </div>

@@ -17,7 +17,7 @@ const CricketBatBanner = () => {
       }
       `}
       </style>
-      <div className="w-screen h-fit relative">
+      <div className="w-full h-fit relative">
         <img src={banner1} alt="banner1" className="w-full h-fit" />
         <div className="absolute button-position">
           <AppCTAButton />

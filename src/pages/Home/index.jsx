@@ -82,7 +82,7 @@ const HomePage = () => {
       )}
 
       {/* Banner */}
-      <div className="w-screen h-fit lg-light border">
+      <div className="w-full h-fit lg-light border">
         <AppCarousel showSlidersInReverse />
       </div>
 

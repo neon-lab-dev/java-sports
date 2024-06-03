@@ -4,7 +4,7 @@ import AppCTAButton from "../reusable/AppCTAButton";
 const EnglishWillBatBanner = () => {
   return (
     <>
-      <div className="w-screen h-fit relative">
+      <div className="w-full h-fit relative">
         <img src={banner1} alt="banner1" className="w-full h-fit" />
         <div className="absolute bottom-[31.85%] left-[5.48%]">
           <AppCTAButton />

@@ -2,7 +2,7 @@ import AppCarousel from "@/components/reusable/AppCarousel";
 
 const Hero = () => {
   return (
-    <div className="w-screen h-fit lg-light border">
+    <div className="w-full h-fit lg-light border">
       <AppCarousel />
     </div>
   );

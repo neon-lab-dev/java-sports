@@ -6,7 +6,7 @@ const BattingGloversBanner = () => {
     <>
       <div className="w-full h-fit relative">
         <img src={banner1} alt="banner1" className="w-full h-fit" />
-        <div className="absolute bottom-[49%] right-[5.36%]">
+        <div className="absolute bottom-[20%] left-[9.34%] lg:bottom-[27%] ">
           <AppCTAButton />
         </div>
       </div>

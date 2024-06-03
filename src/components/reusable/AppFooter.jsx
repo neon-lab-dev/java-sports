@@ -296,17 +296,23 @@ const AppFooter = () => {
           {VistMenuToggle && (
             <div className="p-1 m-1">
               <ul className="flex gap-3 text-base list-disc font-lato font-500">
-                <img src={loaction} alt="Java Sports" />
+                <img src={loaction} alt="Java Sports" className="mb-auto"/>
                 <span>
-                  <Link to={`${addressMapLink}`}>Address of the store</Link>
+                  <Link to={`${addressMapLink}`}>Java Sports Pvt Ltd Ground & First Floor, Chak Bairiya,
+                Karanpur, Illahibagh, Near Illahibagh Petrol Pump, Patna Gaya
+                Road Patna - 800007 Bihar</Link>
                 </span>
               </ul>
             </div>
           )}
-          <div className="flex flex-row gap-2 font-Lato font-500 max-sm:hidden max-lg:hidden">
-            <img src={loaction} alt="Java Sports" />
-            <span>
-              <Link to={`${addressMapLink}`}>Address of the store</Link>
+          <div className="flex flex-row  gap-2 font-Lato font-500 max-sm:hidden max-lg:hidden">
+            <img src={loaction} alt="Java Sports" className="mb-auto" />
+            <span className="text-xs max-w-[150px]">
+              <Link to={`${addressMapLink}`}>
+                Java Sports Pvt Ltd Ground & First Floor, Chak Bairiya,
+                Karanpur, Illahibagh, Near Illahibagh Petrol Pump, Patna Gaya
+                Road Patna - 800007 Bihar
+              </Link>
             </span>
           </div>
         </div>

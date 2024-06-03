@@ -22,7 +22,7 @@ const profileData1 = [
 const security = [
   "We take appropriate security measures to protect against unauthorized access to or unauthorized alteration, disclosure or destruction of data and restrict access to personal information to our employees, contractors and agents who need to know that information in order to operate, develop or improve our services. These individuals are bound by confidentiality obligations and may be subject to discipline, including termination and criminal prosecution, if they fail to meet these obligations.",
   "Although we endeavor to safeguard the confidentiality of your personally identifiable information, however, transmissions made by means of the Internet cannot be made absolutely secure. By using this Site, you agree that we will have no liability for disclosure of your information due to errors in transmission or unauthorized acts of third parties.",
-  "You further agree that you are solely responsible and liable for, and shall indemnify Us against any and all costs, expenses, damages, fees, etc. that DSC-Cricket may incur or suffer due to any personal information or other materials that you post, upload, submit, and otherwise make available on the Website. You will be yourself responsible for the personal information disclosed in public areas of the Website and DSC-Cricket will not be held responsible for use / misuse of such information shared with other persons in such public areas."
+  "You further agree that you are solely responsible and liable for, and shall indemnify Us against any and all costs, expenses, damages, fees, etc. that Javasports may incur or suffer due to any personal information or other materials that you post, upload, submit, and otherwise make available on the Website. You will be yourself responsible for the personal information disclosed in public areas of the Website and Javasports will not be held responsible for use / misuse of such information shared with other persons in such public areas."
 ]
 
 const PrivacyPolicy = () => {
@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
       <div className="font-Lato">
         <h2 className="text-[24px] font-700">Introduction to Privacy policy</h2>
         <p className="text-[14px] font-400">
-          Thanks for placing your trust in Dsc-Cricket.com to handle your personal information. We are committed to protect your privacy. We have adopted the highest standards for secure transactions and privacy of customer information. Our information gathering and dissemination practices are detailed below. Please note that our privacy policy is subject to change at any time without notice. To make sure you are aware of any changes, please review this policy periodically. We only need information related to name, billing and shipping address and phone numbers. We are not in the business of selling personal information.
+          Thanks for placing your trust in javasports.in to handle your personal information. We are committed to protect your privacy. We have adopted the highest standards for secure transactions and privacy of customer information. Our information gathering and dissemination practices are detailed below. Please note that our privacy policy is subject to change at any time without notice. To make sure you are aware of any changes, please review this policy periodically. We only need information related to name, billing and shipping address and phone numbers. We are not in the business of selling personal information.
         </p>
       </div>
       <div className="font-Lato">

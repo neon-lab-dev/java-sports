@@ -57,21 +57,20 @@ const contactUs = () => {
                 <span className="text-white">+91 870 009 8127</span>
               </div>
             </div>
-            <div className="flex">
+            <div className="flex items-center gap-2">
               <img src={clock} alt="clock" />
-              <span className="text-white">10am to 10pm, all days</span>
+              <span className="text-white">10am to 6pm, all days</span>
             </div>
-            <div className="flex">
+            <div className="flex items-center gap-2">
               <img src={email} alt="email" />
-              <span className="text-white">service.javasports@gmail.com</span>
+              <span className="text-white">info@javasports.in</span>
             </div>
-            <div className="flex">
+            <div className="flex items-start max-w-[300px]">
               <img src={loaction} alt="location" />
               <p className="text-white text-[12px]">
                 Java Sports Pvt Ltd Ground & First Floor, Chak Bairiya,
-                Karanpur, Illahibagh, <br />
-                Near Illahibagh Petrol Pump, Patna Gaya Road Patna - 800007
-                Bihar
+                Karanpur, Illahibagh, Near Illahibagh Petrol Pump, Patna Gaya
+                Road Patna - 800007 Bihar
               </p>
             </div>
           </div>

@@ -39,7 +39,7 @@ const PaymentSuccessChild = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const orderDetails = getLocalStorage("orderDetails", null);
   const orderData = {
     shippingInfo: orderDetails.deliveryAddress || {
@@ -77,7 +77,7 @@ const PaymentSuccessChild = () => {
         localStorage.removeItem("cartItems");
       }
       dispatch(updateCartItemsCount());
-      navigate("/account?tab=recent-orders", { replace: true });
+      // navigate("/account?tab=recent-orders", { replace: true });
       localStorage.removeItem("orderDetails");
     }
     if (isError) {

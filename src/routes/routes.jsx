@@ -55,6 +55,11 @@ const ROUTES = [
     protectFromAuthenticated: true,
   },
   {
+    path: "/payment-success",
+    component: lazy(() => import("@/pages/PaymentSuccess/PaymentSuccess")),
+    protectFromAuthenticated: true,
+  },
+  {
     path: "/account",
     component: lazy(() => import("@/pages/Account")),
     wrapper: lazy(() => import("@/pages/Account/AccountPageWrapper")),

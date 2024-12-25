@@ -77,7 +77,7 @@ const PaymentSuccessChild = () => {
         localStorage.removeItem("cartItems");
       }
       dispatch(updateCartItemsCount());
-      navigate("/account?tab=recent-orders", { replace: true });
+      // navigate("/account?tab=recent-orders", { replace: true });
       localStorage.removeItem("orderDetails");
     }
     if (isError) {

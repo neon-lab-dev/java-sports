@@ -160,7 +160,7 @@ const AppHeaderNav = () => {
               </Link>
             ) : (
               <AppLogoutDropdown
-                name={user.full_name}
+                name={user?.full_name}
                 navWrapper={navWrapper}
                 navLinkImg={navLinkImg}
                 navLink={navLink}
@@ -194,10 +194,10 @@ const AppHeaderNav = () => {
               <div className="flex items-center justify-start gap-4 mb-3">
                 <img
                   src={user?.avatar?.url || avatar}
-                  alt={user.full_name}
+                  alt={user?.full_name}
                   className="w-12 rounded-full aspect-square object-cover object-center"
                 />
-                <span className="text-2xl font-500">{user.full_name}</span>
+                <span className="text-2xl font-500">{user?.full_name}</span>
               </div>
               <span className="font-400">Email: {user?.email}</span>
               <span className="font-400">Phone: {user?.phoneNo}</span>

@@ -90,7 +90,7 @@ const contactUs = () => {
               placeholder="Enter Name"
               {...register("full_name", { required: true })}
             />
-            {errors.full_name && (
+            {errors?.full_name && (
               <AppFormErrorLine message="Name is required" />
             )}
           </div>

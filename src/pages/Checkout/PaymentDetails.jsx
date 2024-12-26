@@ -111,7 +111,7 @@ const PaymentDetails = ({
         order_id: res.order.id,
         callback_url: API.paymentVerification,
         prefill: {
-          name: user?.full_name,
+          name: user.full_name,
           email: user?.email,
           contact: user?.phoneNo,
         },

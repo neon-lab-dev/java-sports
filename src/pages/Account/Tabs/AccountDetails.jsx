@@ -25,7 +25,7 @@ const AccountDetails = () => {
 
   const toggleIsEditing = (isEditing) => {
     setIsEditing(isEditing);
-    setValue("full_name", user?.full_name);
+    setValue("full_name", user.full_name);
     setValue("email", user.email);
     setValue("phoneNo", user.phoneNo);
   };
@@ -100,7 +100,7 @@ const AccountDetails = () => {
               className="w-9 sm:w-14 rounded-full aspect-square object-cover object-center"
             />
             <span className="text-2xl font-Lato md:text-4xl font-500">
-              {user?.full_name}
+              {user.full_name}
             </span>
           </div>
           <span className="font-400">

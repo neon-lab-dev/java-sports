@@ -227,7 +227,7 @@ const InvoicePdf = ({ data, user }) => {
                 Customer Details
               </Text>
               <Text style={styles.customerDetailsText}>
-                Name: {user?.full_name}
+                Name: {user.full_name}
               </Text>
               <Text style={styles.customerDetailsText}>
                 Email: {user?.email}

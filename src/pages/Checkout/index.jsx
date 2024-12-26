@@ -49,7 +49,7 @@ const Checkout = () => {
               className="w-12 h-12 rounded-full object-cover object-center"
             />
             <Link to="/account" className="font-500 text-xl hover:underline">
-              {user.full_name}
+              {user?.full_name}
             </Link>
           </div>
           <div className="flex flex-col gap-1">

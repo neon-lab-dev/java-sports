@@ -60,7 +60,7 @@ const Signup = () => {
             validate: (value) => value.length > 3,
           })}
         />
-        {errors.full_name && (
+        {errors?.full_name && (
           <AppFormErrorLine message="Name must be at least 3 characters long" />
         )}
       </div>

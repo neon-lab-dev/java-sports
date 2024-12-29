@@ -111,9 +111,9 @@ const PaymentDetails = ({
         order_id: res.order.id,
         callback_url: API.paymentVerification,
         prefill: {
-          name: user.full_name,
-          email: user.email,
-          contact: user.phoneNo,
+          name: user?.full_name,
+          email: user?.email,
+          contact: user?.phoneNo,
         },
         notes: {
           address: "Razorpay Corporate Office",

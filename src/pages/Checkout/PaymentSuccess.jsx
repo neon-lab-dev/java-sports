@@ -39,7 +39,7 @@ const PaymentSuccessChild = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const orderDetails = getLocalStorage("orderDetails", null);
   const orderData = {
     shippingInfo: orderDetails.deliveryAddress || {

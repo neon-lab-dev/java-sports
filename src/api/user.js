@@ -12,11 +12,11 @@ export const getUser = () => {
         },
       })
       .then((res) => {
-        resolve(res.data);
+        resolve(res?.data);
       })
       .catch((err) => {
         reject(
-          err.response.data.message || "Something went wrong, please try again"
+          err?.response?.data?.message || "Something went wrong, please try again"
         );
       });
   });
@@ -95,7 +95,7 @@ export const sendOtp = (data) => {
       .catch((err) => {
         reject(
           err.response.data.message ||
-            "Otp verification failed, please try again"
+          "Otp verification failed, please try again"
         );
       });
   });
@@ -136,7 +136,7 @@ export const updateUserPassword = (data) => {
       .catch((err) => {
         reject(
           err.response.data.message ||
-            "Password update failed, please try again"
+          "Password update failed, please try again"
         );
       });
   });

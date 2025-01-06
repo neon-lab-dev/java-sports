@@ -1,8 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import paymentSuccess from "../../assets/icons/payment-successfull.svg"
+import { useEffect } from "react";
 
 const PaymentSuccessPage= ({
 }) => {
+  const {pathname} = useLocation()
+
+  useEffect(() => {
+    if(window.fbq){
+      window.fbq('track', 'Purchase');
+    }
+  }, [pathname])
+
   return (
     <div className="flex flex-col items-center justify-center mb-10">
       <img src={paymentSuccess} alt="payment-success" className="size-[300px]" />

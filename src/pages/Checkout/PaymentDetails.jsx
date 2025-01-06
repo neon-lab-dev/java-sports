@@ -93,6 +93,13 @@ const PaymentDetails = ({
         action: "Clicked on Proceed to Pay",
       });
 
+      if(window.fbq){
+        window.fbq('track', 'InitiateCheckout', {
+          value: finalAmount,
+          currency: 'INR',
+        });
+      }
+
       //proceed to payment
       const key = await handleGetApiKey();
       const res = await handleCheckout(
